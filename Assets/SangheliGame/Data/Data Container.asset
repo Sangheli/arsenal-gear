@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b211040c71db5034d8abdc6e9966c845, type: 3}
+  m_Name: Data Container
+  m_EditorClassIdentifier: 
+  prefabContainer: {fileID: 11400000, guid: b07f8bbce0defda46ab434f6880513d8, type: 2}
+  soundContainer: {fileID: 11400000, guid: 616e0c24640cc9a4bb754a4b16a6fdcd, type: 2}
+  spriteContainer: {fileID: 11400000, guid: 445e015cc327b2f4a9298443a97cd54a, type: 2}
+  fontContainer: {fileID: 11400000, guid: 010cbf6e2931815438f466476755a335, type: 2}
+  inputContainer: {fileID: 11400000, guid: de6ee64c3c7ddc74299a81b7e037805a, type: 2}
+  unitContainer: {fileID: 11400000, guid: 0bec24e53e984a54aaf2755fdc1d84be, type: 2}
