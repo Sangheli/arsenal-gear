@@ -65,7 +65,8 @@ public class RoundManager : MonoBehaviour
 
     private void TryEndRound()
     {
-        if (G.I.HpManager != null && G.I.HpManager.RoundHp > 0) return;
+        if (G.I.HpManager.RoundHp > 0) return;
+        G.I.prestigeLevelController.ToggleActive(false);
         StartCoroutine(EndRoundSequence());
     }
 

@@ -20,6 +20,7 @@ public class G : MonoBehaviour
     public UpgradeView upgradeView;
     public EnemyContainer enemyContainer;
     
+    public PrestigeLevelController prestigeLevelController;
     public PrestigeManager prestigeManager;
     public BossManager bossManager;
     public PrestigeGainedView prestigeGainedView;
@@ -42,6 +43,7 @@ public class G : MonoBehaviour
     public readonly EnergyManager EnergyManager = new ();
     public readonly HPManager HpManager = new();
     
+    [Space]
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
 
     private void OnValidate()
@@ -80,6 +82,7 @@ public class G : MonoBehaviour
 
     private void OnFirstLoad()
     {
+        prestigeLevelController.Toggle(false);
         enemyContainer.UpdateEnemyIndices();
         playerCursorHudView.Toggle(false);
         ObjectPool = new SangheliObjectPool();
@@ -109,6 +112,7 @@ public class G : MonoBehaviour
 
     public void StartRun()
     {
+        prestigeLevelController.Toggle(true);
         playerCursorHudView.Toggle(false);
         EnergyManager.StartRound();
         HpManager.StartRound();
@@ -135,6 +139,7 @@ public class G : MonoBehaviour
 
     public void StopRun()
     {
+        prestigeLevelController.Toggle(false);
         energySpawner.StopRound();
         
         if (bossManager != null)

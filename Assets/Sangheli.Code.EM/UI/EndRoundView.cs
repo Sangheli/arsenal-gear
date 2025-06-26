@@ -39,7 +39,7 @@ public class EndRoundView : MonoBehaviour
         _buttonStartNewRoundOriginalColor = buttonStartNewRound.image.color;
         _buttonStartNewRoundTextOriginalColor = buttonStartNewRoundText.color;
         _colorsInitialized = true;
-        buttonEndRound.onClick.AddListener(OnEndRound);
+        buttonEndRound.onClick.AddListener(OnExitFromRound);
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
         Toggle(false);
         
@@ -47,9 +47,9 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRoundText.color = Color.clear;
     }
 
-    private void OnEndRound()
+    private void OnExitFromRound()
     {
-        StartCoroutine(EndRound());
+        StartCoroutine(ExitFromRound());
     }
     
     private void OnStartNewRound()
@@ -57,7 +57,7 @@ public class EndRoundView : MonoBehaviour
         G.I.StartRun();
     }
     
-    private IEnumerator EndRound()
+    private IEnumerator ExitFromRound()
     {
         G.I.distortionUI.DoBlock(true);
         yield return G.I.distortionUI.DoFade(forward: true);
