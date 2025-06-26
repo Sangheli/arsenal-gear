@@ -606,9 +606,6 @@ MonoBehaviour:
   view: {fileID: 1093837670510894128}
   descriptionText: {fileID: 5064146043587353493}
   continueButton: {fileID: 7243961889188521978}
-  showDuration: 2
-  bounceScale: 1.2
-  bounceDuration: 0.5
 --- !u!1 &5993652618813321632
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,13 +770,13 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 35
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 1.4
   m_Text: New Text
 --- !u!114 &8307671913889743088
 MonoBehaviour:
