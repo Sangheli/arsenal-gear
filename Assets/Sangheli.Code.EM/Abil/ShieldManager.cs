@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class ShieldManager
@@ -6,6 +7,7 @@ public class ShieldManager
     public float CurrentShieldEnergy { get; set; }
     private float MaxShieldEnergy { get; set; }
     private float ShieldRegenRate { get; set; }
+    private bool _isShieldAvailable;
 
     private bool _doBlink;
     private float _lastValue;
@@ -13,18 +15,32 @@ public class ShieldManager
 
     public void StartRound()
     {
-        var paramContainer = G.I.SaveProvider.Get().GetParamContainer();
-        MaxShieldEnergy = paramContainer.GetValue("shieldCapacity", false);
-        ShieldRegenRate = paramContainer.GetValue("shieldRegenRate", false);
+        var save = G.I.SaveProvider.Get();
+        var paramContainer = save.GetParamContainer();
+        var availableParams = paramContainer.GetAvailableParamKeys(save.prestige);
+        _isShieldAvailable = availableParams.Contains("shieldCapacity");
+        
+        if (_isShieldAvailable)
+        {
+            MaxShieldEnergy = paramContainer.GetValue("shieldCapacity", false);
+            ShieldRegenRate = paramContainer.GetValue("shieldRegenRate", false);
+            CurrentShieldEnergy = MaxShieldEnergy;
+        }
+        else
+        {
+            MaxShieldEnergy = 0f;
+            ShieldRegenRate = 0f;
+            CurrentShieldEnergy = 0f;
+        }
+        
         _lastValue = -1;
-        CurrentShieldEnergy = MaxShieldEnergy;
         _doBlink = false;
         Show();
     }
     
     public float ProcessDamage(float incomingDamage)
     {
-        if (CurrentShieldEnergy < incomingDamage)
+        if (!_isShieldAvailable || CurrentShieldEnergy < incomingDamage)
             return incomingDamage;
 
         CurrentShieldEnergy -= incomingDamage;
@@ -32,9 +48,18 @@ public class ShieldManager
         return 0; // Весь урон поглощен
     }
 
+    public bool IsShieldAvailable() => _isShieldAvailable;
+    
+    public float GetCurrentShieldEnergy() => _isShieldAvailable ? CurrentShieldEnergy : 0f;
+    
+    public float GetMaxShieldEnergy() => _isShieldAvailable ? MaxShieldEnergy : 0f;
+
     public void LateUpdate()
     {
-        UpdateShieldRegeneration();
+        if (_isShieldAvailable)
+        {
+            UpdateShieldRegeneration();
+        }
         Show();
     }
     

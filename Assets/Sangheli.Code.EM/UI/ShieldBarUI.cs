@@ -62,6 +62,9 @@ public class ShieldBarUI : MonoBehaviour
         if (!gameObject.activeSelf)
             return false;
 
+        if (!G.I.ShieldManager.IsShieldAvailable())
+            return false;
+
         if (shieldImage != null)
             shieldImage.fillAmount = fillValue;
         if (shieldText != null)

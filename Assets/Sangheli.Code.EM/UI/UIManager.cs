@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     }
 
     public bool ShowShield(float hp, float fullValue, float fillValue, bool doBlink) => 
-        shieldBarUI != null && shieldBarUI.ShowShield(hp, fullValue, fillValue, doBlink);
+        shieldBarUI != null && G.I.ShieldManager.IsShieldAvailable() && shieldBarUI.ShowShield(hp, fullValue, fillValue, doBlink);
 
     public void Toggle(bool b) => gameObject.SetActive(b);
 }

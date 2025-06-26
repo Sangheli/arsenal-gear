@@ -109,12 +109,9 @@ public class CursorController : MonoBehaviour
             var critResult = doCrit ? CritHelper.RollCrit(_playerDamageMin, _critChance, _critMultiplier) : new CritResult { Damage = _playerDamageMin, IsCrit = false };
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
             totalDamage += enemy.EnemyData.DamagePerHit;
-            float before = G.I.ShieldManager.CurrentShieldEnergy;
             float reduce = enemy.EnemyData.DamagePerHit;
             float actual = G.I.HpManager.ReduceHpWithReturn(reduce, doBlink: true, ignoreShield: false);
-            float after = G.I.ShieldManager.CurrentShieldEnergy;
-            float shieldDamage = before - after;
-            G.I.playerCursorHudView.AddDamage(actual, shieldDamage);
+            G.I.playerCursorHudView.AddDamage(actual, 0f);
         }
         return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage };
     }
