@@ -22,7 +22,6 @@ public class G : MonoBehaviour
     
     public PrestigeLevelController prestigeLevelController;
     public PrestigeManager prestigeManager;
-    public BossManager bossManager;
     public PrestigeGainedView prestigeGainedView;
 
     public CursorHudView playerCursorHudView;
@@ -82,6 +81,7 @@ public class G : MonoBehaviour
 
     private void OnFirstLoad()
     {
+        prestigeGainedView.Toggle(false);
         prestigeLevelController.Toggle(false);
         enemyContainer.UpdateEnemyIndices();
         playerCursorHudView.Toggle(false);
@@ -127,12 +127,7 @@ public class G : MonoBehaviour
         startGameView.Toggle(false);
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
-
-        if (bossManager != null)
-            bossManager.StartBossTimer();
-        
-        if (prestigeGainedView != null)
-            prestigeGainedView.Toggle(false);
+        prestigeGainedView.Toggle(false);
         
         roundManager.StartRound();
     }
@@ -141,11 +136,16 @@ public class G : MonoBehaviour
     {
         prestigeLevelController.Toggle(false);
         energySpawner.StopRound();
-        
-        if (bossManager != null)
-            bossManager.ResetBoss();
-        
         upgradeView.Toggle(true);
         upgradeView.Init();
+    }
+
+    public void StopRunNewPrestige()
+    {
+        roundManager.IsAlive = false;
+        playerCursor.Toggle(false);
+        uiManager.Toggle(false);
+        prestigeLevelController.Toggle(false);
+        prestigeGainedView.Show();
     }
 }

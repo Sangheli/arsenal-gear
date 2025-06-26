@@ -8320,7 +8320,6 @@ MonoBehaviour:
   enemyContainer: {fileID: 1503166279}
   prestigeLevelController: {fileID: 1281004455}
   prestigeManager: {fileID: 1503166283}
-  bossManager: {fileID: 0}
   prestigeGainedView: {fileID: 797717383}
   playerCursorHudView: {fileID: 894239476}
   Container: {fileID: 1503166280}
@@ -8599,27 +8598,27 @@ MonoBehaviour:
     prespawn: 5
     color: {r: 0.46855342, g: 0.7993748, b: 1, a: 1}
     bossHP: 1000
-    bossTime: 100
+    bossTime: 10
   - prespawnFirstTime: 5
     prespawn: 5
     color: {r: 1, g: 0.8962884, b: 0.4666667, a: 1}
     bossHP: 1000
-    bossTime: 100
+    bossTime: 10
   - prespawnFirstTime: 5
     prespawn: 5
     color: {r: 0.9748427, g: 0.22991559, b: 0.41910732, a: 1}
     bossHP: 1000
-    bossTime: 100
+    bossTime: 10
   - prespawnFirstTime: 5
     prespawn: 5
     color: {r: 0.23137254, g: 0.9764706, b: 0.33384344, a: 1}
     bossHP: 1000
-    bossTime: 100
+    bossTime: 10
   - prespawnFirstTime: 5
     prespawn: 5
     color: {r: 1, g: 0.44968545, b: 0.9075019, a: 1}
     bossHP: 1000
-    bossTime: 100
+    bossTime: 10
   targetRenderer: {fileID: 1035207960}
 --- !u!1 &1537534445
 GameObject:

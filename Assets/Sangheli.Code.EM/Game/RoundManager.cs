@@ -9,8 +9,8 @@ public class RoundManager : MonoBehaviour
     private Dictionary<int, SortingOrderData> _sorting;
     private Camera _mainCamera;
     private readonly List<EnemyData> _availableEnemies = new();
-    public bool IsAlive { get; private set; }
-    public bool IsAliveForPlay { get; private set; }
+    public bool IsAlive { get; set; }
+    public bool IsAliveForPlay { get; set; }
     private DataSave _save;
     private Transform _enemiesParent;
     
@@ -145,7 +145,7 @@ public class RoundManager : MonoBehaviour
     {
         UpdateAvailableEnemies();
         
-        var data = G.I.prestigeManager.prestigeData[_save.prestige];
+        var data = G.I.prestigeManager.GetLastPrestige(_save.prestige);
         var value = data.GetPrespawnCount(_save.prestigePlayed);
         var num = Random.Range(Mathf.Max(value/2,1), value + 1);
         

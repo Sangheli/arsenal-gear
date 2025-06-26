@@ -47,4 +47,10 @@ public class PrestigeManager : MonoBehaviour
         SaveSystem.Save();
         ApplyPrestigeColor();
     }
+
+    public PrestigeData GetLastPrestige(int prestigeIndex)
+    {
+        var index = Mathf.Min(G.I.prestigeManager.prestigeData.Length - 1, prestigeIndex);
+        return G.I.prestigeManager.prestigeData[index];
+    }
 } 

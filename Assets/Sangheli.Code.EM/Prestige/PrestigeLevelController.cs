@@ -19,7 +19,7 @@ public class PrestigeLevelController : MonoBehaviour
 
         _currentTime = 0;
         _save = G.I.SaveProvider.Get();
-        _prestigeData = G.I.prestigeManager.prestigeData[_save.prestige];
+        _prestigeData = G.I.prestigeManager.GetLastPrestige(_save.prestige);
         prestigeBar.Fill(_currentTime,_prestigeData.bossTime);
     }
 
@@ -47,6 +47,7 @@ public class PrestigeLevelController : MonoBehaviour
 
     private void OnEnd()
     {
-        Debug.Log($"End");
+        G.I.prestigeManager.IncreasePrestige(1);
+        G.I.StopRunNewPrestige();
     }
 }

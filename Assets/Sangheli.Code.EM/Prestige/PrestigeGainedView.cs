@@ -1,8 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 public class PrestigeGainedView : MonoBehaviour
 {
@@ -11,54 +11,17 @@ public class PrestigeGainedView : MonoBehaviour
     [SerializeField] private Text descriptionText;
     [SerializeField] private Button continueButton;
     
-    [Header("Animation Settings")]
-    [SerializeField] private float showDuration = 2f;
-    [SerializeField] private float bounceScale = 1.2f;
-    [SerializeField] private float bounceDuration = 0.5f;
-    
     private void Awake()
     {
-        if (continueButton != null)
-            continueButton.onClick.AddListener(OnContinue);
-        
-        Toggle(false);
+        continueButton.onClick.AddListener(OnContinue);
     }
     
     public void Show()
     {
-        StartCoroutine(ShowPrestigeGained());
-    }
-    
-    private IEnumerator ShowPrestigeGained()
-    {
-        // Получаем текущий престиж
         var currentPrestige = G.I.SaveProvider.Get().prestige;
-
-        // Формируем текст новых апгрейдов
-        string upgradesText = GetNewlyUnlockedUpgradesText(currentPrestige);
-        
-        // Обновляем UI
+        var upgradesText = GetNewlyUnlockedUpgradesText(currentPrestige);
         descriptionText.text = $"You've reached prestige level {currentPrestige}!\nNew enemies and challenges await!\n\n{upgradesText}";
-        
-        // Показываем окно
         Toggle(true);
-        
-        // Анимация появления
-        if (view != null)
-        {
-            view.transform.localScale = Vector3.zero;
-            yield return StartCoroutine(GameAnimation.Bounce(view.transform, Vector3.one, bounceScale, bounceDuration));
-        }
-        
-        // Воспроизводим звук
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.checkpoint);
-        
-        // Ждем показывания
-        yield return new WaitForSeconds(showDuration);
-        
-        // Активируем кнопку продолжения
-        if (continueButton != null)
-            continueButton.interactable = true;
     }
     
     private void OnContinue()
@@ -70,7 +33,6 @@ public class PrestigeGainedView : MonoBehaviour
     public void Toggle(bool state)
     {
         view.SetActive(state);
-        continueButton.interactable = false;
     }
     
     private string GetNewlyUnlockedUpgradesText(int prestige)
@@ -103,7 +65,7 @@ public class PrestigeGainedView : MonoBehaviour
         }
         
         // Enemy upgrades только для новых врагов
-        var newEnemyUpgrades = new System.Collections.Generic.List<string>();
+        var newEnemyUpgrades = new List<string>();
         foreach (var enemy in newEnemies)
         {
             var enemyNewUpgrades = enemy.UpgradeInfos
