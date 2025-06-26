@@ -84,7 +84,7 @@ public class CursorController : MonoBehaviour
                 G.I.playerCursorHudView.AddDamage(damageResult.TotalDamage);
                 break;
         }
-        StartCoroutine(GameAnimation.PulseInnerRadius(cursorView.viewRender, new MaterialPropertyBlock(), interval));
+        StartCoroutine(GameAnimation.PulseInnerRadius(cursorView.viewRender, cursorView.PropertyBlock, interval));
     }
     private DamageResult DoDamage()
     {

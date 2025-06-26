@@ -9,22 +9,22 @@ public class CursorView : MonoBehaviour
     public float duration = 0.2f;
     private Vector3 _originalScale;
     private static readonly int RingThickness = Shader.PropertyToID("_RingThickness");
-    private MaterialPropertyBlock _propertyBlock;
+    public MaterialPropertyBlock PropertyBlock;
     public float baseRingThickness = 0.25f;
 
     private void Awake()
     {
         _originalScale = view.transform.localScale;
-        _propertyBlock = new MaterialPropertyBlock();
-        viewRender.GetPropertyBlock(_propertyBlock);
+        PropertyBlock = new MaterialPropertyBlock();
+        viewRender.GetPropertyBlock(PropertyBlock);
     }
 
     public void SetScale(float damageScale, float harvestScale)
     {
         view.transform.localScale = _originalScale * damageScale;
         viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
-        _propertyBlock.SetFloat(RingThickness, baseRingThickness / damageScale);
-        viewRender.SetPropertyBlock(_propertyBlock);
+        PropertyBlock.SetFloat(RingThickness, baseRingThickness / damageScale);
+        viewRender.SetPropertyBlock(PropertyBlock);
     }
 
     public void Toggle(bool state)
