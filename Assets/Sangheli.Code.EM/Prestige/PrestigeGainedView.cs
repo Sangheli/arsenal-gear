@@ -8,10 +8,8 @@ public class PrestigeGainedView : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private GameObject view;
-    [SerializeField] private Text prestigeText;
     [SerializeField] private Text descriptionText;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Image prestigeColorImage;
     
     [Header("Animation Settings")]
     [SerializeField] private float showDuration = 2f;
@@ -40,9 +38,7 @@ public class PrestigeGainedView : MonoBehaviour
         string upgradesText = GetNewlyUnlockedUpgradesText(currentPrestige);
         
         // Обновляем UI
-        prestigeText.text = $"Prestige {currentPrestige}!";
         descriptionText.text = $"You've reached prestige level {currentPrestige}!\nNew enemies and challenges await!\n\n{upgradesText}";
-        prestigeColorImage.color = G.I.prestigeManager.GetCurrentPrestigeColor();
         
         // Показываем окно
         Toggle(true);
