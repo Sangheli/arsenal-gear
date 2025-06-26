@@ -37,7 +37,7 @@ public class PrestigeManager : MonoBehaviour
         var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
         
         var stepIndex = (float) Math.Round(prestige*1f / maxPrestiges, 2);
-        var value = 0.5f + 0.5f * stepIndex;
+        var value = 0.75f + 0.25f * stepIndex;
         color *= value;
         color.a = 1;
         
