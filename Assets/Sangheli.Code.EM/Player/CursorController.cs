@@ -25,6 +25,7 @@ public class CursorController : MonoBehaviour
     private int _enemyLayer;
     private int _energyLayer;
     private DataSave _save;
+    private bool _isAI;
     private void Awake()
     {
         _Camera = Camera.main;
@@ -43,17 +44,32 @@ public class CursorController : MonoBehaviour
         {
             _save = G.I.SaveProvider.Get();
             _canControl = true;
-            CurrentDamageScale = _save.GetParamContainer().GetValue("damageDiameter", false);
-            _currentHarvestScale = _save.GetParamContainer().GetValue("collectDiameter", false);
-            _playerFireRate = _save.GetParamContainer().GetValue("playerFireRate", false);
-            _critChance = _save.GetParamContainer().GetValue("critChance", false);
-            _critMultiplier = _save.GetParamContainer().GetValue("critMultiplier", false);
-            _playerDamageMin = _save.GetParamContainer().GetValue("playerDamageMin", false);
-            _critTargetsCount = Mathf.RoundToInt(_save.GetParamContainer().GetValue("critTargetsCount", false));
-            collectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
-            cursorView.SetScale(CurrentDamageScale, _currentHarvestScale);
+            if(!_isAI) InitCursorParams();
         }
     }
+    
+    private void InitCursorParams(float damagePercent = 1f, float radiusPercent = 1f, float fireRatePercent = 1f)
+    {
+        var paramContainer = _save.GetParamContainer();
+        CurrentDamageScale = paramContainer.GetValue("damageDiameter") * radiusPercent;
+        _currentHarvestScale = paramContainer.GetValue("collectDiameter") * radiusPercent;
+        _playerFireRate = paramContainer.GetValue("playerFireRate") * fireRatePercent;
+        _critChance = paramContainer.GetValue("critChance");
+        _critMultiplier = paramContainer.GetValue("critMultiplier");
+        _playerDamageMin = paramContainer.GetValue("playerDamageMin") * damagePercent;
+        _critTargetsCount = Mathf.RoundToInt(paramContainer.GetValue("critTargetsCount"));
+        collectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
+        cursorView.SetScale(CurrentDamageScale, _currentHarvestScale);
+    }
+    
+    public void SetAIMode(float damagePercent, float radiusPercent, float fireRatePercent)
+    {
+        _isAI = true;
+        _canControl = true;
+        _save = G.I.SaveProvider.Get();
+        InitCursorParams(damagePercent, radiusPercent, fireRatePercent);
+    }
+    
     private void Update()
     {
         if (!_canControl) return;
@@ -77,7 +93,7 @@ public class CursorController : MonoBehaviour
         var damageResult = DoDamage();
         switch (damageResult.HasDamage)
         {
-            case false:
+            case false when !_isAI:
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit2);
                 break;
             case true:

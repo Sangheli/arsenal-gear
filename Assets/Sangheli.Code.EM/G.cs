@@ -19,6 +19,7 @@ public class G : MonoBehaviour
     public EndRoundView endRoundView;
     public UpgradeView upgradeView;
     public EnemyContainer enemyContainer;
+    public AICursorManager aiCursorManager;
     
     public PrestigeLevelController prestigeLevelController;
     public PrestigeManager prestigeManager;
@@ -112,6 +113,7 @@ public class G : MonoBehaviour
 
     public void StartRun()
     {
+        aiCursorManager.StartRound();
         prestigeLevelController.Toggle(true);
         playerCursorHudView.Toggle(false);
         EnergyManager.StartRound();
@@ -128,6 +130,7 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
         prestigeGainedView.Toggle(false);
+
         
         roundManager.StartRound();
     }
@@ -138,6 +141,7 @@ public class G : MonoBehaviour
         energySpawner.StopRound();
         upgradeView.Toggle(true);
         upgradeView.Init();
+        aiCursorManager.ToggleAll(false);
     }
 
     public void StopRunNewPrestige()

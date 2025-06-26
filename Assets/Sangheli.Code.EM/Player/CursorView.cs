@@ -9,8 +9,10 @@ public class CursorView : MonoBehaviour
     public float duration = 0.2f;
     private Vector3 _originalScale;
     private static readonly int RingThickness = Shader.PropertyToID("_RingThickness");
+    private static readonly int InnerColor = Shader.PropertyToID("_InnerColor");
     public MaterialPropertyBlock PropertyBlock;
     public float baseRingThickness = 0.25f;
+    public Color color;
 
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class CursorView : MonoBehaviour
         view.transform.localScale = _originalScale * damageScale;
         viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
         PropertyBlock.SetFloat(RingThickness, baseRingThickness / damageScale);
+        PropertyBlock.SetColor(InnerColor, color);
         viewRender.SetPropertyBlock(PropertyBlock);
     }
 
