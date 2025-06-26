@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PrestigeManager : MonoBehaviour
@@ -11,6 +12,9 @@ public class PrestigeManager : MonoBehaviour
     
     private MaterialPropertyBlock _propertyBlock;
     private static readonly int ColorProperty = Shader.PropertyToID("_OverlayColor");
+    public Gradient gradient; // градиент для цвета престижа
+    public int maxPrestiges = 1000;
+    public int delim = 100;
 
     public void OnLoadInit()
     {
@@ -35,8 +39,17 @@ public class PrestigeManager : MonoBehaviour
     public Color GetCurrentPrestigeColor()
     {
         var prestige = G.I.SaveProvider.Get().prestige;
-        var index = Mathf.Clamp(prestige, 0, prestigeData.Length - 1);
-        return prestigeData[index].color;
+        
+        var prestigePosition = (prestige % delim) *1f / delim;
+        var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
+        
+        var stepIndex = (float) Math.Round(prestige*1f / maxPrestiges, 2);
+        var value = 0.5f + 0.5f * stepIndex;
+        color *= value;
+        color.a = 1;
+        
+        // Debug.Log($"prestige={prestige}, posIndex={posIndex}, prestigePosition={prestigePosition}, stepIndex={stepIndex}, value={value}");
+        return color;
     }
 
     public void IncreasePrestige(int delta = 1)
