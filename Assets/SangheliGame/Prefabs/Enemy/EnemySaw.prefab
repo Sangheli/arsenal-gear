@@ -105,31 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9922381769154012916c5370672b6329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageReciever
-  EnemyData:
-    Health: 0
-    Speed: 0
-    DamagePerHit: 0
-    prefab: {fileID: 0}
-    EnemyId: basic_enemy
-    DisplayName: Basic Enemy
-    minPrestigeToSpawn: 0
-    UpgradeInfos:
-    - BaseValue: 1
-      MaxUpgrades: 15
-      Step: 0.5
-      DisplayName: Min Energy Drop
-      BasePrice: 20
-      PriceMult: 0.2
-      MinPrestige: 0
-      Type: 1
-    - BaseValue: 10
-      MaxUpgrades: 8
-      Step: -1
-      DisplayName: Spawn Rate (lower = faster)
-      BasePrice: 40
-      PriceMult: 0.2
-      MinPrestige: 0
-      Type: 2
 --- !u!58 &6721057048520198968
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -421,15 +396,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: InitialModule.startColor.minColor.b
-      value: 0.3254902
+      value: 0.6156863
       objectReference: {fileID: 0}
     - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: InitialModule.startColor.minColor.g
-      value: 0.039215688
+      value: 0.023529412
       objectReference: {fileID: 0}
     - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
-      value: 0.64705884
+      value: 0.77254903
       objectReference: {fileID: 0}
     - target: {fileID: 4097099458767488122, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_Name
