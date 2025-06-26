@@ -20,7 +20,8 @@ public class PrestigeGainedView : MonoBehaviour
     {
         var currentPrestige = G.I.SaveProvider.Get().prestige;
         var upgradesText = GetNewlyUnlockedUpgradesText(currentPrestige);
-        descriptionText.text = $"You've reached prestige level {currentPrestige}!\nNew enemies and challenges await!\n\n{upgradesText}";
+        // descriptionText.text = $"You've reached prestige level {currentPrestige}!\nNew enemies and challenges await!\n\n{upgradesText}";
+        descriptionText.text = $"You've reached prestige level {currentPrestige}";
         Toggle(true);
     }
     

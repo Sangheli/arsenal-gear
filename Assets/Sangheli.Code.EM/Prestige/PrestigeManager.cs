@@ -20,13 +20,6 @@ public class PrestigeManager : MonoBehaviour
     {
         _propertyBlock = new MaterialPropertyBlock();
         targetRenderer.GetPropertyBlock(_propertyBlock);
-
-        for (var index = 0; index < prestigeData.Length; index++)
-        {
-            var x = prestigeData[index];
-            x.Index = index;
-        }
-        
         ApplyPrestigeColor();
     }
     
@@ -61,9 +54,22 @@ public class PrestigeManager : MonoBehaviour
         ApplyPrestigeColor();
     }
 
+    public void AddPrestigePoint(int delta)
+    {
+        var saveData = G.I.SaveProvider.Get();
+        saveData.totalPrestigePoints+=delta;
+        saveData.totalPrestigePoints = Mathf.Max(saveData.totalPrestigePoints, 0);
+        SaveSystem.Save();
+    }
+
     public PrestigeData GetLastPrestige(int prestigeIndex)
     {
         var index = Mathf.Min(G.I.prestigeManager.prestigeData.Length - 1, prestigeIndex);
         return G.I.prestigeManager.prestigeData[index];
+    }
+
+    public float GetTime()
+    {
+        return 0.1f;
     }
 } 
