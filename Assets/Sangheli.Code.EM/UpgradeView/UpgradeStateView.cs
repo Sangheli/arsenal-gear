@@ -9,8 +9,6 @@ public class UpgradeStateView : BaseUpgradeStateView
         _paramKey = paramKey;
         RefreshMoneyCallback = refreshMoneyCallback;
         _upgradeButton.onClick.AddListener(OnUpgradeClicked);
-        var paramInfo = ParamData.Params[_paramKey];
-        MinPrestige = paramInfo.MinPrestige;
     }
 
     public override void OnUpgradeClicked()

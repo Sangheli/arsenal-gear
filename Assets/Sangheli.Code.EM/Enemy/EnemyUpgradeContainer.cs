@@ -169,7 +169,6 @@ public class EnemyUpgradeContainer
         var enemyData = GetEnemyDataById(enemyId);
         if (enemyData == null) return new List<UpgradeType>();
         return enemyData.UpgradeInfos
-            .Where(info => info.MinPrestige <= prestige)
             .Select(info => info.Type);
     }
 } 

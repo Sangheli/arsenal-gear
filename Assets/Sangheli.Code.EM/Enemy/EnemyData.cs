@@ -11,7 +11,6 @@ public class EnemyData
     public EnemyView prefab;
     public int EnemyId { get; set; }
     public string DisplayName = "Basic Enemy";
-    public int minPrestigeToSpawn;
     
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
@@ -24,7 +23,6 @@ public class EnemyData
             DisplayName = "Min Energy Drop",
             BasePrice = 20f,
             PriceMult = 1.2f,
-            MinPrestige = 0
         },
         new EnemyUpgradeInfo
         {
@@ -35,7 +33,6 @@ public class EnemyData
             DisplayName = "Spawn Rate (lower = faster)",
             BasePrice = 40f,
             PriceMult = 1.2f,
-            MinPrestige = 0
         }
     };
     
@@ -56,5 +53,4 @@ public class EnemyData
     public string GetUpgradeDisplayName(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.DisplayName ?? "";
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, _cachedEnergyDropLevel);
     public virtual float GetSpawnRatePerMinute() => GetUpgradeValue(UpgradeType.SpawnRate, _cachedSpawnRateLevel);
-    public bool CanSpawnAtCurrentPrestige(int prestige) => prestige >= minPrestigeToSpawn;
 }

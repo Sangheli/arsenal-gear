@@ -19,7 +19,7 @@ public class PrestigeGainedView : MonoBehaviour
     public void Show()
     {
         var currentPrestige = G.I.SaveProvider.Get().prestige;
-        var upgradesText = GetNewlyUnlockedUpgradesText(currentPrestige);
+        var upgradesText = GetNewlyUnlockedUpgradesText();
         // descriptionText.text = $"You've reached prestige level {currentPrestige}!\nNew enemies and challenges await!\n\n{upgradesText}";
         descriptionText.text = $"You've reached prestige level {currentPrestige}";
         Toggle(true);
@@ -36,13 +36,12 @@ public class PrestigeGainedView : MonoBehaviour
         view.SetActive(state);
     }
     
-    private string GetNewlyUnlockedUpgradesText(int prestige)
+    private string GetNewlyUnlockedUpgradesText()
     {
         var sb = new StringBuilder();
         
         // Новые враги
         var newEnemies = G.I.enemyContainer.List
-            .Where(e => e.minPrestigeToSpawn == prestige)
             .ToList();
         if (newEnemies.Count > 0)
         {
@@ -54,7 +53,6 @@ public class PrestigeGainedView : MonoBehaviour
         
         // Player upgrades
         var newPlayerUpgrades = ParamData.Params
-            .Where(p => p.Value.MinPrestige == prestige)
             .Select(p => p.Value.DisplayName)
             .ToList();
         if (newPlayerUpgrades.Count > 0)
@@ -70,7 +68,6 @@ public class PrestigeGainedView : MonoBehaviour
         foreach (var enemy in newEnemies)
         {
             var enemyNewUpgrades = enemy.UpgradeInfos
-                .Where(u => u.MinPrestige == prestige)
                 .Select(u => $"[{enemy.DisplayName}] {u.DisplayName}");
             newEnemyUpgrades.AddRange(enemyNewUpgrades);
         }

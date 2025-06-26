@@ -8,7 +8,6 @@ public abstract class BaseUpgradeInfo
     public string DisplayName;
     public float BasePrice;
     public float PriceMult;
-    public int MinPrestige = 0;
 
     public virtual float GetValue(int bought, bool onlyDisplay = false) => Mathf.Max(BaseValue + bought * Step, BaseValue);
     

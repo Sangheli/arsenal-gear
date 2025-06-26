@@ -45,13 +45,13 @@ public class PrestigeManager : MonoBehaviour
         return color;
     }
 
-    public void IncreasePrestige(int delta = 1)
+    public void IncreasePrestige(int delta = 1, bool fromCheats = false)
     {
         var saveData = G.I.SaveProvider.Get();
         saveData.prestige+=delta;
         saveData.prestige = Mathf.Max(saveData.prestige, 0);
         SaveSystem.Save();
-        ApplyPrestigeColor();
+        if(fromCheats) ApplyPrestigeColor();
     }
 
     public void AddPrestigePoint(int delta)

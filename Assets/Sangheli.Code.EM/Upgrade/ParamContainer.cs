@@ -59,7 +59,7 @@ public class ParamContainer
     public float GetPrice(string key, int upgradesBoughtNum) => ParamData.Params[key].GetPrice(UpgradesBought[key], upgradesBoughtNum); // Цена за следующий уровень
 
     public IEnumerable<string> GetAvailableParamKeys(int prestige) => 
-        ParamData.Params.Where(p => p.Value.MinPrestige <= prestige).Select(p => p.Key);
+        ParamData.Params.Keys;
 
     public int GetTotalUpgradesBought() => UpgradesBought?.Values.Sum() ?? 0;
 }

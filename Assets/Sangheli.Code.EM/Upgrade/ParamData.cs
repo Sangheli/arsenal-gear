@@ -14,8 +14,7 @@ public class ParamData
                 BasePrice = 2,
                 PriceMult = 1.20f,
                 UseRandom = true,
-                RandomCoef = 1.5f,
-                MinPrestige = 0,
+                RandomCoef = 1.5f
             }
         },
         {
@@ -26,8 +25,7 @@ public class ParamData
                 Step = 2f,
                 DisplayName = "HP",
                 BasePrice = 5,
-                PriceMult = 1.2f,
-                MinPrestige = 0,
+                PriceMult = 1.2f
             }
         },
         {
@@ -38,8 +36,7 @@ public class ParamData
                 Step = 5f,
                 DisplayName = "Attacks/minute",
                 BasePrice = 4,
-                PriceMult = 1.2f,
-                MinPrestige = 0,
+                PriceMult = 1.2f
             }
         },
         {
@@ -50,8 +47,7 @@ public class ParamData
                 Step = 0.05f,
                 DisplayName = "Diameter",
                 BasePrice = 5,
-                PriceMult = 1.2f,
-                MinPrestige = 0,
+                PriceMult = 1.2f
             }
         },
         {
@@ -62,8 +58,7 @@ public class ParamData
                 Step = 0.3f,
                 DisplayName = "Collect Additional Diameter",
                 BasePrice = 10,
-                PriceMult = 1.2f,
-                MinPrestige = 0,
+                PriceMult = 1.2f
             }
         },
         {
@@ -74,8 +69,7 @@ public class ParamData
                 Step = 1f,
                 DisplayName = "Shield Capacity",
                 BasePrice = 40,
-                PriceMult = 1.2f,
-                MinPrestige = 1,
+                PriceMult = 1.2f
             }
         },
         {
@@ -86,8 +80,7 @@ public class ParamData
                 Step = 0.1f,
                 DisplayName = "Shield Regen/sec",
                 BasePrice = 45,
-                PriceMult = 1.2f,
-                MinPrestige = 1,
+                PriceMult = 1.2f
             }
         },
         {
@@ -98,8 +91,7 @@ public class ParamData
                 Step = 2.5f,
                 DisplayName = "Crit Chance %",
                 BasePrice = 30,
-                PriceMult = 1.25f,
-                MinPrestige = 2,
+                PriceMult = 1.25f
             }
         },
         {
@@ -110,8 +102,7 @@ public class ParamData
                 Step = 0.2f,
                 DisplayName = "Crit Multiplier",
                 BasePrice = 40,
-                PriceMult = 1.3f,
-                MinPrestige = 2,
+                PriceMult = 1.3f
             }
         },
         {
@@ -122,8 +113,7 @@ public class ParamData
                 Step = 1f,
                 DisplayName = "Crit Targets Count",
                 BasePrice = 50,
-                PriceMult = 1.3f,
-                MinPrestige = 2,
+                PriceMult = 1.3f
             }
         },
         {
@@ -134,8 +124,51 @@ public class ParamData
                 Step = 5f,
                 DisplayName = "Auto Collect Coins %",
                 BasePrice = 20,
-                PriceMult = 1.25f,
-                MinPrestige = 3,
+                PriceMult = 1.25f
+            }
+        },
+        {
+            "aiCursorCount", new ParamInfo
+            {
+                BaseValue = 0,
+                MaxUpgrades = 5,
+                Step = 1f,
+                DisplayName = "AI Cursor Count",
+                BasePrice = 1000,
+                PriceMult = 3.0f
+            }
+        },
+        {
+            "aiCursorDamagePercent", new ParamInfo
+            {
+                BaseValue = 0.2f,
+                MaxUpgrades = 10,
+                Step = 0.08f,
+                DisplayName = "AI Cursor Damage % of Player",
+                BasePrice = 2000,
+                PriceMult = 2.5f
+            }
+        },
+        {
+            "aiCursorRadiusPercent", new ParamInfo
+            {
+                BaseValue = 0.5f,
+                MaxUpgrades = 10,
+                Step = 0.05f,
+                DisplayName = "AI Cursor Radius % of Player",
+                BasePrice = 1500,
+                PriceMult = 2.2f
+            }
+        },
+        {
+            "aiCursorFireRatePercent", new ParamInfo
+            {
+                BaseValue = 0.3f,
+                MaxUpgrades = 10,
+                Step = 0.07f,
+                DisplayName = "AI Cursor Fire Rate % of Player",
+                BasePrice = 1800,
+                PriceMult = 2.3f
             }
         },
     };

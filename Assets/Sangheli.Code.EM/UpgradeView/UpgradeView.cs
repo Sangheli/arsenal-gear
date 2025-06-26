@@ -83,18 +83,9 @@ public class UpgradeView : MonoBehaviour
     private void ApplyFilter()
     {
         if (_spawned == null) return;
-        int currentPrestige = G.I.SaveProvider.Get().prestige;
         foreach (var x in _spawned)
         {
-            bool prestigeOk = currentPrestige >= x.MinPrestige;
-            bool enemyPrestigeOk = true;
-            if (x is EnemyUpgradeStateView enemyUpgrade)
-            {
-                var enemyData = G.I.enemyContainer.List[enemyUpgrade.EnemyId];
-                if (enemyData != null)
-                    enemyPrestigeOk = currentPrestige >= enemyData.minPrestigeToSpawn;
-            }
-            var shouldShow = ((!_showOnlyActive || !x.IsDisabled) && prestigeOk && enemyPrestigeOk);
+            var shouldShow = !_showOnlyActive || !x.IsDisabled;
             x.gameObject.SetActive(shouldShow);
         }
     }
@@ -108,7 +99,7 @@ public class UpgradeView : MonoBehaviour
 
     private void ChangePrestige(int delta)
     {
-        G.I.prestigeManager.IncreasePrestige(delta);
+        G.I.prestigeManager.IncreasePrestige(delta, true);
         RefreshAll();
     }
 #endif

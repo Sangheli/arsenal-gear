@@ -13,10 +13,6 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         _upgradeType = upgradeType;
         RefreshMoneyCallback = refreshMoneyCallback;
         _upgradeButton.onClick.AddListener(OnUpgradeClicked);
-        var enemyData = G.I.enemyContainer.List[_enemyId];
-        MinPrestige = 0;
-        var upgradeInfo = enemyData?.UpgradeInfos.Find(u => u.Type == _upgradeType);
-        if (upgradeInfo != null) MinPrestige = upgradeInfo.MinPrestige;
     }
 
     public override void OnUpgradeClicked()

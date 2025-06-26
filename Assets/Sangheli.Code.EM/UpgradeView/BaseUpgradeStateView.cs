@@ -16,7 +16,6 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     public Color disabledColor;
 
     public bool IsDisabled{ get; private set; }
-    public int MinPrestige { get; protected set; }
 
     protected virtual void Awake() => _normalColor = _upgradeButton.image.color;
 
