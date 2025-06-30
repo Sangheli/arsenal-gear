@@ -104,7 +104,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         if (_isDead) return;
         if (!_isActive) return;
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
         _currentHealth -= amount;
         if (_currentHealth <= 0)
         {

@@ -108,6 +108,7 @@ public class CursorController : MonoBehaviour
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit2);
                 break;
             case true:
+                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
                 G.I.playerCursor.view.hudView.AddDamage(damageResult.TotalDamage, 0f, CurrentDamageScale);
                 break;
         }

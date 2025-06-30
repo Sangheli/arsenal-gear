@@ -40,42 +40,39 @@ public class PooledAudioPlayer : MonoBehaviour
 
     public void PlayWithRandomPitch(SoundContainer.AudioSettingsSangheli clip)
     {
-        if (IsCanPlay(clip))
-            return;
-
-        float pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
-        var subClip = clip.ClipList[Random.Range(0, clip.ClipList.Count)];
-        PlaySound(clip, pitch, subClip.length);
+        var pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
+        PlayWithPitch(clip, pitch);
     }
 
     public void PlayWithPitch(SoundContainer.AudioSettingsSangheli clip, float pitch)
     {
-        if (IsCanPlay(clip))
+        var index = Random.Range(0, clip.ClipList.Count);
+        if (!IsCanPlay(clip, index))
             return;
 
-        var subClip = clip.ClipList[Random.Range(0, clip.ClipList.Count)];
-        PlaySound(clip, pitch, subClip.length / pitch);
+        var subClip = clip.ClipList[index];
+        PlaySound(clip, pitch, subClip.length / pitch, index);
     }
 
-    private bool IsCanPlay(SoundContainer.AudioSettingsSangheli clip)
+    private bool IsCanPlay(SoundContainer.AudioSettingsSangheli clip, int index)
     {
         if (clip?.ClipList == null) 
             return false;
 
         float currentTime = Time.time;
 
-        var subClip = clip.ClipList[Random.Range(0, clip.ClipList.Count)];
+        var subClip = clip.ClipList[index];
         if (lastPlayTime.TryGetValue(subClip, out float lastTime))
         {
             if (currentTime - lastTime < minIntervalBetweenPlays)
-                return true;
+                return false;
         }
 
         lastPlayTime[subClip] = currentTime;
-        return false;
+        return true;
     }
 
-    private void PlaySound(SoundContainer.AudioSettingsSangheli clip, float pitch, float len)
+    private void PlaySound(SoundContainer.AudioSettingsSangheli clip, float pitch, float len, int index)
     {
         AudioSource source = (availableSources.Count > 0)
             ? availableSources.Dequeue()
@@ -84,7 +81,7 @@ public class PooledAudioPlayer : MonoBehaviour
         GameObject obj = source.gameObject;
         obj.SetActive(true);
 
-        var subClip = clip.ClipList[Random.Range(0, clip.ClipList.Count)];
+        var subClip = clip.ClipList[index];
         source.clip = subClip;
         source.pitch = pitch;
         source.volume = clip.Volume;
@@ -98,7 +95,7 @@ public class PooledAudioPlayer : MonoBehaviour
         yield return new WaitForSeconds(delay);
         source.Stop();
         source.clip = null;
-        source.gameObject.SetActive(false);
+        // source.gameObject.SetActive(false);
         availableSources.Enqueue(source);
     }
 }

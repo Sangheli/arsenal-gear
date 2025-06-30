@@ -2162,7 +2162,7 @@ MonoBehaviour:
   ViewImage: {fileID: 1432769164}
   MaxValue: -0.055
   MinValue: 0.744
-  animTime: 0.75
+  animTime: 0.4
   text: {fileID: 1193849971}
   starGameWaitTime: 0.1
   endRoundWaitTime: 0.1
@@ -7717,8 +7717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d86ebc4323840140bd7b8f280661262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledAudioPlayer
-  initialPoolSize: 10
-  minIntervalBetweenPlays: 0.0000002
+  initialPoolSize: 50
+  minIntervalBetweenPlays: 0.05
 --- !u!114 &1503166284
 MonoBehaviour:
   m_ObjectHideFlags: 0
