@@ -225,8 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   view: {fileID: 6269158921195688788}
   damageReciever: {fileID: 8780209497533360958}
-  rotationSpeed: {x: 0, y: 0, z: 30}
-  speed: 0.5
+  rotationSpeed: {x: 0, y: 0, z: 0}
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6

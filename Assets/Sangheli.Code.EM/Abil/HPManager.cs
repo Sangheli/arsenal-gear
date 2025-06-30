@@ -22,12 +22,14 @@ public class HPManager
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false);
     }
 
-    public void Reduce(float reduceValue, bool doBlink, bool ignoreShield)
+    public float Reduce(float reduceValue, bool doBlink, bool ignoreShield)
     {
         if (reduceValue <= 0)
-            return;
+            return reduceValue;
 
-        if (doBlink) _doBlink = true;
+        if (doBlink)
+            _doBlink = true;
+        
         var actualDamage = ignoreShield
             ? reduceValue
             : G.I.ShieldManager.ProcessDamage(reduceValue);
@@ -36,6 +38,8 @@ public class HPManager
 
         if (RoundHp < 0)
             RoundHp = 0;
+
+        return actualDamage;
     }
 
     public void UpdateHp()

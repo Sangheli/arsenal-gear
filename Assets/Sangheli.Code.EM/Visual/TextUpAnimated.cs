@@ -4,6 +4,7 @@ using System.Collections;
 
 public class TextUpAnimated : MonoBehaviour, IReturnable, IResetable
 {
+    public CanvasGroup canvasGroup;
     public GameObject view;
     public Text txt;
     public float speed;
@@ -32,6 +33,7 @@ public class TextUpAnimated : MonoBehaviour, IReturnable, IResetable
 
     public IEnumerator AnimateUp(string value)
     {
+        canvasGroup.alpha = 1;
         txt.text = value;
         _elapsed = 0f;
         
@@ -40,18 +42,18 @@ public class TextUpAnimated : MonoBehaviour, IReturnable, IResetable
         var t = 0f;
         var startPos = transform.position;
         var endPos = startPos + Vector3.up * speed * duration;
-        var c = _originalColor;
         transform.SetParent(null);
         
         while (t < duration)
         {
             var progress = t / duration;
             transform.position = Vector3.Lerp(startPos, endPos, progress);
-            c.a = Mathf.Lerp(startAlpha, 0, progress);
-            txt.color = c;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, progress);
             yield return null;
             t += Time.deltaTime;
         }
+
+        canvasGroup.alpha = 0;
         txt.color = Color.clear;
     }
 }

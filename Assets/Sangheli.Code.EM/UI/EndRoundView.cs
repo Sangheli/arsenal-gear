@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,6 @@ public class EndRoundView : MonoBehaviour
     public GameObject View;
     public Button buttonEndRound;
     public Button buttonStartNewRound;
-    public Action Callback;
 
     public Text energyText;
     public float animationTime = 1;
@@ -23,7 +21,6 @@ public class EndRoundView : MonoBehaviour
     
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundTextOriginalColor;
-    private bool _colorsInitialized;
     public Text buttonStartNewRoundText;
     
     public Text prestigePointsText;
@@ -37,7 +34,6 @@ public class EndRoundView : MonoBehaviour
     {
         _buttonStartNewRoundOriginalColor = buttonStartNewRound.image.color;
         _buttonStartNewRoundTextOriginalColor = buttonStartNewRoundText.color;
-        _colorsInitialized = true;
         buttonEndRound.onClick.AddListener(OnExitFromRound);
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
         Toggle(false);
@@ -46,27 +42,8 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRoundText.color = Color.clear;
     }
 
-    private void OnExitFromRound()
-    {
-        StartCoroutine(ExitFromRound());
-    }
-    
-    private void OnStartNewRound()
-    {
-        G.I.StartRun();
-    }
-    
-    private IEnumerator ExitFromRound()
-    {
-        G.I.distortionUI.DoBlock(true);
-        yield return G.I.distortionUI.DoFade(forward: true);
-        Callback?.Invoke();
-        Toggle(false);
-        G.I.StopRun();
-        yield return new WaitForSeconds(G.I.distortionUI.endRoundWaitTime);
-        yield return G.I.distortionUI.DoFade(forward: false);
-        G.I.distortionUI.DoBlock(false);
-    }
+    private void OnExitFromRound() => G.I.StopRun();
+    private void OnStartNewRound() => G.I.StartRun();
 
     public void Toggle(bool state)
     {
@@ -76,7 +53,7 @@ public class EndRoundView : MonoBehaviour
         View.SetActive(state);
     }
 
-    public void Show()
+    public IEnumerator Show(int energy, int totalEnergy, int prestige)
     {
         var save = G.I.SaveProvider.Get();
         if (save.hasVisitedUpgradeMenu)
@@ -88,44 +65,40 @@ public class EndRoundView : MonoBehaviour
         checkPointNotification.gameObject.SetActive(false);
         Toggle(true);
 
-        var energy = G.I.EnergyManager.RoundEnergyCount;
-        var totalEnergy = save.totalEnergy;
-
-        var prestigeDelta = G.I.prestigeManager.RoundPoints;
-        
-		prestigePointsText.text = $"P Points: +{prestigeDelta}";
+        prestigePointsText.text = $"P Points: +{prestige}";
 
         SaveSystem.Save();
         ShowCheckpointNotification();
         buttonEndRound.interactable = true;
         if ( save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
-        if (energy > 0) StartCoroutine(ShowCoinAnim(totalEnergy, energy));
+        
+        if (energy > 0) 
+            yield return ShowCoinAnim(totalEnergy, energy);
+        
+        float finalTotal = totalEnergy + energy;
+        energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(0)} -> {NumberFormatter.Format(finalTotal)}";
     }
     
-    private IEnumerator ShowCoinAnim(int startTotal, int addedEnergy)
+    private IEnumerator ShowCoinAnim(int totalEnergy, int energy)
     {
-        float finalTotal = startTotal + addedEnergy;
-        
-        energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(addedEnergy)} -> {NumberFormatter.Format(startTotal)}";
+        energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(energy)} -> {NumberFormatter.Format(totalEnergy)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
-        float addTemp = addedEnergy;
+        float addTemp = energy;
         
         float stepTime = animationTime / intervalNum;
-        float energyPerStep = addedEnergy / intervalNum;
+        float energyPerStep = energy / intervalNum;
 
-        float currentTotal = startTotal;
+        float currentTotal = totalEnergy;
         for (int i = 0; i < intervalNum; i++)
         {
             currentTotal += energyPerStep;
             addTemp -=  energyPerStep;
-            energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(addTemp)} -> {NumberFormatter.Format(currentTotal)}";
+            energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(addTemp)} -> {NumberFormatter.Format(currentTotal)}";
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collect2);
             yield return new WaitForSeconds(stepTime);
         }
-        
-        energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(0)} -> {NumberFormatter.Format(finalTotal)}";
     }
     
     private void ShowCheckpointNotification()

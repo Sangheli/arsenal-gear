@@ -113,12 +113,12 @@ public class EnemyView : MonoBehaviour
         ViewRenderer.SetPropertyBlock(_propertyBlock);
     }
 
-    public void SetSortingOrder(int viewOrder, int back)
+    public void SetSortingOrder(SortingOrderData data)
     {
-        ViewRenderer.sortingOrder = back;
-        RamkaRender.sortingOrder = viewOrder;
-        ShadowRender.sortingOrder = back-1;
-        deathVfx.SetOrder(viewOrder);
+        RamkaRender.sortingOrder = data.ramka;
+        ViewRenderer.sortingOrder = data.view;
+        ShadowRender.sortingOrder = data.shadow;
+        deathVfx.SetOrder(data.ramka);
     }
 
     public void CritColorEffect()

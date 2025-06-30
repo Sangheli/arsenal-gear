@@ -102,18 +102,27 @@ public class CursorController : MonoBehaviour
         _nextTime = Time.time + interval;
         view.DoBounceAnimation(CurrentDamageScale);
         var damageResult = DoDamage();
-        switch (damageResult.HasDamage)
-        {
-            case false when !_isAI:
-                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit2);
-                break;
-            case true:
-                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
-                G.I.playerCursor.view.hudView.AddDamage(damageResult.TotalDamage, 0f, CurrentDamageScale);
-                break;
-        }
+        PlaySound(damageResult);
+        
+        if (!_isAI && damageResult.HasDamage)
+            G.I.playerCursor.view.hudView.AddDamage
+                (
+                    damageResult,
+                    CurrentDamageScale
+                );
+
         StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
     }
+
+    private void PlaySound(DamageResult damageResult)
+    {
+        if (_isAI) return;
+        
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(!damageResult.HasDamage
+            ? G.I.Data.soundContainer.hit2
+            : G.I.Data.soundContainer.hit);
+    }
+
     private DamageResult DoDamage()
     {
         int count = Physics2D.OverlapCircleNonAlloc(
@@ -134,18 +143,19 @@ public class CursorController : MonoBehaviour
         }
         
         float totalDamage = 0f;
+        float totalShield = 0f;
         for (int i = 0; i < count; i++)
         {
             var enemy = _enemyHits[i].GetComponent<DamageReciever>();
             if (enemy == null) continue;
             var critResult = CritHelper.RollCrit(_playerDamageMin, _critChance, _critMultiplier);
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
-            totalDamage += enemy.EnemyData.DamagePerHit;
-            float reduce = enemy.EnemyData.DamagePerHit;
-            G.I.HpManager.Reduce(reduce, doBlink: true, ignoreShield: false);
+            var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
+            totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
+            totalDamage += finalDamage;
         }
         
-        return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage };
+        return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
     }
     private void CollectEnergy()
     {

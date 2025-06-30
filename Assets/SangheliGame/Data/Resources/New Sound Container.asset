@@ -21,7 +21,7 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: 0fdbedbf114f25f4e80b23001ae35f89, type: 3}
     PitchRange: 0.25
-    Volume: 0.6
+    Volume: 0.5
   collect:
     ClipList:
     - {fileID: 8300000, guid: 09d7b16ffbee0094babfa1c970fe1b33, type: 3}

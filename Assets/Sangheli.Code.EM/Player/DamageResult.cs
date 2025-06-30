@@ -3,4 +3,5 @@ public struct DamageResult
 {
     public bool HasDamage;
     public float TotalDamage;
+    public float TotalShieldDamage;
 } 

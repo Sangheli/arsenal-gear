@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3435758267273455487}
   - component: {fileID: 4093403693771406532}
+  - component: {fileID: 7435178187146969751}
   m_Layer: 5
   m_Name: view
   m_TagString: Untagged
@@ -45,6 +46,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2570055779653767197}
   m_CullTransparentMesh: 1
+--- !u!225 &7435178187146969751
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570055779653767197}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6506417739229876702
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.3205824, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -123,8 +136,10 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: -1 HP
+    m_LineSpacing: 1.15
+  m_Text: '-1HP
+
+    -1S'
 --- !u!114 &7809465219803758992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +240,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4625990070968545369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d3a744ef26437a96381f8110c808d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextUpAnimated
+  canvasGroup: {fileID: 7435178187146969751}
   view: {fileID: 2570055779653767197}
   txt: {fileID: 2702060116949393565}
   speed: 5

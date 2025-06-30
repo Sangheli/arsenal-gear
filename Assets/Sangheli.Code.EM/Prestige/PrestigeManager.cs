@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PrestigeManager : MonoBehaviour
 {
-    public PrestigeBar prestigeBar;
+    public DoubleImageFillBar prestigeBar;
     public GameObject view;
 
     private void Toggle(bool state)
@@ -44,6 +44,7 @@ public class PrestigeManager : MonoBehaviour
     
     public void StartRound()
     {
+        RoundPoints = 0;
         Toggle(true);
         _save = G.I.SaveProvider.Get();
         _currentTime = 0;

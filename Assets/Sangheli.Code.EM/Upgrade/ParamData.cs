@@ -33,7 +33,7 @@ public class ParamData
             {
                 BaseValue = 60f,
                 MaxUpgrades = 60,
-                Step = 5f,
+                Step = 2f,
                 DisplayName = "Attacks/minute",
                 BasePrice = 2,
                 PriceMult = 1.06f

@@ -1,16 +1,19 @@
 ﻿public class SortingOrderData
 {
-    public int Current;
-    public int Base;
+    public int ramka;
+    public int view;
+    public int shadow;
+    
     public int Max;
     public int Start;
 
-    public int GetNext()
+    public void Iterrate()
     {
-        var retValue = Current;
-        Current++;
-        if (Current > Max)
-            Current = Start;
-        return retValue;
+        ramka+=3;
+        if (ramka > Max)
+            ramka = Start;
+
+        view = ramka - 1;
+        shadow = ramka - 2;
     }
 }

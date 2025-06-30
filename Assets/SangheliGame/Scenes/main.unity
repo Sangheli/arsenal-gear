@@ -5889,8 +5889,8 @@ MonoBehaviour:
   buttonEndRound: {fileID: 816755334}
   buttonStartNewRound: {fileID: 1926312990}
   energyText: {fileID: 616511348}
-  animationTime: 0.25
-  intervalNum: 15
+  animationTime: 1
+  intervalNum: 45
   checkPointNotification: {fileID: 218156736}
   bounceDuration: 0.5
   bounceScale: 1.2
@@ -7648,12 +7648,12 @@ MonoBehaviour:
       PriceMult: 1.1
       Type: 1
   - Health: 45
-    Speed: 1
+    Speed: 3
     DamagePerHit: 1
     prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
     DisplayName: Star
     UpgradeInfos:
-    - BaseValue: 3
+    - BaseValue: 10
       MaxUpgrades: 10
       Step: 1
       DisplayName: Energy Drop
@@ -7661,12 +7661,12 @@ MonoBehaviour:
       PriceMult: 1.1
       Type: 1
   - Health: 45
-    Speed: 1
+    Speed: 0.15
     DamagePerHit: 1
     prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
     DisplayName: Saw
     UpgradeInfos:
-    - BaseValue: 3
+    - BaseValue: 5
       MaxUpgrades: 10
       Step: 1
       DisplayName: Energy Drop
@@ -11146,14 +11146,6 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 1035207960}
-    - target: {fileID: 4877729511985776559, guid: e1e695094b1184c459605f0ee1591711, type: 3}
-      propertyPath: basePrestigeTime
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4877729511985776559, guid: e1e695094b1184c459605f0ee1591711, type: 3}
-      propertyPath: prestigeTimeGrowth
-      value: 1.01
-      objectReference: {fileID: 0}
     - target: {fileID: 8623710069257715788, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Name
       value: PrestigeManager

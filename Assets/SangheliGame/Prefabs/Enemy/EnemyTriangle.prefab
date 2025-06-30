@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8830552553377477237}
   m_Father: {fileID: 4908766772291165603}
@@ -224,8 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   view: {fileID: 6269158921195688788}
   damageReciever: {fileID: 8780209497533360958}
-  rotationSpeed: {x: 0, y: 0, z: 30}
-  speed: 1
+  rotationSpeed: {x: 0, y: 0, z: -30}
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
@@ -256,7 +255,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.05, y: -0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4908766772291165603}

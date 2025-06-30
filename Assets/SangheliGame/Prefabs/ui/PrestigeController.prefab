@@ -650,7 +650,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   maxPrestiges: 50
   delim: 25
-  basePrestigeTime: 15
-  prestigeTimeGrowth: 1.08
+  basePrestigeTime: 25
+  prestigeTimeGrowth: 1.01
   baseBossHp: 100
   bossHpGrowth: 1.15

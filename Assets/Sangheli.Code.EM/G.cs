@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections;
+using Cysharp.Threading.Tasks;
 using SangheliCode;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
@@ -81,7 +82,6 @@ public class G : MonoBehaviour
         playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
         SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
-        endRoundView.Callback = roundManager.ClearAll;
         energySpawner.OnLoadInit();
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
@@ -103,6 +103,7 @@ public class G : MonoBehaviour
 
     public void StartRun()
     {
+        SaveSystem.Save();
         playerCursor.view.hudView.damageTextManager.StartRound();
         aiCursorManager.StartRound();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -126,11 +127,27 @@ public class G : MonoBehaviour
 
     public void StopRun()
     {
+        StartCoroutine(ExitFromRound());
+    }
+
+    private IEnumerator ExitFromRound()
+    {
+        distortionUI.DoBlock(true);
+        
+        yield return distortionUI.DoFade(forward: true);
+        
+        roundManager.ClearAll();
+        endRoundView.Toggle(false);
         prestigeManager.StopRound();
         energySpawner.StopRound();
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
         playerCursor.view.hudView.Toggle(false, 0, false);
+        
+        yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
+        yield return distortionUI.DoFade(forward: false);
+        
+        distortionUI.DoBlock(false);
     }
 }

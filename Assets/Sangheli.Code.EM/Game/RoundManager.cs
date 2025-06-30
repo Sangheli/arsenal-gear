@@ -6,46 +6,21 @@ public class RoundManager : MonoBehaviour
 {
     private readonly List<EnemyController> _enemyList = new();
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
-    private Dictionary<int, SortingOrderData> _sorting;
     private Camera _mainCamera;
     private readonly List<EnemyData> _availableEnemies = new();
     public bool IsAlive { get; set; }
     public bool IsAliveForPlay { get; set; }
     private DataSave _save;
     private Transform _enemiesParent;
+    private SortingOrderData _sortingOrderData;
     
     private void Awake()
     {
         _mainCamera = Camera.main;
-        var enemiesParentGO = new GameObject("Enemies");
-        _enemiesParent = enemiesParentGO.transform;
+        var enemiesParentGo = new GameObject("Enemies");
+        _enemiesParent = enemiesParentGo.transform;
     }
     
-    private void InitializeEnemySorting()
-    {
-        if(_sorting!=null)
-            return;
-
-        _sorting = new Dictionary<int, SortingOrderData>();
-        for (var i = 0; i < G.I.enemyContainer.List.Count; i++)
-        {
-            var enemyData = G.I.enemyContainer.List[i];
-            _sorting[enemyData.EnemyId] = GetSortingData(i);
-        }
-    }
-
-    private static SortingOrderData GetSortingData(int i)
-    {
-        var baseSortingOrder = i * 1000 + 2;
-        return new SortingOrderData 
-        {
-            Current = baseSortingOrder,
-            Start = baseSortingOrder,
-            Base = baseSortingOrder - 1,
-            Max = (i + 1) * 1000 - 1
-        };
-    }
-
     private void Update()
     {
         if (!IsAlive) return;
@@ -72,6 +47,12 @@ public class RoundManager : MonoBehaviour
 
     private System.Collections.IEnumerator EndRoundSequence()
     {
+        var energy = G.I.EnergyManager.RoundEnergyCount;
+        var totalEnergy = G.I.SaveProvider.Get().totalEnergy;
+        var prestigeDelta = G.I.prestigeManager.RoundPoints;
+        G.I.EnergyManager.OnEndRound();
+        G.I.prestigeManager.OnEndRound();
+        
         // Отключаем управление и UI сразу
         G.I.playerCursor.ToggleControl(false);
         IsAlive = false;
@@ -85,9 +66,7 @@ public class RoundManager : MonoBehaviour
         
         // Показываем меню окончания раунда
         G.I.endRoundView.Toggle(true);
-        G.I.endRoundView.Show();
-        G.I.EnergyManager.OnEndRound();
-        G.I.prestigeManager.OnEndRound();
+        yield return G.I.endRoundView.Show(energy,totalEnergy,prestigeDelta);
     }
 
     private void TrySpawnEnemy(EnemyData enemyData)
@@ -110,8 +89,8 @@ public class RoundManager : MonoBehaviour
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
         enemy.Init(enemyData, moveDirection, isPreSpawned: isPreSpawned);
-        var data = _sorting[enemyData.EnemyId];
-        enemy.SetSortingOrder(viewOrder: data.GetNext(), back: data.Base);
+        _sortingOrderData.Iterrate();
+        enemy.view.SetSortingOrder(_sortingOrderData);
     }
 
     public void StartRound()
@@ -119,7 +98,7 @@ public class RoundManager : MonoBehaviour
         _save = G.I.SaveProvider.Get();
         ClearAll();
         _enemySpawnTimers.Clear();
-        InitializeEnemySorting();
+        _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 30000 };
         PreSpawnEnemies();
         IsAlive = true;
         StopAllCoroutines();

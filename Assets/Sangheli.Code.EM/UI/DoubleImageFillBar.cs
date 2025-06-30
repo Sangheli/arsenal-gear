@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PrestigeBar : MonoBehaviour
+public class DoubleImageFillBar : MonoBehaviour
 {
     public Text text;
     public Image fillImage;
     public Image fillImageBack;
 
-    public void Fill(float time, float fullTime)
+    public void Fill(float value, float fullValue)
     {
-        var fill = time / fullTime;
+        var fill = value / fullValue;
         fillImage.fillAmount = fill;
         fillImageBack.fillAmount = 1-fill;
-        text.text = $"{time:F2}/{fullTime:F2}";
+        text.text = $"{value:F2}/{fullValue:F2}";
     }
 }

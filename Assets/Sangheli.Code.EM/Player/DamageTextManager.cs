@@ -11,23 +11,23 @@ public class DamageTextManager : MonoBehaviour
     private readonly List<TextUpAnimated> _spawned = new();
     private readonly Dictionary<TextUpAnimated, Coroutine> _activeCoroutines = new();
 
-    public void AddDamage(float damage, float shieldDamage, float CurrentDamageScale) 
-        => StartCoroutine(ShowDamageText(damage, shieldDamage, CurrentDamageScale));
+    public void AddDamage(DamageResult damageResult, float CurrentDamageScale) => 
+        StartCoroutine(ShowDamageText(damageResult, CurrentDamageScale));
 
-    private IEnumerator ShowDamageText(float totalDamage, float shieldDamage, float CurrentDamageScale)
+    private IEnumerator ShowDamageText(DamageResult damageResult, float CurrentDamageScale)
     {
-        if(totalDamage<=0 && shieldDamage<=0)
+        if(damageResult.TotalDamage<=0 && damageResult.TotalShieldDamage<=0)
             yield break;
         
         var sb = new StringBuilder();
         
-        if (totalDamage > 0)
-            sb.Append($"-{NumberFormatter.Format(totalDamage, 0)}HP");
+        if (damageResult.TotalDamage > 0)
+            sb.Append($"<color=#FF2222>-{NumberFormatter.Format(damageResult.TotalDamage, 0)}HP</color>");
         
-        if (shieldDamage > 0)
+        if (damageResult.TotalShieldDamage > 0)
         {
-            if (sb.Length > 0) sb.Append(" ");
-            sb.Append($"(-{NumberFormatter.Format(shieldDamage, 0)} SHIELD)");
+            if (sb.Length > 0) sb.Append("\n");
+            sb.Append($"<color=#22FF22>-{NumberFormatter.Format(damageResult.TotalShieldDamage, 0)}S</color>");
         }
         
         var textObj = G.I.ObjectPool.Get(prefabText);

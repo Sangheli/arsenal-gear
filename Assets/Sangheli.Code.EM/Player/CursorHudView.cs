@@ -31,6 +31,6 @@ public class CursorHudView : MonoBehaviour
         hpGo.ShowHp(hp, maxHp, fillValue, false);
     }
 
-    public void AddDamage(float damage, float shieldDamage, float CurrentDamageScale) => damageTextManager.AddDamage(damage, shieldDamage, CurrentDamageScale);
+    public void AddDamage(DamageResult damageResult, float currentDamageScale) => damageTextManager.AddDamage(damageResult, currentDamageScale);
     public void ToggleAIView(bool state) => aiText.gameObject.SetActive(state);
 } 

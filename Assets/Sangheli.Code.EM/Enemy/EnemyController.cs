@@ -77,9 +77,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         DoFillAction();
         if (!_isActive) return;
         if (_isPreSpawned && !_hasChangedSpeed) CheckAndChangeSpeed();
-        view.view.Rotate(rotationSpeed * Time.deltaTime);
-        view.viewShadow.Rotate(rotationSpeed * Time.deltaTime);
-        transform.Translate(_moveDirection * Time.deltaTime * speed);
+
+        var deltaTime = Time.deltaTime;
+        
+        view.view.Rotate(rotationSpeed * deltaTime);
+        view.viewShadow.Rotate(rotationSpeed * deltaTime);
+        transform.Translate(_moveDirection * (deltaTime * speed));
     }
 
     private void CheckAndChangeSpeed()
@@ -160,10 +163,5 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         view.ResetItem();
         transform.SetParent(null);
         transform.localScale = Vector3.one;
-    }
-
-    public void SetSortingOrder(int viewOrder, int back)
-    {
-        view.SetSortingOrder(viewOrder, back);
     }
 } 
