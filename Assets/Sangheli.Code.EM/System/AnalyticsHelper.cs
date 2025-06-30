@@ -8,7 +8,7 @@ public static class AnalyticsHelper
         var customEvent =  new CustomEvent("checkpoint")
         {
             { "playtime", (int) save.timeSinceStart },
-            { "prestige", save.prestige }
+            { "level", save.level }
         };
 
         AnalyticsService.Instance.RecordEvent(customEvent);
@@ -17,6 +17,16 @@ public static class AnalyticsHelper
     public static void OnYoutubeClicked()
     {
         var customEvent =  new CustomEvent("youtube")
+        {
+            { "clicked",true },
+        };
+
+        AnalyticsService.Instance.RecordEvent(customEvent);
+    }
+    
+    public static void OnDsClicked()
+    {
+        var customEvent =  new CustomEvent("discord")
         {
             { "clicked",true },
         };

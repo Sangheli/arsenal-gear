@@ -20,6 +20,9 @@ public class UpgradeStateView : BaseUpgradeStateView
         if (!G.I.EnergyManager.SpendEnergyOnUpgrade(price)) 
             return;
         
+        float pitch = UpgradePitchHelper.GetAndIncrement(_paramKey);
+        G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
+        
         paramContainer.BuyUpgrade(_paramKey);
         save.UpdateUpgradesBoughtNum();
         RefreshMoneyCallback?.Invoke();

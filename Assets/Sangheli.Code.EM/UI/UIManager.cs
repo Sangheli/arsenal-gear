@@ -12,13 +12,11 @@ public class UIManager : MonoBehaviour
         shieldBarUI?.Init();
     }
 
-    public void ToggleShieldView() => shieldBarUI?.ToggleShieldView();
-
     public void ShowEnergy(int value) => energyBarUI?.ShowEnergy(value);
 
     public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {
-        G.I.playerCursorHudView.ShowHpValue(hp,fullValue,fillValue);
+        G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue);
         return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink);
     }
 

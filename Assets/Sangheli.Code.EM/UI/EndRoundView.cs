@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EndRoundView : MonoBehaviour
@@ -12,7 +11,6 @@ public class EndRoundView : MonoBehaviour
     public Action Callback;
 
     public Text energyText;
-    public Text roundEnergyText;
     public float animationTime = 1;
     public float intervalNum = 10;
     
@@ -22,12 +20,13 @@ public class EndRoundView : MonoBehaviour
     public float bounceDuration = 0.5f;
     public float bounceScale = 1.2f;
     public float waitBeforeAnim = 0.5f;
-    public float waitBeforeAnim2 = 0.25f;
     
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundTextOriginalColor;
     private bool _colorsInitialized;
     public Text buttonStartNewRoundText;
+    
+    public Text prestigePointsText;
     
     private void OnValidate()
     {
@@ -92,29 +91,22 @@ public class EndRoundView : MonoBehaviour
         var energy = G.I.EnergyManager.RoundEnergyCount;
         var totalEnergy = save.totalEnergy;
 
-        roundEnergyText.text = $"Earned Energy:\n{NumberFormatter.Format(energy)}";
-        StartCoroutine(AnimateEnergyGain(totalEnergy, energy, save.hasVisitedUpgradeMenu));
-    }
+        var prestigeDelta = G.I.prestigeManager.RoundPoints;
+        
+		prestigePointsText.text = $"P Points: +{prestigeDelta}";
 
-    private IEnumerator AnimateEnergyGain(int startTotal, int addedEnergy, bool hasUpgrade)
-    {
-        if (addedEnergy != 0) yield return ShowCoinAnim(startTotal, addedEnergy);
-        float finalTotal = startTotal + addedEnergy;
-        energyText.text = $"{NumberFormatter.Format(0)} -> {NumberFormatter.Format(finalTotal)}";
         SaveSystem.Save();
-        yield return new WaitForSeconds(waitBeforeAnim2);
         ShowCheckpointNotification();
-        yield return new WaitForSeconds(waitBeforeAnim2);
         buttonEndRound.interactable = true;
-
-        if (!hasUpgrade) yield break;
-        yield return new WaitForSeconds(waitBeforeAnim2);
-        buttonStartNewRound.interactable = true;
+        if ( save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
+        if (energy > 0) StartCoroutine(ShowCoinAnim(totalEnergy, energy));
     }
     
     private IEnumerator ShowCoinAnim(int startTotal, int addedEnergy)
     {
-        energyText.text = $"{NumberFormatter.Format(addedEnergy)} -> {NumberFormatter.Format(startTotal)}";
+        float finalTotal = startTotal + addedEnergy;
+        
+        energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(addedEnergy)} -> {NumberFormatter.Format(startTotal)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
@@ -128,17 +120,18 @@ public class EndRoundView : MonoBehaviour
         {
             currentTotal += energyPerStep;
             addTemp -=  energyPerStep;
-            energyText.text = $"{NumberFormatter.Format(addTemp)} -> {NumberFormatter.Format(currentTotal)}";
+            energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(addTemp)} -> {NumberFormatter.Format(currentTotal)}";
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collect2);
             yield return new WaitForSeconds(stepTime);
         }
+        
+        energyText.text = $"Add {NumberFormatter.Format(addedEnergy)}: {NumberFormatter.Format(0)} -> {NumberFormatter.Format(finalTotal)}";
     }
     
     private void ShowCheckpointNotification()
     {
         checkPointNotification.gameObject.SetActive(true);
         checkPointNotification.transform.localScale = Vector3.zero;
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.checkpoint);
         StartCoroutine(GameAnimation.Bounce(checkPointNotification.transform, Vector3.one, bounceScale,bounceDuration));
     }
 }

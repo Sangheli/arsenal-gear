@@ -5,61 +5,70 @@ public class CursorController : MonoBehaviour
     public Camera _Camera;
     public float inputMoveSpeed = 1000f;
     public Vector2 shift = new(-100, 100);
-    public CursorView cursorView;
-    public ICursorInput cursorInput;
-    private bool _lastUsedInput;
+    public CursorView view;
+    public ICursorInput CursorInput;
+    
     private Vector2 _lastMousePosition;
+
+    private bool _isAI;    
+    private bool _lastUsedInput;
     private bool _isMobile;
     private bool _canControl;
+    
     private float _nextTime;
     private float _playerFireRate;
     private float _critChance;
     private float _critMultiplier;
     private float _playerDamageMin;
-    private int _critTargetsCount;
     private float _currentHarvestScale;
+    
     public float CurrentDamageScale { get; private set; }
-    public float collectRadius { get; private set; }
+    private float CollectRadius { get; set; }
+    
     private readonly Collider2D[] _enemyHits = new Collider2D[256];
     private readonly Collider2D[] _energyHits = new Collider2D[256];
+    
     private int _enemyLayer;
     private int _energyLayer;
+    
     private DataSave _save;
-    private bool _isAI;
+    private InputSystem_Actions _actions;
+    
     private void Awake()
     {
         _Camera = Camera.main;
         _enemyLayer = LayerMask.GetMask("Enemy");
         _energyLayer = LayerMask.GetMask("Energy");
         _isMobile = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer;
-        var actions = new InputSystem_Actions();
-        actions.Enable();
-        cursorInput = new PlayerInputCursor(actions);
+        _actions = new InputSystem_Actions();
+        _actions.Enable();
+        CursorInput = new PlayerInputCursor(_actions);
         Toggle(false);
     }
+    
     public void Toggle(bool state)
     {
-        cursorView.Toggle(state);
+        view.Toggle(state);
         if (state)
         {
             _save = G.I.SaveProvider.Get();
             _canControl = true;
-            if(!_isAI) InitCursorParams();
+            if(!_isAI) InitParams();
+            CursorInput.OnInit(transform);
         }
     }
     
-    private void InitCursorParams(float damagePercent = 1f, float radiusPercent = 1f, float fireRatePercent = 1f)
+    private void InitParams(float damagePercent = 1f, float radiusPercent = 1f, float fireRatePercent = 1f)
     {
         var paramContainer = _save.GetParamContainer();
         CurrentDamageScale = paramContainer.GetValue("damageDiameter") * radiusPercent;
         _currentHarvestScale = paramContainer.GetValue("collectDiameter") * radiusPercent;
         _playerFireRate = paramContainer.GetValue("playerFireRate") * fireRatePercent;
-        _critChance = paramContainer.GetValue("critChance");
+        _critChance = paramContainer.GetValue("critChance")/100f;
         _critMultiplier = paramContainer.GetValue("critMultiplier");
         _playerDamageMin = paramContainer.GetValue("playerDamageMin") * damagePercent;
-        _critTargetsCount = Mathf.RoundToInt(paramContainer.GetValue("critTargetsCount"));
-        collectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
-        cursorView.SetScale(CurrentDamageScale, _currentHarvestScale);
+        CollectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
+        view.SetScale(CurrentDamageScale, _currentHarvestScale);
     }
     
     public void SetAIMode(float damagePercent, float radiusPercent, float fireRatePercent)
@@ -67,7 +76,7 @@ public class CursorController : MonoBehaviour
         _isAI = true;
         _canControl = true;
         _save = G.I.SaveProvider.Get();
-        InitCursorParams(damagePercent, radiusPercent, fireRatePercent);
+        InitParams(damagePercent, radiusPercent, fireRatePercent);
     }
     
     private void Update()
@@ -80,7 +89,7 @@ public class CursorController : MonoBehaviour
             TryDoDamage();
             CollectEnergy();
         }
-        if (cursorInput.GetCursorState(out var worldPos, _Camera, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
+        if (CursorInput.GetCursorState(out var worldPos, _Camera, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
         transform.position = worldPos;
     }
     private void TryDoDamage()
@@ -89,7 +98,7 @@ public class CursorController : MonoBehaviour
             return;
         var interval = 60f / _playerFireRate;
         _nextTime = Time.time + interval;
-        cursorView.DoBounceAnimation(CurrentDamageScale);
+        view.DoBounceAnimation(CurrentDamageScale);
         var damageResult = DoDamage();
         switch (damageResult.HasDamage)
         {
@@ -97,10 +106,10 @@ public class CursorController : MonoBehaviour
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit2);
                 break;
             case true:
-                G.I.playerCursorHudView.AddDamage(damageResult.TotalDamage);
+                G.I.playerCursor.view.hudView.AddDamage(damageResult.TotalDamage);
                 break;
         }
-        StartCoroutine(GameAnimation.PulseInnerRadius(cursorView.viewRender, cursorView.PropertyBlock, interval));
+        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
     }
     private DamageResult DoDamage()
     {
@@ -109,35 +118,41 @@ public class CursorController : MonoBehaviour
             CurrentDamageScale / 2f,
             _enemyHits,
             _enemyLayer);
+        
         int[] indices = new int[count];
-        for (int i = 0; i < count; i++) indices[i] = i;
+        
+        for (int i = 0; i < count; i++) 
+            indices[i] = i;
+        
         for (int i = 0; i < count; i++)
         {
             int j = Random.Range(i, count);
             (indices[i], indices[j]) = (indices[j], indices[i]);
         }
+        
         float totalDamage = 0f;
         for (int i = 0; i < count; i++)
         {
             var enemy = _enemyHits[i].GetComponent<DamageReciever>();
             if (enemy == null) continue;
-            bool doCrit = i < _critTargetsCount;
-            var critResult = doCrit ? CritHelper.RollCrit(_playerDamageMin, _critChance, _critMultiplier) : new CritResult { Damage = _playerDamageMin, IsCrit = false };
+            var critResult = CritHelper.RollCrit(_playerDamageMin, _critChance, _critMultiplier);
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
             totalDamage += enemy.EnemyData.DamagePerHit;
             float reduce = enemy.EnemyData.DamagePerHit;
             float actual = G.I.HpManager.ReduceHpWithReturn(reduce, doBlink: true, ignoreShield: false);
-            G.I.playerCursorHudView.AddDamage(actual, 0f);
+            G.I.playerCursor.view.hudView.AddDamage(actual, 0f);
         }
+        
         return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage };
     }
     private void CollectEnergy()
     {
         int count = Physics2D.OverlapCircleNonAlloc(
             transform.position,
-            collectRadius,
+            CollectRadius,
             _energyHits,
             _energyLayer);
+        
         for (int i = 0; i < count; i++)
         {
             var energy = _energyHits[i].GetComponent<EnergyView>();
@@ -147,4 +162,13 @@ public class CursorController : MonoBehaviour
         }
     }
     public void ToggleControl(bool b) => _canControl = b;
+    
+    private void OnDisable()
+    {
+        if (_actions == null) 
+            return;
+        
+        _actions.Disable();
+        _actions.Dispose();
+    }
 } 

@@ -35,16 +35,10 @@ public class ShieldBarUI : MonoBehaviour
         _save = G.I.SaveProvider.Get();
         if (shieldImage != null)
             shieldImage.color = _startColor;
-        ToggleShieldView();
     }
 
-    public void ToggleShieldView()
+    public void ToggleShieldView(bool available)
     {
-        var prestige = _save.prestige;
-        var paramContainer = _save.GetParamContainer();
-        var availableParams = paramContainer.GetAvailableParamKeys(prestige);
-        var available = availableParams.Contains("shieldCapacity");
-
         for (var index = 0; index < shieldAllRender.Length; index++)
         {
             var x = shieldAllRender[index];

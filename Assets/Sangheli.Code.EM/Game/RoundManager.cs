@@ -66,7 +66,7 @@ public class RoundManager : MonoBehaviour
     private void TryEndRound()
     {
         if (G.I.HpManager.RoundHp > 0) return;
-        G.I.prestigeLevelController.ToggleActive(false);
+        G.I.prestigeManager.ToggleActive(false);
         StartCoroutine(EndRoundSequence());
     }
 
@@ -76,9 +76,6 @@ public class RoundManager : MonoBehaviour
         G.I.playerCursor.ToggleControl(false);
         IsAlive = false;
         IsAliveForPlay = false;
-        
-        if (G.I.prestigeGainedView != null)
-            G.I.prestigeGainedView.Toggle(false);
         
         // Ждём анимацию сбора энергии
         yield return G.I.EnergyManager.CollectAllEnergyOnScreen();
@@ -90,17 +87,18 @@ public class RoundManager : MonoBehaviour
         G.I.endRoundView.Toggle(true);
         G.I.endRoundView.Show();
         G.I.EnergyManager.OnEndRound();
+        G.I.prestigeManager.OnEndRound();
     }
 
     private void TrySpawnEnemy(EnemyData enemyData)
     {
         if (!_enemySpawnTimers.ContainsKey(enemyData))
-            _enemySpawnTimers[enemyData] = Time.time + 60f / enemyData.GetSpawnRatePerMinute();
+            _enemySpawnTimers[enemyData] = Time.time + 60f / GetSpawnRatePerMinute();
 
         if (Time.time < _enemySpawnTimers[enemyData])
             return;
 
-        _enemySpawnTimers[enemyData] = Time.time + 60f / enemyData.GetSpawnRatePerMinute();
+        _enemySpawnTimers[enemyData] = Time.time + 60f / GetSpawnRatePerMinute();
         SpawnEnemy(enemyData, isPreSpawned: true);
     }
 
@@ -145,8 +143,7 @@ public class RoundManager : MonoBehaviour
     {
         UpdateAvailableEnemies();
         
-        var data = G.I.prestigeManager.GetLastPrestige(_save.prestige);
-        var value = data.GetPrespawnCount(_save.prestigePlayed);
+        var value = 1;
         var num = Random.Range(Mathf.Max(value/2,1), value + 1);
         
         for (var i = 0; i < num; i++)
@@ -155,23 +152,21 @@ public class RoundManager : MonoBehaviour
             var enemyData = _availableEnemies[Random.Range(0, _availableEnemies.Count)];
             SpawnEnemy(enemyData, isPreSpawned: true);
         }
-
-        if (!_save.prestigePlayed)
-        {
-            _save.prestigePlayed = true;
-            SaveSystem.Save();
-        }
     }
     
     private void UpdateAvailableEnemies()
     {
-        var prestige = _save.prestige;
         var list = G.I.enemyContainer.List;
         _availableEnemies.Clear();
-        foreach (var t in list.Where(t => t.CanSpawnAtCurrentPrestige(prestige)))
+        foreach (var t in list)
         {
             t.Init(_save);
             _availableEnemies.Add(t);
         }
+    }
+    
+    private float GetSpawnRatePerMinute()
+    {
+        return 60f;
     }
 }

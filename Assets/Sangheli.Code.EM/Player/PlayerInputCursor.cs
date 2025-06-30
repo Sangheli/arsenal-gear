@@ -5,6 +5,11 @@ public class PlayerInputCursor : ICursorInput
 {
     private readonly InputSystem_Actions _inputSystemActions;
     public PlayerInputCursor(InputSystem_Actions actions) { _inputSystemActions = actions; }
+    
+    public void OnInit(Transform currentTransform)
+    {
+    }
+    
     public CursorState GetCursorState(out Vector3 worldPos, Camera camera, Transform currentTransform, float inputMoveSpeed, Vector2 shift, ref bool lastUsedInput, ref Vector2 lastMousePosition, bool isMobile)
     {
         var screenPos = Vector2.zero;

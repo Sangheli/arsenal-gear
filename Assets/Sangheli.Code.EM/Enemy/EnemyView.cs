@@ -220,7 +220,6 @@ public class EnemyView : MonoBehaviour,IReturnable,IResetable
 
     private IEnumerator DeathAndReturnToPool(bool isCrit)
     {
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.enemyDeath);
         G.I.energySpawner.Spawn(transform.position, _currentData);
         deathVfx.Play();
         

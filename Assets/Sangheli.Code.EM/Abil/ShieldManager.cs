@@ -17,12 +17,20 @@ public class ShieldManager
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.GetParamContainer();
-        var availableParams = paramContainer.GetAvailableParamKeys(save.prestige);
-        _isShieldAvailable = availableParams.Contains("shieldCapacity");
+        var availableParams = paramContainer.GetAvailableParamKeys(save.level);
+        var isParamAvailable = availableParams.Contains("shieldCapacity");
+        
+        // Проверяем не только доступность, но и значение параметра
+        var shieldCapacityValue = 0f;
+        if (isParamAvailable)
+            shieldCapacityValue = paramContainer.GetValue("shieldCapacity", false);
+        
+        // Щит доступен только если параметр доступен И его значение больше 0
+        _isShieldAvailable = isParamAvailable && shieldCapacityValue > 0f;
         
         if (_isShieldAvailable)
         {
-            MaxShieldEnergy = paramContainer.GetValue("shieldCapacity", false);
+            MaxShieldEnergy = shieldCapacityValue;
             ShieldRegenRate = paramContainer.GetValue("shieldRegenRate", false);
             CurrentShieldEnergy = MaxShieldEnergy;
         }
@@ -36,6 +44,8 @@ public class ShieldManager
         _lastValue = -1;
         _doBlink = false;
         Show();
+        
+        G.I.uiManager.shieldBarUI.ToggleShieldView(_isShieldAvailable);
     }
     
     public float ProcessDamage(float incomingDamage)

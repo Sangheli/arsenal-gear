@@ -5,8 +5,17 @@ public static class MediaUrlOpener
     private const string YoutubeUrl = "https://www.youtube.com/@xboxseriousgamer";
     private const string DsUrl = "https://discord.gg/UKkDDCyV97";
 
-    public static void OpenYoutube() => OpenUrl(YoutubeUrl);
-    public static void OpenDs() => OpenUrl(DsUrl);
+    public static void OpenYoutube()
+    {
+        AnalyticsHelper.OnYoutubeClicked();
+        OpenUrl(YoutubeUrl);
+    }
+
+    public static void OpenDs()
+    {
+        AnalyticsHelper.OnDsClicked();
+        OpenUrl(DsUrl);
+    }
 
     private static void OpenUrl(string url)
     {
@@ -20,7 +29,5 @@ public static class MediaUrlOpener
         {
             Application.OpenURL(url);
         }
-        
-        AnalyticsHelper.OnYoutubeClicked();
     }
 } 

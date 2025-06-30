@@ -10,11 +10,9 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Transform _container;
     [SerializeField] private Text moneyText;
     [SerializeField] private Button toggleFilterButton;
-    [SerializeField] private Button buttonYoutube;
     [SerializeField] private Text toggleFilterButtonText;
     
     [SerializeField] private Button cheatButton;
-    private const int CheatEnergyAmount = 10000000;
 
     // Добавляем элементы для сохранения
     [SerializeField] private Button saveButton;
@@ -24,27 +22,27 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private float saveNotificationDuration = 2f;
     [SerializeField] private float bounceDuration = 0.5f;
     [SerializeField] private float bounceScale = 1.2f;
-
-    private List<BaseUpgradeStateView> _spawned;
-    private bool _showOnlyActive = false;
-    
-    public Button startButton;
-
     [SerializeField] private Text dpmText;
-
-    private DPSManager _dpsManager = new DPSManager();
-
+    
+    [Space]
     [SerializeField] private Text prestigeText;
     [SerializeField] private Button prestigeMinusButton;
     [SerializeField] private Button prestigePlusButton;
-
+    [SerializeField] private Text priceMultiplierText;
+    [SerializeField] private Text prestigePointsText;
+    
+    public Button startButton;
+    
+    private List<BaseUpgradeStateView> _spawned;
+    private bool _showOnlyActive;
+    private const int CheatEnergyAmount = 10000000;
+    
     private void Awake()
     {
         toggleFilterButton.onClick.AddListener(ToggleFilter);
         UpdateToggleButtonText();
         cheatButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(OnStart);
-        buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
         
         if (saveButton != null) saveButton.onClick.AddListener(OnSaveButtonClicked);
         if (saveNotification != null) saveNotification.gameObject.SetActive(false);
@@ -99,7 +97,9 @@ public class UpgradeView : MonoBehaviour
 
     private void ChangePrestige(int delta)
     {
-        G.I.prestigeManager.IncreasePrestige(delta, true);
+        G.I.prestigeManager.IncreasePrestige(delta);
+        G.I.prestigeManager.ApplyPrestigeColor();
+        SaveSystem.Save();
         RefreshAll();
     }
 #endif
@@ -127,7 +127,7 @@ public class UpgradeView : MonoBehaviour
     private void GenerateEnemyUpgradeViews()
     {
         var upgradeContainer = G.I.SaveProvider.Get().GetEnemyUpgradeContainer();
-        int prestige = G.I.SaveProvider.Get().prestige;
+        int prestige = G.I.SaveProvider.Get().level;
         foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
         {
             foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId, prestige))
@@ -141,6 +141,7 @@ public class UpgradeView : MonoBehaviour
 
     public void Init()
     {
+        UpgradePitchHelper.ResetAll();
         // Устанавливаем флаг посещения меню апгрейдов
         var save = G.I.SaveProvider.Get();
         if (!save.hasVisitedUpgradeMenu)
@@ -169,11 +170,16 @@ public class UpgradeView : MonoBehaviour
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text = $"DPS: {NumberFormatter.Format(dps)} [{NumberFormatter.Format(dpsCrit)}]";
+            dpmText.text = $"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}";
         }
         
         if (prestigeText != null)
-            prestigeText.text = $"Prestige: {G.I.SaveProvider.Get().prestige}";
+            prestigeText.text = $"Level: {G.I.SaveProvider.Get().level+1}";
+        
+            prestigePointsText.text = $"Prestige Points: {NumberFormatter.Format(G.I.SaveProvider.Get().totalPrestigePoints, 0)}";
+        
+            float multiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
+            priceMultiplierText.text = $"Price Multiplier: x{multiplier:F2}";
         
         foreach (var x in _spawned) 
             x.Refresh();

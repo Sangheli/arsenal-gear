@@ -61,6 +61,6 @@ public class HPManager
         G.I.uiManager.ShowHp(roundedHp, _maxHp, roundedHp / _maxHp, _doBlink);
         _doBlink = false;
 
-        G.I.playerCursorHudView.Toggle(roundedHp < minHPValue);
+        G.I.playerCursor.view.hudView.Toggle(roundedHp < minHPValue);
     }
 } 

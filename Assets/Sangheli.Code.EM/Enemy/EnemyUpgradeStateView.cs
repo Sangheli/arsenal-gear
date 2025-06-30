@@ -24,6 +24,11 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         if (!G.I.EnergyManager.SpendEnergyOnUpgrade(price)) 
             return;
         
+        // Логика pitch
+        string key = $"enemy_{_enemyId}_{_upgradeType}";
+        float pitch = UpgradePitchHelper.GetAndIncrement(key);
+        G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
+        
         upgradeContainer.BuyUpgrade(_enemyId, _upgradeType);
         save.UpdateUpgradesBoughtNum();
         RefreshMoneyCallback?.Invoke();

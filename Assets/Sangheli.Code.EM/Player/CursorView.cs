@@ -13,6 +13,7 @@ public class CursorView : MonoBehaviour
     public MaterialPropertyBlock PropertyBlock;
     public float baseRingThickness = 0.25f;
     public Color color;
+    public CursorHudView hudView;
 
     private void Awake()
     {

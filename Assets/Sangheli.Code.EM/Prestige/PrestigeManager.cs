@@ -3,9 +3,14 @@ using UnityEngine;
 
 public class PrestigeManager : MonoBehaviour
 {
-    [Header("Prestige Colors")] 
-    [SerializeField]
-    public PrestigeData[] prestigeData;
+    public PrestigeBar prestigeBar;
+    public GameObject view;
+
+    private void Toggle(bool state)
+    {
+        view.gameObject.SetActive(state);
+        prestigeBar.gameObject.SetActive(state);
+    }
     
     [Header("Renderer Settings")]
     [SerializeField] private Renderer targetRenderer;
@@ -16,11 +21,35 @@ public class PrestigeManager : MonoBehaviour
     public int maxPrestiges = 1000;
     public int delim = 100;
 
+    [Header("Prestige Progression Settings")]
+    [SerializeField] private float basePrestigeTime = 30f;
+    [SerializeField] private float prestigeTimeGrowth = 1.08f;
+    [SerializeField] private float baseBossHp = 1000f;
+    [SerializeField] private float bossHpGrowth = 1.15f;
+    public int RoundPoints { get; private set; }
+    private DataSave _save;
+
+    private float _currentTime;
+    private float _prestigeTime;
+    private bool _active;
+
     public void OnLoadInit()
     {
+        Toggle(false);
+        
         _propertyBlock = new MaterialPropertyBlock();
         targetRenderer.GetPropertyBlock(_propertyBlock);
         ApplyPrestigeColor();
+    }
+    
+    public void StartRound()
+    {
+        Toggle(true);
+        _save = G.I.SaveProvider.Get();
+        _currentTime = 0;
+        _prestigeTime = GetTime();
+        _active = true;
+        prestigeBar.Fill(_currentTime, _prestigeTime);
     }
     
     public void ApplyPrestigeColor()
@@ -29,9 +58,9 @@ public class PrestigeManager : MonoBehaviour
         targetRenderer.SetPropertyBlock(_propertyBlock);
     }
     
-    public Color GetCurrentPrestigeColor()
+    private Color GetCurrentPrestigeColor()
     {
-        var prestige = G.I.SaveProvider.Get().prestige;
+        var prestige = G.I.SaveProvider.Get().level;
         
         var prestigePosition = (prestige % delim) *1f / delim;
         var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
@@ -45,31 +74,66 @@ public class PrestigeManager : MonoBehaviour
         return color;
     }
 
-    public void IncreasePrestige(int delta = 1, bool fromCheats = false)
+    public void Inc()
     {
-        var saveData = G.I.SaveProvider.Get();
-        saveData.prestige+=delta;
-        saveData.prestige = Mathf.Max(saveData.prestige, 0);
-        SaveSystem.Save();
-        if(fromCheats) ApplyPrestigeColor();
-    }
-
-    public void AddPrestigePoint(int delta)
-    {
-        var saveData = G.I.SaveProvider.Get();
-        saveData.totalPrestigePoints+=delta;
-        saveData.totalPrestigePoints = Mathf.Max(saveData.totalPrestigePoints, 0);
+        IncreasePrestige(1);
+        RoundPoints = 1;
         SaveSystem.Save();
     }
 
-    public PrestigeData GetLastPrestige(int prestigeIndex)
+    public void IncreasePrestige(int delta = 1)
     {
-        var index = Mathf.Min(G.I.prestigeManager.prestigeData.Length - 1, prestigeIndex);
-        return G.I.prestigeManager.prestigeData[index];
+        var saveData = G.I.SaveProvider.Get();
+        saveData.level+=delta;
+        saveData.level = Mathf.Max(saveData.level, 0);
     }
 
     public float GetTime()
     {
-        return 0.1f;
+        int prestige = G.I.SaveProvider.Get().level;
+        return (int)( basePrestigeTime * Mathf.Pow(prestigeTimeGrowth, prestige));
+    }
+    
+    public float GetBossHp(int prestigeLevel) => baseBossHp * Mathf.Pow(bossHpGrowth, prestigeLevel);
+
+    public void OnEndRound() => _save.totalPrestigePoints += RoundPoints;
+
+    public void StopRound()
+    {
+        Toggle(false);
+        _active = false;
+    }
+
+    private void Update()
+    {
+        if (!_active)
+            return;
+
+        _currentTime += Time.deltaTime;
+
+        if (_currentTime >= _prestigeTime)
+        {
+            _currentTime = _prestigeTime;
+            _active = false;
+            OnEnd();
+        }
+
+        if (!_active)
+            return;
+
+        prestigeBar.Fill(_currentTime, _prestigeTime);
+    }
+
+    private void OnEnd()
+    {
+        Debug.Log("call boss");
+        prestigeBar.gameObject.SetActive(false);
+        Inc();
+        _active = false;
+    }
+
+    public void ToggleActive(bool state)
+    {
+        _active = state;
     }
 } 

@@ -3,7 +3,6 @@ using SangheliCode;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SceneContainer))]
 public class G : MonoBehaviour
@@ -11,7 +10,7 @@ public class G : MonoBehaviour
     public GameObject debugConsole;
 
     public RoundManager roundManager;
-    [FormerlySerializedAs("startRoundMenu")] public StartGameView startGameView;
+    public StartGameView startGameView;
     public CursorController playerCursor;
     public UIManager uiManager;
     public EnergySpawner energySpawner;
@@ -21,12 +20,8 @@ public class G : MonoBehaviour
     public EnemyContainer enemyContainer;
     public AICursorManager aiCursorManager;
     
-    public PrestigeLevelController prestigeLevelController;
     public PrestigeManager prestigeManager;
-    public PrestigeGainedView prestigeGainedView;
 
-    public CursorHudView playerCursorHudView;
-    
     public SceneContainer Container;
     public DataContainer Data;
 
@@ -82,15 +77,10 @@ public class G : MonoBehaviour
 
     private void OnFirstLoad()
     {
-        prestigeGainedView.Toggle(false);
-        prestigeLevelController.Toggle(false);
         enemyContainer.UpdateEnemyIndices();
-        playerCursorHudView.Toggle(false);
+        playerCursor.view.hudView.Toggle(false);
         ObjectPool = new SangheliObjectPool();
         SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
-
-        // if (bossManager != null)
-        //     bossManager.Init();
         endRoundView.Callback = roundManager.ClearAll;
         energySpawner.OnLoadInit();
         playerCursor.Toggle(false);
@@ -114,9 +104,9 @@ public class G : MonoBehaviour
     public void StartRun()
     {
         aiCursorManager.StartRound();
-        prestigeLevelController.Toggle(true);
-        playerCursorHudView.Toggle(false);
+        playerCursor.view.hudView.Toggle(false);
         EnergyManager.StartRound();
+        prestigeManager.StartRound();
         HpManager.StartRound();
         uiManager.StartRound();
         ShieldManager.StartRound();
@@ -129,27 +119,17 @@ public class G : MonoBehaviour
         startGameView.Toggle(false);
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
-        prestigeGainedView.Toggle(false);
 
-        
         roundManager.StartRound();
     }
 
     public void StopRun()
     {
-        prestigeLevelController.Toggle(false);
+        prestigeManager.StopRound();
         energySpawner.StopRound();
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
-    }
-
-    public void StopRunNewPrestige()
-    {
-        roundManager.IsAlive = false;
-        playerCursor.Toggle(false);
-        uiManager.Toggle(false);
-        prestigeLevelController.Toggle(false);
-        prestigeGainedView.Show();
+        playerCursor.view.hudView.Toggle(false);
     }
 }

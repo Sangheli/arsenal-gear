@@ -67,23 +67,27 @@ public class StartGameView : MonoBehaviour
         // Загружаем данные сейва для отображения статистики
         var saveData = G.I.SaveProvider.Get();
         var paramContainer = saveData.GetParamContainer();
-        int prestige = saveData.prestige;
         
         var stats = new System.Text.StringBuilder();
         stats.AppendLine($"Checkpoint: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
-        stats.AppendLine($"Prestige Level: {prestige}");
+        stats.AppendLine($"Level: {saveData.level+1}");
         stats.AppendLine($"Total Energy: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
         stats.AppendLine($"Play time: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
 
         // Добавляем DPS
         var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-        stats.AppendLine($"DPS: {NumberFormatter.Format(dps)} [{NumberFormatter.Format(dpsCrit)}]");
+        stats.AppendLine($"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}");
+
+        // Добавляем очки престижа и глобальный множитель цены
+        stats.AppendLine($"P Points: {NumberFormatter.Format(saveData.totalPrestigePoints, 0)}");
+        float priceMultiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
+        stats.AppendLine($"Price Multiplier: x{priceMultiplier:F2}");
 
         stats.AppendLine("");
         stats.AppendLine("Player Stats:");
         
         // Добавляем статистику параметров игрока
-        foreach (var paramKey in paramContainer.GetAvailableParamKeys(prestige))
+        foreach (var paramKey in paramContainer.GetAvailableParamKeys(saveData.level))
         {
             var displayName = paramContainer.GetDisplayName(paramKey);
             var currentValue = paramContainer.GetValue(paramKey, true);
@@ -103,7 +107,7 @@ public class StartGameView : MonoBehaviour
             // Получаем EnemyData по enemyId
             var enemyDisplayName = enemyUpgradeContainer.GetEnemyDisplayName(enemyId);
             stats.AppendLine($" {enemyDisplayName}:");
-            foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId, prestige))
+            foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId, saveData.level))
             {
                 var displayName = enemyUpgradeContainer.GetDisplayName(enemyId, upgradeType);
                 var currentValue = enemyUpgradeContainer.GetValue(enemyId, upgradeType);

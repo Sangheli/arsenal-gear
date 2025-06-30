@@ -15,17 +15,19 @@ public class AICursorManager : MonoBehaviour
         var param = save.GetParamContainer();
         var maxCursors = param.GetMaxLevel("aiCursorCount");
         var count = Mathf.Clamp(Mathf.RoundToInt(param.GetValue("aiCursorCount")), 0, maxCursors);
-        var damagePercent = param.GetValue("aiCursorDamagePercent");
-        var radiusPercent = param.GetValue("aiCursorRadiusPercent");
-        var fireRatePercent = param.GetValue("aiCursorFireRatePercent");
+        var damagePercent = param.GetValue("aiCursorDamagePercent")/100f;
+        var radiusPercent = param.GetValue("aiCursorRadiusPercent")/100f;
+        var fireRatePercent = param.GetValue("aiCursorFireRatePercent")/100f;
 
         // Создать недостающие курсоры
         while (_aiCursors.Count < count)
         {
             var aiCursor = Instantiate(aiCursorPrefab, cursorParent);
-            aiCursor.cursorInput = new RandomCursorInput();
+            aiCursor.CursorInput = new RandomCursorInput();
             aiCursor.gameObject.SetActive(true);
             aiCursor.Toggle(true);
+            aiCursor.view.hudView.Toggle(false);
+            aiCursor.view.hudView.ToggleAIView(true);
             SetAICursorColor(aiCursor, _aiCursors.Count);
             _aiCursors.Add(aiCursor);
         }
@@ -49,7 +51,7 @@ public class AICursorManager : MonoBehaviour
 
     private void SetAICursorColor(CursorController cursor, int index)
     {
-        var view = cursor.cursorView;
+        var view = cursor.view;
         if (view != null && view.viewRender != null) view.color = colors[Mathf.Clamp(index, 0, colors.Length - 1)];
     }
 

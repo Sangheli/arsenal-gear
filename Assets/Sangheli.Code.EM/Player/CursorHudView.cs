@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorHudView : MonoBehaviour
 {
     public DamageTextManager damageTextManager;
     public HealthBarUI hpGo;
-    public UnityEngine.UI.Text hpLowText;
+    public Text hpLowText;
     private bool? _lowShowen;
+    public Text aiText;
 
     public void Toggle(bool state)
     {
@@ -14,6 +16,7 @@ public class CursorHudView : MonoBehaviour
         _lowShowen = state;
         if (hpGo != null) hpGo.gameObject.SetActive(state);
         if (hpLowText != null) hpLowText.gameObject.SetActive(state);
+        ToggleAIView(false);
     }
 
     public void ShowHpValue(float hp, float maxHp, float fillValue)
@@ -28,5 +31,10 @@ public class CursorHudView : MonoBehaviour
     {
         if (damageTextManager != null)
             damageTextManager.AddDamage(damage, shieldDamage);
+    }
+
+    public void ToggleAIView(bool state)
+    {
+        aiText.gameObject.SetActive(state);
     }
 } 

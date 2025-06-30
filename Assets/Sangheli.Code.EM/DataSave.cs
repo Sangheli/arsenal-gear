@@ -9,8 +9,7 @@ public class DataSave
     public float timeSinceStart;
     public bool hasVisitedUpgradeMenu;
 
-    public int prestige;
-    public bool prestigePlayed;
+    public int level;
     
     public ParamContainer paramContainer;
     public EnemyUpgradeContainer enemyUpgradeContainer;
@@ -41,6 +40,6 @@ public class DataSave
 
     public override string ToString()
     {
-        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(prestige)}: {prestige}, {nameof(prestigePlayed)}: {prestigePlayed}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}";
+        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(level)}: {level}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}";
     }
 }

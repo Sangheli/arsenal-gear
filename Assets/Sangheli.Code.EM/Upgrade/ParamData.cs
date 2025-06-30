@@ -12,7 +12,7 @@ public class ParamData
                 Step = 1f,
                 DisplayName = "Damage",
                 BasePrice = 2,
-                PriceMult = 1.20f,
+                PriceMult = 1.08f,
                 UseRandom = true,
                 RandomCoef = 1.5f
             }
@@ -24,8 +24,8 @@ public class ParamData
                 MaxUpgrades = 30,
                 Step = 2f,
                 DisplayName = "HP",
-                BasePrice = 5,
-                PriceMult = 1.2f
+                BasePrice = 3,
+                PriceMult = 1.07f
             }
         },
         {
@@ -35,8 +35,8 @@ public class ParamData
                 MaxUpgrades = 60,
                 Step = 5f,
                 DisplayName = "Attacks/minute",
-                BasePrice = 4,
-                PriceMult = 1.2f
+                BasePrice = 2,
+                PriceMult = 1.06f
             }
         },
         {
@@ -46,8 +46,8 @@ public class ParamData
                 MaxUpgrades = 40,
                 Step = 0.05f,
                 DisplayName = "Diameter",
-                BasePrice = 5,
-                PriceMult = 1.2f
+                BasePrice = 3,
+                PriceMult = 1.07f
             }
         },
         {
@@ -57,41 +57,41 @@ public class ParamData
                 MaxUpgrades = 50,
                 Step = 0.3f,
                 DisplayName = "Collect Additional Diameter",
-                BasePrice = 10,
-                PriceMult = 1.2f
+                BasePrice = 4,
+                PriceMult = 1.08f
             }
         },
         {
             "shieldCapacity", new ParamInfo
             {
-                BaseValue = 2f,
-                MaxUpgrades = 15,
+                BaseValue = 0f,
+                MaxUpgrades = 25,
                 Step = 1f,
                 DisplayName = "Shield Capacity",
-                BasePrice = 40,
-                PriceMult = 1.2f
+                BasePrice = 5,
+                PriceMult = 1.09f
             }
         },
         {
             "shieldRegenRate", new ParamInfo
             {
-                BaseValue = 0.1f,
+                BaseValue = 0f,
                 MaxUpgrades = 50,
-                Step = 0.1f,
+                Step = 0.5f,
                 DisplayName = "Shield Regen/sec",
-                BasePrice = 45,
+                BasePrice = 500,
                 PriceMult = 1.2f
             }
         },
         {
             "critChance", new ParamInfo
             {
-                BaseValue = 5f,
-                MaxUpgrades = 38,
+                BaseValue = 0f,
+                MaxUpgrades = 40,
                 Step = 2.5f,
                 DisplayName = "Crit Chance %",
-                BasePrice = 30,
-                PriceMult = 1.25f
+                BasePrice = 1000,
+                PriceMult = 1.30f
             }
         },
         {
@@ -101,30 +101,19 @@ public class ParamData
                 MaxUpgrades = 10,
                 Step = 0.2f,
                 DisplayName = "Crit Multiplier",
-                BasePrice = 40,
-                PriceMult = 1.3f
-            }
-        },
-        {
-            "critTargetsCount", new ParamInfo
-            {
-                BaseValue = 1f,
-                MaxUpgrades = 10,
-                Step = 1f,
-                DisplayName = "Crit Targets Count",
-                BasePrice = 50,
-                PriceMult = 1.3f
+                BasePrice = 7,
+                PriceMult = 1.12f
             }
         },
         {
             "autoCollectCoinsPercent", new ParamInfo
             {
                 BaseValue = 0f,
-                MaxUpgrades = 20,
-                Step = 5f,
+                MaxUpgrades = 25,
+                Step = 2f,
                 DisplayName = "Auto Collect Coins %",
-                BasePrice = 20,
-                PriceMult = 1.25f
+                BasePrice = 1000,
+                PriceMult = 1.3f
             }
         },
         {
@@ -134,41 +123,41 @@ public class ParamData
                 MaxUpgrades = 5,
                 Step = 1f,
                 DisplayName = "AI Cursor Count",
-                BasePrice = 1000,
-                PriceMult = 3.0f
+                BasePrice = 100,
+                PriceMult = 1.15f
             }
         },
         {
             "aiCursorDamagePercent", new ParamInfo
             {
-                BaseValue = 0.2f,
-                MaxUpgrades = 10,
-                Step = 0.08f,
+                BaseValue = 20f,
+                MaxUpgrades = 8,
+                Step = 10f,
                 DisplayName = "AI Cursor Damage % of Player",
-                BasePrice = 2000,
-                PriceMult = 2.5f
+                BasePrice = 200,
+                PriceMult = 1.13f
             }
         },
         {
             "aiCursorRadiusPercent", new ParamInfo
             {
-                BaseValue = 0.5f,
+                BaseValue = 50f,
                 MaxUpgrades = 10,
-                Step = 0.05f,
+                Step = 5f,
                 DisplayName = "AI Cursor Radius % of Player",
-                BasePrice = 1500,
-                PriceMult = 2.2f
+                BasePrice = 300,
+                PriceMult = 1.12f
             }
         },
         {
             "aiCursorFireRatePercent", new ParamInfo
             {
-                BaseValue = 0.3f,
-                MaxUpgrades = 10,
-                Step = 0.07f,
+                BaseValue = 20f,
+                MaxUpgrades = 8,
+                Step = 10f,
                 DisplayName = "AI Cursor Fire Rate % of Player",
-                BasePrice = 1800,
-                PriceMult = 2.3f
+                BasePrice = 400,
+                PriceMult = 1.13f
             }
         },
     };

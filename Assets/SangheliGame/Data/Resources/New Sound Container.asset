@@ -41,12 +41,12 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: f13eacd5d290eee4d814421f5b3a99f8, type: 3}
     PitchRange: 0.05
-    Volume: 0.45
+    Volume: 0.35
   woosh2:
     ClipList:
     - {fileID: 8300000, guid: 202717bf65b8a2445b14d8eb004e816f, type: 3}
     PitchRange: 0.25
-    Volume: 0.45
+    Volume: 35
   checkpoint:
     ClipList:
     - {fileID: 8300000, guid: 418d9812a67279b40aa88390d1fdab63, type: 3}

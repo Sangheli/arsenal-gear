@@ -23,27 +23,15 @@ public class EnemyData
             DisplayName = "Min Energy Drop",
             BasePrice = 20f,
             PriceMult = 1.2f,
-        },
-        new EnemyUpgradeInfo
-        {
-            Type = UpgradeType.SpawnRate,
-            BaseValue = 10f,
-            MaxUpgrades = 8,
-            Step = -1f,
-            DisplayName = "Spawn Rate (lower = faster)",
-            BasePrice = 40f,
-            PriceMult = 1.2f,
         }
     };
     
     private int _cachedEnergyDropLevel;
-    private int _cachedSpawnRateLevel;
 
     public void Init(DataSave dataSave)
     {
         var upgradeContainer = dataSave.GetEnemyUpgradeContainer();
         _cachedEnergyDropLevel = upgradeContainer.GetBoughtLevel(EnemyId, UpgradeType.EnergyDrop);
-        _cachedSpawnRateLevel = upgradeContainer.GetBoughtLevel(EnemyId, UpgradeType.SpawnRate);
     }
 
     public EnemyUpgradeInfo GetUpgradeInfo(UpgradeType upgradeType) => UpgradeInfos.FirstOrDefault(info => info.Type == upgradeType);
@@ -52,5 +40,4 @@ public class EnemyData
     public int GetMaxUpgradeLevel(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.MaxUpgrades ?? 0;
     public string GetUpgradeDisplayName(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.DisplayName ?? "";
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, _cachedEnergyDropLevel);
-    public virtual float GetSpawnRatePerMinute() => GetUpgradeValue(UpgradeType.SpawnRate, _cachedSpawnRateLevel);
 }
