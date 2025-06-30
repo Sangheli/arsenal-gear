@@ -15,17 +15,18 @@ public class EnergySpawner : MonoBehaviour
     public void OnLoadInit()
     {
         _mainCamera = Camera.main;
-        var energyParentGO = new GameObject("Energies");
-        _energyParent = energyParentGO.transform;
-        if (_mainCamera != null)
-        {
-            var min = _mainCamera.ViewportToWorldPoint(new Vector2(0f, 0f));
-            var max = _mainCamera.ViewportToWorldPoint(new Vector2(1f, 1f));
-            float paddingX = (max.x - min.x) * 0.05f;
-            float paddingY = (max.y - min.y) * 0.05f;
-            _screenMin = new Vector2(min.x + paddingX, min.y + paddingY);
-            _screenMax = new Vector2(max.x - paddingX, max.y - paddingY);
-        }
+        _energyParent = new GameObject("Energies").transform;
+        if (_mainCamera != null) CalcBound();
+    }
+
+    private void CalcBound()
+    {
+        var min = _mainCamera.ViewportToWorldPoint(new Vector2(0f, 0f));
+        var max = _mainCamera.ViewportToWorldPoint(new Vector2(1f, 1f));
+        var paddingX = (max.x - min.x) * 0.05f;
+        var paddingY = (max.y - min.y) * 0.05f;
+        _screenMin = new Vector2(min.x + paddingX, min.y + paddingY);
+        _screenMax = new Vector2(max.x - paddingX, max.y - paddingY);
     }
 
     public void Spawn(Vector3 pos, EnemyData enemyData)
@@ -36,16 +37,20 @@ public class EnergySpawner : MonoBehaviour
 
     private void CreateEnergy(Vector3 pos)
     {
+        var energy = G.I.ObjectPool.Get(prefab, GetPos(pos));
+        energy.transform.SetParent(_energyParent);
+        EnergyList.Add(energy);
+        energy.Init();
+    }
+
+    private Vector2 GetPos(Vector3 pos)
+    {
         var offset = Random.insideUnitCircle * 2.5f;
 
         offset.x = Mathf.Sign(offset.x) * Mathf.Clamp(offset.x, 0.65f, 0.8f);
         offset.y = Mathf.Sign(offset.y) * Mathf.Clamp(offset.y, 0.65f, 0.8f);
-        
-        var spawnPos = ClampToScreenBounds((Vector2)pos + offset);
-        var energy = G.I.ObjectPool.Get(prefab, spawnPos);
-        energy.transform.SetParent(_energyParent);
-        EnergyList.Add(energy);
-        energy.Init();
+
+        return ClampToScreenBounds((Vector2)pos + offset);
     }
 
     private Vector2 ClampToScreenBounds(Vector2 pos)

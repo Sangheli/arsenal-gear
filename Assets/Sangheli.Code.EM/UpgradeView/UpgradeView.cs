@@ -127,10 +127,9 @@ public class UpgradeView : MonoBehaviour
     private void GenerateEnemyUpgradeViews()
     {
         var upgradeContainer = G.I.SaveProvider.Get().GetEnemyUpgradeContainer();
-        int prestige = G.I.SaveProvider.Get().level;
         foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
         {
-            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId, prestige))
+            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId))
             {
                 var view = Instantiate(_enemyUpgradeStatePrefab, _container);
                 view.Init(enemyId, upgradeType, RefreshAll);
@@ -165,25 +164,26 @@ public class UpgradeView : MonoBehaviour
     {
         if (moneyText != null)
             moneyText.text = $"Energy: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
-        
+
         // Обновляем DPS
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
             dpmText.text = $"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}";
         }
-        
+
         if (prestigeText != null)
-            prestigeText.text = $"Level: {G.I.SaveProvider.Get().level+1}";
-        
-            prestigePointsText.text = $"Prestige Points: {NumberFormatter.Format(G.I.SaveProvider.Get().totalPrestigePoints, 0)}";
-        
-            float multiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
-            priceMultiplierText.text = $"Price Multiplier: x{multiplier:F2}";
-        
-        foreach (var x in _spawned) 
+            prestigeText.text = $"Level: {G.I.SaveProvider.Get().level + 1}";
+
+        prestigePointsText.text =
+            $"Prestige Points: {NumberFormatter.Format(G.I.SaveProvider.Get().totalPrestigePoints, 0)}";
+
+        var multiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
+        priceMultiplierText.text = $"Price Multiplier: x{multiplier:F2}";
+
+        foreach (var x in _spawned)
             x.Refresh();
-        
+
         ApplyFilter();
     }
 

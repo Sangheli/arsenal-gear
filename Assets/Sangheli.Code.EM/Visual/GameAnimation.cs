@@ -9,41 +9,22 @@ public static class GameAnimation
         view.localScale = originalScale;
         var halfDuration = duration / 2f;
         var targetScale = originalScale * punchScale;
-        var t = 0f;
 
-        // Увеличение масштаба
-        while (t < halfDuration)
-        {
-            t += Time.deltaTime;
-            var progress = t / halfDuration;
-            view.localScale = Vector3.Lerp(originalScale, targetScale, progress);
-            yield return null;
-        }
-
-        t = 0f;
-
-        // Возврат к исходному масштабу
-        while (t < halfDuration)
-        {
-            t += Time.deltaTime;
-            var progress = t / halfDuration;
-            view.localScale = Vector3.Lerp(targetScale, originalScale, progress);
-            yield return null;
-        }
-
+        yield return OnScaleAnim(view, halfDuration, originalScale, targetScale);
+        yield return OnScaleAnim(view, halfDuration, targetScale, originalScale);
+        
         view.localScale = originalScale;
     }
     
-    public static IEnumerator OnScaleAnim(Transform transform, Vector3 originalScale, float t1, float scale1, float scale2)
+    public static IEnumerator OnScaleAnim(Transform transform, Vector3 originalScale, float duration, float scale1, float scale2)
     {
-        var elapsedTime = 0f;
-        while (elapsedTime < t1)
+        var t = 0f;
+        while (t < duration)
         {
-            elapsedTime += Time.deltaTime;
-            var progress = elapsedTime / t1;
-            var currentScale = Mathf.Lerp(scale1, scale2, progress);
-            transform.localScale = originalScale * currentScale;
+            var progress = t / duration;
+            transform.localScale = originalScale * Mathf.Lerp(scale1, scale2, progress);;
             yield return null;
+            t += Time.deltaTime;
         }
     }
     
@@ -57,36 +38,29 @@ public static class GameAnimation
             var t = time / blinkTime;
             var curveValue = blinkCurve.Evaluate(t);
             image.color = Color.Lerp(color, startColor, curveValue);
-            time += Time.deltaTime;
             yield return null;
+            time += Time.deltaTime;
         }
 
         image.color = startColor;
     }
 
-    public static IEnumerator ShrinkAndDisappear(Transform transform, Vector3 originalScale, float duration)
+    public static IEnumerator ShrinkAndDisappear(Transform view, Vector3 scale1, float duration)
     {
-        float timer = 0f;
-        while (timer < duration)
-        {
-            float t = timer / duration;
-            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        transform.localScale = Vector3.zero;
+        yield return OnScaleAnim(view, duration, scale1, Vector3.zero);
+        view.localScale = Vector3.zero;
     }
     
-    public static IEnumerator FlashEffect(System.Action<float> setHitValue, bool isCrit, float maxFlashValue, float fadeDuration)
+    public static IEnumerator FlashEffect(System.Action<float> setHitValue, bool isCrit, float maxFlashValue, float duration)
     {
         setHitValue(isCrit ? maxFlashValue * 2f : maxFlashValue);
         
         var t = 0f;
         // Плавное затухание
-        while (t < fadeDuration)
+        while (t < duration)
         {
             t += Time.deltaTime;
-            var blend = Mathf.Lerp(isCrit ? maxFlashValue * 2f : maxFlashValue, 0f, t / fadeDuration);
+            var blend = Mathf.Lerp(isCrit ? maxFlashValue * 2f : maxFlashValue, 0f, t / duration);
             setHitValue(blend);
             yield return null;
         }
@@ -133,5 +107,17 @@ public static class GameAnimation
         
         propertyBlock.SetFloat(Shader.PropertyToID("_InnerRadius"), 0f);
         viewRender.SetPropertyBlock(propertyBlock);
+    }
+    
+    private static IEnumerator OnScaleAnim(Transform view, float duration,Vector3 scale1, Vector3 scale2)
+    {
+        var t = 0f;
+        while (t < duration)
+        {
+            var progress = t / duration;
+            view.localScale = Vector3.Lerp(scale1, scale2, progress);
+            yield return null;
+            t += Time.deltaTime;
+        }
     }
 }

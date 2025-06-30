@@ -20,19 +20,23 @@ public class UpgradeStateView : BaseUpgradeStateView
         if (!G.I.EnergyManager.SpendEnergyOnUpgrade(price)) 
             return;
         
-        float pitch = UpgradePitchHelper.GetAndIncrement(_paramKey);
-        G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
-        
+        PlaySound();
         paramContainer.BuyUpgrade(_paramKey);
         save.UpdateUpgradesBoughtNum();
         RefreshMoneyCallback?.Invoke();
+    }
+
+    private void PlaySound()
+    {
+        var pitch = UpgradePitchHelper.GetAndIncrement(_paramKey);
+        G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
     }
 
     public override void Refresh()
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.paramContainer;
-        var value = paramContainer.GetValue(_paramKey, true);
+        var value = paramContainer.GetBaseValue(_paramKey);
         var isMax = paramContainer.IsMaxLevelReached(_paramKey);
         var bought = paramContainer.GetBoughtLevel(_paramKey);
         var max = paramContainer.GetMaxLevel(_paramKey);

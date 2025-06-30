@@ -87,10 +87,10 @@ public class StartGameView : MonoBehaviour
         stats.AppendLine("Player Stats:");
         
         // Добавляем статистику параметров игрока
-        foreach (var paramKey in paramContainer.GetAvailableParamKeys(saveData.level))
+        foreach (var paramKey in paramContainer.GetAvailableParamKeys())
         {
             var displayName = paramContainer.GetDisplayName(paramKey);
-            var currentValue = paramContainer.GetValue(paramKey, true);
+            var currentValue = paramContainer.GetBaseValue(paramKey);
             var boughtLevel = paramContainer.GetBoughtLevel(paramKey);
             var maxLevel = paramContainer.GetMaxLevel(paramKey);
             
@@ -107,7 +107,7 @@ public class StartGameView : MonoBehaviour
             // Получаем EnemyData по enemyId
             var enemyDisplayName = enemyUpgradeContainer.GetEnemyDisplayName(enemyId);
             stats.AppendLine($" {enemyDisplayName}:");
-            foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId, saveData.level))
+            foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId))
             {
                 var displayName = enemyUpgradeContainer.GetDisplayName(enemyId, upgradeType);
                 var currentValue = enemyUpgradeContainer.GetValue(enemyId, upgradeType);

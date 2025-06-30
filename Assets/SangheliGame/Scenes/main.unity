@@ -7458,13 +7458,13 @@ MonoBehaviour:
   saveNotificationDuration: 2
   bounceDuration: 0.5
   bounceScale: 1.2
-  startButton: {fileID: 859440900}
   dpmText: {fileID: 993326984}
   prestigeText: {fileID: 1115230006}
   prestigeMinusButton: {fileID: 1158633543}
   prestigePlusButton: {fileID: 164648190}
   priceMultiplierText: {fileID: 514807413}
   prestigePointsText: {fileID: 613932426}
+  startButton: {fileID: 859440900}
 --- !u!1 &1503166272
 GameObject:
   m_ObjectHideFlags: 0
@@ -7598,7 +7598,7 @@ MonoBehaviour:
   - Health: 5
     Speed: 0
     DamagePerHit: 0
-    prefab: {fileID: 6269158921195688788, guid: e632b58bb4bc27f469e98d180aa7cf0c, type: 3}
+    prefab: {fileID: 2325995571859240399, guid: e632b58bb4bc27f469e98d180aa7cf0c, type: 3}
     DisplayName: Square White
     UpgradeInfos:
     - BaseValue: 1
@@ -7611,7 +7611,7 @@ MonoBehaviour:
   - Health: 15
     Speed: 0.65
     DamagePerHit: 0.5
-    prefab: {fileID: 6269158921195688788, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
+    prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
     DisplayName: Square
     UpgradeInfos:
     - BaseValue: 1
@@ -7624,7 +7624,7 @@ MonoBehaviour:
   - Health: 30
     Speed: 0.8
     DamagePerHit: 0.75
-    prefab: {fileID: 6269158921195688788, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
+    prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
     DisplayName: Round
     UpgradeInfos:
     - BaseValue: 3
@@ -7637,7 +7637,7 @@ MonoBehaviour:
   - Health: 45
     Speed: 1
     DamagePerHit: 1
-    prefab: {fileID: 6269158921195688788, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
+    prefab: {fileID: -6333086523383111919, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
     DisplayName: Triangle
     UpgradeInfos:
     - BaseValue: 3
@@ -7650,7 +7650,7 @@ MonoBehaviour:
   - Health: 45
     Speed: 1
     DamagePerHit: 1
-    prefab: {fileID: 6269158921195688788, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
+    prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
     DisplayName: Star
     UpgradeInfos:
     - BaseValue: 3
@@ -7663,7 +7663,7 @@ MonoBehaviour:
   - Health: 45
     Speed: 1
     DamagePerHit: 1
-    prefab: {fileID: 6269158921195688788, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
+    prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
     DisplayName: Saw
     UpgradeInfos:
     - BaseValue: 3

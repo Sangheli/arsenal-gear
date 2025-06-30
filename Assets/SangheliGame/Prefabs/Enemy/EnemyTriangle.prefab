@@ -105,31 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9922381769154012916c5370672b6329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageReciever
-  EnemyData:
-    Health: 0
-    Speed: 0
-    DamagePerHit: 0
-    prefab: {fileID: 0}
-    EnemyId: basic_enemy
-    DisplayName: Basic Enemy
-    minPrestigeToSpawn: 0
-    UpgradeInfos:
-    - BaseValue: 1
-      MaxUpgrades: 15
-      Step: 0.5
-      DisplayName: Min Energy Drop
-      BasePrice: 20
-      PriceMult: 0.2
-      MinPrestige: 0
-      Type: 1
-    - BaseValue: 10
-      MaxUpgrades: 8
-      Step: -1
-      DisplayName: Spawn Rate (lower = faster)
-      BasePrice: 40
-      PriceMult: 0.2
-      MinPrestige: 0
-      Type: 2
 --- !u!68 &2302272458083268244
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -185,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4908766772291165603}
   - component: {fileID: 6269158921195688788}
+  - component: {fileID: -6333086523383111919}
   m_Layer: 6
   m_Name: EnemyTriangle
   m_TagString: Enemy
@@ -227,19 +203,32 @@ MonoBehaviour:
   ViewRenderer: {fileID: 6168234484293521608}
   RamkaRender: {fileID: 3921777000171173304}
   ShadowRender: {fileID: 4245914269587504957}
-  damageReciever: {fileID: 8780209497533360958}
-  rotationSpeed: {x: 0, y: 0, z: 30}
-  speed: 1
-  lifeTime: 30
+  deathVfx: {fileID: 8069377908262886169}
+  manipulateRamkaColor: 1
   punchScale: 1.2
   punchScaleCrit: 1.44
   duration: 0.2
   maxFlashValue: 2
+  deathAnimDuration: 0.3
+--- !u!114 &-6333086523383111919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558863245658423001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0560437273360b649b17ef8ce8f8c632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  view: {fileID: 6269158921195688788}
+  damageReciever: {fileID: 8780209497533360958}
+  rotationSpeed: {x: 0, y: 0, z: 30}
+  speed: 1
+  lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
-  deathAnimDuration: 0.3
-  manipulateRamkaColor: 1
-  deathVfx: {fileID: 8069377908262886169}
 --- !u!1 &3852211787599547661
 GameObject:
   m_ObjectHideFlags: 0

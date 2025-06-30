@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyContainer : MonoBehaviour
 {
     public List<EnemyData> List;
-    public EnemyData GetRandom() => List[Random.Range(0, List.Count)];
 
     public void UpdateEnemyIndices()
     {

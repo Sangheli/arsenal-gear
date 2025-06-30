@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class EnergyManager
 {
     public int RoundEnergyCount;
     private const float EndWaitTime = 0.25f;
+    private float _autoCollectPercent;
     private int _lastUpdateEnergy;
     private DataSave _save;
-    private float _autoCollectPercent;
     
     public void StartRound()
     {
@@ -45,7 +46,7 @@ public class EnergyManager
         G.I.uiManager.ShowEnergy(RoundEnergyCount);
     }
     
-    public System.Collections.IEnumerator CollectAllEnergyOnScreen()
+    public IEnumerator CollectAllEnergyOnScreen()
     {
         var energyViews = G.I.energySpawner.EnergyList;
         var toCollect = energyViews.Where(x => x.IsActive).ToList();
@@ -58,7 +59,6 @@ public class EnergyManager
             yield break;
         
         var player = G.I.playerCursor.transform;
-        var collectRadius = G.I.playerCursor.CurrentDamageScale;
         
         foreach (var x in selectedToCollect) 
             x.Collect(player, 0.1f);

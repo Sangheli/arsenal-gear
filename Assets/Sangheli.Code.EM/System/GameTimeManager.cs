@@ -5,15 +5,8 @@ public class GameTimeManager
     private float _shiftTime;
     private float _minusShift;
     private bool _isTimeActive;
-    
-    public void Init()
-    {
-        _shiftTime = 0f;
-        _minusShift = -Time.time;
-        _isTimeActive = true;
-    }
-    
-    public void Restore(float savedTime)
+
+    public void Init(float savedTime)
     {
         _shiftTime = savedTime;
         _minusShift = -Time.time;

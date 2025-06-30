@@ -16,87 +16,85 @@ public class EnemyUpgradeContainer
             .Select(x => x.EnemyId).ToList();
 
         // Добавляем недостающие EnemyUpgradeData
-        foreach (var enemyId in allEnemyIds.Where(enemyId => enemyUpgrades.All(e => e.enemyId != enemyId)))
-            enemyUpgrades.Add(new EnemyUpgradeData(enemyId));
+        foreach (var x in allEnemyIds.Where(x => enemyUpgrades.All(e => e.enemyId != x)))
+            enemyUpgrades.Add(new EnemyUpgradeData(x));
         
         // Удаляем устаревшие EnemyUpgradeData
         enemyUpgrades.RemoveAll(e => !allEnemyIds.Contains(e.enemyId));
         
         // Проверяем и чиним upgradeTypes и upgradesBought для каждого EnemyUpgradeData
-        foreach (var enemyUpgrade in enemyUpgrades)
+        foreach (var x in enemyUpgrades) UpdateData(x);
+    }
+
+    private static void UpdateData(EnemyUpgradeData item)
+    {
+        var allTypes = Enum.GetValues(typeof(UpgradeType));
+        // Добавляем недостающие типы
+        foreach (UpgradeType type in allTypes)
         {
-            var allTypes = Enum.GetValues(typeof(UpgradeType));
-            // Добавляем недостающие типы
-            foreach (UpgradeType type in allTypes)
-            {
-                if (enemyUpgrade.upgradeTypes.Contains(type)) 
-                    continue;
-                
-                enemyUpgrade.upgradeTypes.Add(type);
-                enemyUpgrade.upgradesBought.Add(0);
-            }
-            
-            // Удаляем лишние типы
-            for (var i = enemyUpgrade.upgradeTypes.Count - 1; i >= 0; i--)
-            {
-                if (Enum.IsDefined(typeof(UpgradeType), enemyUpgrade.upgradeTypes[i])) 
-                    continue;
-                
-                enemyUpgrade.upgradeTypes.RemoveAt(i);
-                enemyUpgrade.upgradesBought.RemoveAt(i);
-            }
-            
-            // Синхронизируем длины списков
-            while (enemyUpgrade.upgradesBought.Count < enemyUpgrade.upgradeTypes.Count)
-                enemyUpgrade.upgradesBought.Add(0);
-            
-            while (enemyUpgrade.upgradesBought.Count > enemyUpgrade.upgradeTypes.Count)
-                enemyUpgrade.upgradesBought.RemoveAt(enemyUpgrade.upgradesBought.Count - 1);
-            
-            // Ограничиваем уровни апгрейдов максимальными
-            var enemyData = G.I.enemyContainer.List.Find(e => e.EnemyId == enemyUpgrade.enemyId);
-            if (enemyData != null)
-            {
-                for (int i = 0; i < enemyUpgrade.upgradeTypes.Count; i++)
-                {
-                    var type = enemyUpgrade.upgradeTypes[i];
-                    var info = enemyData.UpgradeInfos.Find(x => x.Type == type);
-                    if (info != null && enemyUpgrade.upgradesBought[i] > info.MaxUpgrades)
-                        enemyUpgrade.upgradesBought[i] = info.MaxUpgrades;
-                }
-            }
+            if (item.upgradeTypes.Contains(type))
+                continue;
+
+            item.upgradeTypes.Add(type);
+            item.upgradesBought.Add(0);
+        }
+
+        // Удаляем лишние типы
+        for (var i = item.upgradeTypes.Count - 1; i >= 0; i--)
+        {
+            if (Enum.IsDefined(typeof(UpgradeType), item.upgradeTypes[i]))
+                continue;
+
+            item.upgradeTypes.RemoveAt(i);
+            item.upgradesBought.RemoveAt(i);
+        }
+
+        // Синхронизируем длины списков
+        while (item.upgradesBought.Count < item.upgradeTypes.Count)
+            item.upgradesBought.Add(0);
+
+        while (item.upgradesBought.Count > item.upgradeTypes.Count)
+            item.upgradesBought.RemoveAt(item.upgradesBought.Count - 1);
+
+        // Ограничиваем уровни апгрейдов максимальными
+        var enemyData = G.I.enemyContainer.List.Find(e => e.EnemyId == item.enemyId);
+        if (enemyData == null)
+            return;
+
+        for (int i = 0; i < item.upgradeTypes.Count; i++)
+        {
+            var type = item.upgradeTypes[i];
+            var info = enemyData.UpgradeInfos.Find(x => x.Type == type);
+            if (info != null && item.upgradesBought[i] > info.MaxUpgrades)
+                item.upgradesBought[i] = info.MaxUpgrades;
         }
     }
 
-    public void Init(List<EnemyData> List)
+    public void Init(List<EnemyData> list)
     {
-        enemyUpgrades ??= List
+        enemyUpgrades ??= list
             .GroupBy(x => x.EnemyId)
             .Select(g => new EnemyUpgradeData(g.Key))
             .ToList();
     }
 
-    public void BuyUpgrade(int enemyId, UpgradeType upgradeType)
+    public void BuyUpgrade(int id, UpgradeType type)
     {
-        var enemyData = GetEnemyData(enemyId);
-        var currentLevel = enemyData.GetLevel(upgradeType);
-        var maxLevel = GetMaxLevel(enemyId, upgradeType);
-        if (currentLevel < maxLevel) enemyData.SetBoughtLevel(upgradeType, currentLevel + 1);
+        var enemyData = GetEnemyData(id);
+        var currentLevel = enemyData.GetLevel(type);
+        var maxLevel = GetMaxLevel(id, type);
+        if (currentLevel < maxLevel) enemyData.SetBoughtLevel(type, currentLevel + 1);
     }
 
-    public float GetValue(int enemyId, UpgradeType upgradeType)
-    {
-        var boughtLevel = GetEnemyData(enemyId).GetLevel(upgradeType);
-        return GetUpgradeValueFromEnemyData(enemyId, upgradeType, boughtLevel);
-    }
+    public float GetValue(int id, UpgradeType type) => GetUpgradeValueFromEnemyData(id, type,  GetEnemyData(id).GetLevel(type));
 
-    public float GetNextLevelValue(int enemyId, UpgradeType upgradeType)
+    public float GetNextLevelValue(int id, UpgradeType type)
     {
-        var currentLevel = GetEnemyData(enemyId).GetLevel(upgradeType);
-        var maxLevel = GetMaxLevel(enemyId, upgradeType);
+        var currentLevel = GetEnemyData(id).GetLevel(type);
+        var maxLevel = GetMaxLevel(id, type);
 
         var level = currentLevel >= maxLevel ? currentLevel : currentLevel + 1;
-        return GetUpgradeValueFromEnemyData(enemyId, upgradeType, level);
+        return GetUpgradeValueFromEnemyData(id, type, level);
     }
 
     private EnemyUpgradeData GetEnemyData(int enemyId)
@@ -117,24 +115,16 @@ public class EnemyUpgradeContainer
     }
 
     public int GetBoughtLevel(int id, UpgradeType type) => GetEnemyData(id)?.GetLevel(type) ?? 0;
+    public int GetMaxLevel(int id, UpgradeType type) => GetUpgradeInfoFromEnemyData(id, type)?.MaxUpgrades ?? 0;
 
-    public int GetMaxLevel(int enemyId, UpgradeType upgradeType) => 
-        GetUpgradeInfoFromEnemyData(enemyId, upgradeType)?.MaxUpgrades ?? 0;
+    public string GetDisplayName(int id, UpgradeType type) => GetUpgradeInfoFromEnemyData(id, type)?.DisplayName ?? "";
 
-    public string GetDisplayName(int enemyId, UpgradeType upgradeType) => 
-        GetUpgradeInfoFromEnemyData(enemyId, upgradeType)?.DisplayName ?? "";
+    public string GetEnemyDisplayName(int enemyId) => GetById(enemyId)?.DisplayName;
 
-    public string GetEnemyDisplayName(int enemyId) => GetEnemyDataById(enemyId)?.DisplayName;
-
-    public int GetTotalUpgradesBought()
-    {
-        if (enemyUpgrades == null) return 0;
-        int sum = 0;
-        foreach (var enemy in enemyUpgrades)
-            if (enemy?.upgradesBought != null)
-                sum += enemy.upgradesBought.Sum();
-        return sum;
-    }
+    public int GetTotalUpgradesBought() => 
+        enemyUpgrades != null 
+            ? enemyUpgrades.Where(enemy => enemy?.upgradesBought != null).Sum(enemy => enemy.upgradesBought.Sum()) 
+            : 0;
 
     public int GetPrice(int enemyId, UpgradeType upgradeType, int upgradesBoughtNum)
     {
@@ -144,31 +134,17 @@ public class EnemyUpgradeContainer
 
     public IEnumerable<int> GetAllEnemyIds() => Enumerable.Range(0, G.I.enemyContainer.List.Count);
 
-    public IEnumerable<UpgradeType> GetAllUpgradeTypes(int enemyId)
+    public IEnumerable<UpgradeType> GetAllUpgradeTypes(int id)
     {
-        var enemyData = GetEnemyDataById(enemyId);
+        var enemyData = GetById(id);
         return enemyData == null 
             ? new List<UpgradeType>() 
             : Enum.GetValues(typeof(UpgradeType)).Cast<UpgradeType>().Where(x=>x!=UpgradeType.None);
     }
 
-    private EnemyData GetEnemyDataById(int enemyId) => 
-        G.I.enemyContainer.List.Find(e => e.EnemyId == G.I.enemyContainer.List[enemyId].EnemyId);
-
-    private EnemyUpgradeInfo GetUpgradeInfoFromEnemyData(int enemyId, UpgradeType upgradeType) => 
-        GetEnemyDataById(enemyId)?.GetUpgradeInfo(upgradeType);
-
-    private float GetUpgradeValueFromEnemyData(int enemyId, UpgradeType upgradeType, int boughtLevel) => 
-        GetEnemyDataById(enemyId)?.GetUpgradeValue(upgradeType, boughtLevel) ?? 0f;
-
-    private float GetUpgradePriceFromEnemyData(int enemyId, UpgradeType upgradeType, int boughtLevel, int upgradesBoughtNum) => 
-        GetEnemyDataById(enemyId)?.GetUpgradePrice(upgradeType, boughtLevel, upgradesBoughtNum) ?? 0;
-
-    public IEnumerable<UpgradeType> GetAvailableUpgradeTypes(int enemyId, int prestige)
-    {
-        var enemyData = GetEnemyDataById(enemyId);
-        if (enemyData == null) return new List<UpgradeType>();
-        return enemyData.UpgradeInfos
-            .Select(info => info.Type);
-    }
+    private EnemyData GetById(int id) => G.I.enemyContainer.List.Find(e => e.EnemyId == G.I.enemyContainer.List[id].EnemyId);
+    private EnemyUpgradeInfo GetUpgradeInfoFromEnemyData(int id, UpgradeType type) => GetById(id)?.GetUpgradeInfo(type);
+    private float GetUpgradeValueFromEnemyData(int id, UpgradeType type, int level) => GetById(id)?.GetUpgradeValue(type, level) ?? 0f;
+    private float GetUpgradePriceFromEnemyData(int id, UpgradeType type, int level, int num) => GetById(id)?.GetUpgradePrice(type, level, num) ?? 0;
+    public IEnumerable<UpgradeType> GetAvailableUpgradeTypes(int id) => GetById(id)?.UpgradeInfos.Select(info => info.Type) ?? new List<UpgradeType>();
 } 

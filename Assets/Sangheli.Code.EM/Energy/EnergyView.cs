@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Random = System.Random;
 
 public class EnergyView : MonoBehaviour,IReturnable,IResetable
 {
@@ -94,7 +92,6 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         PlayerFound = false;
         ScaleDownAnimated = false;
         _target = null;
-        // transform.SetParent(null);
     }
 
     public void ResetItem()

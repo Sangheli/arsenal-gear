@@ -97,7 +97,7 @@ public class G : MonoBehaviour
     {
         var save = SaveProvider.Get();
         save.GetEnemyUpgradeContainer().Init(enemyContainer.List);
-        GameTimeManager.Restore(save.timeSinceStart);
+        GameTimeManager.Init(save.timeSinceStart);
         StartRun();
     }
 

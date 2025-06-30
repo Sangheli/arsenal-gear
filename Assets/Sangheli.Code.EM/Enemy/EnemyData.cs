@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class EnemyData
@@ -8,8 +9,7 @@ public class EnemyData
     public float Health;
     public float Speed;
     public float DamagePerHit;
-    public EnemyView prefab;
-    public int EnemyId { get; set; }
+    public EnemyController prefab;
     public string DisplayName = "Basic Enemy";
     
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
@@ -26,6 +26,8 @@ public class EnemyData
         }
     };
     
+    [JsonIgnore]
+    public int EnemyId { get; set; }
     private int _cachedEnergyDropLevel;
 
     public void Init(DataSave dataSave)

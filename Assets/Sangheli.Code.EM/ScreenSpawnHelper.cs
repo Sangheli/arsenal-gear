@@ -2,68 +2,57 @@ using UnityEngine;
 
 public static class ScreenSpawnHelper
 {
+    private static readonly Vector2[] Offsets =
+    {
+        new(-1, 0), // Left
+        new(1, 0),  // Right
+        new(0, -1), // Bottom
+        new(0, 1)   // Top
+    };
+
     public static Vector2 GetRandomScreenPosition(Camera camera)
     {
         Vector2 min = camera.ViewportToWorldPoint(new Vector2(0f, 0f));
         Vector2 max = camera.ViewportToWorldPoint(new Vector2(1f, 1f));
         
-        int side = Random.Range(0, 4);
-        float x, y;
-        switch (side)
-        {
-            case 0:
-                x = min.x - Random.Range(0.1f, 0.3f);
-                y = Random.Range(min.y, max.y);
-                break;
-            case 1:
-                x = max.x + Random.Range(0.1f, 0.3f);
-                y = Random.Range(min.y, max.y);
-                break;
-            case 2:
-                x = Random.Range(min.x, max.x);
-                y = min.y - Random.Range(0.1f, 0.3f);
-                break;
-            case 3:
-                x = Random.Range(min.x, max.x);
-                y = max.y + Random.Range(0.1f, 0.3f);
-                break;
-            default:
-                x = min.x - 2f;
-                y = min.y - 2f;
-                break;
-        }
-        return new Vector2(x, y);
+        var side = Random.Range(0, 4);
+        
+        var pos = new Vector2(
+            Random.Range(min.x, max.x),
+            Random.Range(min.y, max.y)
+        );
+        
+        var offset = Offsets[side];
+        var dx = offset.x != 0 ? Random.Range(0.1f, 0.3f) * offset.x : 0f;
+        var dy = offset.y != 0 ? Random.Range(0.1f, 0.3f) * offset.y : 0f;
+        
+        return new Vector2
+        (
+            offset.x != 0 ? (offset.x < 0 ? min.x + dx : max.x + dx) : pos.x,
+            offset.y != 0 ? (offset.y < 0 ? min.y + dy : max.y + dy) : pos.y
+        );
     }
 
     public static Vector2 GetMovementDirection(Camera camera, Vector2 spawnPosition)
     {
         Vector2 min = camera.ViewportToWorldPoint(new Vector2(0f, 0f));
         Vector2 max = camera.ViewportToWorldPoint(new Vector2(1f, 1f));
-        bool isLeft = spawnPosition.x < min.x;
-        bool isRight = spawnPosition.x > max.x;
-        bool isBottom = spawnPosition.y < min.y;
-        bool isTop = spawnPosition.y > max.y;
-        Vector2 targetPosition;
-        if (isLeft)
-        {
-            targetPosition = new Vector2(max.x + Random.Range(1f, 3f), Random.Range(min.y, max.y));
-        }
-        else if (isRight)
-        {
-            targetPosition = new Vector2(min.x - Random.Range(1f, 3f), Random.Range(min.y, max.y));
-        }
-        else if (isBottom)
-        {
-            targetPosition = new Vector2(Random.Range(min.x, max.x), max.y + Random.Range(1f, 3f));
-        }
-        else if (isTop)
-        {
-            targetPosition = new Vector2(Random.Range(min.x, max.x), min.y - Random.Range(1f, 3f));
-        }
-        else
-        {
-            targetPosition = (min + max) / 2f;
-        }
-        return (targetPosition - spawnPosition).normalized;
+        return GetPos(spawnPosition, min, max);
+    }
+
+    private static Vector2 GetPos(Vector2 spawnPosition, Vector2 min, Vector2 max)
+    {
+        var value = (min + max) / 2f - spawnPosition;
+        
+        if (spawnPosition.x < min.x)
+            value = new Vector2(max.x + Random.Range(1f, 3f), Random.Range(min.y, max.y)) - spawnPosition;
+        if (spawnPosition.x > max.x)
+            value = new Vector2(min.x - Random.Range(1f, 3f), Random.Range(min.y, max.y)) - spawnPosition;
+        if (spawnPosition.y < min.y)
+            value = new Vector2(Random.Range(min.x, max.x), max.y + Random.Range(1f, 3f)) - spawnPosition;
+        if (spawnPosition.y > max.y)
+            value =  new Vector2(Random.Range(min.x, max.x), min.y - Random.Range(1f, 3f)) - spawnPosition;
+
+        return value.normalized;
     }
 } 

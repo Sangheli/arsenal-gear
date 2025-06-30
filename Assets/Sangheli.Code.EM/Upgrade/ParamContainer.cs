@@ -29,7 +29,8 @@ public class ParamContainer
         UpgradesBought[key]++;
     }
 
-    public float GetValue(string key, bool onlyDisplay = false) => ParamData.Params[key].GetValue( UpgradesBought[key], onlyDisplay);
+    public float GetValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key], false);
+    public float GetBaseValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key], true);
 
     public float GetNextLevelValue(string key)
     {
@@ -56,10 +57,7 @@ public class ParamContainer
     public int GetMaxLevel(string key) => ParamData.Params.ContainsKey(key) ? ParamData.Params[key].MaxUpgrades : 0;
     public IEnumerable<string> GetAllParamKeys() => ParamData.Params.Keys;
     public string GetDisplayName(string key) => ParamData.Params[key].DisplayName;
-    public float GetPrice(string key, int upgradesBoughtNum) => ParamData.Params[key].GetPrice(UpgradesBought[key], upgradesBoughtNum); // Цена за следующий уровень
-
-    public IEnumerable<string> GetAvailableParamKeys(int prestige) => 
-        ParamData.Params.Keys;
-
+    public float GetPrice(string key, int num) => ParamData.Params[key].GetPrice(UpgradesBought[key], num); // Цена за следующий уровень
+    public IEnumerable<string> GetAvailableParamKeys() => ParamData.Params.Keys;
     public int GetTotalUpgradesBought() => UpgradesBought?.Values.Sum() ?? 0;
 }

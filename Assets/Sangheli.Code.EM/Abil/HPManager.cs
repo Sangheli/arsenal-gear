@@ -3,23 +3,25 @@ using UnityEngine;
 
 public class HPManager
 {
-    private const float Tolerance = 0.001f;
     public float RoundHp;
+    
+    private const float Tolerance = 0.001f;
+    private const float MinHpValueToShow = 5;
     private float _lastUpdateHp;
-    private bool _doBlink;
     private float _maxHp;
-    public float minHPValue = 5;
+
+    private bool _doBlink;
 
     private DataSave _save;
     
     public void StartRound()
     {
         _save = G.I.SaveProvider.Get();
-        RoundHp = _maxHp = _save.GetParamContainer().GetValue("hp", false);
+        RoundHp = _maxHp = _save.GetParamContainer().GetValue("hp");
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false);
     }
 
-    public void ReduceHp(float reduceValue, bool doBlink, bool ignoreShield)
+    public void Reduce(float reduceValue, bool doBlink, bool ignoreShield)
     {
         if (reduceValue <= 0)
             return;
@@ -61,6 +63,6 @@ public class HPManager
         G.I.uiManager.ShowHp(roundedHp, _maxHp, roundedHp / _maxHp, _doBlink);
         _doBlink = false;
 
-        G.I.playerCursor.view.hudView.Toggle(roundedHp < minHPValue);
+        G.I.playerCursor.view.hudView.Toggle(roundedHp < MinHpValueToShow);
     }
 } 

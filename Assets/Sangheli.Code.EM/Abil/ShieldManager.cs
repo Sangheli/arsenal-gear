@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class ShieldManager
 {
-    public float CurrentShieldEnergy { get; set; }
+    private const float Tolerance = 0.001f;
+    private float _lastValue;
+    private float CurrentShieldEnergy { get; set; }
     private float MaxShieldEnergy { get; set; }
     private float ShieldRegenRate { get; set; }
+    
     private bool _isShieldAvailable;
-
     private bool _doBlink;
-    private float _lastValue;
-    private const float Tolerance = 0.001f;
 
     public void StartRound()
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.GetParamContainer();
-        var availableParams = paramContainer.GetAvailableParamKeys(save.level);
+        var availableParams = paramContainer.GetAvailableParamKeys();
         var isParamAvailable = availableParams.Contains("shieldCapacity");
         
         // Проверяем не только доступность, но и значение параметра
         var shieldCapacityValue = 0f;
         if (isParamAvailable)
-            shieldCapacityValue = paramContainer.GetValue("shieldCapacity", false);
+            shieldCapacityValue = paramContainer.GetValue("shieldCapacity");
         
         // Щит доступен только если параметр доступен И его значение больше 0
         _isShieldAvailable = isParamAvailable && shieldCapacityValue > 0f;
@@ -31,7 +31,7 @@ public class ShieldManager
         if (_isShieldAvailable)
         {
             MaxShieldEnergy = shieldCapacityValue;
-            ShieldRegenRate = paramContainer.GetValue("shieldRegenRate", false);
+            ShieldRegenRate = paramContainer.GetValue("shieldRegenRate");
             CurrentShieldEnergy = MaxShieldEnergy;
         }
         else
@@ -59,17 +59,10 @@ public class ShieldManager
     }
 
     public bool IsShieldAvailable() => _isShieldAvailable;
-    
-    public float GetCurrentShieldEnergy() => _isShieldAvailable ? CurrentShieldEnergy : 0f;
-    
-    public float GetMaxShieldEnergy() => _isShieldAvailable ? MaxShieldEnergy : 0f;
 
     public void LateUpdate()
     {
-        if (_isShieldAvailable)
-        {
-            UpdateShieldRegeneration();
-        }
+        if (_isShieldAvailable) UpdateShieldRegeneration();
         Show();
     }
     

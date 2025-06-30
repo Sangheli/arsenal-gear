@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoundManager : MonoBehaviour
 {
-    private readonly List<EnemyView> _enemyList = new();
+    private readonly List<EnemyController> _enemyList = new();
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
     private Dictionary<int, SortingOrderData> _sorting;
     private Camera _mainCamera;
@@ -55,7 +55,7 @@ public class RoundManager : MonoBehaviour
         G.I.ShieldManager.LateUpdate();
         
         var diff = Time.deltaTime * 1;
-        if (G.I.HpManager != null) G.I.HpManager.ReduceHp(diff, doBlink: false, ignoreShield: true);
+        if (G.I.HpManager != null) G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
         TryEndRound();
         
         if(!IsAlive) return;

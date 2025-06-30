@@ -27,8 +27,8 @@ public class DataSave
 
     public void UpdateUpgradesBoughtNum()
     {
-        int playerUpgrades = paramContainer?.UpgradesBought?.Values.Sum() ?? 0;
-        int enemyUpgrades = 0;
+        var playerUpgrades = paramContainer?.UpgradesBought?.Values.Sum() ?? 0;
+        var enemyUpgrades = 0;
         if (enemyUpgradeContainer?.enemyUpgrades != null)
         {
             foreach (var enemy in enemyUpgradeContainer.enemyUpgrades)
