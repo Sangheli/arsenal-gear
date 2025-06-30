@@ -22,7 +22,8 @@ public class CursorController : MonoBehaviour
     private float _playerDamageMin;
     private float _currentHarvestScale;
     
-    public float CurrentDamageScale { get; private set; }
+    public float CurrentDamageScale { get; set; }
+    private float CurrentDamageScaleHalf { get; set; }
     private float CollectRadius { get; set; }
     
     private readonly Collider2D[] _enemyHits = new Collider2D[256];
@@ -62,6 +63,7 @@ public class CursorController : MonoBehaviour
     {
         var paramContainer = _save.GetParamContainer();
         CurrentDamageScale = paramContainer.GetValue("damageDiameter") * radiusPercent;
+        CurrentDamageScaleHalf = CurrentDamageScale / 2f;
         _currentHarvestScale = paramContainer.GetValue("collectDiameter") * radiusPercent;
         _playerFireRate = paramContainer.GetValue("playerFireRate") * fireRatePercent;
         _critChance = paramContainer.GetValue("critChance")/100f;
@@ -106,7 +108,7 @@ public class CursorController : MonoBehaviour
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit2);
                 break;
             case true:
-                G.I.playerCursor.view.hudView.AddDamage(damageResult.TotalDamage);
+                G.I.playerCursor.view.hudView.AddDamage(damageResult.TotalDamage, 0f, CurrentDamageScale);
                 break;
         }
         StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
@@ -115,7 +117,7 @@ public class CursorController : MonoBehaviour
     {
         int count = Physics2D.OverlapCircleNonAlloc(
             transform.position,
-            CurrentDamageScale / 2f,
+            CurrentDamageScaleHalf,
             _enemyHits,
             _enemyLayer);
         
@@ -139,8 +141,7 @@ public class CursorController : MonoBehaviour
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
             totalDamage += enemy.EnemyData.DamagePerHit;
             float reduce = enemy.EnemyData.DamagePerHit;
-            float actual = G.I.HpManager.ReduceHpWithReturn(reduce, doBlink: true, ignoreShield: false);
-            G.I.playerCursor.view.hudView.AddDamage(actual, 0f);
+            G.I.HpManager.Reduce(reduce, doBlink: true, ignoreShield: false);
         }
         
         return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage };
@@ -158,7 +159,7 @@ public class CursorController : MonoBehaviour
             var energy = _energyHits[i].GetComponent<EnergyView>();
             if (energy == null)
                 continue;
-            energy.Collect(transform, CurrentDamageScale / 2);
+            energy.Collect(transform, CurrentDamageScaleHalf);
         }
     }
     public void ToggleControl(bool b) => _canControl = b;

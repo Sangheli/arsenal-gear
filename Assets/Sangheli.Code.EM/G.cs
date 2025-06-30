@@ -78,7 +78,7 @@ public class G : MonoBehaviour
     private void OnFirstLoad()
     {
         enemyContainer.UpdateEnemyIndices();
-        playerCursor.view.hudView.Toggle(false);
+        playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
         SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
         endRoundView.Callback = roundManager.ClearAll;
@@ -103,8 +103,9 @@ public class G : MonoBehaviour
 
     public void StartRun()
     {
+        playerCursor.view.hudView.damageTextManager.StartRound();
         aiCursorManager.StartRound();
-        playerCursor.view.hudView.Toggle(false);
+        playerCursor.view.hudView.Toggle(false, 0, false);
         EnergyManager.StartRound();
         prestigeManager.StartRound();
         HpManager.StartRound();
@@ -130,6 +131,6 @@ public class G : MonoBehaviour
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
-        playerCursor.view.hudView.Toggle(false);
+        playerCursor.view.hudView.Toggle(false, 0, false);
     }
 }

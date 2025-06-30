@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Energy
   flySpeed: 15
-  flySpeedFast: 5
+  flySpeedFast: 15
   t1: 0.2
   t2: 0.3
   maxScale: 1.5

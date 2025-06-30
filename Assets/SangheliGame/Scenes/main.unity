@@ -10936,6 +10936,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7916323160312390704, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8407698843994532431, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11138,6 +11146,14 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 1035207960}
+    - target: {fileID: 4877729511985776559, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: basePrestigeTime
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877729511985776559, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: prestigeTimeGrowth
+      value: 1.01
+      objectReference: {fileID: 0}
     - target: {fileID: 8623710069257715788, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Name
       value: PrestigeManager

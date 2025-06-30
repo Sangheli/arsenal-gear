@@ -26,7 +26,7 @@ public class AICursorManager : MonoBehaviour
             aiCursor.CursorInput = new RandomCursorInput();
             aiCursor.gameObject.SetActive(true);
             aiCursor.Toggle(true);
-            aiCursor.view.hudView.Toggle(false);
+            aiCursor.view.hudView.Toggle(false,0, false);
             aiCursor.view.hudView.ToggleAIView(true);
             SetAICursorColor(aiCursor, _aiCursors.Count);
             _aiCursors.Add(aiCursor);

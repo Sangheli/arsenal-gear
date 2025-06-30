@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public EnemyView view;
     public DamageReciever damageReciever;
     public Vector3 rotationSpeed = new(0, 30, 0);
-    public float speed = 2f;
+    private float speed = 2f;
     public float lifeTime = 3f;
     [Header("Speed Change Settings")]
     public float speedSuper = 20f;

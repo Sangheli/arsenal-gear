@@ -7,6 +7,7 @@ public class HPManager
     
     private const float Tolerance = 0.001f;
     private const float MinHpValueToShow = 5;
+    private const float MinHpValueToShowPrc = 0.3f;
     private float _lastUpdateHp;
     private float _maxHp;
 
@@ -37,20 +38,6 @@ public class HPManager
             RoundHp = 0;
     }
 
-    public float ReduceHpWithReturn(float reduceValue, bool doBlink, bool ignoreShield)
-    {
-        if (reduceValue <= 0)
-            return 0f;
-        if (doBlink) _doBlink = true;
-        var actualDamage = ignoreShield
-            ? reduceValue
-            : G.I.ShieldManager.ProcessDamage(reduceValue);
-        RoundHp -= Mathf.Abs(actualDamage);
-        if (RoundHp < 0)
-            RoundHp = 0;
-        return actualDamage;
-    }
-
     public void UpdateHp()
     {
         // Округляем roundHp до 1 знака после запятой
@@ -63,6 +50,9 @@ public class HPManager
         G.I.uiManager.ShowHp(roundedHp, _maxHp, roundedHp / _maxHp, _doBlink);
         _doBlink = false;
 
-        G.I.playerCursor.view.hudView.Toggle(roundedHp < MinHpValueToShow);
+        var step = _maxHp * MinHpValueToShowPrc;
+        step = Mathf.Max(step, MinHpValueToShow);
+        
+        G.I.playerCursor.view.hudView.Toggle(roundedHp < step,G.I.playerCursor.CurrentDamageScale, true);
     }
 } 

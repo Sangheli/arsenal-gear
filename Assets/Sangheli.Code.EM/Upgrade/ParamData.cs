@@ -22,7 +22,7 @@ public class ParamData
             {
                 BaseValue = 10,
                 MaxUpgrades = 30,
-                Step = 2f,
+                Step = 10f,
                 DisplayName = "HP",
                 BasePrice = 3,
                 PriceMult = 1.07f
@@ -44,7 +44,7 @@ public class ParamData
             {
                 BaseValue = 1f,
                 MaxUpgrades = 40,
-                Step = 0.05f,
+                Step = 0.2f,
                 DisplayName = "Diameter",
                 BasePrice = 3,
                 PriceMult = 1.07f

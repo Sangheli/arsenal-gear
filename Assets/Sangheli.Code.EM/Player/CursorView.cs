@@ -39,7 +39,10 @@ public class CursorView : MonoBehaviour
 
     public void DoBounceAnimation(float scale)
     {
+        var addonScale = punchScale - 1;
+        addonScale /= scale;
+        
         StopAllCoroutines();
-        StartCoroutine(GameAnimation.Bounce(view.transform, _originalScale * scale, punchScale, duration));
+        StartCoroutine(GameAnimation.Bounce(view.transform, _originalScale * scale, 1+addonScale, duration));
     }
 } 
