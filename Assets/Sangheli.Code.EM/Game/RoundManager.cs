@@ -65,7 +65,6 @@ public class RoundManager : MonoBehaviour
         G.I.uiManager.Toggle(false);
         
         // Показываем меню окончания раунда
-        G.I.endRoundView.Toggle(true);
         yield return G.I.endRoundView.Show(energy,totalEnergy,prestigeDelta);
     }
 

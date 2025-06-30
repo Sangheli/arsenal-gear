@@ -24,6 +24,8 @@ public class EndRoundView : MonoBehaviour
     public Text buttonStartNewRoundText;
     
     public Text prestigePointsText;
+
+    public EndRoundViewDistortion distortion;
     
     private void OnValidate()
     {
@@ -38,10 +40,14 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
         Toggle(false);
         
+        distortion.gameObject.SetActive(false);
+        distortion.ResetView();
+        
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
     }
 
+    public void StartRound() => distortion.gameObject.SetActive(false);
     private void OnExitFromRound() => G.I.StopRun();
     private void OnStartNewRound() => G.I.StartRun();
 
@@ -62,6 +68,9 @@ public class EndRoundView : MonoBehaviour
             buttonStartNewRoundText.color = _buttonStartNewRoundTextOriginalColor;
         }
 
+        distortion.gameObject.SetActive(true);
+        distortion.ResetView();
+        yield return distortion.DoFade(true);
         checkPointNotification.gameObject.SetActive(false);
         Toggle(true);
 

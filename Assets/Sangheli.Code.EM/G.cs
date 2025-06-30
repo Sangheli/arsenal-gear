@@ -104,6 +104,7 @@ public class G : MonoBehaviour
     public void StartRun()
     {
         SaveSystem.Save();
+        endRoundView.StartRound();
         playerCursor.view.hudView.damageTextManager.StartRound();
         aiCursorManager.StartRound();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -135,7 +136,7 @@ public class G : MonoBehaviour
         distortionUI.DoBlock(true);
         
         yield return distortionUI.DoFade(forward: true);
-        
+        endRoundView.distortion.gameObject.SetActive(false);
         roundManager.ClearAll();
         endRoundView.Toggle(false);
         prestigeManager.StopRound();
