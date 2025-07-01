@@ -16,44 +16,29 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: 67f03f40bc64322409b2ea7a0aa2e4bb, type: 3}
     PitchRange: 0.15
-    Volume: 0.6
+    Volume: 0.3
   hit:
     ClipList:
     - {fileID: 8300000, guid: 0fdbedbf114f25f4e80b23001ae35f89, type: 3}
     PitchRange: 0.25
-    Volume: 0.5
-  collect:
-    ClipList:
-    - {fileID: 8300000, guid: 09d7b16ffbee0094babfa1c970fe1b33, type: 3}
-    PitchRange: 0.25
-    Volume: 0.3
-  collect2:
-    ClipList:
-    - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
-    PitchRange: 0.25
-    Volume: 0.2
-  hit2:
+    Volume: 0.35
+  emptyHit:
     ClipList:
     - {fileID: 8300000, guid: ffdb1401ee52ae343a890f7287a321ea, type: 3}
     PitchRange: 0.25
-    Volume: 0.25
-  woosh1:
+    Volume: 0.1
+  collectCoin:
+    ClipList:
+    - {fileID: 8300000, guid: 09d7b16ffbee0094babfa1c970fe1b33, type: 3}
+    PitchRange: 0.25
+    Volume: 0.2
+  ShowCoinAnim:
+    ClipList:
+    - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
+    PitchRange: 0.25
+    Volume: 0.135
+  loadinScreen:
     ClipList:
     - {fileID: 8300000, guid: f13eacd5d290eee4d814421f5b3a99f8, type: 3}
     PitchRange: 0.05
-    Volume: 0.35
-  woosh2:
-    ClipList:
-    - {fileID: 8300000, guid: 202717bf65b8a2445b14d8eb004e816f, type: 3}
-    PitchRange: 0.25
-    Volume: 35
-  checkpoint:
-    ClipList:
-    - {fileID: 8300000, guid: 418d9812a67279b40aa88390d1fdab63, type: 3}
-    PitchRange: 0.05
-    Volume: 0.4
-  enemyDeath:
-    ClipList:
-    - {fileID: 8300000, guid: 623a160260786f246819f780126eb7c7, type: 3}
-    PitchRange: 0.5
-    Volume: 2
+    Volume: 0.25

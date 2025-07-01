@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class UpgradeView : MonoBehaviour
 {
@@ -9,19 +8,9 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private EnemyUpgradeStateView _enemyUpgradeStatePrefab;
     [SerializeField] private Transform _container;
     [SerializeField] private Text moneyText;
-    [SerializeField] private Button toggleFilterButton;
-    [SerializeField] private Text toggleFilterButtonText;
     
     [SerializeField] private Button cheatButton;
-
-    // Добавляем элементы для сохранения
-    [SerializeField] private Button saveButton;
-    [SerializeField] private GameObject saveNotification;
     
-    // Параметры анимации сохранения
-    [SerializeField] private float saveNotificationDuration = 2f;
-    [SerializeField] private float bounceDuration = 0.5f;
-    [SerializeField] private float bounceScale = 1.2f;
     [SerializeField] private Text dpmText;
     
     [Space]
@@ -34,18 +23,12 @@ public class UpgradeView : MonoBehaviour
     public Button startButton;
     
     private List<BaseUpgradeStateView> _spawned;
-    private bool _showOnlyActive;
     private const int CheatEnergyAmount = 10000000;
     
     private void Awake()
     {
-        toggleFilterButton.onClick.AddListener(ToggleFilter);
-        UpdateToggleButtonText();
         cheatButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(OnStart);
-        
-        if (saveButton != null) saveButton.onClick.AddListener(OnSaveButtonClicked);
-        if (saveNotification != null) saveNotification.gameObject.SetActive(false);
         
         if (prestigeText != null)
             prestigeText.text = "";
@@ -65,25 +48,12 @@ public class UpgradeView : MonoBehaviour
 #endif
     }
     
-    private void ToggleFilter()
-    {
-        _showOnlyActive = !_showOnlyActive;
-        UpdateToggleButtonText();
-        RefreshAll();
-    }
-    
-    private void UpdateToggleButtonText()
-    {
-        if (toggleFilterButtonText != null)
-            toggleFilterButtonText.text = _showOnlyActive ? "Show All" : "Show Active Only";
-    }
-    
     private void ApplyFilter()
     {
         if (_spawned == null) return;
         foreach (var x in _spawned)
         {
-            var shouldShow = !_showOnlyActive || !x.IsDisabled;
+            var shouldShow = !x.IsDisabled;
             x.gameObject.SetActive(shouldShow);
         }
     }
@@ -150,7 +120,6 @@ public class UpgradeView : MonoBehaviour
         }
         GenerateUpgradeViews();
         RefreshAll();
-        saveNotification.gameObject.SetActive(false);
     }
 
     private void OnStart()
@@ -185,27 +154,5 @@ public class UpgradeView : MonoBehaviour
             x.Refresh();
 
         ApplyFilter();
-    }
-
-    private void OnSaveButtonClicked() => StartCoroutine(SaveGameWithAnimation());
-
-    private IEnumerator SaveGameWithAnimation()
-    {
-        SaveSystem.Save();
-        ShowSaveNotification();
-        yield return new WaitForSeconds(saveNotificationDuration);
-        if (saveNotification != null)
-            saveNotification.gameObject.SetActive(false);
-    }
-    
-    private void ShowSaveNotification()
-    {
-        if (saveNotification == null) 
-            return;
-        
-        saveNotification.gameObject.SetActive(true);
-        saveNotification.transform.localScale = Vector3.zero;
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.checkpoint);
-        StartCoroutine(GameAnimation.Bounce(saveNotification.transform, Vector3.one, bounceScale, bounceDuration));
     }
 }

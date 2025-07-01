@@ -1,19 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Sangheli/SoundContainer")]
 public class SoundContainer : ScriptableObject
 {
     public AudioSettingsSangheli buttonClick;
+    
+    [Space]
     public AudioSettingsSangheli hit;
-    public AudioSettingsSangheli collect;
-    public AudioSettingsSangheli collect2;
-    public AudioSettingsSangheli hit2;
-    public AudioSettingsSangheli woosh1;
-    public AudioSettingsSangheli woosh2;
-    public AudioSettingsSangheli checkpoint;
-    public AudioSettingsSangheli enemyDeath;
+    [FormerlySerializedAs("hit2")] public AudioSettingsSangheli emptyHit;
+    
+    [Space]
+    [FormerlySerializedAs("collect")] public AudioSettingsSangheli collectCoin;
+    [FormerlySerializedAs("collect2")] public AudioSettingsSangheli ShowCoinAnim;
+
+    [FormerlySerializedAs("woosh1")] [Space]
+    public AudioSettingsSangheli loadinScreen;
 
     [Serializable]
     public class AudioSettingsSangheli

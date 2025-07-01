@@ -119,9 +119,9 @@ public class CursorController : MonoBehaviour
     {
         if (_isAI) return;
         
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(!damageResult.HasDamage
-            ? G.I.Data.soundContainer.hit2
-            : G.I.Data.soundContainer.hit);
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(damageResult.HasDamage
+            ? G.I.Data.soundContainer.hit
+            : G.I.Data.soundContainer.emptyHit);
     }
 
     private DamageResult DoDamage()

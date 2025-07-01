@@ -142,7 +142,7 @@ public class EndRoundView : MonoBehaviour
             currentTotal += energyPerStep;
             addTemp -=  energyPerStep;
             PrintCoinAnim(prefix, textToDecrease, addTemp, currentTotal);
-            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collect2);
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.ShowCoinAnim);
         }
         
         PrintCoinAnim(prefix, textToDecrease, 0, energy+totalEnergy);

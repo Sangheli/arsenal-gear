@@ -53,12 +53,7 @@ public class DistortionUI : MonoBehaviour
 
         text.color = startColor;
 
-        if (forward)
-        {
-            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(forward
-                ? G.I.Data.soundContainer.woosh1
-                : G.I.Data.soundContainer.woosh2);    
-        }
+        if (forward) G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.loadinScreen);
 
         while (elapsed < animTime)
         {

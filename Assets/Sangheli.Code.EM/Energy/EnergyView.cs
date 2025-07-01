@@ -63,7 +63,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
         ScaleDownAnimated = true;
         transform.SetParent(_target);
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collect);
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
         StartCoroutine(OnEndScaleAnim());
     }
 
