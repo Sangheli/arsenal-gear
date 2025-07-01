@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 
 public static class GameAnimation
 {
+    private const float EndWaitTime = 0.25f;
+    
     public static IEnumerator Bounce(Transform view, Vector3 originalScale, float punchScale, float duration)
     {
         view.localScale = originalScale;
@@ -68,28 +73,6 @@ public static class GameAnimation
         setHitValue(0f);
     }
 
-    public static IEnumerator AnimateDamageText(Text damageText, Vector3 originalScale, float duration, Color startColor, Color endColor)
-    {
-        damageText.color = startColor;
-        float elapsed = 0f;
-        
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            var t = elapsed / duration;
-            
-            // Анимация масштабирования
-            var scale = Mathf.Lerp(1.5f, 0f, t);
-            damageText.transform.localScale = originalScale * scale;
-            
-            // Анимация цвета
-            var currentColor = Color.Lerp(startColor, endColor, t);
-            damageText.color = currentColor;
-            
-            yield return null;
-        }
-    }
-    
     public static IEnumerator PulseInnerRadius(Renderer viewRender, MaterialPropertyBlock propertyBlock, float duration)
     {
         var time = 0f;
@@ -119,5 +102,23 @@ public static class GameAnimation
             yield return null;
             t += Time.deltaTime;
         }
+    }
+    
+    public static IEnumerator CollectAllEnergyOnScreen(List<EnergyView> toCollect, int countToCollect)
+    {
+        var selectedToCollect = toCollect.OrderBy(x => Guid.NewGuid()).Take(countToCollect).ToList();
+
+        if (selectedToCollect.Count <= 0)
+            yield break;
+        
+        var player = G.I.playerCursor.transform;
+        
+        foreach (var x in selectedToCollect) 
+            x.Collect(player, 0.1f);
+        
+        while (selectedToCollect.Any(x => x.IsActive))
+            yield return null;
+
+        yield return new WaitForSeconds(EndWaitTime);
     }
 }

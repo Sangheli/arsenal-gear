@@ -15,7 +15,7 @@ public class HPManager
 
     private DataSave _save;
     
-    public void StartRound()
+    public void OnStartRound()
     {
         _save = G.I.SaveProvider.Get();
         RoundHp = _maxHp = _save.GetParamContainer().GetValue("hp");

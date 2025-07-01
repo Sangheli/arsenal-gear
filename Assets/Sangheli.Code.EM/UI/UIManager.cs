@@ -6,13 +6,19 @@ public class UIManager : MonoBehaviour
     public ShieldBarUI shieldBarUI;
     public EnergyBarUI energyBarUI;
 
-    public void StartRound()
+    public void OnStartRound()
     {
         healthBarUI?.Init();
         shieldBarUI?.Init();
     }
 
-    public void ShowEnergy(int value) => energyBarUI?.ShowEnergy(value);
+    public void ShowEnergy(int value)
+    {
+        if(!gameObject.activeSelf)
+            return;
+        
+        energyBarUI?.ShowEnergy(value);
+    }
 
     public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {

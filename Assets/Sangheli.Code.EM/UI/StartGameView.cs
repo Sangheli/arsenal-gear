@@ -11,6 +11,7 @@ public class StartGameView : MonoBehaviour
     public Text saveStatsText;
     [SerializeField] private Button buttonYoutube;
     [SerializeField] private Button buttonDS;
+    public Button buttonGoToUpgrades;
     
     private void Start()
     {
@@ -18,7 +19,10 @@ public class StartGameView : MonoBehaviour
         loadCheckpointButton.onClick.AddListener(LoadCheckpoint);
         buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
         buttonDS.onClick.AddListener(MediaUrlOpener.OpenDs);
+        buttonGoToUpgrades.onClick.AddListener(OnExitFromRound);
     }
+    
+    private void OnExitFromRound() => G.I.GoToUpgrades();
 
     private void OnStartButtonClick()
     {
@@ -49,6 +53,7 @@ public class StartGameView : MonoBehaviour
         bool hasSave = !string.IsNullOrEmpty(datetime);
         
         loadCheckpointButton.gameObject.SetActive(hasSave);
+        buttonGoToUpgrades.gameObject.SetActive(hasSave);
         saveStatGO.gameObject.SetActive(hasSave);
         
         // Обновляем текст кнопки старта в зависимости от наличия чекпоинта

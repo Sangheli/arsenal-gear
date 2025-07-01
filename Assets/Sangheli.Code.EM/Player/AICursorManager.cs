@@ -9,7 +9,7 @@ public class AICursorManager : MonoBehaviour
 
     private readonly List<CursorController> _aiCursors = new();
 
-    public void StartRound()
+    public void OnStartRound()
     {
         var save = G.I.SaveProvider.Get();
         var param = save.GetParamContainer();

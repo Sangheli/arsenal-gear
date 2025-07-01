@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RoundManager : MonoBehaviour
 {
@@ -13,59 +14,43 @@ public class RoundManager : MonoBehaviour
     private DataSave _save;
     private Transform _enemiesParent;
     private SortingOrderData _sortingOrderData;
+    private InputSystem_Actions _inputActions;
     
     private void Awake()
     {
         _mainCamera = Camera.main;
         var enemiesParentGo = new GameObject("Enemies");
         _enemiesParent = enemiesParentGo.transform;
+        
+        // Инициализация нового Input System
+        _inputActions = new InputSystem_Actions();
+        _inputActions.Player.Enable();
+        _inputActions.Player.Crouch.performed += OnDebugMinusHp;
+    }
+
+    private void OnDestroy()
+    {
+        if (_inputActions != null)
+            _inputActions.Player.Crouch.performed -= OnDebugMinusHp;
+    }
+
+    private void OnDebugMinusHp(InputAction.CallbackContext context)
+    {
+        if (IsAlive)
+            G.I.HpManager.Reduce(100, doBlink: true, ignoreShield: true);
     }
     
     private void Update()
     {
         if (!IsAlive) return;
         
-        G.I.HpManager?.UpdateHp();
-        G.I.EnergyManager.LateUpdate();
-        G.I.ShieldManager.LateUpdate();
-        
         var diff = Time.deltaTime * 1;
-        if (G.I.HpManager != null) G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
-        TryEndRound();
+        G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
+        if (G.I.HpManager.RoundHp <= 0) G.I.StopRun(isFail: true);
         
         if(!IsAlive) return;
         
         foreach (var t in _availableEnemies) TrySpawnEnemy(t);
-    }
-
-    private void TryEndRound()
-    {
-        if (G.I.HpManager.RoundHp > 0) return;
-        G.I.prestigeManager.ToggleActive(false);
-        StartCoroutine(EndRoundSequence());
-    }
-
-    private System.Collections.IEnumerator EndRoundSequence()
-    {
-        var energy = G.I.EnergyManager.RoundEnergyCount;
-        var totalEnergy = G.I.SaveProvider.Get().totalEnergy;
-        var prestigeDelta = G.I.prestigeManager.RoundPoints;
-        G.I.EnergyManager.OnEndRound();
-        G.I.prestigeManager.OnEndRound();
-        
-        // Отключаем управление и UI сразу
-        G.I.playerCursor.ToggleControl(false);
-        IsAlive = false;
-        IsAliveForPlay = false;
-        
-        // Ждём анимацию сбора энергии
-        yield return G.I.EnergyManager.CollectAllEnergyOnScreen();
-        
-        G.I.playerCursor.Toggle(false);
-        G.I.uiManager.Toggle(false);
-        
-        // Показываем меню окончания раунда
-        yield return G.I.endRoundView.Show(energy,totalEnergy,prestigeDelta);
     }
 
     private void TrySpawnEnemy(EnemyData enemyData)
@@ -92,7 +77,7 @@ public class RoundManager : MonoBehaviour
         enemy.view.SetSortingOrder(_sortingOrderData);
     }
 
-    public void StartRound()
+    public void OnStartRound()
     {
         _save = G.I.SaveProvider.Get();
         ClearAll();

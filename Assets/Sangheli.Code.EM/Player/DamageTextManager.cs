@@ -22,12 +22,12 @@ public class DamageTextManager : MonoBehaviour
         var sb = new StringBuilder();
         
         if (damageResult.TotalDamage > 0)
-            sb.Append($"<color=#FF2222>-{NumberFormatter.Format(damageResult.TotalDamage, 0)}HP</color>");
+            sb.Append($"<color=#FF2222>-{NumberFormatter.Format(damageResult.TotalDamage, 2)}HP</color>");
         
         if (damageResult.TotalShieldDamage > 0)
         {
             if (sb.Length > 0) sb.Append("\n");
-            sb.Append($"<color=#22FF22>-{NumberFormatter.Format(damageResult.TotalShieldDamage, 0)}S</color>");
+            sb.Append($"<color=#22FF22>-{NumberFormatter.Format(damageResult.TotalShieldDamage, 2)}S</color>");
         }
         
         var textObj = G.I.ObjectPool.Get(prefabText);

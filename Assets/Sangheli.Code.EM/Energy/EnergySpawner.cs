@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergySpawner : MonoBehaviour
 {
     public EnergyView prefab;
-    public readonly List<EnergyView> EnergyList = new();
+    public readonly HashSet<EnergyView> EnergyList = new();
     
     private Camera _mainCamera;
     private Vector2 _screenMin;
@@ -60,7 +60,7 @@ public class EnergySpawner : MonoBehaviour
         return pos;
     }
 
-    public void StartRound() => ClearAll();
+    public void OnStartRound() => ClearAll();
     public void StopRound() => ClearAll();
 
     private void ClearAll()

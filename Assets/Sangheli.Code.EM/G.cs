@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using SangheliCode;
 using Unity.Services.Analytics;
@@ -51,6 +53,10 @@ public class G : MonoBehaviour
     {
         if(I ==null)
             return;
+        
+        HpManager?.UpdateHp();
+        EnergyManager.LateUpdate();
+        ShieldManager.LateUpdate();
     }
 
 #pragma warning disable CS4014
@@ -87,6 +93,7 @@ public class G : MonoBehaviour
         uiManager.Toggle(false);
         startGameView.Toggle(true);
         upgradeView.Toggle(false);
+        endRoundView.distortion.OnLoadInit();
         
         SaveProvider.Get();
         
@@ -104,16 +111,16 @@ public class G : MonoBehaviour
     public void StartRun()
     {
         SaveSystem.Save();
-        endRoundView.StartRound();
+        endRoundView.OnStartRound();
         playerCursor.view.hudView.damageTextManager.StartRound();
-        aiCursorManager.StartRound();
+        aiCursorManager.OnStartRound();
         playerCursor.view.hudView.Toggle(false, 0, false);
-        EnergyManager.StartRound();
-        prestigeManager.StartRound();
-        HpManager.StartRound();
-        uiManager.StartRound();
-        ShieldManager.StartRound();
-        energySpawner.StartRound();
+        EnergyManager.OnStartRound();
+        prestigeManager.OnStartRound();
+        HpManager.OnStartRound();
+        uiManager.OnStartRound();
+        ShieldManager.OnStartRound();
+        energySpawner.OnStartRound();
         
         prestigeManager.ApplyPrestigeColor();
         
@@ -123,19 +130,69 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
 
-        roundManager.StartRound();
+        roundManager.OnStartRound();
     }
 
-    public void StopRun()
+    public void StopRun(bool isFail)
     {
-        StartCoroutine(ExitFromRound());
+        StartCoroutine(StopRunSequence(isFail: isFail));
+    }
+    
+    private IEnumerator StopRunSequence(bool isFail)
+    {
+        roundManager.IsAlive = false;
+        roundManager.IsAliveForPlay = false;
+        prestigeManager.ToggleActive(false);
+        playerCursor.ToggleControl(false);
+
+        var list = energySpawner.EnergyList.Where(x => x.IsActive && !x.CanCollect).ToList();
+        while (list.Any(x => x.IsActive))
+            yield return null;
+        
+        var save = SaveProvider.Get();
+        
+        var energyOnStart = save.totalEnergy;
+        var roundEnergy = EnergyManager.RoundEnergyCount;
+        var bossEnergy = isFail ? 0 : prestigeManager.GetBossReward(SaveProvider.Get().level - 1);
+        var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
+
+        var ppoints = prestigeManager.RoundPoints;
+        
+        save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
+        save.totalPrestigePoints += ppoints;
+        SaveSystem.Save();
+        
+        yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
+        yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
+        
+        playerCursor.view.hudView.Toggle(false, 0 , false);
+        playerCursor.Toggle(false);
+        
+        yield return endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, isFail);
     }
 
-    private IEnumerator ExitFromRound()
+    private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)
+    {
+        var energyViews = energySpawner.EnergyList;
+        var toCollect = energyViews.Where(x => x.CanCollect).ToList();
+        var autoCollectPercent = save.GetParamContainer().GetValue("autoCollectCoinsPercent") / 100f;
+        energyAutoCollect = Mathf.Min(toCollect.Count, Mathf.CeilToInt(toCollect.Count * autoCollectPercent));
+        return toCollect;
+    }
+
+    public void GoToUpgrades()
+    {
+        StartCoroutine(GoToUpgradesCoroutine());
+    }
+
+    private IEnumerator GoToUpgradesCoroutine()
     {
         distortionUI.DoBlock(true);
         
         yield return distortionUI.DoFade(forward: true);
+        uiManager.Toggle(false);
+        startGameView.Toggle(false);
+        EnergyManager.OnGoToUpgradeView();
         endRoundView.distortion.gameObject.SetActive(false);
         roundManager.ClearAll();
         endRoundView.Toggle(false);

@@ -14,6 +14,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
     private bool ScaleDownAnimated { get; set; }
     public bool IsActive { get; private set; }
+    public bool CanCollect { get; private set; }
     private bool PlayerFound { get; set; }
     
     private float _radius;
@@ -68,11 +69,11 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
     private IEnumerator OnEndScaleAnim()
     {
-        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t1, 1f, maxScale);
-        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t2, maxScale, 0f);
+        G.I.EnergyManager.CollectEnergy();
         IsActive = false;
         PlayerFound = false;
-        G.I.EnergyManager.CollectEnergy();
+        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t1, 1f, maxScale);
+        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t2, maxScale, 0f);
         G.I.ObjectPool.Return(this);
     }
 
@@ -81,6 +82,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         if (!IsActive) return;
         if (PlayerFound) return;
         
+        CanCollect = false;
         PlayerFound = true;
         _target = collector;
         _radius = radius;
@@ -88,6 +90,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
     public void Init()
     {
+        CanCollect = true;
         IsActive = true;
         PlayerFound = false;
         ScaleDownAnimated = false;

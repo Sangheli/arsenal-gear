@@ -32,6 +32,12 @@ public class EndRoundViewDistortion : MonoBehaviour
         _mat = ViewImage.material;
     }
 
+    public void OnLoadInit()
+    {
+        ResetView();
+        gameObject.SetActive(false);
+    }
+
     public IEnumerator DoFade(bool isFail)
     {
         _mat.SetColor(ColorKey, isFail ? failColor : blueColor);

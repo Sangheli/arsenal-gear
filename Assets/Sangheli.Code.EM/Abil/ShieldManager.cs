@@ -13,7 +13,7 @@ public class ShieldManager
     private bool _isShieldAvailable;
     private bool _doBlink;
 
-    public void StartRound()
+    public void OnStartRound()
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.GetParamContainer();

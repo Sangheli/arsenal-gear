@@ -14,19 +14,27 @@ public class EndRoundView : MonoBehaviour
     
     public GameObject checkPointNotification;
     
+    public Text buttonStartNewRoundText;
+    public Text prestigePointsText;
+    public EndRoundViewDistortion distortion;
+    
+    [Space]
     // Параметры баунс анимации
     public float bounceDuration = 0.5f;
     public float bounceScale = 1.2f;
     public float waitBeforeAnim = 0.5f;
+
+    [Space] 
+    public Text rewardText;
+    public Text rewardBossText;
     
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundTextOriginalColor;
-    public Text buttonStartNewRoundText;
-    
-    public Text prestigePointsText;
 
-    public EndRoundViewDistortion distortion;
     
+    private const string PrefixRound = "Round reward: ";
+    private const string PrefixBoss = "Boss reward: ";
+    private const string PrefixTotal = "Total: ";
     private void OnValidate()
     {
         buttonStartNewRoundText ??= buttonStartNewRound.GetComponentInChildren<Text>();
@@ -40,15 +48,12 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
         Toggle(false);
         
-        distortion.gameObject.SetActive(false);
-        distortion.ResetView();
-        
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
     }
 
-    public void StartRound() => distortion.gameObject.SetActive(false);
-    private void OnExitFromRound() => G.I.StopRun();
+    public void OnStartRound() => distortion.gameObject.SetActive(false);
+    private void OnExitFromRound() => G.I.GoToUpgrades();
     private void OnStartNewRound() => G.I.StartRun();
 
     public void Toggle(bool state)
@@ -59,8 +64,11 @@ public class EndRoundView : MonoBehaviour
         View.SetActive(state);
     }
 
-    public IEnumerator Show(int energy, int totalEnergy, int prestige)
+    public IEnumerator Show(int energy, int totalEnergy, int prestige,int bossReward, bool isFail)
     {
+        rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
+        rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
+
         var save = G.I.SaveProvider.Get();
         if (save.hasVisitedUpgradeMenu)
         {
@@ -70,46 +78,63 @@ public class EndRoundView : MonoBehaviour
 
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
-        yield return distortion.DoFade(true);
+        yield return distortion.DoFade(isFail);
         checkPointNotification.gameObject.SetActive(false);
         Toggle(true);
 
         prestigePointsText.text = $"P Points: +{prestige}";
 
-        SaveSystem.Save();
+        buttonStartNewRoundText.text = isFail ? "Play Level Again" : $"Play next level: {save.level+1}";
+
         ShowCheckpointNotification();
         buttonEndRound.interactable = true;
-        if ( save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
-        
-        if (energy > 0) 
-            yield return ShowCoinAnim(totalEnergy, energy);
-        
-        float finalTotal = totalEnergy + energy;
-        energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(0)} -> {NumberFormatter.Format(finalTotal)}";
+        if (save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
+
+        yield return ShowRewardAnim(energy, totalEnergy, PrefixRound, rewardText);
+        yield return ShowRewardAnim(bossReward, totalEnergy + energy, PrefixBoss, rewardBossText);
     }
     
-    private IEnumerator ShowCoinAnim(int totalEnergy, int energy)
+    private IEnumerator ShowRewardAnim(int reward, float totalEnergy, string prefix, Text textToDecrease)
     {
-        energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(energy)} -> {NumberFormatter.Format(totalEnergy)}";
+        if (reward > 0)
+        {
+            yield return ShowCoinAnim(reward, totalEnergy, prefix, textToDecrease);
+        }
+        else if (textToDecrease == rewardText) // Только для обычной награды обновляем energyText
+        {
+            energyText.text = $"{PrefixTotal}{NumberFormatter.Format(reward + totalEnergy)}";
+        }
+    }
+
+    private IEnumerator ShowCoinAnim(int energy, float totalEnergy, string prefix, Text textToDecrease)
+    {
+        energyText.text = $"{PrefixTotal}{NumberFormatter.Format(totalEnergy)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
         float addTemp = energy;
-        
         float stepTime = animationTime / intervalNum;
         float energyPerStep = energy / intervalNum;
-
         float currentTotal = totalEnergy;
+        
         for (int i = 0; i < intervalNum; i++)
         {
+            yield return new WaitForSeconds(stepTime);
             currentTotal += energyPerStep;
             addTemp -=  energyPerStep;
-            energyText.text = $"Add {NumberFormatter.Format(energy)}: {NumberFormatter.Format(addTemp)} -> {NumberFormatter.Format(currentTotal)}";
+            PrintCoinAnim(prefix, textToDecrease, addTemp, currentTotal);
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collect2);
-            yield return new WaitForSeconds(stepTime);
         }
+        
+        PrintCoinAnim(prefix, textToDecrease, 0, energy+totalEnergy);
     }
     
+    private void PrintCoinAnim(string prefix, Text textToDecrease, float addTemp, float currentTotal)
+    {
+        textToDecrease.text = $"{prefix}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
+        energyText.text = $"{PrefixTotal}{NumberFormatter.Format(currentTotal)}";
+    }
+
     private void ShowCheckpointNotification()
     {
         checkPointNotification.gameObject.SetActive(true);

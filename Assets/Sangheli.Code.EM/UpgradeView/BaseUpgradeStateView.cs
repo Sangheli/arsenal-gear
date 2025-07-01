@@ -24,7 +24,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
 
     private void UpdateButtonState(bool isMax, float price)
     {
-        IsDisabled = !(!isMax && G.I.EnergyManager.CanAffordUpgrade(price));
+        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price));
         _upgradeButton.image.color = IsDisabled ? disabledColor : _normalColor;
         _upgradeButton.enabled = !IsDisabled;
     }

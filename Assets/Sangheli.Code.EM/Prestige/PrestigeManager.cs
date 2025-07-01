@@ -26,6 +26,9 @@ public class PrestigeManager : MonoBehaviour
     [SerializeField] private float prestigeTimeGrowth = 1.08f;
     [SerializeField] private float baseBossHp = 1000f;
     [SerializeField] private float bossHpGrowth = 1.15f;
+    [Header("Prestige Reward Settings")]
+    [SerializeField] private int baseBossReward = 100;
+    [SerializeField] private float bossRewardGrowth = 1.1f;
     public int RoundPoints { get; private set; }
     private DataSave _save;
 
@@ -42,7 +45,7 @@ public class PrestigeManager : MonoBehaviour
         ApplyPrestigeColor();
     }
     
-    public void StartRound()
+    public void OnStartRound()
     {
         RoundPoints = 0;
         Toggle(true);
@@ -75,13 +78,6 @@ public class PrestigeManager : MonoBehaviour
         return color;
     }
 
-    public void Inc()
-    {
-        IncreasePrestige(1);
-        RoundPoints = 1;
-        SaveSystem.Save();
-    }
-
     public void IncreasePrestige(int delta = 1)
     {
         var saveData = G.I.SaveProvider.Get();
@@ -96,8 +92,6 @@ public class PrestigeManager : MonoBehaviour
     }
     
     public float GetBossHp(int prestigeLevel) => baseBossHp * Mathf.Pow(bossHpGrowth, prestigeLevel);
-
-    public void OnEndRound() => _save.totalPrestigePoints += RoundPoints;
 
     public void StopRound()
     {
@@ -129,12 +123,21 @@ public class PrestigeManager : MonoBehaviour
     {
         Debug.Log("call boss");
         prestigeBar.gameObject.SetActive(false);
-        Inc();
+        IncreasePrestige(1);
+        RoundPoints = 1;
+        SaveSystem.Save();
         _active = false;
+        G.I.StopRun(isFail: false);
     }
 
     public void ToggleActive(bool state)
     {
         _active = state;
+    }
+
+    public int GetBossReward(int level)
+    {
+        var levelFix = Mathf.Max(0, level);
+        return Mathf.RoundToInt(baseBossReward * Mathf.Pow(bossRewardGrowth, levelFix));
     }
 } 
