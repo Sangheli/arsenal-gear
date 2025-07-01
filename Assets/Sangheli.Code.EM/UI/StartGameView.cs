@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class StartGameView : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class StartGameView : MonoBehaviour
     [SerializeField] private Button buttonYoutube;
     [SerializeField] private Button buttonDS;
     public Button buttonGoToUpgrades;
+    public CanvasGroup fadeSaveInfoCanvasGroup;
+    private Coroutine _fadeCoroutine;
     
     private void Start()
     {
@@ -130,5 +133,27 @@ public class StartGameView : MonoBehaviour
     {
         gameObject.SetActive(b);
         if (b) UpdateLoadButtonVisibility();
+    }
+
+    public void FadeOutSaveInfo(float duration,float awaitTIme)
+    {
+        if (_fadeCoroutine != null)
+            StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeOutCoroutine(duration, awaitTIme));
+    }
+
+    private IEnumerator FadeOutCoroutine(float duration, float awaitTIme)
+    {
+        yield return new WaitForSeconds(awaitTIme);
+        float startAlpha = fadeSaveInfoCanvasGroup.alpha;
+        float time = 0f;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            fadeSaveInfoCanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, time / duration);
+            yield return null;
+        }
+        fadeSaveInfoCanvasGroup.alpha = 0f;
+        fadeSaveInfoCanvasGroup.gameObject.SetActive(false);
     }
 }

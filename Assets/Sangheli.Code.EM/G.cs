@@ -96,6 +96,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
         startGameView.Toggle(true);
+        startGameView.FadeOutSaveInfo(2.0f,1);
         upgradeView.Toggle(false);
         endRoundView.distortion.OnLoadInit();
         

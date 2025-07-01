@@ -48,16 +48,6 @@ public class UpgradeView : MonoBehaviour
 #endif
     }
     
-    private void ApplyFilter()
-    {
-        if (_spawned == null) return;
-        foreach (var x in _spawned)
-        {
-            var shouldShow = !x.IsDisabled;
-            x.gameObject.SetActive(shouldShow);
-        }
-    }
-    
 #if UNITY_EDITOR
     private void AddCheatEnergy()
     {
@@ -152,7 +142,5 @@ public class UpgradeView : MonoBehaviour
 
         foreach (var x in _spawned)
             x.Refresh();
-
-        ApplyFilter();
     }
 }
