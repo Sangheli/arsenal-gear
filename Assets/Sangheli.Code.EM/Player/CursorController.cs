@@ -85,6 +85,7 @@ public class CursorController : MonoBehaviour
     {
         if (!_canControl) return;
         if (G.I == null) return;
+        if (!G.I.CanPlay) return;
         if (!G.I.roundManager.IsAlive) return;
         if (G.I.roundManager.IsAliveForPlay)
         {

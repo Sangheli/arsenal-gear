@@ -45,6 +45,8 @@ public class G : MonoBehaviour
     [Space]
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
 
+    public bool CanPlay { get; private set; }
+    
     private void OnValidate()
     {
         Container ??= GetComponent<SceneContainer>();
@@ -113,6 +115,16 @@ public class G : MonoBehaviour
     public void StartRun()
     {
         SaveSystem.Save();
+        StartCoroutine(StartRunSequence());
+    }
+
+    private IEnumerator StartRunSequence()
+    {
+        CanPlay = false;
+        distortionUI.DoBlock(true);
+        
+        yield return distortionUI.DoFade(forward: true);
+        
         endRoundView.OnStartRound();
         tutorial.OnStartRound();
         playerCursor.view.hudView.damageTextManager.StartRound();
@@ -134,6 +146,12 @@ public class G : MonoBehaviour
         upgradeView.Toggle(false);
 
         roundManager.OnStartRound();
+        
+        yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
+        CanPlay = true;
+        yield return distortionUI.DoFade(forward: false);
+        
+        distortionUI.DoBlock(false);
     }
 
     public void StopRun(bool isFail)
@@ -172,7 +190,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
-        yield return endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, isFail);
+        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, isFail);
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)

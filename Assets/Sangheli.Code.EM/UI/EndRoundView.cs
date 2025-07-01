@@ -35,6 +35,9 @@ public class EndRoundView : MonoBehaviour
     private const string PrefixRound = "Round reward: ";
     private const string PrefixBoss = "Boss reward: ";
     private const string PrefixTotal = "Total: ";
+    
+    private Coroutine _showCoroutine;
+    
     private void OnValidate()
     {
         buttonStartNewRoundText ??= buttonStartNewRound.GetComponentInChildren<Text>();
@@ -53,8 +56,18 @@ public class EndRoundView : MonoBehaviour
     }
 
     public void OnStartRound() => distortion.gameObject.SetActive(false);
-    private void OnExitFromRound() => G.I.GoToUpgrades();
-    private void OnStartNewRound() => G.I.StartRun();
+
+    private void OnExitFromRound()
+    {
+        StopShowCoroutine();
+        G.I.GoToUpgrades();
+    }
+
+    private void OnStartNewRound()
+    {
+        StopShowCoroutine();
+        G.I.StartRun();
+    }
 
     public void Toggle(bool state)
     {
@@ -64,7 +77,13 @@ public class EndRoundView : MonoBehaviour
         View.SetActive(state);
     }
 
-    public IEnumerator Show(int energy, int totalEnergy, int prestige,int bossReward, bool isFail)
+    public void Show(int energy, int totalEnergy, int prestige, int bossReward, bool isFail)
+    {
+        StopShowCoroutine();
+        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, prestige, bossReward, isFail));
+    }
+
+    private IEnumerator ShowCoroutine(int energy, int totalEnergy, int prestige,int bossReward, bool isFail)
     {
         rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
         rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
@@ -140,5 +159,14 @@ public class EndRoundView : MonoBehaviour
         checkPointNotification.gameObject.SetActive(true);
         checkPointNotification.transform.localScale = Vector3.zero;
         StartCoroutine(GameAnimation.Bounce(checkPointNotification.transform, Vector3.one, bounceScale,bounceDuration));
+    }
+    
+    private void StopShowCoroutine()
+    {
+        if (_showCoroutine == null) 
+            return;
+        
+        StopCoroutine(_showCoroutine);
+        _showCoroutine = null;
     }
 }
