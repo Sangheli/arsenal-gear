@@ -24,6 +24,7 @@ public class G : MonoBehaviour
     public AICursorManager aiCursorManager;
     
     public PrestigeManager prestigeManager;
+    public LevelStringManager tutorial;
 
     public SceneContainer Container;
     public DataContainer Data;
@@ -84,6 +85,7 @@ public class G : MonoBehaviour
 
     private void OnFirstLoad()
     {
+        tutorial.OnFirstLoad();
         enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
@@ -112,6 +114,7 @@ public class G : MonoBehaviour
     {
         SaveSystem.Save();
         endRoundView.OnStartRound();
+        tutorial.OnStartRound();
         playerCursor.view.hudView.damageTextManager.StartRound();
         aiCursorManager.OnStartRound();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -167,6 +170,7 @@ public class G : MonoBehaviour
         
         playerCursor.view.hudView.Toggle(false, 0 , false);
         playerCursor.Toggle(false);
+        tutorial.OnEndRound();
         
         yield return endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, isFail);
     }

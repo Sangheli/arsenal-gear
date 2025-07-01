@@ -48,7 +48,8 @@ public class EndRoundViewDistortion : MonoBehaviour
         var startColor = Color.clear;
         var endColor = isFail ? failTextColor : winTextColor;
         resultText.color = startColor;
-        resultText.text = isFail ? failText : winText;
+        var valueText = isFail ? failText : winText;
+        resultText.text = valueText.ReplaceEscapedNewlines();
 
         while (elapsed < animTime)
         {
