@@ -44,6 +44,7 @@ public class G : MonoBehaviour
     
     [Space]
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
+    public int maxLevel;
 
     public bool CanPlay { get; private set; }
     
@@ -138,7 +139,7 @@ public class G : MonoBehaviour
         ShieldManager.OnStartRound();
         energySpawner.OnStartRound();
         
-        prestigeManager.ApplyPrestigeColor();
+        prestigeManager.ApplyLevelColor();
         
         playerCursor.Toggle(true);
         uiManager.Toggle(true);
@@ -155,12 +156,33 @@ public class G : MonoBehaviour
         distortionUI.DoBlock(false);
     }
 
-    public void StopRun(bool isFail)
+    public void StopRun(EndRoundFadeEnum fadeType)
     {
-        StartCoroutine(StopRunSequence(isFail: isFail));
+        var save = SaveProvider.Get();
+        var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.Win;
+        StartCoroutine( demoEnd ? ShowEndGame() : StopRunSequence(fadeType));
     }
     
-    private IEnumerator StopRunSequence(bool isFail)
+    private IEnumerator ShowEndGame()
+    {
+        var save = SaveProvider.Get();
+        save.level = maxLevel - 1;
+        SaveSystem.Save();
+        
+        roundManager.IsAlive = false;
+        roundManager.IsAliveForPlay = false;
+        prestigeManager.ToggleActive(false);
+        playerCursor.ToggleControl(false);
+        playerCursor.view.hudView.Toggle(false, 0 , false);
+        playerCursor.Toggle(false);
+        tutorial.OnEndRound();
+        endRoundView.distortion.gameObject.SetActive(true);
+        endRoundView.distortion.ResetView();
+        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndDemo);
+        uiManager.Toggle(false);
+    }
+
+    private IEnumerator StopRunSequence(EndRoundFadeEnum fadeType)
     {
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
@@ -175,7 +197,7 @@ public class G : MonoBehaviour
         
         var energyOnStart = save.totalEnergy;
         var roundEnergy = EnergyManager.RoundEnergyCount;
-        var bossEnergy = isFail ? 0 : prestigeManager.GetBossReward(SaveProvider.Get().level - 1);
+        var bossEnergy = fadeType == EndRoundFadeEnum.Fail ? 0 : prestigeManager.GetBossReward(SaveProvider.Get().level - 1);
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
         var ppoints = prestigeManager.RoundPoints;
@@ -191,7 +213,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
-        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, isFail);
+        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, fadeType);
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)

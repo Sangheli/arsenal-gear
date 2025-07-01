@@ -39,11 +39,11 @@ public class UpgradeView : MonoBehaviour
         cheatButton.onClick.AddListener(AddCheatEnergy);
         if (prestigeMinusButton != null) {
             prestigeMinusButton.gameObject.SetActive(true);
-            prestigeMinusButton.onClick.AddListener(() => ChangePrestige(-1));
+            prestigeMinusButton.onClick.AddListener(() => ChangeLevel(-1));
         }
         if (prestigePlusButton != null) {
             prestigePlusButton.gameObject.SetActive(true);
-            prestigePlusButton.onClick.AddListener(() => ChangePrestige(1));
+            prestigePlusButton.onClick.AddListener(() => ChangeLevel(1));
         }
 #endif
     }
@@ -55,10 +55,10 @@ public class UpgradeView : MonoBehaviour
         RefreshAll();
     }
 
-    private void ChangePrestige(int delta)
+    private void ChangeLevel(int delta)
     {
-        G.I.prestigeManager.IncreasePrestige(delta);
-        G.I.prestigeManager.ApplyPrestigeColor();
+        G.I.prestigeManager.ChangeLevel(delta);
+        G.I.prestigeManager.ApplyLevelColor();
         SaveSystem.Save();
         RefreshAll();
     }

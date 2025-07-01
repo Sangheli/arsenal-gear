@@ -31,7 +31,7 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: 09d7b16ffbee0094babfa1c970fe1b33, type: 3}
     PitchRange: 0.25
-    Volume: 0.2
+    Volume: 0.17
   ShowCoinAnim:
     ClipList:
     - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
@@ -41,4 +41,4 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: f13eacd5d290eee4d814421f5b3a99f8, type: 3}
     PitchRange: 0.05
-    Volume: 0.25
+    Volume: 0.17

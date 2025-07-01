@@ -42,7 +42,7 @@ public class PrestigeManager : MonoBehaviour
         
         _propertyBlock = new MaterialPropertyBlock();
         targetRenderer.GetPropertyBlock(_propertyBlock);
-        ApplyPrestigeColor();
+        ApplyLevelColor();
     }
     
     public void OnStartRound()
@@ -56,29 +56,28 @@ public class PrestigeManager : MonoBehaviour
         prestigeBar.Fill(_currentTime, _prestigeTime);
     }
     
-    public void ApplyPrestigeColor()
+    public void ApplyLevelColor()
     {
-        _propertyBlock.SetColor(ColorProperty, GetCurrentPrestigeColor());
+        _propertyBlock.SetColor(ColorProperty, GetCurrentLevelColor());
         targetRenderer.SetPropertyBlock(_propertyBlock);
     }
     
-    private Color GetCurrentPrestigeColor()
+    private Color GetCurrentLevelColor()
     {
-        var prestige = G.I.SaveProvider.Get().level;
+        var level = G.I.SaveProvider.Get().level;
         
-        var prestigePosition = (prestige % delim) *1f / delim;
+        var prestigePosition = (level % delim) *1f / delim;
         var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
         
-        var stepIndex = (float) Math.Round(prestige*1f / maxPrestiges, 2);
+        var stepIndex = (float) Math.Round(level*1f / maxPrestiges, 2);
         var value = 0.75f + 0.25f * stepIndex;
         color *= value;
         color.a = 1;
         
-        // Debug.Log($"prestige={prestige}, posIndex={posIndex}, prestigePosition={prestigePosition}, stepIndex={stepIndex}, value={value}");
         return color;
     }
 
-    public void IncreasePrestige(int delta = 1)
+    public void ChangeLevel(int delta = 1)
     {
         var saveData = G.I.SaveProvider.Get();
         saveData.level+=delta;
@@ -87,8 +86,8 @@ public class PrestigeManager : MonoBehaviour
 
     public float GetTime()
     {
-        int prestige = G.I.SaveProvider.Get().level;
-        return (int)( basePrestigeTime * Mathf.Pow(prestigeTimeGrowth, prestige));
+        int level = G.I.SaveProvider.Get().level;
+        return (int)( basePrestigeTime * Mathf.Pow(prestigeTimeGrowth, level));
     }
     
     public float GetBossHp(int prestigeLevel) => baseBossHp * Mathf.Pow(bossHpGrowth, prestigeLevel);
@@ -123,11 +122,11 @@ public class PrestigeManager : MonoBehaviour
     {
         Debug.Log("call boss");
         prestigeBar.gameObject.SetActive(false);
-        IncreasePrestige(1);
+        ChangeLevel(1);
         RoundPoints = 1;
         SaveSystem.Save();
         _active = false;
-        G.I.StopRun(isFail: false);
+        G.I.StopRun(EndRoundFadeEnum.Win);
     }
 
     public void ToggleActive(bool state)

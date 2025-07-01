@@ -77,13 +77,13 @@ public class EndRoundView : MonoBehaviour
         View.SetActive(state);
     }
 
-    public void Show(int energy, int totalEnergy, int prestige, int bossReward, bool isFail)
+    public void Show(int energy, int totalEnergy, int prestige, int bossReward, EndRoundFadeEnum fadeType)
     {
         StopShowCoroutine();
-        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, prestige, bossReward, isFail));
+        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, prestige, bossReward, fadeType));
     }
 
-    private IEnumerator ShowCoroutine(int energy, int totalEnergy, int prestige,int bossReward, bool isFail)
+    private IEnumerator ShowCoroutine(int energy, int totalEnergy, int prestige,int bossReward, EndRoundFadeEnum fadeType)
     {
         rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
         rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
@@ -97,13 +97,13 @@ public class EndRoundView : MonoBehaviour
 
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
-        yield return distortion.DoFade(isFail);
+        yield return distortion.DoFade(fadeType);
         checkPointNotification.gameObject.SetActive(false);
         Toggle(true);
 
         prestigePointsText.text = $"P Points: +{prestige}";
 
-        buttonStartNewRoundText.text = isFail ? "Play Level Again" : $"Play next level: {save.level+1}";
+        buttonStartNewRoundText.text = fadeType == EndRoundFadeEnum.Fail ? "Play Level Again" : $"Play next level: {save.level+1}";
 
         ShowCheckpointNotification();
         buttonEndRound.interactable = true;

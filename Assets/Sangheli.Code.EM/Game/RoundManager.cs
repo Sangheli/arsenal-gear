@@ -46,7 +46,7 @@ public class RoundManager : MonoBehaviour
         
         var diff = Time.deltaTime * 1;
         G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
-        if (G.I.HpManager.RoundHp <= 0) G.I.StopRun(isFail: true);
+        if (G.I.HpManager.RoundHp <= 0) G.I.StopRun(EndRoundFadeEnum.Fail);
         
         if(!IsAlive) return;
         
