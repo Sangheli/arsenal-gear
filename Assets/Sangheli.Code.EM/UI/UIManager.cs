@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
 
     public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {
-        G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue);
+        G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue, doBlink);
         return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink);
     }
 

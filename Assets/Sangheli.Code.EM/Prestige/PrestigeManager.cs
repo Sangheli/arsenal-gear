@@ -86,6 +86,7 @@ public class PrestigeManager : MonoBehaviour
 
     public float GetTime()
     {
+        return basePrestigeTime;
         int level = G.I.SaveProvider.Get().level;
         return (int)( basePrestigeTime * Mathf.Pow(prestigeTimeGrowth, level));
     }

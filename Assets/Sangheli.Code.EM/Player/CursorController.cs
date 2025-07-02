@@ -106,11 +106,15 @@ public class CursorController : MonoBehaviour
         PlaySound(damageResult);
         
         if (!_isAI && damageResult.HasDamage)
+        {
+            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
+            
             G.I.playerCursor.view.hudView.AddDamage
-                (
-                    damageResult,
-                    CurrentDamageScale
-                );
+            (
+                damageResult,
+                CurrentDamageScale
+            );
+        }
 
         StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
     }

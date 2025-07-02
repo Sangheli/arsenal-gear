@@ -7508,7 +7508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8534,26 +8534,26 @@ MonoBehaviour:
       BasePrice: 7
       PriceMult: 1.1
       Type: 1
-  - Health: 45
-    Speed: 3
-    DamagePerHit: 1
+  - Health: 75
+    Speed: 4
+    DamagePerHit: 0
     prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
     DisplayName: Star
     UpgradeInfos:
-    - BaseValue: 10
+    - BaseValue: 15
       MaxUpgrades: 10
       Step: 1
       DisplayName: Energy Drop
-      BasePrice: 7
+      BasePrice: 20
       PriceMult: 1.1
       Type: 1
   - Health: 45
     Speed: 0.15
-    DamagePerHit: 1
+    DamagePerHit: 5
     prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
     DisplayName: Saw
     UpgradeInfos:
-    - BaseValue: 5
+    - BaseValue: 1
       MaxUpgrades: 10
       Step: 1
       DisplayName: Energy Drop
@@ -9939,7 +9939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 563.9923, y: -118.86948}
+  m_AnchoredPosition: {x: 563.9922, y: -118.869385}
   m_SizeDelta: {x: -1147.9846, y: -257.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896741271

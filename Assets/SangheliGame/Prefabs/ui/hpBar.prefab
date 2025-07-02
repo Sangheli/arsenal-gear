@@ -210,6 +210,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  punchScale: 1.1
+  duration: 0.2
 --- !u!1 &3189150464634664630
 GameObject:
   m_ObjectHideFlags: 0

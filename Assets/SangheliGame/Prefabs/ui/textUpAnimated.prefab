@@ -240,7 +240,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4625990070968545369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,5 +273,5 @@ MonoBehaviour:
   canvasGroup: {fileID: 7435178187146969751}
   view: {fileID: 2570055779653767197}
   txt: {fileID: 2702060116949393565}
-  speed: 5
-  fadeDuration: 0.5
+  speed: 2.5
+  fadeDuration: 1

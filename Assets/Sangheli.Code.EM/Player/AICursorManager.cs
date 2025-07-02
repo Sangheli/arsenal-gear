@@ -59,4 +59,13 @@ public class AICursorManager : MonoBehaviour
     {
         foreach (var aiCursor in _aiCursors) aiCursor.Toggle(state);
     }
+
+    public void ToggleAllHud(bool b)
+    {
+        foreach (var x in _aiCursors)
+        {
+            x.view.hudView.Toggle(false,0, false);
+            x.view.hudView.ToggleAIView(false);
+        }
+    }
 } 

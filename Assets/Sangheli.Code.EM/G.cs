@@ -246,6 +246,7 @@ public class G : MonoBehaviour
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
+        aiCursorManager.ToggleAllHud(false);
         playerCursor.view.hudView.Toggle(false, 0, false);
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);

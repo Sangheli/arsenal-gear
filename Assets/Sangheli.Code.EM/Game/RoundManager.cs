@@ -106,7 +106,7 @@ public class RoundManager : MonoBehaviour
     {
         UpdateAvailableEnemies();
         
-        var value = 1;
+        var value = 10;
         var num = Random.Range(Mathf.Max(value/2,1), value + 1);
         
         for (var i = 0; i < num; i++)

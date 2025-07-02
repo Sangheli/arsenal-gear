@@ -23,12 +23,12 @@ public class CursorHudView : MonoBehaviour
 
     private Vector3 GetShift(float scale) => new(0, 1.75f + scale / 2,10);
 
-    public void ShowHpValue(float hp, float maxHp, float fillValue)
+    public void ShowHpValue(float hp, float maxHp, float fillValue, bool doBlink)
     {
         if (_lowShowen == null || !_lowShowen.Value)
             return;
         
-        hpGo.ShowHp(hp, maxHp, fillValue, false);
+        hpGo.ShowHp(hp, maxHp, fillValue, doBlink);
     }
 
     public void AddDamage(DamageResult damageResult, float currentDamageScale) => damageTextManager.AddDamage(damageResult, currentDamageScale);
