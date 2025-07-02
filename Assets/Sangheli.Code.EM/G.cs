@@ -148,7 +148,7 @@ public class G : MonoBehaviour
         startGameView.Toggle(false);
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
-
+        aiCursorManager.ToggleAllHud(true);
         roundManager.OnStartRound();
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
