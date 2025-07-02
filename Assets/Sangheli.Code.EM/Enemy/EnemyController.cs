@@ -12,16 +12,16 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public float speedSuper = 20f;
     public float distanceToChangeSpeed = 2000f;
 
-    private float _currentHealth;
+    protected float _currentHealth;
     private Vector2 _moveDirection;
     private float _originalSpeed;
     private Vector3 _startPosition;
     private bool _isPreSpawned;
     private bool _hasChangedSpeed;
-    private EnemyData _currentData;
+    protected EnemyData _currentData;
     private Coroutine _lifeTimeCoroutine;
-    private bool _isActive;
-    private bool _isDead;
+    protected bool _isActive;
+    protected bool _isDead;
     private float _targetClipValue;
     private float _currentClipValue;
     private bool _doHpFill;
@@ -125,7 +125,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _targetClipValue = 1 - _currentHealth / _currentData.Health;
     }
 
-    private void Die(bool isCrit)
+    public virtual void Die(bool isCrit)
     {
         if (!_isActive) return;
         StartCoroutine(DeathAndReturnToPool(isCrit));

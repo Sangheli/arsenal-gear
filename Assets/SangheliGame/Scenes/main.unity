@@ -8367,6 +8367,7 @@ GameObject:
   - component: {fileID: 1503166281}
   - component: {fileID: 1503166280}
   - component: {fileID: 1503166284}
+  - component: {fileID: 1503166285}
   m_Layer: 0
   m_Name: G
   m_TagString: Untagged
@@ -8411,6 +8412,7 @@ MonoBehaviour:
   aiCursorManager: {fileID: 1503166284}
   prestigeManager: {fileID: 1416533909}
   tutorial: {fileID: 2956514695925783667}
+  bossManager: {fileID: 1503166285}
   Container: {fileID: 1503166280}
   Data: {fileID: 11400000, guid: fd320a9871a409d4eb0c36ec79f0b562, type: 2}
   upgradePriceMultiplierManager:
@@ -8626,6 +8628,19 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 0.54901963}
   - {r: 1, g: 0.92156863, b: 0.015686275, a: 0.54901963}
   - {r: 0, g: 0.799881, b: 1, a: 0.54901963}
+--- !u!114 &1503166285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503166272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e547b89b79634742b2b6d086ccb020f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossManager
+  bossPrefab: {fileID: 2537159217818343703, guid: d57d824724f71ee41bb21ad2167c1684, type: 3}
 --- !u!1 &1537534445
 GameObject:
   m_ObjectHideFlags: 0
@@ -12613,6 +12628,10 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 1035207960}
+    - target: {fileID: 4877729511985776559, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: basePrestigeTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8623710069257715788, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Name
       value: PrestigeManager

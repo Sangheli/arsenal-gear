@@ -123,10 +123,19 @@ public class PrestigeManager : MonoBehaviour
     {
         Debug.Log("call boss");
         prestigeBar.gameObject.SetActive(false);
+        var level = G.I.SaveProvider.Get().level;
+        float bossHp = GetBossHp(level);
+        Color bossColor = GetCurrentLevelColor();
+        float scale = 10.5f;
+        _active = false;
+        G.I.bossManager.SpawnBoss(bossHp, bossColor, scale, CompletePrestigeAfterBoss);
+    }
+
+    public void CompletePrestigeAfterBoss()
+    {
         ChangeLevel(1);
         RoundPoints = 1;
         SaveSystem.Save();
-        _active = false;
         G.I.StopRun(EndRoundFadeEnum.Win);
     }
 

@@ -24,9 +24,10 @@ public class EnemyView : MonoBehaviour
     public float maxFlashValue = 0.2f;
     public float deathAnimDuration = 0.3f;
     
-    private Vector3 _originalScale;
-    private Vector3 _originalScaleShadow;
-    private MaterialPropertyBlock _propertyBlock;
+    protected Vector3 _originalScale;
+    protected Vector3 _originalScaleShadow;
+    protected Vector3 _originalScaleVfx;
+    protected MaterialPropertyBlock _propertyBlock;
     private MaterialPropertyBlock _propertyBlockRamka;
     private Color _originalColor;
     private Color _originalRamkaColor;
@@ -34,12 +35,18 @@ public class EnemyView : MonoBehaviour
     private Coroutine _critColorRoutine;
     private static readonly int ClipUvUp = Shader.PropertyToID("_ClipUvUp");
     private static readonly int HitEffectBlend = Shader.PropertyToID("_HitEffectBlend");
-    private static readonly int ColorProperty = Shader.PropertyToID("_Color");
+    protected static readonly int ColorProperty = Shader.PropertyToID("_Color");
     
+    protected virtual void ApplyPropertyBlock()
+    {
+        ViewRenderer.SetPropertyBlock(_propertyBlock);
+    }
+
     private void Awake()
     {
         _originalScale = view.transform.localScale;
         _originalScaleShadow = viewShadow.transform.localScale;
+        _originalScaleShadow = deathVfx.transform.localScale;
         _propertyBlock = new MaterialPropertyBlock();
         ViewRenderer.GetPropertyBlock(_propertyBlock);
         
@@ -55,7 +62,7 @@ public class EnemyView : MonoBehaviour
     public void SetHitValue(float value)
     {
         _propertyBlock.SetFloat(HitEffectBlend, value);
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ApplyPropertyBlock();
     }
 
     public void DoBounceAnimation(bool isCrit = false)
@@ -77,10 +84,10 @@ public class EnemyView : MonoBehaviour
     private IEnumerator CritColorCoroutine()
     {
         _propertyBlock.SetColor(ColorProperty, Color.red);
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ApplyPropertyBlock();
         yield return new WaitForSeconds(duration);
         _propertyBlock.SetColor(ColorProperty, _originalColor);
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ApplyPropertyBlock();
     }
 
     public void ResetItem()
@@ -98,7 +105,7 @@ public class EnemyView : MonoBehaviour
         SetFillValue(0);
         
         _propertyBlock.SetColor(ColorProperty, _originalColor);
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ApplyPropertyBlock();
 
         if (manipulateRamkaColor)
         {
@@ -110,7 +117,7 @@ public class EnemyView : MonoBehaviour
     public void SetFillValue(float targetClipValue)
     {
         _propertyBlock.SetFloat(ClipUvUp, targetClipValue);
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ApplyPropertyBlock();
     }
 
     public void SetSortingOrder(SortingOrderData data)

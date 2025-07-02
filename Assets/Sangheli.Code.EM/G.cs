@@ -25,6 +25,7 @@ public class G : MonoBehaviour
     
     public PrestigeManager prestigeManager;
     public LevelStringManager tutorial;
+    public BossManager bossManager;
 
     public SceneContainer Container;
     public DataContainer Data;
@@ -104,6 +105,7 @@ public class G : MonoBehaviour
         SaveProvider.Get();
         
         prestigeManager.OnLoadInit();
+        bossManager = GetComponent<BossManager>();
     }
 
     public void StartRunFirstTime()
@@ -243,6 +245,7 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         prestigeManager.StopRound();
         energySpawner.StopRound();
+        bossManager.ResetBoss();
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
