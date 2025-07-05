@@ -8,7 +8,7 @@ public class ParamData
             "playerDamageMin", new ParamInfo
             {
                 BaseValue = 5f,
-                MaxUpgrades = 20,
+                MaxValue = 25,
                 Step = 1f,
                 DisplayName = "Damage",
                 BasePrice = 2,
@@ -21,7 +21,7 @@ public class ParamData
             "hp", new ParamInfo
             {
                 BaseValue = 10,
-                MaxUpgrades = 30,
+                MaxValue = 300,
                 Step = 10f,
                 DisplayName = "HP",
                 BasePrice = 3,
@@ -32,7 +32,7 @@ public class ParamData
             "playerFireRate", new ParamInfo
             {
                 BaseValue = 60f,
-                MaxUpgrades = 60,
+                MaxValue = 180,
                 Step = 2f,
                 DisplayName = "Attacks/minute",
                 BasePrice = 2,
@@ -43,7 +43,7 @@ public class ParamData
             "damageDiameter", new ParamInfo
             {
                 BaseValue = 1f,
-                MaxUpgrades = 50,
+                MaxValue = 50,
                 Step = 0.1f,
                 DisplayName = "Diameter",
                 BasePrice = 10,
@@ -54,7 +54,7 @@ public class ParamData
             "collectDiameter", new ParamInfo
             {
                 BaseValue = 0.25f,
-                MaxUpgrades = 50,
+                MaxValue = 1.5f,
                 Step = 0.3f,
                 DisplayName = "Collect Additional Diameter",
                 BasePrice = 4,
@@ -65,7 +65,7 @@ public class ParamData
             "shieldCapacity", new ParamInfo
             {
                 BaseValue = 0f,
-                MaxUpgrades = 25,
+                MaxValue = 10,
                 Step = 1f,
                 DisplayName = "Shield Capacity",
                 BasePrice = 5,
@@ -76,7 +76,7 @@ public class ParamData
             "shieldRegenRate", new ParamInfo
             {
                 BaseValue = 0f,
-                MaxUpgrades = 50,
+                MaxValue = 2.5f,
                 Step = 0.5f,
                 DisplayName = "Shield Regen/sec",
                 BasePrice = 500,
@@ -87,7 +87,7 @@ public class ParamData
             "critChance", new ParamInfo
             {
                 BaseValue = 0f,
-                MaxUpgrades = 40,
+                MaxValue = 50,
                 Step = 2.5f,
                 DisplayName = "Crit Chance %",
                 BasePrice = 1000,
@@ -98,7 +98,7 @@ public class ParamData
             "critMultiplier", new ParamInfo
             {
                 BaseValue = 1f,
-                MaxUpgrades = 10,
+                MaxValue = 5,
                 Step = 0.2f,
                 DisplayName = "Crit Multiplier",
                 BasePrice = 7,
@@ -109,7 +109,7 @@ public class ParamData
             "autoCollectCoinsPercent", new ParamInfo
             {
                 BaseValue = 0f,
-                MaxUpgrades = 25,
+                MaxValue = 50,
                 Step = 2f,
                 DisplayName = "Auto Collect Coins %",
                 BasePrice = 1000,
@@ -120,7 +120,7 @@ public class ParamData
             "aiCursorCount", new ParamInfo
             {
                 BaseValue = 0,
-                MaxUpgrades = 5,
+                MaxValue = 5,
                 Step = 1f,
                 DisplayName = "AI Cursor Count",
                 BasePrice = 100,
@@ -131,7 +131,7 @@ public class ParamData
             "aiCursorDamagePercent", new ParamInfo
             {
                 BaseValue = 20f,
-                MaxUpgrades = 8,
+                MaxValue = 100,
                 Step = 10f,
                 DisplayName = "AI Cursor Damage % of Player",
                 BasePrice = 200,
@@ -142,7 +142,7 @@ public class ParamData
             "aiCursorRadiusPercent", new ParamInfo
             {
                 BaseValue = 50f,
-                MaxUpgrades = 10,
+                MaxValue = 100,
                 Step = 5f,
                 DisplayName = "AI Cursor Radius % of Player",
                 BasePrice = 300,
@@ -153,7 +153,7 @@ public class ParamData
             "aiCursorFireRatePercent", new ParamInfo
             {
                 BaseValue = 20f,
-                MaxUpgrades = 8,
+                MaxValue = 100,
                 Step = 10f,
                 DisplayName = "AI Cursor Fire Rate % of Player",
                 BasePrice = 400,

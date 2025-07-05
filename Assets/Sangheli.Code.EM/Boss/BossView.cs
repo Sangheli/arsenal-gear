@@ -12,12 +12,10 @@ public class BossView : EnemyView
 
     public void SetScale(float viewScale)
     {
-        _originalScale *= viewScale;
-        _originalScaleShadow *= viewScale;
-        _originalScaleShadow *= viewScale;
-        view.transform.localScale = _originalScale;
-        viewShadow.transform.localScale = _originalScaleShadow;
-        deathVfx.transform.localScale = _originalScaleShadow;
+        scale = viewScale;
+        view.transform.localScale = _originalScale*scale;
+        viewShadow.transform.localScale = _originalScaleShadow*scale;
+        deathVfx.transform.localScale = _originalScaleVfx*scale;
     }
 
     public void SetColor(Color color)

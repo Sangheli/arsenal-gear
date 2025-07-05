@@ -5,7 +5,7 @@ public class DPSManager
         var saveData = G.I.SaveProvider.Get();
         var paramContainer = saveData.GetParamContainer();
         
-        var damage = paramContainer.GetBaseValue("playerDamageMin");
+        var damage = paramContainer.GetValue("playerDamageMin");
         var playerFireRate = paramContainer.GetValue("playerFireRate");
         var critMultiplier = paramContainer.GetValue("critMultiplier");
 

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public abstract class BaseUpgradeStateView : MonoBehaviour
@@ -10,6 +9,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     [SerializeField] protected Text _levelText;
     [SerializeField] protected Text _priceText;
     [SerializeField] protected Button _upgradeButton;
+    [SerializeField] protected Image _progressFill;
 
     protected Action RefreshMoneyCallback;
     private Color _normalColor;
@@ -32,14 +32,14 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     private void UpdatePriceText(bool isMax, float price) => 
         _priceText.text = isMax ? "Max" : $"Price: {NumberFormatter.Format(price, 0)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, float price)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, float price, float maxValue)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)
             _valueText.text = $"{NumberFormatter.Format(value)}";
         else
             _valueText.text = $"{NumberFormatter.Format(value)} => {NumberFormatter.Format(nextValue.Value)}";
-        _levelText.text = $"Level: {bought}/{max}";
+        _progressFill.fillAmount = value / maxValue;
         UpdateButtonState(isMax, price);
         UpdatePriceText(isMax, price);
     }

@@ -8,16 +8,16 @@ public static class MediaUrlOpener
     public static void OpenYoutube()
     {
         AnalyticsHelper.OnYoutubeClicked();
-        OpenUrl(YoutubeUrl);
+        OpenURL(YoutubeUrl);
     }
 
     public static void OpenDs()
     {
         AnalyticsHelper.OnDsClicked();
-        OpenUrl(DsUrl);
+        OpenURL(DsUrl);
     }
 
-    private static void OpenUrl(string url)
+    public static void OpenURL(string url)
     {
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {

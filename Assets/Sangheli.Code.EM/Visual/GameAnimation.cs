@@ -9,9 +9,11 @@ public static class GameAnimation
 {
     private const float EndWaitTime = 0.25f;
     
-    public static IEnumerator Bounce(Transform view, Vector3 originalScale, float punchScale, float duration)
+    public static IEnumerator Bounce(Transform view, Vector3 originalScale, float punchScale, float duration, bool doNotChangeScaleOnStart = false)
     {
-        view.localScale = originalScale;
+        if(!doNotChangeScaleOnStart)
+            view.localScale = originalScale;
+        
         var halfDuration = duration / 2f;
         var targetScale = originalScale * punchScale;
 

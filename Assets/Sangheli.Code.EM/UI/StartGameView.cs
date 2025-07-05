@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class StartGameView : MonoBehaviour
 {
@@ -13,8 +12,7 @@ public class StartGameView : MonoBehaviour
     [SerializeField] private Button buttonYoutube;
     [SerializeField] private Button buttonDS;
     public Button buttonGoToUpgrades;
-    public CanvasGroup fadeSaveInfoCanvasGroup;
-    private Coroutine _fadeCoroutine;
+    public SaveInfo saveInfo;
     
     private void Start()
     {
@@ -87,9 +85,10 @@ public class StartGameView : MonoBehaviour
         stats.AppendLine($"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}");
 
         // Добавляем очки престижа и глобальный множитель цены
-        stats.AppendLine($"P Points: {NumberFormatter.Format(saveData.totalPrestigePoints, 0)}");
-        float priceMultiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
-        stats.AppendLine($"Price Multiplier: x{priceMultiplier:F2}");
+        var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
+        var priceMultiplier=  Mathf.Pow(G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier(), upgradesBoughtNum);
+        
+        stats.AppendLine($"Price Mult: x{priceMultiplier:F2}");
 
         stats.AppendLine("");
         stats.AppendLine("Player Stats:");
@@ -98,11 +97,9 @@ public class StartGameView : MonoBehaviour
         foreach (var paramKey in paramContainer.GetAvailableParamKeys())
         {
             var displayName = paramContainer.GetDisplayName(paramKey);
-            var currentValue = paramContainer.GetBaseValue(paramKey);
-            var boughtLevel = paramContainer.GetBoughtLevel(paramKey);
-            var maxLevel = paramContainer.GetMaxLevel(paramKey);
+            var currentValue = paramContainer.GetValue(paramKey);
             
-            stats.AppendLine($" {displayName}: {NumberFormatter.Format(currentValue)} ({boughtLevel}/{maxLevel})");
+            stats.AppendLine($" {displayName}: {NumberFormatter.Format(currentValue)}");
         }
         
         stats.AppendLine("");
@@ -119,10 +116,8 @@ public class StartGameView : MonoBehaviour
             {
                 var displayName = enemyUpgradeContainer.GetDisplayName(enemyId, upgradeType);
                 var currentValue = enemyUpgradeContainer.GetValue(enemyId, upgradeType);
-                var boughtLevel = enemyUpgradeContainer.GetBoughtLevel(enemyId, upgradeType);
-                var maxLevel = enemyUpgradeContainer.GetMaxLevel(enemyId, upgradeType);
                 
-                stats.AppendLine($"  {displayName}: {NumberFormatter.Format(currentValue)} ({boughtLevel}/{maxLevel})");
+                stats.AppendLine($"  {displayName}: {NumberFormatter.Format(currentValue)}");
             }
         }
         
@@ -133,27 +128,5 @@ public class StartGameView : MonoBehaviour
     {
         gameObject.SetActive(b);
         if (b) UpdateLoadButtonVisibility();
-    }
-
-    public void FadeOutSaveInfo(float duration,float awaitTIme)
-    {
-        if (_fadeCoroutine != null)
-            StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(FadeOutCoroutine(duration, awaitTIme));
-    }
-
-    private IEnumerator FadeOutCoroutine(float duration, float awaitTIme)
-    {
-        yield return new WaitForSeconds(awaitTIme);
-        float startAlpha = fadeSaveInfoCanvasGroup.alpha;
-        float time = 0f;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            fadeSaveInfoCanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, time / duration);
-            yield return null;
-        }
-        fadeSaveInfoCanvasGroup.alpha = 0f;
-        fadeSaveInfoCanvasGroup.gameObject.SetActive(false);
     }
 }

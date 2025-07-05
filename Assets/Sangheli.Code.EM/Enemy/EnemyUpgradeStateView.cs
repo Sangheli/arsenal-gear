@@ -41,6 +41,7 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         var save = G.I.SaveProvider.Get();
         var upgradeContainer = save.GetEnemyUpgradeContainer();
         var value = upgradeContainer.GetValue(_enemyId, _upgradeType);
+        var maxValue = upgradeContainer.GetMaxValue(_enemyId, _upgradeType);
         var isMax = upgradeContainer.IsMaxLevelReached(_enemyId, _upgradeType);
         var bought = upgradeContainer.GetBoughtLevel(_enemyId, _upgradeType);
         var max = upgradeContainer.GetMaxLevel(_enemyId, _upgradeType);
@@ -48,6 +49,6 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         float? nextValue = isMax ? null : upgradeContainer.GetNextLevelValue(_enemyId, _upgradeType);
         save.UpdateUpgradesBoughtNum();
         var price = upgradeContainer.GetPrice(_enemyId, _upgradeType, save.upgradesBoughtNum);
-        RefreshView(paramName, value, nextValue, bought, max, isMax, price);
+        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue);
     }
 } 

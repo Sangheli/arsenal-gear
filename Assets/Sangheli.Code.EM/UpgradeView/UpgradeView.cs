@@ -18,7 +18,6 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Button prestigeMinusButton;
     [SerializeField] private Button prestigePlusButton;
     [SerializeField] private Text priceMultiplierText;
-    [SerializeField] private Text prestigePointsText;
     
     public Button startButton;
     
@@ -134,11 +133,10 @@ public class UpgradeView : MonoBehaviour
         if (prestigeText != null)
             prestigeText.text = $"Level: {G.I.SaveProvider.Get().level + 1}";
 
-        prestigePointsText.text =
-            $"Prestige Points: {NumberFormatter.Format(G.I.SaveProvider.Get().totalPrestigePoints, 0)}";
-
-        var multiplier = G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier();
-        priceMultiplierText.text = $"Price Multiplier: x{multiplier:F2}";
+        var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
+        var multiplier=  Mathf.Pow(G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier(), upgradesBoughtNum);
+        
+        priceMultiplierText.text = $"Price Mult: x{multiplier:F2}";
 
         foreach (var x in _spawned)
             x.Refresh();

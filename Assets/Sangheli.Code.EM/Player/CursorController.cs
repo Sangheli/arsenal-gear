@@ -19,7 +19,9 @@ public class CursorController : MonoBehaviour
     private float _playerFireRate;
     private float _critChance;
     private float _critMultiplier;
-    private float _playerDamageMin;
+    private ParamInfo _damageParam;
+    private float _damagePercent;
+
     private float _currentHarvestScale;
     
     public float CurrentDamageScale { get; set; }
@@ -68,7 +70,8 @@ public class CursorController : MonoBehaviour
         _playerFireRate = paramContainer.GetValue("playerFireRate") * fireRatePercent;
         _critChance = paramContainer.GetValue("critChance")/100f;
         _critMultiplier = paramContainer.GetValue("critMultiplier");
-        _playerDamageMin = paramContainer.GetValue("playerDamageMin") * damagePercent;
+        _damagePercent = damagePercent;
+        _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
         CollectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
         view.SetScale(CurrentDamageScale, _currentHarvestScale);
     }
@@ -105,10 +108,13 @@ public class CursorController : MonoBehaviour
         var damageResult = DoDamage();
         PlaySound(damageResult);
         
-        if (!_isAI && damageResult.HasDamage)
+        if (!_isAI && damageResult.HasRecivedDamage)
         {
             G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
-            
+        }
+        
+        if (!_isAI && (damageResult.HasAnyDamage))
+        {
             G.I.playerCursor.view.hudView.AddDamage
             (
                 damageResult,
@@ -123,7 +129,7 @@ public class CursorController : MonoBehaviour
     {
         if (_isAI) return;
         
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(damageResult.HasDamage
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(damageResult.PlayerDoDamage
             ? G.I.Data.soundContainer.hit
             : G.I.Data.soundContainer.emptyHit);
     }
@@ -153,14 +159,14 @@ public class CursorController : MonoBehaviour
         {
             var enemy = _enemyHits[i].GetComponent<DamageReciever>();
             if (enemy == null) continue;
-            var critResult = CritHelper.RollCrit(_playerDamageMin, _critChance, _critMultiplier);
+            var critResult = CritHelper.RollCrit(_damageParam.GetValueRandom(_damageParam.boughtActual) * _damagePercent, _critChance, _critMultiplier);
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
             var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
             totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
             totalDamage += finalDamage;
         }
         
-        return new DamageResult { HasDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
+        return new DamageResult { PlayerDoDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
     }
     private void CollectEnergy()
     {
@@ -178,8 +184,12 @@ public class CursorController : MonoBehaviour
             energy.Collect(transform, CurrentDamageScaleHalf);
         }
     }
-    public void ToggleControl(bool b) => _canControl = b;
-    
+    public void ToggleControl(bool b, bool showDeath)
+    {
+        _canControl = b;
+        if (!b && showDeath) view.ShowOnDeath();
+    }
+
     private void OnDisable()
     {
         if (_actions == null) 

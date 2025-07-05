@@ -33,9 +33,12 @@ public class EnemyView : MonoBehaviour
     private Color _originalRamkaColor;
     private Coroutine _flashRoutine;
     private Coroutine _critColorRoutine;
+    private Coroutine _bounceRoutine;
+    private Coroutine _bounceShadowRoutine;
     private static readonly int ClipUvUp = Shader.PropertyToID("_ClipUvUp");
     private static readonly int HitEffectBlend = Shader.PropertyToID("_HitEffectBlend");
     protected static readonly int ColorProperty = Shader.PropertyToID("_Color");
+    protected float scale = 1;
     
     protected virtual void ApplyPropertyBlock()
     {
@@ -46,7 +49,7 @@ public class EnemyView : MonoBehaviour
     {
         _originalScale = view.transform.localScale;
         _originalScaleShadow = viewShadow.transform.localScale;
-        _originalScaleShadow = deathVfx.transform.localScale;
+        _originalScaleVfx = deathVfx.transform.localScale;
         _propertyBlock = new MaterialPropertyBlock();
         ViewRenderer.GetPropertyBlock(_propertyBlock);
         
@@ -65,12 +68,21 @@ public class EnemyView : MonoBehaviour
         ApplyPropertyBlock();
     }
 
-    public void DoBounceAnimation(bool isCrit = false)
+    public void DoBounceAnimation(bool isCrit)
     {
-        float scale = isCrit ? punchScaleCrit : punchScale;
-        StopCoroutine(nameof(GameAnimation.Bounce));
-        StartCoroutine(GameAnimation.Bounce(view.transform ,_originalScale,scale,duration));
-        StartCoroutine(GameAnimation.Bounce(viewShadow.transform ,_originalScaleShadow,scale,duration));
+        // Остановка предыдущих корутин
+        if (_bounceRoutine != null)
+            StopCoroutine(_bounceRoutine);
+        if (_bounceShadowRoutine != null)
+            StopCoroutine(_bounceShadowRoutine);
+
+        var tempScale = isCrit ? punchScaleCrit : punchScale;
+        var addonScale = tempScale - 1;
+        addonScale /= scale;
+        
+        // Запуск и кеширование новых корутин
+        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(view.transform, _originalScale*scale, 1+addonScale, duration));
+        _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(viewShadow.transform, _originalScaleShadow*scale, 1+addonScale, duration));
     }
     
     public void FlashEffect(bool isCrit = false)
@@ -92,6 +104,16 @@ public class EnemyView : MonoBehaviour
 
     public void ResetItem()
     {
+        // Остановка всех корутин
+        if (_flashRoutine != null)
+            StopCoroutine(_flashRoutine);
+        if (_critColorRoutine != null)
+            StopCoroutine(_critColorRoutine);
+        if (_bounceRoutine != null)
+            StopCoroutine(_bounceRoutine);
+        if (_bounceShadowRoutine != null)
+            StopCoroutine(_bounceShadowRoutine);
+        
         var transform2 = view.transform;
         var transform3 = viewShadow.transform;
         transform2.localScale = _originalScale;

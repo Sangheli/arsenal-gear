@@ -36,7 +36,8 @@ public class UpgradeStateView : BaseUpgradeStateView
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.paramContainer;
-        var value = paramContainer.GetBaseValue(_paramKey);
+        var value = paramContainer.GetValue(_paramKey);
+        var maxValue = paramContainer.GetMaxValue(_paramKey);
         var isMax = paramContainer.IsMaxLevelReached(_paramKey);
         var bought = paramContainer.GetBoughtLevel(_paramKey);
         var max = paramContainer.GetMaxLevel(_paramKey);
@@ -44,6 +45,6 @@ public class UpgradeStateView : BaseUpgradeStateView
         float? nextValue = isMax ? null : paramContainer.GetNextLevelValue(_paramKey);
         save.UpdateUpgradesBoughtNum();
         var price = paramContainer.GetPrice(_paramKey, save.upgradesBoughtNum);
-        RefreshView(paramName, value, nextValue, bought, max, isMax, price);
+        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue);
     }
 }

@@ -4,12 +4,13 @@ public class ParamInfo : BaseUpgradeInfo
 {
     public bool UseRandom;
     public float RandomCoef = 1;
+    public int boughtActual { get; set; }
 
-    public override float GetValue(int bought, bool onlyDisplay = false)
+    public float GetValueRandom(int bought)
     {
         var currentValue = BaseValue + bought * Step;
-        return UseRandom && !onlyDisplay
+        return UseRandom
             ? Random.Range(currentValue, currentValue * RandomCoef)
-            : Mathf.Max(currentValue, BaseValue);
+            : GetValue(bought);
     }
 }

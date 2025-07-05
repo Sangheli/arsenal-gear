@@ -12,16 +12,11 @@ public class EndRoundView : MonoBehaviour
     public float animationTime = 1;
     public float intervalNum = 10;
     
-    public GameObject checkPointNotification;
-    
     public Text buttonStartNewRoundText;
-    public Text prestigePointsText;
     public EndRoundViewDistortion distortion;
     
     [Space]
     // Параметры баунс анимации
-    public float bounceDuration = 0.5f;
-    public float bounceScale = 1.2f;
     public float waitBeforeAnim = 0.5f;
 
     [Space] 
@@ -37,6 +32,8 @@ public class EndRoundView : MonoBehaviour
     private const string PrefixTotal = "Total: ";
     
     private Coroutine _showCoroutine;
+
+    public SaveInfo saveInfo;
     
     private void OnValidate()
     {
@@ -77,13 +74,13 @@ public class EndRoundView : MonoBehaviour
         View.SetActive(state);
     }
 
-    public void Show(int energy, int totalEnergy, int prestige, int bossReward, EndRoundFadeEnum fadeType)
+    public void Show(int energy, int totalEnergy, int bossReward, EndRoundFadeEnum fadeType)
     {
         StopShowCoroutine();
-        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, prestige, bossReward, fadeType));
+        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, bossReward, fadeType));
     }
 
-    private IEnumerator ShowCoroutine(int energy, int totalEnergy, int prestige,int bossReward, EndRoundFadeEnum fadeType)
+    private IEnumerator ShowCoroutine(int energy, int totalEnergy,int bossReward, EndRoundFadeEnum fadeType)
     {
         rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
         rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
@@ -98,14 +95,13 @@ public class EndRoundView : MonoBehaviour
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
         yield return distortion.DoFade(fadeType);
-        checkPointNotification.gameObject.SetActive(false);
         Toggle(true);
-
-        prestigePointsText.text = $"P Points: +{prestige}";
 
         buttonStartNewRoundText.text = fadeType == EndRoundFadeEnum.Fail ? "Play Level Again" : $"Play next level: {save.level+1}";
 
-        ShowCheckpointNotification();
+        saveInfo.Show();
+        saveInfo.FadeOut(2,1);
+        
         buttonEndRound.interactable = true;
         if (save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
 
@@ -154,13 +150,6 @@ public class EndRoundView : MonoBehaviour
         energyText.text = $"{PrefixTotal}{NumberFormatter.Format(currentTotal)}";
     }
 
-    private void ShowCheckpointNotification()
-    {
-        checkPointNotification.gameObject.SetActive(true);
-        checkPointNotification.transform.localScale = Vector3.zero;
-        StartCoroutine(GameAnimation.Bounce(checkPointNotification.transform, Vector3.one, bounceScale,bounceDuration));
-    }
-    
     private void StopShowCoroutine()
     {
         if (_showCoroutine == null) 

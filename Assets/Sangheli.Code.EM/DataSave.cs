@@ -5,7 +5,6 @@ using System.Linq;
 public class DataSave
 {
     public int totalEnergy;
-    public int totalPrestigePoints;
     public float timeSinceStart;
     public bool hasVisitedUpgradeMenu;
 

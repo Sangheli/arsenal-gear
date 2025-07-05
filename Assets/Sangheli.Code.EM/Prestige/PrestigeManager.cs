@@ -29,7 +29,6 @@ public class PrestigeManager : MonoBehaviour
     [Header("Prestige Reward Settings")]
     [SerializeField] private int baseBossReward = 100;
     [SerializeField] private float bossRewardGrowth = 1.1f;
-    public int RoundPoints { get; private set; }
     private DataSave _save;
 
     private float _currentTime;
@@ -47,7 +46,6 @@ public class PrestigeManager : MonoBehaviour
     
     public void OnStartRound()
     {
-        RoundPoints = 0;
         Toggle(true);
         _save = G.I.SaveProvider.Get();
         _currentTime = 0;
@@ -65,7 +63,11 @@ public class PrestigeManager : MonoBehaviour
     private Color GetCurrentLevelColor()
     {
         var level = G.I.SaveProvider.Get().level;
-        
+        return GetLevelColor(level);
+    }
+    
+    private Color GetLevelColor(int level)
+    {
         var prestigePosition = (level % delim) *1f / delim;
         var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
         
@@ -125,7 +127,7 @@ public class PrestigeManager : MonoBehaviour
         prestigeBar.gameObject.SetActive(false);
         var level = G.I.SaveProvider.Get().level;
         float bossHp = GetBossHp(level);
-        Color bossColor = GetCurrentLevelColor();
+        Color bossColor = GetLevelColor(level + 1);
         float scale = 10.5f;
         _active = false;
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale, CompletePrestigeAfterBoss);
@@ -134,7 +136,6 @@ public class PrestigeManager : MonoBehaviour
     public void CompletePrestigeAfterBoss()
     {
         ChangeLevel(1);
-        RoundPoints = 1;
         SaveSystem.Save();
         G.I.StopRun(EndRoundFadeEnum.Win);
     }

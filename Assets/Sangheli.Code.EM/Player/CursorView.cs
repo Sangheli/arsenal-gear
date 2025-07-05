@@ -8,7 +8,9 @@ public class CursorView : MonoBehaviour
     public Renderer viewRender;
     public float punchScale = 1.2f;
     public float duration = 0.2f;
+    public float durationVfx = 1f;
     private Vector3 _originalScale;
+    private Vector3 _originalScaleVfx;
     private static readonly int RingThickness = Shader.PropertyToID("_RingThickness");
     private static readonly int InnerColor = Shader.PropertyToID("_InnerColor");
     private static readonly int RingColor = Shader.PropertyToID("_RingColor");
@@ -21,12 +23,31 @@ public class CursorView : MonoBehaviour
     private float _currentScale = 1f;
     private bool _isPulsing = false;
     private Color _pulseColor;
+    public DeathVfx deathVfx;
+    public CameraShake cameraShake;
 
     private void Awake()
     {
         _originalScale = view.transform.localScale;
+        _originalScaleVfx = deathVfx.transform.localScale;
         PropertyBlock = new MaterialPropertyBlock();
         viewRender.GetPropertyBlock(PropertyBlock);
+        
+        // Автоматически находим CameraShake если не назначен
+        if (cameraShake == null)
+        {
+            // Сначала пробуем найти через SceneContainer
+            if (G.I != null && G.I.Container != null)
+            {
+                cameraShake = G.I.Container.cameraShake;
+            }
+            
+            // Если не нашли, ищем напрямую на камере
+            if (cameraShake == null)
+            {
+                cameraShake = Camera.main?.GetComponent<CameraShake>();
+            }
+        }
     }
 
     public void SetScale(float damageScale, float harvestScale)
@@ -34,6 +55,7 @@ public class CursorView : MonoBehaviour
         _currentScale = damageScale;
         view.transform.localScale = _originalScale * damageScale;
         viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
+        deathVfx.transform.localScale = _originalScaleVfx * damageScale;
         ApplyRingVisuals();
     }
 
@@ -96,5 +118,19 @@ public class CursorView : MonoBehaviour
         PropertyBlock.SetColor(InnerColor, color);
         PropertyBlock.SetColor(RingColor, _isPulsing ? _pulseColor : originalInnerColorRingOuter);
         viewRender.SetPropertyBlock(PropertyBlock);
+    }
+
+    public void ShowOnDeath()
+    {
+        if (cameraShake != null) cameraShake.DeathShake();
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.emptyHit);
+
+        var addonScale = punchScale - 1;
+        addonScale /= _currentScale;
+        
+        deathVfx.transform.localScale = Vector3.zero;   
+        StartCoroutine(GameAnimation.Bounce(deathVfx.transform, _originalScaleVfx * _currentScale, 1 + addonScale, durationVfx, doNotChangeScaleOnStart: true));
+        
+        deathVfx.Play();
     }
 } 

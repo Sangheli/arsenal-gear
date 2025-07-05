@@ -29,8 +29,16 @@ public class ParamContainer
         UpgradesBought[key]++;
     }
 
-    public float GetValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key], false);
-    public float GetBaseValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key], true);
+    public float GetValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key]);
+    public float GetMaxValue(string key) => ParamData.Params[key].MaxValue;
+
+    public ParamInfo GetCachedParamInfo(string key)
+    {
+        var level = UpgradesBought[key];
+        var value = ParamData.Params[key];
+        value.boughtActual = level;
+        return value;
+    }
 
     public float GetNextLevelValue(string key)
     {
@@ -39,7 +47,7 @@ public class ParamContainer
         
         var currentLevel = GetBoughtLevel(key);
         var showLevel = currentLevel >= paramInfo.MaxUpgrades ? currentLevel : currentLevel + 1;
-        return paramInfo.GetValue(showLevel, true);
+        return paramInfo.GetValue(showLevel);
     }
 
     public bool IsMaxLevelReached(string key)

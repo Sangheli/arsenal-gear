@@ -98,7 +98,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
         startGameView.Toggle(true);
-        startGameView.FadeOutSaveInfo(2.0f,1);
+        startGameView.saveInfo.FadeOut(2.0f,1);
         upgradeView.Toggle(false);
         endRoundView.distortion.OnLoadInit();
         
@@ -174,7 +174,7 @@ public class G : MonoBehaviour
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
         prestigeManager.ToggleActive(false);
-        playerCursor.ToggleControl(false);
+        playerCursor.ToggleControl(false, true);
         playerCursor.view.hudView.Toggle(false, 0 , false);
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
@@ -189,7 +189,7 @@ public class G : MonoBehaviour
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
         prestigeManager.ToggleActive(false);
-        playerCursor.ToggleControl(false);
+        playerCursor.ToggleControl(false, true);
 
         var list = energySpawner.EnergyList.Where(x => x.IsActive && !x.CanCollect).ToList();
         while (list.Any(x => x.IsActive))
@@ -202,10 +202,7 @@ public class G : MonoBehaviour
         var bossEnergy = fadeType == EndRoundFadeEnum.Fail ? 0 : prestigeManager.GetBossReward(SaveProvider.Get().level - 1);
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
-        var ppoints = prestigeManager.RoundPoints;
-        
         save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
-        save.totalPrestigePoints += ppoints;
         SaveSystem.Save();
         
         yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
@@ -215,7 +212,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
-        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart,ppoints, bossEnergy, fadeType);
+        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart, bossEnergy, fadeType);
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)
