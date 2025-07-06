@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 
 public class CursorView : MonoBehaviour
 {
@@ -25,6 +28,13 @@ public class CursorView : MonoBehaviour
     private Color _pulseColor;
     public DeathVfx deathVfx;
     public CameraShake cameraShake;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void Vibrate(int duration);
+#else
+    private static void Vibrate(int duration) { }
+#endif
 
     private void Awake()
     {
@@ -129,6 +139,9 @@ public class CursorView : MonoBehaviour
         addonScale /= _currentScale;
         
         
+        // Вибрация на 100 мс
+        Vibrate(100);
+
         deathVfx.Play();
     }
 } 
