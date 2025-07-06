@@ -33,7 +33,12 @@ public class UpgradeView : MonoBehaviour
             prestigeText.text = "";
         if (prestigeMinusButton != null) prestigeMinusButton.gameObject.SetActive(false);
         if (prestigePlusButton != null) prestigePlusButton.gameObject.SetActive(false);
+        InitCheatButtons();
+    }
+    
 #if UNITY_EDITOR
+    private void InitCheatButtons()
+    {
         cheatButton.gameObject.SetActive(true);
         cheatButton.onClick.AddListener(AddCheatEnergy);
         if (prestigeMinusButton != null) {
@@ -44,10 +49,8 @@ public class UpgradeView : MonoBehaviour
             prestigePlusButton.gameObject.SetActive(true);
             prestigePlusButton.onClick.AddListener(() => ChangeLevel(1));
         }
-#endif
     }
     
-#if UNITY_EDITOR
     private void AddCheatEnergy()
     {
         G.I.SaveProvider.Get().totalEnergy += CheatEnergyAmount;
@@ -61,6 +64,8 @@ public class UpgradeView : MonoBehaviour
         SaveSystem.Save();
         RefreshAll();
     }
+#else
+    private void InitCheatButtons();
 #endif
     
     private void GenerateUpgradeViews()
