@@ -1,0 +1,36 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class EnemyRow : MonoBehaviour
+{
+    public InputField enemyIdInput;
+    public InputField spawnChanceInput;
+    public InputField spawnRateInput;
+    public Button removeButton;
+
+    private LevelEnemyInfo _enemyInfo;
+
+    public void Set(LevelEnemyInfo info)
+    {
+        _enemyInfo = info;
+        enemyIdInput.text = info.enemyId.ToString();
+        spawnChanceInput.text = info.spawnChance.ToString();
+        spawnRateInput.text = info.spawnRate.ToString();
+        removeButton.onClick.RemoveAllListeners();
+        removeButton.onClick.AddListener(RemoveSelf);
+    }
+
+    public LevelEnemyInfo GetEnemyInfo()
+    {
+        var info = new LevelEnemyInfo();
+        int.TryParse(enemyIdInput.text, out info.enemyId);
+        float.TryParse(spawnChanceInput.text, out info.spawnChance);
+        float.TryParse(spawnRateInput.text, out info.spawnRate);
+        return info;
+    }
+
+    private void RemoveSelf()
+    {
+        Destroy(gameObject);
+    }
+} 
