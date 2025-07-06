@@ -74,6 +74,12 @@ public class CursorController : MonoBehaviour
         _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
         CollectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
         view.SetScale(CurrentDamageScale, _currentHarvestScale);
+        
+        view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, 0f);
+        view.viewRender.SetPropertyBlock(view.PropertyBlock);
+        
+        UpdateNextTime();
+        ShowPulseAnimation();
     }
     
     public void SetAIMode(float damagePercent, float radiusPercent, float fireRatePercent)
@@ -102,8 +108,8 @@ public class CursorController : MonoBehaviour
     {
         if (Time.time <= _nextTime)
             return;
-        var interval = 60f / _playerFireRate;
-        _nextTime = Time.time + interval;
+        
+        UpdateNextTime();
         view.DoBounceAnimation(CurrentDamageScale);
         var damageResult = DoDamage();
         PlaySound(damageResult);
@@ -113,7 +119,7 @@ public class CursorController : MonoBehaviour
             G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
         }
         
-        if (!_isAI && (damageResult.HasAnyDamage))
+        if (!_isAI && damageResult.HasAnyDamage)
         {
             G.I.playerCursor.view.hudView.AddDamage
             (
@@ -121,8 +127,20 @@ public class CursorController : MonoBehaviour
                 CurrentDamageScale
             );
         }
+        
+        ShowPulseAnimation();
+    }
 
+    private void ShowPulseAnimation()
+    {
+        var interval = 60f / _playerFireRate;
         StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
+    }
+
+    private void UpdateNextTime()
+    {
+        var interval = 60f / _playerFireRate;
+        _nextTime = Time.time + interval;
     }
 
     private void PlaySound(DamageResult damageResult)

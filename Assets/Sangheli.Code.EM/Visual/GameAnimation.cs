@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public static class GameAnimation
 {
     private const float EndWaitTime = 0.25f;
+    public static readonly int PropInnerRadius = Shader.PropertyToID("_InnerRadius");
     
     public static IEnumerator Bounce(Transform view, Vector3 originalScale, float punchScale, float duration, bool doNotChangeScaleOnStart = false)
     {
@@ -83,14 +84,14 @@ public static class GameAnimation
             var t = time / duration;
             var radius = Mathf.Lerp(0f, 1f, t);
 
-            propertyBlock.SetFloat(Shader.PropertyToID("_InnerRadius"), radius);
+            propertyBlock.SetFloat(PropInnerRadius, radius);
             viewRender.SetPropertyBlock(propertyBlock);
 
             time += Time.deltaTime;
             yield return null;
         }
         
-        propertyBlock.SetFloat(Shader.PropertyToID("_InnerRadius"), 0f);
+        propertyBlock.SetFloat(PropInnerRadius, 0f);
         viewRender.SetPropertyBlock(propertyBlock);
     }
     
