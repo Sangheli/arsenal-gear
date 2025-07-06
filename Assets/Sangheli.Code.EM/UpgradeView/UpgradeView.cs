@@ -107,6 +107,7 @@ public class UpgradeView : MonoBehaviour
             save.hasVisitedUpgradeMenu = true;
             SaveSystem.Save();
         }
+        ParamData.TryApplyConfigFromPrefs();
         GenerateUpgradeViews();
         RefreshAll();
     }

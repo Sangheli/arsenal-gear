@@ -15,6 +15,7 @@ public class RoundManager : MonoBehaviour
     private Transform _enemiesParent;
     private SortingOrderData _sortingOrderData;
     private InputSystem_Actions _inputActions;
+    private LevelConfig _currentLevelConfig;
     
     private void Awake()
     {
@@ -50,18 +51,24 @@ public class RoundManager : MonoBehaviour
         
         if(!IsAlive) return;
         
-        foreach (var t in _availableEnemies) TrySpawnEnemy(t);
+        if (_currentLevelConfig == null) return;
+        foreach (var info in _currentLevelConfig.enemies)
+        {
+            var enemy = G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+            if (enemy != null)
+                TrySpawnEnemyWithRate(enemy, info);
+        }
     }
 
-    private void TrySpawnEnemy(EnemyData enemyData)
+    private void TrySpawnEnemyWithRate(EnemyData enemyData, LevelEnemyInfo info)
     {
         if (!_enemySpawnTimers.ContainsKey(enemyData))
-            _enemySpawnTimers[enemyData] = Time.time + 60f / GetSpawnRatePerMinute();
+            _enemySpawnTimers[enemyData] = Time.time + 60f / Mathf.Max(info.spawnRate, 0.1f);
 
         if (Time.time < _enemySpawnTimers[enemyData])
             return;
 
-        _enemySpawnTimers[enemyData] = Time.time + 60f / GetSpawnRatePerMinute();
+        _enemySpawnTimers[enemyData] = Time.time + 60f / Mathf.Max(info.spawnRate, 0.1f);
         SpawnEnemy(enemyData, isPreSpawned: true);
     }
 
@@ -83,6 +90,17 @@ public class RoundManager : MonoBehaviour
         ClearAll();
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 30000 };
+        // Получить конфиг уровня
+        if (LevelData.Levels != null && LevelData.Levels.Count > 0)
+        {
+            int level = Mathf.Clamp(_save.level, 0, LevelData.Levels.Count - 1);
+            _currentLevelConfig = LevelData.Levels[level];
+        }
+        else
+        {
+            Debug.LogError("LevelData.Levels is empty!");
+            _currentLevelConfig = null;
+        }
         PreSpawnEnemies();
         IsAlive = true;
         StopAllCoroutines();
@@ -106,25 +124,49 @@ public class RoundManager : MonoBehaviour
     {
         UpdateAvailableEnemies();
         
+        if (_currentLevelConfig == null)
+		return;
+		
         var value = 10;
         var num = Random.Range(Mathf.Max(value/2,1), value + 1);
         
         for (var i = 0; i < num; i++)
         {
             if (_availableEnemies.Count == 0) break;
-            var enemyData = _availableEnemies[Random.Range(0, _availableEnemies.Count)];
-            SpawnEnemy(enemyData, isPreSpawned: true);
+            var enemyData = GetRandomEnemyByChance();
+            if (enemyData != null)
+                SpawnEnemy(enemyData, isPreSpawned: true);
         }
     }
     
+    private EnemyData GetRandomEnemyByChance()
+    {
+        if (_currentLevelConfig == null) return null;
+        float total = 0f;
+        foreach (var info in _currentLevelConfig.enemies) total += info.spawnChance;
+        float rand = Random.value * total;
+        float acc = 0f;
+        foreach (var info in _currentLevelConfig.enemies)
+        {
+            acc += info.spawnChance;
+            if (rand <= acc)
+                return G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+        }
+        return null;
+    }
+
     private void UpdateAvailableEnemies()
     {
-        var list = G.I.enemyContainer.List;
         _availableEnemies.Clear();
-        foreach (var t in list)
+        if (_currentLevelConfig == null) return;
+        foreach (var info in _currentLevelConfig.enemies)
         {
-            t.Init(_save);
-            _availableEnemies.Add(t);
+            var enemy = G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+            if (enemy != null)
+            {
+                enemy.Init(_save);
+                _availableEnemies.Add(enemy);
+            }
         }
     }
     
