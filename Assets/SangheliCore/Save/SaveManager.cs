@@ -32,11 +32,14 @@ public class SaveManager<T> where T : new()
         try
         {
             var data = JsonConvert.DeserializeObject<T>(json, _settings);
-            return data ?? new T();
+            if (data != null) return data;
+
+            Debug.LogError($"cant load save while parse");
+            return new T();
         }
         catch (Exception e)
         {
-            // Debug.LogError($"[SaveManager] Exception during load: {e.Message}");
+            Debug.LogError($"cant load save - unknown");
             return new T();
         }
     }
