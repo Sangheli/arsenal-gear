@@ -9,7 +9,12 @@ public class UpgradePriceMultiplierManager
     public float maxMultiplier = 1.2f;
     public AnimationCurve multiplierCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-    public float GetUpgradesPriceGlobalMultiplier()
+    public float delim = 10;
+    
+    public float CalculatePriceMultiplier(float upgradesBoughtNum) => 
+        Mathf.Pow(GetUpgradesPriceGlobalMultiplier(), upgradesBoughtNum/delim);
+
+    private float GetUpgradesPriceGlobalMultiplier()
     {
         var save = G.I.SaveProvider.Get();
         var maxUpgrades = GetTotalPossibleUpgrades();

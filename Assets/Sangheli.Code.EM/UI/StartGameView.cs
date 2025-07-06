@@ -86,7 +86,7 @@ public class StartGameView : MonoBehaviour
 
         // Добавляем очки престижа и глобальный множитель цены
         var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
-        var priceMultiplier=  Mathf.Pow(G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier(), upgradesBoughtNum);
+        var priceMultiplier=  G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
         
         stats.AppendLine($"Price Mult: x{priceMultiplier:F2}");
 

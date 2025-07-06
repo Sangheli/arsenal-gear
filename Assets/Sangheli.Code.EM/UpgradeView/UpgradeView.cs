@@ -134,7 +134,7 @@ public class UpgradeView : MonoBehaviour
             prestigeText.text = $"Level: {G.I.SaveProvider.Get().level + 1}";
 
         var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
-        var multiplier=  Mathf.Pow(G.I.upgradePriceMultiplierManager.GetUpgradesPriceGlobalMultiplier(), upgradesBoughtNum);
+        var multiplier=  G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
         
         priceMultiplierText.text = $"Price Mult: x{multiplier:F2}";
 
