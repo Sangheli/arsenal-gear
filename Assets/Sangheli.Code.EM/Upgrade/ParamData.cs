@@ -43,7 +43,7 @@ public class ParamData
             "damageDiameter", new ParamInfo
             {
                 BaseValue = 1f,
-                MaxValue = 50,
+                MaxValue = 6,
                 Step = 0.1f,
                 DisplayName = "Diameter",
                 BasePrice = 10,

@@ -58,6 +58,7 @@ public class CameraShake : MonoBehaviour
     
     private IEnumerator ShakeCoroutine(float intensity = -1f, float duration = -1f)
     {
+        transform.localPosition = _originalPosition;
         _isShaking = true;
         
         float actualIntensity = intensity > 0 ? intensity : (settings != null ? settings.shakeIntensity : shakeIntensity);
@@ -88,6 +89,7 @@ public class CameraShake : MonoBehaviour
     
     private IEnumerator DeathShakeCoroutine()
     {
+        transform.localPosition = _originalPosition;
         _isShaking = true;
         
         float actualIntensity = settings != null ? settings.deathShakeIntensity : deathShakeIntensity;

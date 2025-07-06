@@ -30,6 +30,7 @@ public class ParamContainer
     }
 
     public float GetValue(string key) => ParamData.Params[key].GetValue( UpgradesBought[key]);
+    public float GetBaseValue(string key) => ParamData.Params[key].GetValue( 0);
     public float GetMaxValue(string key) => ParamData.Params[key].MaxValue;
 
     public ParamInfo GetCachedParamInfo(string key)

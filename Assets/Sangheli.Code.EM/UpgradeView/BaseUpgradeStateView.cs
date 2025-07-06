@@ -32,14 +32,14 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     private void UpdatePriceText(bool isMax, float price) => 
         _priceText.text = isMax ? "Max" : $"Price: {NumberFormatter.Format(price, 0)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, float price, float maxValue)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, float price, float maxValue, float baseValue)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)
             _valueText.text = $"{NumberFormatter.Format(value)}";
         else
             _valueText.text = $"{NumberFormatter.Format(value)} => {NumberFormatter.Format(nextValue.Value)}";
-        _progressFill.fillAmount = value / maxValue;
+        _progressFill.fillAmount = (value-baseValue)/(maxValue-baseValue);
         UpdateButtonState(isMax, price);
         UpdatePriceText(isMax, price);
     }

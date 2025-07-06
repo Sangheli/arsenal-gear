@@ -30,6 +30,11 @@ public class HealthBarUI : MonoBehaviour
             hpImage.color = _startColor;
     }
 
+    public void SetStartColor()
+    {
+        hpImage.color = _startColor;
+    }
+
     public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {
         if (!gameObject.activeSelf)

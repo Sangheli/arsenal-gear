@@ -55,7 +55,7 @@ public class CursorView : MonoBehaviour
         _currentScale = damageScale;
         view.transform.localScale = _originalScale * damageScale;
         viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
-        deathVfx.transform.localScale = _originalScaleVfx * damageScale;
+        deathVfx.SetScale(damageScale);
         ApplyRingVisuals();
     }
 
@@ -128,8 +128,6 @@ public class CursorView : MonoBehaviour
         var addonScale = punchScale - 1;
         addonScale /= _currentScale;
         
-        deathVfx.transform.localScale = Vector3.zero;   
-        StartCoroutine(GameAnimation.Bounce(deathVfx.transform, _originalScaleVfx * _currentScale, 1 + addonScale, durationVfx, doNotChangeScaleOnStart: true));
         
         deathVfx.Play();
     }

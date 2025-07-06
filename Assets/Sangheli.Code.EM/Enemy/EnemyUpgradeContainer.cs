@@ -87,6 +87,7 @@ public class EnemyUpgradeContainer
     }
 
     public float GetValue(int id, UpgradeType type) => GetUpgradeValueFromEnemyData(id, type,  GetEnemyData(id).GetLevel(type));
+    public float GetBaseValue(int id, UpgradeType type) => GetUpgradeValueFromEnemyData(id, type,  0);
     public float GetMaxValue(int enemyId, UpgradeType upgradeType)
     {
         var level = GetEnemyData(enemyId).GetLevel(upgradeType);

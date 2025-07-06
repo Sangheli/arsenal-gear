@@ -17,6 +17,7 @@ public class CursorHudView : MonoBehaviour
         if(doShift) transform.localPosition = GetShift(scale);
         _lowShowen = state;
         hpGo.gameObject.SetActive(state);
+        hpGo.SetStartColor();
         hpLowText.gameObject.SetActive(state);
         ToggleAIView(false);
     }
