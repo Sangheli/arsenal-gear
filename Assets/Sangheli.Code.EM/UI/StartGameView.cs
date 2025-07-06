@@ -82,44 +82,44 @@ public class StartGameView : MonoBehaviour
 
         // Добавляем DPS
         var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-        stats.AppendLine($"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}");
+        // stats.AppendLine($"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}");
 
         // Добавляем очки престижа и глобальный множитель цены
         var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
         var priceMultiplier=  G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
         
-        stats.AppendLine($"Price Mult: x{priceMultiplier:F2}");
-
-        stats.AppendLine("");
-        stats.AppendLine("Player Stats:");
-        
-        // Добавляем статистику параметров игрока
-        foreach (var paramKey in paramContainer.GetAvailableParamKeys())
-        {
-            var displayName = paramContainer.GetDisplayName(paramKey);
-            var currentValue = paramContainer.GetValue(paramKey);
-            
-            stats.AppendLine($" {displayName}: {NumberFormatter.Format(currentValue)}");
-        }
-        
-        stats.AppendLine("");
-        stats.AppendLine("Enemy Stats:");
-        
-        // Добавляем статистику врагов только если достигнут нужный престиж
-        var enemyUpgradeContainer = saveData.GetEnemyUpgradeContainer();
-        foreach (var enemyId in enemyUpgradeContainer.GetAllEnemyIds())
-        {
-            // Получаем EnemyData по enemyId
-            var enemyDisplayName = enemyUpgradeContainer.GetEnemyDisplayName(enemyId);
-            stats.AppendLine($" {enemyDisplayName}:");
-            foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId))
-            {
-                var displayName = enemyUpgradeContainer.GetDisplayName(enemyId, upgradeType);
-                var currentValue = enemyUpgradeContainer.GetValue(enemyId, upgradeType);
-                
-                stats.AppendLine($"  {displayName}: {NumberFormatter.Format(currentValue)}");
-            }
-        }
+        // stats.AppendLine($"Price Mult: x{priceMultiplier:F2}");
+        //
+        // stats.AppendLine("");
+        // stats.AppendLine("Player Stats:");
+        //
+        // // Добавляем статистику параметров игрока
+        // foreach (var paramKey in paramContainer.GetAvailableParamKeys())
+        // {
+        //     var displayName = paramContainer.GetDisplayName(paramKey);
+        //     var currentValue = paramContainer.GetValue(paramKey);
+        //     
+        //     stats.AppendLine($" {displayName}: {NumberFormatter.Format(currentValue)}");
+        // }
+        //
+        // stats.AppendLine("");
+        // stats.AppendLine("Enemy Stats:");
+        //
+        // // Добавляем статистику врагов только если достигнут нужный престиж
+        // var enemyUpgradeContainer = saveData.GetEnemyUpgradeContainer();
+        // foreach (var enemyId in enemyUpgradeContainer.GetAllEnemyIds())
+        // {
+        //     // Получаем EnemyData по enemyId
+        //     var enemyDisplayName = enemyUpgradeContainer.GetEnemyDisplayName(enemyId);
+        //     stats.AppendLine($" {enemyDisplayName}:");
+        //     foreach (var upgradeType in enemyUpgradeContainer.GetAvailableUpgradeTypes(enemyId))
+        //     {
+        //         var displayName = enemyUpgradeContainer.GetDisplayName(enemyId, upgradeType);
+        //         var currentValue = enemyUpgradeContainer.GetValue(enemyId, upgradeType);
+        //         
+        //         stats.AppendLine($"  {displayName}: {NumberFormatter.Format(currentValue)}");
+        //     }
+        // }
         
         saveStatsText.text = stats.ToString();
     }
