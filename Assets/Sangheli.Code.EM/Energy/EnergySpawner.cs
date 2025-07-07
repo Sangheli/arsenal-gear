@@ -16,7 +16,6 @@ public class EnergySpawner : MonoBehaviour
     {
         _mainCamera = Camera.main;
         _energyParent = new GameObject("Energies").transform;
-        if (_mainCamera != null) CalcBound();
     }
 
     private void CalcBound()
@@ -60,7 +59,12 @@ public class EnergySpawner : MonoBehaviour
         return pos;
     }
 
-    public void OnStartRound() => ClearAll();
+    public void OnStartRound()
+    {
+        if (_mainCamera != null) CalcBound();
+        ClearAll();
+    }
+
     public void StopRound() => ClearAll();
 
     private void ClearAll()

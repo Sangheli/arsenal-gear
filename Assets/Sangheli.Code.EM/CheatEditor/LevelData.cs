@@ -25,7 +25,7 @@ public static class LevelData
     {
         Levels = new List<LevelConfig>();
         var random = new System.Random(42); // фиксированный seed для повторяемости
-        int enemyTypes = 5; // Предположим, что есть 5 типов врагов с id 0-4
+        int enemyTypes = 7; // Предположим, что есть 5 типов врагов с id 0-4
         for (int i = 0; i <= 50; i++)
         {
             var config = new LevelConfig { levelId = i };

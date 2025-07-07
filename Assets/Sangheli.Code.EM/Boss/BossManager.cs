@@ -19,7 +19,7 @@ public class BossManager : MonoBehaviour
             _currentBoss = Instantiate(bossPrefab);
         }
         _onBossDefeated = onBossDefeated;
-        var spawnPosition = SpawnUtils.GetRandomSpawnPosition(_mainCamera);
+        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(_mainCamera);
         _currentBoss.transform.position = spawnPosition;
         _currentBoss.gameObject.SetActive(true);
         _currentBoss.Init(hp, color, scale, OnBossDeath);
