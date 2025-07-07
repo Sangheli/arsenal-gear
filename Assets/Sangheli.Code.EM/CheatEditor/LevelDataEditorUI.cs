@@ -11,13 +11,11 @@ public class LevelDataEditorUI : MonoBehaviour
     public Button saveButton, loadButton, closeButton;
 
     private readonly List<LevelRow> _rows = new();
+    private readonly List<LevelRow> _rowPool = new(); // Пул для переиспользования строк
     private List<LevelConfig> _workingCopy = new();
 
     private void Awake()
     {
-        saveButton.onClick.RemoveAllListeners();
-        loadButton.onClick.RemoveAllListeners();
-        closeButton.onClick.RemoveAllListeners();
         saveButton.onClick.AddListener(Save);
         loadButton.onClick.AddListener(Load);
         closeButton.onClick.AddListener(OnClose);
@@ -25,15 +23,30 @@ public class LevelDataEditorUI : MonoBehaviour
 
     public void Init()
     {
-        foreach (Transform child in contentRoot)
-            Destroy(child.gameObject);
-        
-        _rows.Clear();
-        _workingCopy = LevelData.Levels.Select(CloneLevel).ToList();
-        foreach (var level in _workingCopy)
+        // Возвращаем все строки в пул и скрываем их
+        foreach (var row in _rows)
         {
-            var row = Instantiate(levelRowPrefab, contentRoot);
-            row.Set(level);
+            row.gameObject.SetActive(false);
+            _rowPool.Add(row);
+        }
+        _rows.Clear();
+
+        _workingCopy = LevelData.Levels.Select(CloneLevel).ToList();
+        for (int i = 0; i < _workingCopy.Count; i++)
+        {
+            LevelRow row;
+            if (_rowPool.Count > 0)
+            {
+                row = _rowPool[_rowPool.Count - 1];
+                _rowPool.RemoveAt(_rowPool.Count - 1);
+                row.gameObject.SetActive(true);
+            }
+            else
+            {
+                row = Instantiate(levelRowPrefab, contentRoot);
+            }
+            row.transform.SetParent(contentRoot, false);
+            row.Set(_workingCopy[i]);
             _rows.Add(row);
         }
     }

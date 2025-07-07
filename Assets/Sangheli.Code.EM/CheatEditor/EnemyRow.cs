@@ -8,13 +8,16 @@ public class EnemyRow : MonoBehaviour
     public InputField spawnRateInput;
     public Button removeButton;
 
+    void Awake()
+    {
+        removeButton.onClick.AddListener(RemoveSelf);
+    }
+
     public void Set(LevelEnemyInfo info)
     {
         enemyIdInput.text = info.enemyId.ToString();
         spawnChanceInput.text = info.spawnChance.ToString("F1"); // (0..100)
         spawnRateInput.text = info.spawnRate.ToString();
-        removeButton.onClick.RemoveAllListeners();
-        removeButton.onClick.AddListener(RemoveSelf);
     }
 
     public LevelEnemyInfo GetEnemyInfo()

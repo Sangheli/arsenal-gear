@@ -11,22 +11,37 @@ public class LevelRow : MonoBehaviour
 
     private readonly List<EnemyRow> _enemyRows = new();
 
+    void Awake()
+    {
+        addEnemyButton.onClick.AddListener(AddEnemy);
+    }
+
     public void Set(LevelConfig config)
     {
         levelIdInput.text = config.levelId.ToString();
-        foreach (Transform child in enemyListRoot)
-            Destroy(child.gameObject);
-        
-        _enemyRows.Clear();
-        foreach (var enemy in config.enemies)
+
+        // Переиспользуем или создаём строки
+        for (int i = 0; i < config.enemies.Count; i++)
         {
-            var row = Instantiate(enemyRowPrefab, enemyListRoot);
-            row.Set(enemy);
-            _enemyRows.Add(row);
+            EnemyRow row;
+            if (i < _enemyRows.Count)
+            {
+                row = _enemyRows[i];
+                row.gameObject.SetActive(true);
+            }
+            else
+            {
+                row = Instantiate(enemyRowPrefab, enemyListRoot);
+                _enemyRows.Add(row);
+            }
+            row.Set(config.enemies[i]);
         }
-        
-        addEnemyButton.onClick.RemoveAllListeners();
-        addEnemyButton.onClick.AddListener(AddEnemy);
+
+        // Скрываем лишние строки
+        for (int i = config.enemies.Count; i < _enemyRows.Count; i++)
+        {
+            _enemyRows[i].gameObject.SetActive(false);
+        }
     }
 
     public LevelConfig GetLevelConfig()

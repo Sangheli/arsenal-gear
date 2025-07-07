@@ -11,24 +11,35 @@ public class UpgradeParamEditorUI : MonoBehaviour
 
     private readonly List<UpgradeParamRow> _rows = new();
 
-    private void Start() => Init();
+    void Awake()
+    {
+        saveButton.onClick.AddListener(Save);
+        loadButton.onClick.AddListener(Load);
+    }
 
     private void Init()
     {
-        foreach (Transform child in contentRoot)
-            Destroy(child.gameObject);
-    
-        _rows.Clear();
-        foreach (var kv in ParamData.Params)
+        int i = 0;
+        var paramList = ParamData.Params.ToList();
+        // Создаём недостающие строки
+        while (_rows.Count < paramList.Count)
         {
             var row = Instantiate(rowPrefab, contentRoot);
-            row.Set(kv.Key, kv.Value.DisplayName, kv.Value.BasePrice);
             _rows.Add(row);
         }
-        saveButton.onClick.RemoveAllListeners();
-        loadButton.onClick.RemoveAllListeners();
-        saveButton.onClick.AddListener(Save);
-        loadButton.onClick.AddListener(Load);
+        // Обновляем и активируем нужные строки
+        for (; i < paramList.Count; i++)
+        {
+            var kv = paramList[i];
+            var row = _rows[i];
+            row.gameObject.SetActive(true);
+            row.Set(kv.Key, kv.Value.DisplayName, kv.Value.BasePrice);
+        }
+        // Деактивируем лишние строки
+        for (; i < _rows.Count; i++)
+        {
+            _rows[i].gameObject.SetActive(false);
+        }
     }
 
     private void Save()
