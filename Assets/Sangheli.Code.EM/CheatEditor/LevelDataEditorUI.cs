@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,75 +7,74 @@ using UnityEngine.UI;
 public class LevelDataEditorUI : MonoBehaviour
 {
     public Transform contentRoot; // Контейнер для строк уровней
-    public GameObject levelRowPrefab; // Префаб строки уровня
-    public Button saveButton, loadButton, applyButton;
+    public LevelRow levelRowPrefab; // Префаб строки уровня
+    public Button saveButton, loadButton, closeButton;
 
-    private List<LevelRow> rows = new List<LevelRow>();
-    private List<LevelConfig> _workingCopy = new List<LevelConfig>();
+    private readonly List<LevelRow> _rows = new();
+    private List<LevelConfig> _workingCopy = new();
 
-    void Start()
+    private void Awake()
     {
-        Init();
+        saveButton.onClick.RemoveAllListeners();
+        loadButton.onClick.RemoveAllListeners();
+        closeButton.onClick.RemoveAllListeners();
+        saveButton.onClick.AddListener(Save);
+        loadButton.onClick.AddListener(Load);
+        closeButton.onClick.AddListener(OnClose);
     }
 
     public void Init()
     {
         foreach (Transform child in contentRoot)
             Destroy(child.gameObject);
-        rows.Clear();
+        
+        _rows.Clear();
         _workingCopy = LevelData.Levels.Select(CloneLevel).ToList();
         foreach (var level in _workingCopy)
         {
-            var rowObj = Instantiate(levelRowPrefab, contentRoot);
-            var row = rowObj.GetComponent<LevelRow>();
+            var row = Instantiate(levelRowPrefab, contentRoot);
             row.Set(level);
-            rows.Add(row);
+            _rows.Add(row);
         }
-        saveButton.onClick.RemoveAllListeners();
-        loadButton.onClick.RemoveAllListeners();
-        applyButton.onClick.RemoveAllListeners();
-        saveButton.onClick.AddListener(Save);
-        loadButton.onClick.AddListener(Load);
-        applyButton.onClick.AddListener(Apply);
     }
 
-    void Save()
+    private void OnClose()
     {
-        var config = new LevelDataConfig { Levels = rows.Select(r => r.GetLevelConfig()).ToList() };
-        string json = JsonUtility.ToJson(config);
+        gameObject.SetActive(false);
+    }
+
+    private void Save()
+    {
+        var config = new LevelDataConfig { Levels = _rows.Select(r => r.GetLevelConfig()).ToList() };
+        var json = JsonUtility.ToJson(config);
         PlayerPrefs.SetString("leveldataprefs", json);
         PlayerPrefs.Save();
+        
+        LevelData.Levels.Clear();
+        LevelData.Levels.AddRange(_rows.Select(r => r.GetLevelConfig()));
     }
 
-    void Load()
+    private void Load()
     {
         if (!PlayerPrefs.HasKey("leveldataprefs")) return;
-        string json = PlayerPrefs.GetString("leveldataprefs");
+        var json = PlayerPrefs.GetString("leveldataprefs");
         var config = JsonUtility.FromJson<LevelDataConfig>(json);
         if (config == null) return;
         _workingCopy = config.Levels.Select(CloneLevel).ToList();
         Init();
     }
 
-    void Apply()
-    {
-        LevelData.Levels.Clear();
-        LevelData.Levels.AddRange(rows.Select(r => r.GetLevelConfig()));
-    }
-
-    private LevelConfig CloneLevel(LevelConfig src)
-    {
-        return new LevelConfig
+    private static LevelConfig CloneLevel(LevelConfig src) =>
+        new()
         {
             levelId = src.levelId,
             enemies = src.enemies.Select(e => new LevelEnemyInfo
             {
                 enemyId = e.enemyId,
-                spawnChance = e.spawnChance,
+                spawnChance = e.spawnChance, // (0..100)
                 spawnRate = e.spawnRate
             }).ToList()
         };
-    }
 
     [System.Serializable]
     private class LevelDataConfig

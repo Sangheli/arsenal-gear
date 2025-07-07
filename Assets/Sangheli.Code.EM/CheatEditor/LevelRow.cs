@@ -6,26 +6,25 @@ public class LevelRow : MonoBehaviour
 {
     public InputField levelIdInput;
     public Transform enemyListRoot;
-    public GameObject enemyRowPrefab;
+    public EnemyRow enemyRowPrefab;
     public Button addEnemyButton;
 
-    private List<EnemyRow> enemyRows = new List<EnemyRow>();
-    private LevelConfig _levelConfig;
+    private readonly List<EnemyRow> _enemyRows = new();
 
     public void Set(LevelConfig config)
     {
-        _levelConfig = config;
         levelIdInput.text = config.levelId.ToString();
         foreach (Transform child in enemyListRoot)
             Destroy(child.gameObject);
-        enemyRows.Clear();
+        
+        _enemyRows.Clear();
         foreach (var enemy in config.enemies)
         {
-            var rowObj = Instantiate(enemyRowPrefab, enemyListRoot);
-            var row = rowObj.GetComponent<EnemyRow>();
+            var row = Instantiate(enemyRowPrefab, enemyListRoot);
             row.Set(enemy);
-            enemyRows.Add(row);
+            _enemyRows.Add(row);
         }
+        
         addEnemyButton.onClick.RemoveAllListeners();
         addEnemyButton.onClick.AddListener(AddEnemy);
     }
@@ -35,7 +34,7 @@ public class LevelRow : MonoBehaviour
         var config = new LevelConfig();
         int.TryParse(levelIdInput.text, out config.levelId);
         config.enemies = new List<LevelEnemyInfo>();
-        foreach (var row in enemyRows)
+        foreach (var row in _enemyRows)
             config.enemies.Add(row.GetEnemyInfo());
         return config;
     }
@@ -45,6 +44,6 @@ public class LevelRow : MonoBehaviour
         var rowObj = Instantiate(enemyRowPrefab, enemyListRoot);
         var row = rowObj.GetComponent<EnemyRow>();
         row.Set(new LevelEnemyInfo());
-        enemyRows.Add(row);
+        _enemyRows.Add(row);
     }
 } 

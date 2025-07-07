@@ -48,6 +48,8 @@ public class G : MonoBehaviour
     public int maxLevel;
 
     public bool CanPlay { get; private set; }
+
+    public LevelDataEditorUI levelDataEditorUI;
     
     private void OnValidate()
     {
@@ -253,5 +255,11 @@ public class G : MonoBehaviour
         yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
+    }
+
+    public void ShowEnemyEditor()
+    {
+        levelDataEditorUI.gameObject.SetActive(true);
+        levelDataEditorUI.Init();
     }
 }

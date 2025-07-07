@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelEnemyInfo
 {
     public int enemyId;
-    public float spawnChance; // Вероятность появления (0..1)
+    public float spawnChance; // Вероятность появления (0..100)
     public float spawnRate;   // Спавнрейт (врагов в минуту)
 }
 
@@ -19,10 +19,11 @@ public class LevelConfig
 
 public static class LevelData
 {
-    public static readonly List<LevelConfig> Levels;
+    public static List<LevelConfig> Levels;
 
     static LevelData()
     {
+        Debug.Log("create");
         Levels = new List<LevelConfig>();
         var random = new System.Random(42); // фиксированный seed для повторяемости
         int enemyTypes = 7; // Предположим, что есть 5 типов врагов с id 0-4
@@ -38,8 +39,8 @@ public static class LevelData
                 config.enemies.Add(new LevelEnemyInfo
                 {
                     enemyId = enemyId,
-                    spawnChance = (float)random.NextDouble(),
-                    spawnRate = (float)(random.NextDouble() * 10 + 1)
+                    spawnChance = (float)(random.NextDouble() * 100),
+                    spawnRate = (float)(random.NextDouble() * 60 + 60)
                 });
             }
             Levels.Add(config);

@@ -4,17 +4,14 @@ using UnityEngine.UI;
 public class EnemyRow : MonoBehaviour
 {
     public InputField enemyIdInput;
-    public InputField spawnChanceInput;
+    public InputField spawnChanceInput; // (0..100)
     public InputField spawnRateInput;
     public Button removeButton;
 
-    private LevelEnemyInfo _enemyInfo;
-
     public void Set(LevelEnemyInfo info)
     {
-        _enemyInfo = info;
         enemyIdInput.text = info.enemyId.ToString();
-        spawnChanceInput.text = info.spawnChance.ToString();
+        spawnChanceInput.text = info.spawnChance.ToString("F1"); // (0..100)
         spawnRateInput.text = info.spawnRate.ToString();
         removeButton.onClick.RemoveAllListeners();
         removeButton.onClick.AddListener(RemoveSelf);

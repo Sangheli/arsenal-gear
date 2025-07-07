@@ -20,6 +20,7 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Text priceMultiplierText;
     
     public Button startButton;
+    public Button enemyEditor;
     
     private List<BaseUpgradeStateView> _spawned;
     private const int CheatEnergyAmount = 10000000;
@@ -28,6 +29,7 @@ public class UpgradeView : MonoBehaviour
     {
         cheatButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(OnStart);
+        enemyEditor.onClick.AddListener(OnEnemyEditor);
         
         if (prestigeText != null)
             prestigeText.text = "";
@@ -35,8 +37,13 @@ public class UpgradeView : MonoBehaviour
         if (prestigePlusButton != null) prestigePlusButton.gameObject.SetActive(false);
         InitCheatButtons();
     }
-    
-#if UNITY_EDITOR
+
+    private void OnEnemyEditor()
+    {
+        G.I.ShowEnemyEditor();
+    }
+
+    // #if UNITY_EDITOR
     private void InitCheatButtons()
     {
         cheatButton.gameObject.SetActive(true);
@@ -64,9 +71,9 @@ public class UpgradeView : MonoBehaviour
         SaveSystem.Save();
         RefreshAll();
     }
-#else
-    private void InitCheatButtons();
-#endif
+// #else
+//     private void InitCheatButtons();
+// #endif
     
     private void GenerateUpgradeViews()
     {
