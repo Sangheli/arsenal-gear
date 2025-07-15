@@ -1,8 +1,5 @@
 using UnityEngine;
 using System.Collections;
-#if UNITY_WEBGL && !UNITY_EDITOR
-using System.Runtime.InteropServices;
-#endif
 
 public class CursorView : MonoBehaviour
 {
@@ -24,17 +21,10 @@ public class CursorView : MonoBehaviour
     public Color originalInnerColorRingOuter = Color.white;
     private Coroutine _pulseCoroutine;
     private float _currentScale = 1f;
-    private bool _isPulsing = false;
+    private bool _isPulsing;
     private Color _pulseColor;
     public DeathVfx deathVfx;
     public CameraShake cameraShake;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-    private static extern void Vibrate(int duration);
-#else
-    private static void Vibrate(int duration) { }
-#endif
 
     private void Awake()
     {
@@ -73,6 +63,12 @@ public class CursorView : MonoBehaviour
     {
         view.gameObject.SetActive(state);
         viewHarvest.gameObject.SetActive(false);
+        
+        if (state)
+        {
+            PropertyBlock.SetColor(RingColor, originalInnerColorRingOuter);
+            viewRender.SetPropertyBlock(PropertyBlock);
+        }
     }
 
     public void DoBounceAnimation(float scale)
@@ -134,14 +130,6 @@ public class CursorView : MonoBehaviour
     {
         if (cameraShake != null) cameraShake.DeathShake();
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.emptyHit);
-
-        var addonScale = punchScale - 1;
-        addonScale /= _currentScale;
-        
-        
-        // Вибрация на 100 мс
-        Vibrate(100);
-
         deathVfx.Play();
     }
 } 
