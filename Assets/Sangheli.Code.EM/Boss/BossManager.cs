@@ -12,17 +12,14 @@ public class BossManager : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
-    public void SpawnBoss(float hp, Color color, float scale, System.Action onBossDefeated)
+    public void SpawnBoss(float hp, Color color, float scale, float bossDamage, System.Action onBossDefeated)
     {
-        if (_currentBoss == null)
-        {
-            _currentBoss = Instantiate(bossPrefab);
-        }
+        _currentBoss = G.I.ObjectPool.Get(bossPrefab);
         _onBossDefeated = onBossDefeated;
         var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(_mainCamera);
         _currentBoss.transform.position = spawnPosition;
         _currentBoss.gameObject.SetActive(true);
-        _currentBoss.Init(hp, color, scale, OnBossDeath);
+        _currentBoss.Init(hp, color, scale, bossDamage, OnBossDeath);
         _currentBoss.StopAllCoroutines();
         _currentBoss.StartCoroutine(SpawnUtils.MoveToCenter(_currentBoss.transform, _mainCamera));
     }
@@ -30,11 +27,15 @@ public class BossManager : MonoBehaviour
     private void OnBossDeath()
     {
         _onBossDefeated?.Invoke();
+        _currentBoss = null;
     }
 
     public void ResetBoss()
     {
         if (_currentBoss != null)
-            _currentBoss.ResetItem();
+        {
+            G.I.ObjectPool.Return(_currentBoss);
+            _currentBoss = null;
+        }
     }
 } 

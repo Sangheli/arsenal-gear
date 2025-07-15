@@ -131,6 +131,7 @@ public class G : MonoBehaviour
         
         yield return distortionUI.DoFade(forward: true);
         
+        bossManager.ResetBoss();
         endRoundView.OnStartRound();
         tutorial.OnStartRound();
         playerCursor.view.hudView.damageTextManager.StartRound();
@@ -244,7 +245,6 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         prestigeManager.StopRound();
         energySpawner.StopRound();
-        bossManager.ResetBoss();
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);

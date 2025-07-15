@@ -5,10 +5,11 @@ public class BossController : EnemyController
     private System.Action _onBossDeath;
 
     // Новый Init для босса
-    public void Init(float hp, Color color, float scale, System.Action onBossDeath)
+    public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
     {
         _currentData = new EnemyData();
         _currentData.Health = hp;
+        _currentData.DamagePerHit = bossDamage;
         damageReciever.EnemyData = _currentData;
         
         _onBossDeath = onBossDeath;
@@ -37,9 +38,7 @@ public class BossController : EnemyController
     public override void Die(bool isCrit = false)
     {
         if (!_isActive) return;
-        _isDead = true;
-        _isActive = false;
-        gameObject.SetActive(false);
         _onBossDeath?.Invoke();
+        base.Die(isCrit);
     }
 } 

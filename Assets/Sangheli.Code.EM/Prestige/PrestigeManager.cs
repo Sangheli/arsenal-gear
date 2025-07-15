@@ -128,9 +128,10 @@ public class PrestigeManager : MonoBehaviour
         var level = G.I.SaveProvider.Get().level;
         float bossHp = GetBossHp(level);
         Color bossColor = GetLevelColor(level + 1);
-        float scale = 10.5f;
+        float scale = 9f;
+        float damage = 100;
         _active = false;
-        G.I.bossManager.SpawnBoss(bossHp, bossColor, scale, CompletePrestigeAfterBoss);
+        G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
     }
 
     public void CompletePrestigeAfterBoss()

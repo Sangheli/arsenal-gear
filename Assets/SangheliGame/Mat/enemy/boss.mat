@@ -124,7 +124,7 @@ Material:
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
-    - _ClipUvUp: 0.549
+    - _ClipUvUp: 0.8
     - _ColorChangeLuminosity: 0
     - _ColorChangeTolerance: 0.25
     - _ColorChangeTolerance2: 0.25
