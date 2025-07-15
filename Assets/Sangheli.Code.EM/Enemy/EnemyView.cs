@@ -10,6 +10,7 @@ public class EnemyView : MonoBehaviour
     public Renderer ViewRenderer;
     public Renderer RamkaRender;
     public Renderer ShadowRender;
+    public Renderer BackRender;
     
     [Space]
     public DeathVfx deathVfx;
@@ -147,6 +148,7 @@ public class EnemyView : MonoBehaviour
         RamkaRender.sortingOrder = data.ramka;
         ViewRenderer.sortingOrder = data.view;
         ShadowRender.sortingOrder = data.shadow;
+        BackRender.sortingOrder = data.back;
         deathVfx.SetOrder(data.ramka);
     }
 

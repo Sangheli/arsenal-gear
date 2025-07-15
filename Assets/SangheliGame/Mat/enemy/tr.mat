@@ -7,13 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: squareMat
+  m_Name: tr
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - CLIPPING_ON
   - HITEFFECT_ON
+  - OVERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -94,7 +95,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 74087f6d03f233e4a8a142fa01f9e5cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: f09aab7ef7bbddc47969b9c701052978, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -124,7 +125,7 @@ Material:
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
-    - _ClipUvUp: 0
+    - _ClipUvUp: 0.513
     - _ColorChangeLuminosity: 0
     - _ColorChangeTolerance: 0.25
     - _ColorChangeTolerance2: 0.25
@@ -218,8 +219,8 @@ Material:
     - _OutlineWidth: 0.2
     - _OverlayBlend: 1
     - _OverlayGlow: 1
-    - _OverlayTextureScrollXSpeed: 0.25
-    - _OverlayTextureScrollYSpeed: 0.25
+    - _OverlayTextureScrollXSpeed: 0
+    - _OverlayTextureScrollYSpeed: 0
     - _Parallax: 0.02
     - _PinchUvAmount: 0.35
     - _PixelateSize: 32
@@ -267,7 +268,7 @@ Material:
     - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.18431373, g: 0.49411765, b: 0.9607843, a: 1}
+    - _Color: {r: 1, g: 0.52581173, b: 0, a: 1}
     - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}

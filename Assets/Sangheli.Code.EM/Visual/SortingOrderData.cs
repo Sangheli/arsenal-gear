@@ -2,6 +2,7 @@
 {
     public int ramka;
     public int view;
+    public int back;
     public int shadow;
     
     public int Max;
@@ -9,11 +10,12 @@
 
     public void Iterrate()
     {
-        ramka+=3;
+        ramka+=4;
         if (ramka > Max)
             ramka = Start;
 
         view = ramka - 1;
-        shadow = ramka - 2;
+        back = ramka - 2;
+        shadow = ramka - 3;
     }
 }
