@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6954cfb95f84a8d438a0fa286c524efa, type: 3}
+  m_Name: LevelDataConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::LevelDataConfigSO
+  Levels:
+  - levelId: 0
+    LevelStringEntry: Your cursor deals damage over time\nBreak blocks to collect
+      energy
+    enemies:
+    - enemyId: 0
+      spawnChance: 100
+      spawnRate: 60
+    - enemyId: 6
+      spawnChance: 100
+      spawnRate: 60
+  - levelId: 0
+    LevelStringEntry: Watch out\nSome blocks fight back!
+    enemies:
+    - enemyId: 0
+      spawnChance: 100
+      spawnRate: 60
+    - enemyId: 6
+      spawnChance: 100
+      spawnRate: 60

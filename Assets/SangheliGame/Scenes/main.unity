@@ -7623,8 +7623,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     delim: 10
   maxLevel: 50
-  levelDataConfigSO: {fileID: 11400000, guid: cf9efe87aaa0f9b4dab4bb7939b3f1d1, type: 2}
-  upgradeParamConfig: {fileID: 11400000, guid: ff91616b78abe294e96acaee8e0d5c49, type: 2}
 --- !u!4 &1503166276
 Transform:
   m_ObjectHideFlags: 0
@@ -11627,6 +11625,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,16 +5,6 @@ public class LevelStringManager : MonoBehaviour
 {
     public Text targetText;
     
-    [System.Serializable]
-    public class LevelStringEntry
-    {
-        public int id;
-        public string text;
-    }
-
-    [Space]
-    public List<LevelStringEntry> levelStrings;
-
     public void OnFirstLoad()
     {
         targetText.gameObject.SetActive(false);
@@ -31,11 +20,11 @@ public class LevelStringManager : MonoBehaviour
 
     private string GetStringForLevel(int level)
     {
-        var entry = levelStrings.Find(e => e.id == level);
-        if (entry == null || string.IsNullOrEmpty(entry.text))
+        if (G.I.Data.levelDataConfigSO.Levels is not { Count: > 0 }) 
             return string.Empty;
         
-        var str = entry.text;
+        var entry = G.I.Data.levelDataConfigSO.Levels[level];
+        var str = entry.LevelStringEntry;
         return str.ReplaceEscapedNewlines();
     }
 

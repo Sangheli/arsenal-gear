@@ -162,36 +162,16 @@ public class ParamData
         },
     };
 
-    public static UpgradeParamConfig ExportCurrentConfig()
-    {
-        var config = new UpgradeParamConfig();
-        foreach (var kv in Params)
-        {
-            config.Upgrades.Add(new UpgradeParamEntry
-            {
-                Key = kv.Key,
-                BasePrice = kv.Value.BasePrice
-            });
-        }
-        return config;
-    }
-
     public static void ApplyConfig(UpgradeParamConfig config)
     {
         if (config == null) return;
         foreach (var entry in config.Upgrades)
         {
-            if (Params.TryGetValue(entry.Key, out var param))
-            {
-                param.BasePrice = entry.BasePrice;
-            }
+            if (!Params.TryGetValue(entry.Key, out var param)) 
+                continue;
+            
+            param.BasePrice = entry.BasePrice;
+            param.PriceMult = entry.PriceMult;
         }
-    }
-
-    public static void TryApplyConfigFromPrefs()
-    {
-        var config = UpgradeParamPrefsManager.Load();
-        if (config != null)
-            ApplyConfig(config);
     }
 }

@@ -91,10 +91,10 @@ public class RoundManager : MonoBehaviour
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 30000 };
         // Получить конфиг уровня
-        if (LevelData.Levels != null && LevelData.Levels.Count > 0)
+        if (G.I.Data.levelDataConfigSO.Levels is { Count: > 0 })
         {
-            int level = Mathf.Clamp(_save.level, 0, LevelData.Levels.Count - 1);
-            _currentLevelConfig = LevelData.Levels[level];
+            var level = Mathf.Clamp(_save.level, 0, G.I.Data.levelDataConfigSO.Levels.Count - 1);
+            _currentLevelConfig = G.I.Data.levelDataConfigSO.Levels[level];
         }
         else
         {

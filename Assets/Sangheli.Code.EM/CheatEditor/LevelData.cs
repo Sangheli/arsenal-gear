@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class LevelEnemyInfo
@@ -14,36 +13,6 @@ public class LevelEnemyInfo
 public class LevelConfig
 {
     public int levelId;
+    public string LevelStringEntry;
     public List<LevelEnemyInfo> enemies = new();
 }
-
-public static class LevelData
-{
-    public static List<LevelConfig> Levels;
-
-    static LevelData()
-    {
-        Debug.Log("create");
-        Levels = new List<LevelConfig>();
-        var random = new System.Random(42); // фиксированный seed для повторяемости
-        int enemyTypes = 7; // Предположим, что есть 5 типов врагов с id 0-4
-        for (int i = 0; i <= 50; i++)
-        {
-            var config = new LevelConfig { levelId = i };
-            int enemiesInLevel = random.Next(1, enemyTypes + 1);
-            var used = new HashSet<int>();
-            for (int j = 0; j < enemiesInLevel; j++)
-            {
-                int enemyId;
-                do { enemyId = random.Next(0, enemyTypes); } while (!used.Add(enemyId));
-                config.enemies.Add(new LevelEnemyInfo
-                {
-                    enemyId = enemyId,
-                    spawnChance = (float)(random.NextDouble() * 100),
-                    spawnRate = (float)(random.NextDouble() * 60 + 60)
-                });
-            }
-            Levels.Add(config);
-        }
-    }
-} 

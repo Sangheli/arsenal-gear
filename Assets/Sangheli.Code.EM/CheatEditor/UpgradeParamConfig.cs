@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class UpgradeParamConfig
+[CreateAssetMenu(fileName = "UpgradeParamConfig", menuName = "Configs/UpgradeParamConfig")]
+public class UpgradeParamConfig : ScriptableObject
 {
     public List<UpgradeParamEntry> Upgrades = new();
 }

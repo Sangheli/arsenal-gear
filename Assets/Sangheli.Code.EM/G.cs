@@ -49,8 +49,6 @@ public class G : MonoBehaviour
 
     public bool CanPlay { get; private set; }
 
-    public LevelDataEditorUI levelDataEditorUI;
-    
     private void OnValidate()
     {
         Container ??= GetComponent<SceneContainer>();
@@ -255,11 +253,5 @@ public class G : MonoBehaviour
         yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
-    }
-
-    public void ShowEnemyEditor()
-    {
-        levelDataEditorUI.gameObject.SetActive(true);
-        levelDataEditorUI.Init();
     }
 }

@@ -11,7 +11,6 @@ public class StartGameView : MonoBehaviour
     public Text saveStatsText;
     [SerializeField] private Button buttonYoutube;
     [SerializeField] private Button buttonDS;
-    [SerializeField] private Button btEnemyEditor;
     public Button buttonGoToUpgrades;
     public SaveInfo saveInfo;
     
@@ -22,12 +21,6 @@ public class StartGameView : MonoBehaviour
         buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
         buttonDS.onClick.AddListener(MediaUrlOpener.OpenDs);
         buttonGoToUpgrades.onClick.AddListener(OnExitFromRound);
-        btEnemyEditor.onClick.AddListener(OnEnemyEditor);
-    }
-    
-    private void OnEnemyEditor()
-    {
-        G.I.ShowEnemyEditor();
     }
 
     private void OnExitFromRound() => G.I.GoToUpgrades();

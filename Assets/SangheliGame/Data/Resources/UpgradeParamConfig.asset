@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4885057a64846659d5d9e1a607a08e0, type: 3}
+  m_Name: UpgradeParamConfig
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
+  Upgrades:
+  - Key: playerDamageMin
+    BasePrice: 0
+    PriceMult: 0
+  - Key: hp
+    BasePrice: 0
+    PriceMult: 0
+  - Key: playerFireRate
+    BasePrice: 0
+    PriceMult: 0
+  - Key: damageDiameter
+    BasePrice: 0
+    PriceMult: 0
+  - Key: collectDiameter
+    BasePrice: 0
+    PriceMult: 0
+  - Key: shieldCapacity
+    BasePrice: 0
+    PriceMult: 0
+  - Key: shieldRegenRate
+    BasePrice: 0
+    PriceMult: 0
+  - Key: shieldRegenRate
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0
+  - Key: critMultiplier
+    BasePrice: 0
+    PriceMult: 0

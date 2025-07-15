@@ -7,7 +7,9 @@ public class DataContainer : ScriptableObject
     public SoundContainer soundContainer;
     public SpriteContainer spriteContainer;
     public FontContainer fontContainer;
-
+    public LevelDataConfigSO levelDataConfigSO; // ScriptableObject с уровнями
+    public UpgradeParamConfig upgradeParamConfig; // ScriptableObject с параметрами апгрейдов
+    
     public void Init()
     {
         var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
