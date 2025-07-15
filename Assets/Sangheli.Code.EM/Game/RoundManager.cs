@@ -54,7 +54,7 @@ public class RoundManager : MonoBehaviour
         if (_currentLevelConfig == null) return;
         foreach (var info in _currentLevelConfig.enemies)
         {
-            var enemy = G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+            var enemy = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
             if (enemy != null)
                 TrySpawnEnemyWithRate(enemy, info);
         }
@@ -150,7 +150,7 @@ public class RoundManager : MonoBehaviour
         {
             acc += info.spawnChance;
             if (rand <= acc)
-                return G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+                return G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
         }
         return null;
     }
@@ -161,7 +161,7 @@ public class RoundManager : MonoBehaviour
         if (_currentLevelConfig == null) return;
         foreach (var info in _currentLevelConfig.enemies)
         {
-            var enemy = G.I.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+            var enemy = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
             if (enemy != null)
             {
                 enemy.Init(_save);

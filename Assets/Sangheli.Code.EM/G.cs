@@ -20,7 +20,6 @@ public class G : MonoBehaviour
     public DistortionUI distortionUI;
     public EndRoundView endRoundView;
     public UpgradeView upgradeView;
-    public EnemyContainer enemyContainer;
     public AICursorManager aiCursorManager;
     
     public PrestigeManager prestigeManager;
@@ -90,7 +89,7 @@ public class G : MonoBehaviour
     private void OnFirstLoad()
     {
         tutorial.OnFirstLoad();
-        enemyContainer.UpdateEnemyIndices();
+        Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
         SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
@@ -111,7 +110,7 @@ public class G : MonoBehaviour
     public void StartRunFirstTime()
     {
         var save = SaveProvider.Get();
-        save.GetEnemyUpgradeContainer().Init(enemyContainer.List);
+        save.GetEnemyUpgradeContainer().Init(Data.enemyContainer.List);
         GameTimeManager.Init(save.timeSinceStart);
         StartRun();
     }

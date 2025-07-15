@@ -24,7 +24,7 @@ public class UpgradePriceMultiplierManager
     
     public int GetTotalPossibleUpgrades()
     {
-        var playerMax = ParamData.Params.Values.Sum(param => param.MaxUpgrades);
+        var playerMax = G.I.Data.ParamData.Params.Sum(x => x.MaxUpgrades);
         var enemyMax = GetEnemyMax();
         return playerMax + enemyMax;
     }
@@ -32,7 +32,7 @@ public class UpgradePriceMultiplierManager
     private int GetEnemyMax()
     {
         var enemyMax = 0;
-        var enemyContainer = G.I.enemyContainer;
+        var enemyContainer = G.I.Data.enemyContainer;
         if (enemyContainer != null && enemyContainer.List != null)
             enemyMax += enemyContainer.List
                 .Where(enemy => enemy is { UpgradeInfos: { } })

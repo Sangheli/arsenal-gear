@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyContainer : MonoBehaviour
+[CreateAssetMenu(menuName = "Sangheli/EnemyContainer")]
+public class EnemyContainer : ScriptableObject
 {
     public List<EnemyData> List;
 

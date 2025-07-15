@@ -112,7 +112,7 @@ public class UpgradeView : MonoBehaviour
             save.hasVisitedUpgradeMenu = true;
             SaveSystem.Save();
         }
-        ParamData.ApplyConfig(G.I.Data.upgradeParamConfig);
+
         GenerateUpgradeViews();
         RefreshAll();
     }

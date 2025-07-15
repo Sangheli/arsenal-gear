@@ -8,7 +8,8 @@ public class DataContainer : ScriptableObject
     public SpriteContainer spriteContainer;
     public FontContainer fontContainer;
     public LevelDataConfigSO levelDataConfigSO; // ScriptableObject с уровнями
-    public UpgradeParamConfig upgradeParamConfig; // ScriptableObject с параметрами апгрейдов
+    public UpgradeParamConfig ParamData; // ScriptableObject с параметрами апгрейдов
+    public EnemyContainer enemyContainer; // ScriptableObject с врагами
     
     public void Init()
     {

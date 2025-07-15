@@ -17,7 +17,7 @@ public class ShieldManager
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.GetParamContainer();
-        var availableParams = paramContainer.GetAvailableParamKeys();
+        var availableParams = paramContainer.GetAllParamKeys();
         var isParamAvailable = availableParams.Contains("shieldCapacity");
         
         // Проверяем не только доступность, но и значение параметра

@@ -16,4 +16,5 @@ MonoBehaviour:
   spriteContainer: {fileID: 11400000, guid: 445e015cc327b2f4a9298443a97cd54a, type: 2}
   fontContainer: {fileID: 11400000, guid: 010cbf6e2931815438f466476755a335, type: 2}
   levelDataConfigSO: {fileID: 11400000, guid: cf9efe87aaa0f9b4dab4bb7939b3f1d1, type: 2}
-  upgradeParamConfig: {fileID: 11400000, guid: ff91616b78abe294e96acaee8e0d5c49, type: 2}
+  ParamData: {fileID: 11400000, guid: ff91616b78abe294e96acaee8e0d5c49, type: 2}
+  enemyContainer: {fileID: 11400000, guid: d6e268d7d6ddd244f8baf37169540afc, type: 2}
