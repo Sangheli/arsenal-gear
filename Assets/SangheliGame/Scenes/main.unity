@@ -2465,7 +2465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631030892521965732, guid: c83d29442f80bc34fa9651ed5c52ef8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 72.8241
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3631030892521965732, guid: c83d29442f80bc34fa9651ed5c52ef8d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7677,7 +7677,6 @@ MonoBehaviour:
       BasePrice: 100
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 15
     Speed: 0.65
     DamagePerHit: 0.5
@@ -7691,7 +7690,6 @@ MonoBehaviour:
       BasePrice: 5
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 30
     Speed: 0.8
     DamagePerHit: 0.75
@@ -7705,7 +7703,6 @@ MonoBehaviour:
       BasePrice: 7
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 45
     Speed: 1
     DamagePerHit: 1
@@ -7719,7 +7716,6 @@ MonoBehaviour:
       BasePrice: 7
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 75
     Speed: 4
     DamagePerHit: 0
@@ -7733,7 +7729,6 @@ MonoBehaviour:
       BasePrice: 20
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 45
     Speed: 0.15
     DamagePerHit: 5
@@ -7747,7 +7742,6 @@ MonoBehaviour:
       BasePrice: 7
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
   - Health: 45
     Speed: 0.15
     DamagePerHit: 5
@@ -7761,7 +7755,6 @@ MonoBehaviour:
       BasePrice: 7
       PriceMult: 1.2
       Type: 1
-    UpgradeParamConfig: {fileID: 0}
 --- !u!114 &1503166280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11238,7 +11231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3631030892521965732, guid: c83d29442f80bc34fa9651ed5c52ef8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 72.8241
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3631030892521965732, guid: c83d29442f80bc34fa9651ed5c52ef8d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11443,11 +11436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelStringManager
   targetText: {fileID: 8382231288781022257}
-  levelStrings:
-  - id: 0
-    text: Your cursor deals damage over time\nBreak blocks to collect energy
-  - id: 1
-    text: Watch out\nSome blocks fight back!
 --- !u!1001 &3100707462204159169
 PrefabInstance:
   m_ObjectHideFlags: 0
