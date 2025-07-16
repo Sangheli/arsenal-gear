@@ -5,25 +5,20 @@ using System.Linq;
 public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
-    private const int MaxLevels = 50;
 
     public LevelDataConfigRuntime(LevelDataConfigSO configSO)
     {
         if (configSO != null)
+        {
             foreach (var level in configSO.Levels)
                 _levels[level.levelId] = level;
-
-        GenerateMissingLevels();
-    }
-
-    private void GenerateMissingLevels()
-    {
-        var currentCount = _levels.Count;
-        if (currentCount == 0)
-            return;
-
-        for (var i = currentCount + 1; i <= MaxLevels; i++)
+        }
+        
+        for (var i = 0; i < G.I.maxLevel; i++)
         {
+            if (_levels.ContainsKey(i)) 
+                continue;
+            
             var newLevel = GenerateRandomLevel();
             newLevel.levelId = i;
             _levels[i] = newLevel;
