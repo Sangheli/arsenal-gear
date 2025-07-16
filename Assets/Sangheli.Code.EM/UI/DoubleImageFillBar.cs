@@ -12,6 +12,6 @@ public class DoubleImageFillBar : MonoBehaviour
         var fill = value / fullValue;
         fillImage.fillAmount = fill;
         fillImageBack.fillAmount = 1-fill;
-        text.text = $"{value:F2}/{fullValue:F2}";
+        text.text = $"{value:F1}/{fullValue:F1}";
     }
 }
