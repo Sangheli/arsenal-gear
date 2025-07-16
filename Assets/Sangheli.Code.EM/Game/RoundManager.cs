@@ -46,7 +46,9 @@ public class RoundManager : MonoBehaviour
         if (!IsAlive) return;
         
         var diff = Time.deltaTime * 1;
-        G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
+        if (_currentLevelConfig == null || _currentLevelConfig.loseHpDuringRound)
+            G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
+
         if (G.I.HpManager.RoundHp <= 0) G.I.StopRun(EndRoundFadeEnum.Fail);
         
         if(!IsAlive) return;
@@ -91,10 +93,10 @@ public class RoundManager : MonoBehaviour
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 30000 };
         // Получить конфиг уровня
-        if (G.I.Data.levelDataConfigSO.Levels is { Count: > 0 })
+        if (G.I.levelDataConfig.Count() > 0 )
         {
-            var level = Mathf.Clamp(_save.level, 0, G.I.Data.levelDataConfigSO.Levels.Count - 1);
-            _currentLevelConfig = G.I.Data.levelDataConfigSO.Levels[level];
+            var level = Mathf.Clamp(_save.level, 0, G.I.levelDataConfig.Count() - 1);
+            _currentLevelConfig = G.I.levelDataConfig.Get(level);
         }
         else
         {

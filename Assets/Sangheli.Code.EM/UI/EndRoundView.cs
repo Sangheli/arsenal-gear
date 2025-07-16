@@ -82,15 +82,34 @@ public class EndRoundView : MonoBehaviour
 
     private IEnumerator ShowCoroutine(int energy, int totalEnergy,int bossReward, EndRoundFadeEnum fadeType)
     {
+        buttonStartNewRound.image.color = Color.clear;
+        buttonStartNewRoundText.color = Color.clear;
+        
         rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
         rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
 
         var save = G.I.SaveProvider.Get();
-        if (save.hasVisitedUpgradeMenu)
+        var showGoToUpgradesButton = true;
+        var showNextRound = true;
+
+        if (save != null && save.level < G.I.levelDataConfig.Count())
+        {
+            var levelId = fadeType == EndRoundFadeEnum.Win ? save.level - 1 : save.level;
+            var levelConfig = G.I.levelDataConfig.Get(levelId);
+            if (levelConfig != null)
+            {
+                showGoToUpgradesButton = levelConfig.showGoToUpgradesButton;
+                if (showGoToUpgradesButton && !save.hasVisitedUpgradeMenu) showNextRound = false;
+            }
+        }
+
+        if (showNextRound)
         {
             buttonStartNewRound.image.color = _buttonStartNewRoundOriginalColor;
             buttonStartNewRoundText.color = _buttonStartNewRoundTextOriginalColor;
         }
+
+        buttonEndRound.gameObject.SetActive(showGoToUpgradesButton);
 
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
@@ -103,7 +122,7 @@ public class EndRoundView : MonoBehaviour
         saveInfo.FadeOut(2,1);
         
         buttonEndRound.interactable = true;
-        if (save.hasVisitedUpgradeMenu) buttonStartNewRound.interactable = true;
+        if (showNextRound) buttonStartNewRound.interactable = true;
 
         yield return ShowRewardAnim(energy, totalEnergy, PrefixRound, rewardText);
         yield return ShowRewardAnim(bossReward, totalEnergy + energy, PrefixBoss, rewardBossText);

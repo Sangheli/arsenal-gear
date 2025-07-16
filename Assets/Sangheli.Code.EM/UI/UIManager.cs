@@ -22,7 +22,23 @@ public class UIManager : MonoBehaviour
 
     public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {
+        // Проверка флага loseHpDuringRound
+        var showHp = true;
+        var save = G.I.SaveProvider?.Get();
+        if (save != null && save.level < G.I.levelDataConfig.Count())
+        {
+            var levelConfig = G.I.levelDataConfig.Get(save.level);
+            if (levelConfig is { loseHpDuringRound: false })
+                showHp = false;
+        }
         G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue, doBlink);
+        if (!showHp && healthBarUI != null)
+        {
+            healthBarUI.gameObject.SetActive(false);
+            return false;
+        }
+        if (healthBarUI != null)
+            healthBarUI.gameObject.SetActive(true);
         return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink);
     }
 

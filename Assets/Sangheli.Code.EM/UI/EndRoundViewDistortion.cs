@@ -79,7 +79,17 @@ public class EndRoundViewDistortion : MonoBehaviour
             case EndRoundFadeEnum.Win:
                 targetColor = blueColor;
                 textColor = winTextColor;
-                valueText = winText;
+                // Проверка showBossAfterTimer
+                var save = G.I?.SaveProvider?.Get();
+                bool showBoss = true;
+                if (save != null  && save.level < G.I.levelDataConfig.Count())
+                {
+                    var levelId = save.level - 1;
+                    var levelConfig = G.I.levelDataConfig.Get(levelId);
+                    if (levelConfig != null)
+                        showBoss = levelConfig.showBossAfterTimer;
+                }
+                valueText = showBoss ? winText : "Level Complete";
                 break;
             case EndRoundFadeEnum.EndDemo:
                 targetColor = demoColor;

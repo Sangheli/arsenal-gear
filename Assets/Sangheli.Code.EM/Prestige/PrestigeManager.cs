@@ -126,10 +126,17 @@ public class PrestigeManager : MonoBehaviour
         Debug.Log("call boss");
         prestigeBar.gameObject.SetActive(false);
         var level = G.I.SaveProvider.Get().level;
+        // Проверка флага showBossAfterTimer
+        var levelConfig = G.I.levelDataConfig.Count() > level ? G.I.levelDataConfig.Get(level) : null;
+        if (levelConfig != null && !levelConfig.showBossAfterTimer)
+        {
+            CompletePrestigeAfterBoss(); // Сразу победа
+            return;
+        }
         float bossHp = GetBossHp(level);
         Color bossColor = GetLevelColor(level + 1);
         float scale = 9f;
-        float damage = 100;
+        float damage = 1;
         _active = false;
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
     }

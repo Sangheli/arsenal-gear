@@ -45,6 +45,8 @@ public class G : MonoBehaviour
     [Space]
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
     public int maxLevel;
+    
+    public LevelDataConfigRuntime levelDataConfig { get; set; }
 
     public bool CanPlay { get; private set; }
 
@@ -102,6 +104,8 @@ public class G : MonoBehaviour
         endRoundView.distortion.OnLoadInit();
         
         SaveProvider.Get();
+        
+        levelDataConfig = new LevelDataConfigRuntime(Data.levelDataConfigSO);
         
         prestigeManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();

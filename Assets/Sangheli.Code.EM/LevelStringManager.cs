@@ -20,11 +20,10 @@ public class LevelStringManager : MonoBehaviour
 
     private string GetStringForLevel(int level)
     {
-        if (G.I.Data.levelDataConfigSO.Levels is not { Count: > 0 }) 
+        if (G.I.levelDataConfig.Count() == 0 )
             return string.Empty;
         
-        var entry = G.I.Data.levelDataConfigSO.Levels[level];
-        var str = entry.LevelStringEntry;
+        var str = G.I.levelDataConfig.Get(level)?.LevelStringEntry ?? string.Empty;
         return str.ReplaceEscapedNewlines();
     }
 

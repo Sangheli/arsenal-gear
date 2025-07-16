@@ -20,11 +20,35 @@ MonoBehaviour:
     - enemyId: 0
       spawnChance: 100
       spawnRate: 60
-    - enemyId: 6
+    loseHpDuringRound: 0
+    showBossAfterTimer: 0
+    checkNextRoundFromSave: 0
+    showGoToUpgradesButton: 0
+  - levelId: 1
+    LevelStringEntry: You Lose HP over Time
+    enemies:
+    - enemyId: 0
       spawnChance: 100
       spawnRate: 60
-  - levelId: 0
+    loseHpDuringRound: 1
+    showBossAfterTimer: 0
+    checkNextRoundFromSave: 1
+    showGoToUpgradesButton: 1
+  - levelId: 2
     LevelStringEntry: Watch out\nSome blocks fight back!
+    enemies:
+    - enemyId: 0
+      spawnChance: 100
+      spawnRate: 60
+    - enemyId: 1
+      spawnChance: 100
+      spawnRate: 60
+    loseHpDuringRound: 1
+    showBossAfterTimer: 0
+    checkNextRoundFromSave: 0
+    showGoToUpgradesButton: 1
+  - levelId: 3
+    LevelStringEntry: Fight With Boss
     enemies:
     - enemyId: 0
       spawnChance: 100
@@ -32,3 +56,7 @@ MonoBehaviour:
     - enemyId: 6
       spawnChance: 100
       spawnRate: 60
+    loseHpDuringRound: 1
+    showBossAfterTimer: 1
+    checkNextRoundFromSave: 0
+    showGoToUpgradesButton: 1
