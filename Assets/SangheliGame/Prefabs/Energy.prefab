@@ -87,6 +87,8 @@ MonoBehaviour:
   t1: 0.2
   t2: 0.3
   maxScale: 1.5
+  viewRenderer: {fileID: 2315365853651909906}
+  shadowRenderer: {fileID: 3546975680916664839}
 --- !u!1 &4372242647234082321
 GameObject:
   m_ObjectHideFlags: 0

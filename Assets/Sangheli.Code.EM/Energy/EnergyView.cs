@@ -24,6 +24,9 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
     
+    public SpriteRenderer viewRenderer;
+    public SpriteRenderer shadowRenderer;
+
     private void Awake()
     {
         _originalScale = transform.localScale;
@@ -104,5 +107,11 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         var transform1 = transform;
         transform1.SetParent(null);
         transform1.localScale = _originalScale;
+    }
+
+    public void SetSortingOrder(EnergySortingOrderData sortingOrderData)
+    {
+        viewRenderer.sortingOrder = sortingOrderData.view;
+        shadowRenderer.sortingOrder = sortingOrderData.shadow;
     }
 }

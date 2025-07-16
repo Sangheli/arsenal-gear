@@ -11,6 +11,7 @@ public class EnergySpawner : MonoBehaviour
     private Vector2 _screenMin;
     private Vector2 _screenMax;
     private Transform _energyParent;
+    private EnergySortingOrderData _sortingOrderData = new() { view = 15002, shadow = 15001, Max = 30000, Start = 15002 };
 
     public void OnLoadInit()
     {
@@ -38,8 +39,10 @@ public class EnergySpawner : MonoBehaviour
     {
         var energy = G.I.ObjectPool.Get(prefab, GetPos(pos));
         energy.transform.SetParent(_energyParent);
-        EnergyList.Add(energy);
         energy.Init();
+        energy.SetSortingOrder(_sortingOrderData);
+        _sortingOrderData.Iterate();
+        EnergyList.Add(energy);
     }
 
     private Vector2 GetPos(Vector3 pos)

@@ -91,7 +91,7 @@ public class RoundManager : MonoBehaviour
         _save = G.I.SaveProvider.Get();
         ClearAll();
         _enemySpawnTimers.Clear();
-        _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 30000 };
+        _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
         // Получить конфиг уровня
         if (G.I.levelDataConfig.Count() > 0 )
         {
