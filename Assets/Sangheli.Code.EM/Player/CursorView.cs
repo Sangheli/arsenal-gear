@@ -84,23 +84,29 @@ public class CursorView : MonoBehaviour
     {
         if (_pulseCoroutine != null)
             StopCoroutine(_pulseCoroutine);
-        _isPulsing = true;
+
         _pulseColor = pulseColor;
-        ApplyRingVisuals();
         _pulseCoroutine = StartCoroutine(PulseRingColorCoroutine(pulseColor, duration));
     }
 
     private IEnumerator PulseRingColorCoroutine(Color pulseColor, float duration)
     {
+        _isPulsing = false;
+        ApplyRingVisuals();
+
+        _isPulsing = true;
         float t = 0f;
         while (t < duration)
         {
             float lerp = t / duration;
+            
             _pulseColor = Color.Lerp(originalInnerColorRingOuter, pulseColor, lerp);
             ApplyRingVisuals();
+            
             t += Time.deltaTime;
             yield return null;
         }
+        
         _pulseColor = pulseColor;
         ApplyRingVisuals();
 
@@ -109,11 +115,14 @@ public class CursorView : MonoBehaviour
         while (t < fadeDuration)
         {
             float lerp = t / fadeDuration;
+            
             _pulseColor = Color.Lerp(pulseColor, originalInnerColorRingOuter, lerp);
             ApplyRingVisuals();
+            
             t += Time.deltaTime;
             yield return null;
         }
+        
         _isPulsing = false;
         ApplyRingVisuals();
     }

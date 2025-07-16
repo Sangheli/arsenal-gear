@@ -110,46 +110,22 @@ public class CursorController : MonoBehaviour
             return;
         
         UpdateNextTime();
-        view.DoBounceAnimation(CurrentDamageScale);
-        var damageResult = DoDamage();
-        PlaySound(damageResult);
-        
-        if (!_isAI && damageResult.HasRecivedDamage)
-        {
-            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
-        }
-        
-        if (!_isAI && damageResult.HasAnyDamage)
-        {
-            G.I.playerCursor.view.hudView.AddDamage
-            (
-                damageResult,
-                CurrentDamageScale
-            );
-        }
-        
         ShowPulseAnimation();
-    }
+        view.DoBounceAnimation(CurrentDamageScale);
 
-    private void ShowPulseAnimation()
-    {
-        var interval = 60f / _playerFireRate;
-        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
-    }
-
-    private void UpdateNextTime()
-    {
-        var interval = 60f / _playerFireRate;
-        _nextTime = Time.time + interval;
-    }
-
-    private void PlaySound(DamageResult damageResult)
-    {
-        if (_isAI) return;
+        var damageResult = DoDamage();
+        
+        if(_isAI) return;
         
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(damageResult.PlayerDoDamage
             ? G.I.Data.soundContainer.hit
             : G.I.Data.soundContainer.emptyHit);
+        
+        if (damageResult.HasRecivedDamage) 
+            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
+
+        if (damageResult.HasAnyDamage) 
+            G.I.playerCursor.view.hudView.AddDamage(damageResult, CurrentDamageScale);
     }
 
     private DamageResult DoDamage()
@@ -179,6 +155,9 @@ public class CursorController : MonoBehaviour
             if (enemy == null) continue;
             var critResult = CritHelper.RollCrit(_damageParam.GetValueRandom(_damageParam.boughtActual) * _damagePercent, _critChance, _critMultiplier);
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
+
+            if (_isAI) continue;
+            
             var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
             totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
             totalDamage += finalDamage;
@@ -186,6 +165,19 @@ public class CursorController : MonoBehaviour
         
         return new DamageResult { PlayerDoDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
     }
+    
+    private void ShowPulseAnimation()
+    {
+        var interval = 60f / _playerFireRate;
+        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
+    }
+
+    private void UpdateNextTime()
+    {
+        var interval = 60f / _playerFireRate;
+        _nextTime = Time.time + interval;
+    }
+
     private void CollectEnergy()
     {
         int count = Physics2D.OverlapCircleNonAlloc(
