@@ -8,7 +8,8 @@ public static class AnalyticsHelper
         var customEvent =  new CustomEvent("checkpoint")
         {
             { "playtime", (int) save.timeSinceStart },
-            { "level", save.level }
+            { "level", save.level },
+            { "money", save.totalEnergy },
         };
 
         AnalyticsService.Instance.RecordEvent(customEvent);
