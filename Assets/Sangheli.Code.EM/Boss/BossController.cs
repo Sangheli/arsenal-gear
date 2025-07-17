@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
@@ -13,7 +12,9 @@ public class BossController : EnemyController
     private Coroutine _rotAnimCoroutine;
     private Sequence _rotAnimSequence;
     public Collider2D bossCollider;
-
+    private readonly Collider2D[] _results = new Collider2D[4];
+    public float damageValue = 8.2f;
+    
     // Новый Init для босса
     public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
     {
@@ -92,20 +93,17 @@ public class BossController : EnemyController
         _rotAnimSequence.SetLoops(-1);
     }
 
-    private readonly Collider2D[] _results = new Collider2D[4];
-    public float damageValue = 8.2f;
-
     private void OnAction()
     {
         // Проверяем, пересекается ли bossCollider с коллайдером курсора
         int count = Physics2D.OverlapCollider(bossCollider, ContactFilter2D.noFilter, _results);
         for (int i = 0; i < count; i++)
         {
-            if (_results[i] != G.I.playerCursor.collider2D) 
-                continue;
-            
-            DoDamageBoss();
-            return;
+            if (_results[i] == G.I.playerCursor.collider2D)
+            {
+                DoDamageBoss();
+                return;
+            }
         }
     }
 
