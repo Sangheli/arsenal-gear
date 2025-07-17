@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7327226425103487023}
   - component: {fileID: 5251107360567545206}
+  - component: {fileID: 625971210322362438}
   m_Layer: 0
   m_Name: view
   m_TagString: Untagged
@@ -90,6 +91,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &625971210322362438
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612540191429430379}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &3337353388776115822
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,8 +471,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CursorController
   _Camera: {fileID: 0}
   inputMoveSpeed: 1500
-  shift: {x: -2, y: 0}
+  shift: {x: 0, y: 0}
   view: {fileID: 5905678528098800148}
+  collider2D: {fileID: 625971210322362438}
 --- !u!114 &5905678528098800148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,8 +496,8 @@ MonoBehaviour:
   color: {r: 0.8666667, g: 0, b: 1, a: 0.54901963}
   hudView: {fileID: 1018924851948761217}
   originalInnerColorRingOuter: {r: 1, g: 1, b: 1, a: 1}
+  isPulsing: 0
   deathVfx: {fileID: 7584384094346458622}
-  cameraShake: {fileID: 0}
 --- !u!1 &5831787978318506105
 GameObject:
   m_ObjectHideFlags: 0

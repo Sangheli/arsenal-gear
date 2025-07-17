@@ -236,7 +236,7 @@ public class G : MonoBehaviour
     private IEnumerator GoToUpgradesCoroutine()
     {
         distortionUI.DoBlock(true);
-        
+        bossManager.ResetBoss();
         yield return distortionUI.DoFade(forward: true);
         uiManager.Toggle(false);
         startGameView.Toggle(false);

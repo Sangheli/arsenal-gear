@@ -26,6 +26,8 @@ public class CursorController : MonoBehaviour
     
     private readonly CursorDamageHelper _damageHelper = new();
     private readonly CursorCollectorHelper _collectorHelper = new();
+
+    public Collider2D collider2D;
     
     public float CurrentDamageScale { get; set; }
     private float CurrentDamageScaleHalf { get; set; }

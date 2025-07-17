@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3023219896470539844}
   - component: {fileID: 5051980881560045711}
+  - component: {fileID: 2954480633441605223}
   m_Layer: 6
   m_Name: boss2
   m_TagString: Enemy
@@ -57,6 +58,22 @@ MonoBehaviour:
   duration: 0.2
   maxFlashValue: 0.2
   deathAnimDuration: 0.3
+--- !u!114 &2954480633441605223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965645296573083121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b5f1ebb9e440ea8062e5090e34d87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossRotAnimation
+  _zeroLocalPosition: {x: 0, y: 0, z: 0}
+  moveDownDistance: 0.2
+  moveDownDuration: 1
+  returnDuration: 0.01
 --- !u!1 &4594338227111582510
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,8 +633,11 @@ MonoBehaviour:
   speedSuper: 40
   distanceToChangeSpeed: 6
   duration: 0.2
+  rotAnimation: {fileID: 2954480633441605223}
   speedBoss: 2
   paddingMove: 15
+  bossCollider: {fileID: 5136882526281064439}
+  damageValue: 8.2
 --- !u!114 &5411510531200860626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,8 +671,8 @@ MonoBehaviour:
   borderRender: {fileID: 9185902343706225897}
   backRender: {fileID: 3364157572222779180}
   shadowRender: {fileID: 3984409825930138585}
-  punchScale: 1.2
-  punchScaleCrit: 1.44
+  punchScale: 1.7
+  punchScaleCrit: 2
   scale: 1
   duration: 0.2
   maxFlashValue: 0.2
