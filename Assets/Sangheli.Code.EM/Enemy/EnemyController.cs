@@ -60,10 +60,15 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         if (_isPreSpawned) _speed = speedSuper;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
-        _currentClipValue = 0f;
-        _targetClipValue = 0f;
         _doHpFill = false;
         IsActive = true;
+        ResetView();
+    }
+
+    public void ResetView()
+    {
+        _currentClipValue = 0f;
+        _targetClipValue = 0f;
         view.SetHitValue(0);
         view.SetFillValue(0);
     }

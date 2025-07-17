@@ -126,7 +126,7 @@ public class PrestigeManager : MonoBehaviour
         prestigeBar.gameObject.SetActive(false);
         var level = G.I.SaveProvider.Get().level;
         // Проверка флага showBossAfterTimer
-        var levelConfig = G.I.levelDataConfig.Count() > level ? G.I.levelDataConfig.Get(level) : null;
+        var levelConfig = G.I.LevelDataConfig.Count() > level ? G.I.LevelDataConfig.Get(level) : null;
         if (levelConfig != null && !levelConfig.showBossAfterTimer)
         {
             CompletePrestigeAfterBoss(); // Сразу победа

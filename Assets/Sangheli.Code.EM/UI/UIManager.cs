@@ -25,9 +25,9 @@ public class UIManager : MonoBehaviour
         // Проверка флага loseHpDuringRound
         var showHp = true;
         var save = G.I.SaveProvider?.Get();
-        if (save != null && save.level < G.I.levelDataConfig.Count())
+        if (save != null && save.level < G.I.LevelDataConfig.Count())
         {
-            var levelConfig = G.I.levelDataConfig.Get(save.level);
+            var levelConfig = G.I.LevelDataConfig.Get(save.level);
             if (levelConfig is { loseHpDuringRound: false })
                 showHp = false;
         }

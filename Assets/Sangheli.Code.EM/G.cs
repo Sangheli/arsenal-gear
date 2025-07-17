@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using SangheliCode;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
@@ -46,7 +47,8 @@ public class G : MonoBehaviour
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
     public int maxLevel;
     
-    public LevelDataConfigRuntime levelDataConfig { get; set; }
+    public LevelDataConfigRuntime LevelDataConfig { get; set; }
+    public ArcMoveAnimator arcMoveAnimator;
 
     public bool CanPlay { get; private set; }
 
@@ -105,7 +107,7 @@ public class G : MonoBehaviour
         
         SaveProvider.Get();
         
-        levelDataConfig = new LevelDataConfigRuntime(Data.levelDataConfigSO);
+        LevelDataConfig = new LevelDataConfigRuntime(Data.levelDataConfigSO);
         
         prestigeManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();
@@ -113,24 +115,27 @@ public class G : MonoBehaviour
 
     public void StartRunFirstTime()
     {
+        CanPlay = false;
+        startGameView.Toggle(false);
         var save = SaveProvider.Get();
         save.GetEnemyUpgradeContainer().Init(Data.enemyContainer.List);
         GameTimeManager.Init(save.timeSinceStart);
-        StartRun();
+        arcMoveAnimator.Play();
     }
 
-    public void StartRun()
+    public void StartRun(bool playFader = true)
     {
         SaveSystem.Save();
-        StartCoroutine(StartRunSequence());
+        StartCoroutine(StartRunSequence(playFader));
     }
 
-    private IEnumerator StartRunSequence()
+    private IEnumerator StartRunSequence(bool playFader)
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
         
-        yield return distortionUI.DoFade(forward: true);
+        if(playFader)
+            yield return distortionUI.DoFade(forward: true);
         
         bossManager.ResetBoss();
         endRoundView.OnStartRound();
@@ -157,7 +162,9 @@ public class G : MonoBehaviour
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
         CanPlay = true;
-        yield return distortionUI.DoFade(forward: false);
+        
+        if(playFader)
+            yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
     }
@@ -223,7 +230,7 @@ public class G : MonoBehaviour
 
     private int GetBossEnergy(int bossLevel)
     {
-        var levelConfig = levelDataConfig.Get(bossLevel);
+        var levelConfig = LevelDataConfig.Get(bossLevel);
         return levelConfig.showBossAfterTimer ? prestigeManager.GetBossReward(bossLevel) : 0;
     }
 

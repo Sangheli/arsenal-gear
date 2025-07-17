@@ -92,10 +92,10 @@ public class EndRoundView : MonoBehaviour
         var showGoToUpgradesButton = true;
         var showNextRound = true;
 
-        if (save != null && save.level < G.I.levelDataConfig.Count())
+        if (save != null && save.level < G.I.LevelDataConfig.Count())
         {
             var levelId = fadeType == EndRoundFadeEnum.Win ? save.level - 1 : save.level;
-            var levelConfig = G.I.levelDataConfig.Get(levelId);
+            var levelConfig = G.I.LevelDataConfig.Get(levelId);
             if (levelConfig != null)
             {
                 showGoToUpgradesButton = levelConfig.showGoToUpgradesButton;

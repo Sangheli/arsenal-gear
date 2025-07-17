@@ -82,10 +82,10 @@ public class EndRoundViewDistortion : MonoBehaviour
                 // Проверка showBossAfterTimer
                 var save = G.I?.SaveProvider?.Get();
                 bool showBoss = true;
-                if (save != null  && save.level < G.I.levelDataConfig.Count())
+                if (save != null  && save.level < G.I.LevelDataConfig.Count())
                 {
                     var levelId = save.level - 1;
-                    var levelConfig = G.I.levelDataConfig.Get(levelId);
+                    var levelConfig = G.I.LevelDataConfig.Get(levelId);
                     if (levelConfig != null)
                         showBoss = levelConfig.showBossAfterTimer;
                 }
