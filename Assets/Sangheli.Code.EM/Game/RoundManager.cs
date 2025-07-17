@@ -49,7 +49,11 @@ public class RoundManager : MonoBehaviour
         if (_currentLevelConfig == null || _currentLevelConfig.loseHpDuringRound)
             G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
 
-        if (G.I.HpManager.RoundHp <= 0) G.I.StopRun(EndRoundFadeEnum.Fail);
+        if (G.I.HpManager.RoundHp <= 0)
+        {
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
+            G.I.StopRun(EndRoundFadeEnum.Fail);
+        }
         
         if(!IsAlive) return;
         

@@ -56,6 +56,16 @@ public class CameraShake : MonoBehaviour
         _shakeCoroutine = StartCoroutine(DeathShakeCoroutine());
     }
     
+    public void ShakeSmall()
+    {
+        if (_isShaking)
+        {
+            StopCoroutine(_shakeCoroutine);
+        }
+        
+        _shakeCoroutine = StartCoroutine(ShakeCoroutine(shakeIntensity/2));
+    }
+    
     private IEnumerator ShakeCoroutine(float intensity = -1f, float duration = -1f)
     {
         transform.localPosition = _originalPosition;

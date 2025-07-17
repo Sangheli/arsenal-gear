@@ -203,7 +203,9 @@ public class G : MonoBehaviour
         
         var energyOnStart = save.totalEnergy;
         var roundEnergy = EnergyManager.RoundEnergyCount;
-        var bossEnergy = fadeType == EndRoundFadeEnum.Fail ? 0 : prestigeManager.GetBossReward(SaveProvider.Get().level - 1);
+
+        int bossLevel = SaveProvider.Get().level - 1;
+        var bossEnergy = fadeType == EndRoundFadeEnum.Fail ? 0 : GetBossEnergy(bossLevel);
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
         save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
@@ -217,6 +219,12 @@ public class G : MonoBehaviour
         tutorial.OnEndRound();
         
         endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart, bossEnergy, fadeType);
+    }
+
+    private int GetBossEnergy(int bossLevel)
+    {
+        var levelConfig = levelDataConfig.Get(bossLevel);
+        return levelConfig.showBossAfterTimer ? prestigeManager.GetBossReward(bossLevel) : 0;
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)

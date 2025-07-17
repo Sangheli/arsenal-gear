@@ -19,6 +19,13 @@ public class SoundContainer : ScriptableObject
     [FormerlySerializedAs("woosh1")] [Space]
     public AudioSettingsSangheli loadinScreen;
 
+    [Space]
+    public AudioSettingsSangheli bossHit;
+    public AudioSettingsSangheli bossDeath;
+    
+    [Space]
+    public AudioSettingsSangheli gameOver;
+    
     [Serializable]
     public class AudioSettingsSangheli
     {

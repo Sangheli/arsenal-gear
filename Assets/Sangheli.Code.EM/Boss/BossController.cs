@@ -108,16 +108,34 @@ public class BossController : EnemyController
 
     private void OnAction()
     {
+        if(!IsActive || IsDead)
+            return;
+        
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.bossHit);
+
+        var hasPlayer = GetPlayer();
+        if (hasPlayer)
+        {
+            DoDamageBoss();
+            G.I.Container.cameraShake.DeathShake();
+        }
+        else
+        {
+            G.I.Container.cameraShake.ShakeSmall();
+        }
+    }
+
+    private bool GetPlayer()
+    {
         // ReSharper disable once PossibleInvalidOperationException
         int count = Physics2D.OverlapCollider(bossCollider, _filter.Value, _results);
         for (int i = 0; i < count; i++)
         {
             if (_results[i] == G.I.playerCursor.collider2D)
-            {
-                DoDamageBoss();
-                return;
-            }
+                return true;
         }
+
+        return false;
     }
 
     private void DoDamageBoss()

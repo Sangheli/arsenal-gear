@@ -42,3 +42,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f13eacd5d290eee4d814421f5b3a99f8, type: 3}
     PitchRange: 0.05
     Volume: 0.17
+  bossHit:
+    ClipList:
+    - {fileID: 8300000, guid: 5dae9d5e949c19245abc5cc5cd043804, type: 3}
+    PitchRange: 0.25
+    Volume: 0.12
+  bossDeath:
+    ClipList:
+    - {fileID: 8300000, guid: 603ba10b385aac74db272543b65845cf, type: 3}
+    PitchRange: 0
+    Volume: 0.3
+  gameOver:
+    ClipList:
+    - {fileID: 8300000, guid: 8ace9ae6f9e07b6428d5ff9abea49f16, type: 3}
+    PitchRange: 0
+    Volume: 0.2
