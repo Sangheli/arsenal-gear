@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 3346481164807626802}
   - component: {fileID: 7385573931749061792}
   - component: {fileID: 7938004754653314499}
+  - component: {fileID: 4207948937290102108}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -66,14 +67,14 @@ RectTransform:
   m_GameObject: {fileID: 872567388252003413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3631030892521965732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 126}
+  m_AnchoredPosition: {x: 0, y: 155}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6477743462093636934
@@ -106,7 +107,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2e4ab1df8a3dd0640a188737b80ede66, type: 3}
-    m_FontSize: 212
+    m_FontSize: 115
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -117,7 +118,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ENERGY
+  m_Text: GEOMETRIC
 --- !u!114 &7385573931749061792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +157,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32767
   m_TargetDisplay: 0
+--- !u!114 &4207948937290102108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872567388252003413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfc5e22f9f7c2b4ca4d74fc932bd7de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainbowText
+  colors:
+  - {r: 1, g: 0.3230752, b: 0, a: 1}
+  - {r: 0, g: 0.41124964, b: 1, a: 1}
+  - {r: 0.95593166, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.00679183, a: 1}
+  - {r: 0.7779927, g: 0, b: 1, a: 1}
+  - {r: 0.46037197, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.9085827, a: 1}
+  textComponent: {fileID: 3346481164807626802}
 --- !u!1 &5346932625684389814
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +191,7 @@ GameObject:
   - component: {fileID: 1050411649667860965}
   - component: {fileID: 3100361301806493175}
   - component: {fileID: 7347237952511095047}
+  - component: {fileID: 1337993273023121096}
   m_Layer: 5
   m_Name: Text (Legacy) (1)
   m_TagString: Untagged
@@ -185,14 +208,14 @@ RectTransform:
   m_GameObject: {fileID: 5346932625684389814}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3631030892521965732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -124}
+  m_AnchoredPosition: {x: 0, y: -66}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2114735801066377715
@@ -236,7 +259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MINER
+  m_Text: FIGHTER
 --- !u!114 &3100361301806493175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +298,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32766
   m_TargetDisplay: 0
+--- !u!114 &1337993273023121096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346932625684389814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfc5e22f9f7c2b4ca4d74fc932bd7de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainbowText
+  colors:
+  - {r: 1, g: 0.57260436, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.9085827, a: 1}
+  - {r: 0.46037197, g: 0, b: 1, a: 1}
+  - {r: 0.81761, g: 0.21340132, b: 0.6596732, a: 1}
+  - {r: 0, g: 1, b: 0.00679183, a: 1}
+  - {r: 0, g: 0.41124964, b: 1, a: 1}
+  - {r: 0.7779927, g: 0, b: 1, a: 1}
+  textComponent: {fileID: 1050411649667860965}

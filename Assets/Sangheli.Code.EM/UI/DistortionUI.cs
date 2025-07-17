@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -18,6 +19,13 @@ public class DistortionUI : MonoBehaviour
     public float starGameWaitTime = 1;
     public float endRoundWaitTime = 1;
     
+    public CanvasGroup canvasGroup;
+
+    private void OnValidate()
+    {
+        canvasGroup ??= GetComponent<CanvasGroup>();
+    }
+
     private void Awake()
     {
         _startTextColors = new Color[texts.Length];
@@ -49,6 +57,7 @@ public class DistortionUI : MonoBehaviour
     {
         var startValue = forward ? MinValue : MaxValue;
         var endValue = forward ? MaxValue : MinValue;
+        var endValue1 = forward ? 1f : 0f;
         var elapsed = 0f;
 
         Color[] startColors = new Color[texts.Length];
@@ -72,11 +81,14 @@ public class DistortionUI : MonoBehaviour
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(startColors[i], endColors[i], t);
 
+            canvasGroup.alpha = forward ? t*3 : 1 - t;
             yield return null;
         }
         
         for (int i = 0; i < texts.Length; i++)
             texts[i].color = endColors[i];
+        
+        canvasGroup.alpha = endValue1;
         _mat.SetFloat(FadeAmount, endValue);
     }
 
