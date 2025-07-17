@@ -1,22 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossView : EnemyView
 {
     [Space]
-    public Color bossColor = Color.red;
-
     public float colorMult = 0.8f;
-    
-    private void Start()
-    {
-        SetColor(bossColor);
-    }
+
+    public EnemyRender boss2Render;
+    private Coroutine _bounceRoutineBoss2;
+    private Coroutine _bounceShadowRoutineBoss;
 
     public void SetScale(float viewScale)
     {
-        scale = viewScale;
-        view.transform.localScale = OriginalScale*scale;
-        viewShadow.transform.localScale = OriginalScaleShadow*scale;
+        render.SetScale(viewScale);
+        boss2Render.shadowRender.transform.localPosition /= viewScale;
         deathVfx.SetScale(viewScale);
     }
 
@@ -27,17 +24,37 @@ public class BossView : EnemyView
         
         var backColor = color;
         backColor.a = 64 / 255f;
-        PropertyBlockBack.SetColor(ColorProperty, backColor);
-        ApplyPropertyBack();
+        
+        render.ApplyPropertyView(backColor);
+        render.ApplyPropertyBack(color);
+        
+        boss2Render.ApplyPropertyView(backColor);
+        boss2Render.ApplyPropertyBack(color);
         
         deathVfx.SetColor(color);
-		bossColor = color;
-        ApplyPropertyBlock();
     }
 
-    protected override void ApplyPropertyBlock()
+    public override void SetHitValue(float value)
     {
-        PropertyBlock.SetColor(ColorProperty, bossColor);
-        base.ApplyPropertyBlock();
+        boss2Render.SetHitValue(value);
+        base.SetHitValue(value);
     }
-} 
+    
+    public override void SetFillValue(float targetClipValue)
+    {
+        boss2Render.SetFillValue(targetClipValue);
+        base.SetFillValue(targetClipValue);
+    }
+
+    public override void FlashEffect(bool isCrit = false)
+    {
+        boss2Render.FlashEffect(isCrit);
+        base.FlashEffect(isCrit);
+    }
+
+    public override void ResetItem()
+    {
+        boss2Render.ResetItem();
+        base.ResetItem();
+    }
+}

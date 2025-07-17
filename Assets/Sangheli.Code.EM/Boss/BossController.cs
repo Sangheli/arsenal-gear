@@ -11,10 +11,10 @@ public class BossController : EnemyController
     // Новый Init для босса
     public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
     {
-        _currentData = new EnemyData();
-        _currentData.Health = hp;
-        _currentData.DamagePerHit = bossDamage;
-        damageReciever.EnemyData = _currentData;
+        CurrentData = new EnemyData();
+        CurrentData.Health = hp;
+        CurrentData.DamagePerHit = bossDamage;
+        damageReciever.EnemyData = CurrentData;
         
         _onBossDeath = onBossDeath;
         // Инициализация view
@@ -34,14 +34,14 @@ public class BossController : EnemyController
     private void SetBossHealth(float hp)
     {
         // Используем приватные поля базового класса через рефлексию или делаем protected
-        _currentHealth = hp;
-        _isDead = false;
-        _isActive = true;
+        CurrentHealth = hp;
+        IsDead = false;
+        IsActive = true;
         view.SetHitValue(0);
         view.SetFillValue(0);
     }
 
-    public override void DoMove()
+    protected override void DoMove()
     {
         var transform1 = transform;
         
@@ -63,7 +63,7 @@ public class BossController : EnemyController
     // Переопределяем смерть
     public override void Die(bool isCrit = false)
     {
-        if (!_isActive) return;
+        if (!IsActive) return;
         _onBossDeath?.Invoke();
         base.Die(isCrit);
     }

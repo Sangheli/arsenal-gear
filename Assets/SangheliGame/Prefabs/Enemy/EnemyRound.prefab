@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 4908766772291165603}
   - component: {fileID: 6269158921195688788}
   - component: {fileID: -2922211598481618706}
+  - component: {fileID: 1382903050690374469}
   m_Layer: 6
   m_Name: EnemyRound
   m_TagString: Enemy
@@ -282,10 +283,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   view: {fileID: 5548160587331954462}
   viewShadow: {fileID: 1516038100016689909}
-  ViewRenderer: {fileID: 6168234484293521608}
-  RamkaRender: {fileID: 3921777000171173304}
-  ShadowRender: {fileID: 4245914269587504957}
-  BackRender: {fileID: 8519318489331022110}
   deathVfx: {fileID: 4508660256116400245}
   manipulateRamkaColor: 0
   punchScale: 1.2
@@ -293,6 +290,7 @@ MonoBehaviour:
   duration: 0.2
   maxFlashValue: 2
   deathAnimDuration: 0.3
+  enemyRender: {fileID: 0}
 --- !u!114 &-2922211598481618706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +309,25 @@ MonoBehaviour:
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
+--- !u!114 &1382903050690374469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558863245658423001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
+  manipulateRamkaColor: 0
+  viewRenderer: {fileID: 6168234484293521608}
+  ramkaRender: {fileID: 3921777000171173304}
+  shadowRender: {fileID: 4245914269587504957}
+  backRender: {fileID: 8519318489331022110}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  originalRamkaColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3852211787599547661
 GameObject:
   m_ObjectHideFlags: 0
