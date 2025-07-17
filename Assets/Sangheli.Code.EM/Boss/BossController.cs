@@ -111,17 +111,17 @@ public class BossController : EnemyController
         if(!IsActive || IsDead)
             return;
         
-        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.bossHit);
-
         var hasPlayer = GetPlayer();
         if (hasPlayer)
         {
             DoDamageBoss();
             G.I.Container.cameraShake.DeathShake();
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.bossHit);
         }
         else
         {
             G.I.Container.cameraShake.ShakeSmall();
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitchWithVolumeMod(G.I.Data.soundContainer.bossHit,0.5f);
         }
     }
 

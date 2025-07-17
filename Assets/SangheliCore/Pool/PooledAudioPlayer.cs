@@ -43,6 +43,12 @@ public class PooledAudioPlayer : MonoBehaviour
         var pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
         PlayWithPitch(clip, pitch);
     }
+    
+    public void PlayWithRandomPitchWithVolumeMod(SoundContainer.AudioSettingsSangheli clip,float volumeMode)
+    {
+        var pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
+        PlayWithPitchWithVolume(clip, pitch, volumeMode);
+    }
 
     public void PlayWithPitch(SoundContainer.AudioSettingsSangheli clip, float pitch)
     {
@@ -54,6 +60,17 @@ public class PooledAudioPlayer : MonoBehaviour
         PlaySound(clip, pitch, subClip.length / pitch, index);
     }
 
+    
+    public void PlayWithPitchWithVolume(SoundContainer.AudioSettingsSangheli clip, float pitch, float volumeMod)
+    {
+        var index = Random.Range(0, clip.ClipList.Count);
+        if (!IsCanPlay(clip, index))
+            return;
+
+        var subClip = clip.ClipList[index];
+        PlaySound(clip, pitch, subClip.length / pitch, index, volumeMod);
+    }
+    
     private bool IsCanPlay(SoundContainer.AudioSettingsSangheli clip, int index)
     {
         if (clip?.ClipList == null) 
@@ -72,7 +89,7 @@ public class PooledAudioPlayer : MonoBehaviour
         return true;
     }
 
-    private void PlaySound(SoundContainer.AudioSettingsSangheli clip, float pitch, float len, int index)
+    private void PlaySound(SoundContainer.AudioSettingsSangheli clip, float pitch, float len, int index, float volumeMod = 1)
     {
         AudioSource source = (availableSources.Count > 0)
             ? availableSources.Dequeue()
@@ -84,7 +101,7 @@ public class PooledAudioPlayer : MonoBehaviour
         var subClip = clip.ClipList[index];
         source.clip = subClip;
         source.pitch = pitch;
-        source.volume = clip.Volume;
+        source.volume = clip.Volume * volumeMod;
         source.Play();
 
         StartCoroutine(ReleaseAfterPlay(source, len + 0.1f));

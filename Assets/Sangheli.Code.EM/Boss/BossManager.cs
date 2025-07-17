@@ -26,6 +26,7 @@ public class BossManager : MonoBehaviour
 
     private void OnBossDeath()
     {
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.bossDeath);
         _onBossDefeated?.Invoke();
         _currentBoss = null;
