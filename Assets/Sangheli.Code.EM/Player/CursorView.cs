@@ -24,7 +24,6 @@ public class CursorView : MonoBehaviour
     private bool _isPulsing;
     private Color _pulseColor;
     public DeathVfx deathVfx;
-    public CameraShake cameraShake;
 
     private void Awake()
     {
@@ -32,22 +31,6 @@ public class CursorView : MonoBehaviour
         _originalScaleVfx = deathVfx.transform.localScale;
         PropertyBlock = new MaterialPropertyBlock();
         viewRender.GetPropertyBlock(PropertyBlock);
-        
-        // Автоматически находим CameraShake если не назначен
-        if (cameraShake == null)
-        {
-            // Сначала пробуем найти через SceneContainer
-            if (G.I != null && G.I.Container != null)
-            {
-                cameraShake = G.I.Container.cameraShake;
-            }
-            
-            // Если не нашли, ищем напрямую на камере
-            if (cameraShake == null)
-            {
-                cameraShake = Camera.main?.GetComponent<CameraShake>();
-            }
-        }
     }
 
     public void SetScale(float damageScale, float harvestScale)
@@ -56,7 +39,7 @@ public class CursorView : MonoBehaviour
         view.transform.localScale = _originalScale * damageScale;
         viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
         deathVfx.SetScale(damageScale);
-        ApplyRingVisuals();
+        ApplyVisual();
     }
 
     public void Toggle(bool state)
@@ -66,8 +49,8 @@ public class CursorView : MonoBehaviour
         
         if (state)
         {
-            PropertyBlock.SetColor(RingColor, originalInnerColorRingOuter);
-            viewRender.SetPropertyBlock(PropertyBlock);
+            _isPulsing = false;
+            ApplyVisual();
         }
     }
 
@@ -84,6 +67,9 @@ public class CursorView : MonoBehaviour
     {
         if (_pulseCoroutine != null)
             StopCoroutine(_pulseCoroutine);
+        
+        _isPulsing = false;
+        ApplyVisual();
 
         _pulseColor = pulseColor;
         _pulseCoroutine = StartCoroutine(PulseRingColorCoroutine(pulseColor, duration));
@@ -92,7 +78,7 @@ public class CursorView : MonoBehaviour
     private IEnumerator PulseRingColorCoroutine(Color pulseColor, float duration)
     {
         _isPulsing = false;
-        ApplyRingVisuals();
+        ApplyVisual();
 
         _isPulsing = true;
         float t = 0f;
@@ -101,14 +87,14 @@ public class CursorView : MonoBehaviour
             float lerp = t / duration;
             
             _pulseColor = Color.Lerp(originalInnerColorRingOuter, pulseColor, lerp);
-            ApplyRingVisuals();
+            ApplyVisual();
             
             t += Time.deltaTime;
             yield return null;
         }
         
         _pulseColor = pulseColor;
-        ApplyRingVisuals();
+        ApplyVisual();
 
         t = 0f;
         float fadeDuration = duration * 2f;
@@ -117,17 +103,17 @@ public class CursorView : MonoBehaviour
             float lerp = t / fadeDuration;
             
             _pulseColor = Color.Lerp(pulseColor, originalInnerColorRingOuter, lerp);
-            ApplyRingVisuals();
+            ApplyVisual();
             
             t += Time.deltaTime;
             yield return null;
         }
         
         _isPulsing = false;
-        ApplyRingVisuals();
+        ApplyVisual();
     }
 
-    private void ApplyRingVisuals()
+    private void ApplyVisual()
     {
         PropertyBlock.SetFloat(RingThickness, baseRingThickness / _currentScale);
         PropertyBlock.SetColor(InnerColor, color);
@@ -135,9 +121,9 @@ public class CursorView : MonoBehaviour
         viewRender.SetPropertyBlock(PropertyBlock);
     }
 
-    public void ShowOnDeath()
+    public void PlayDeathAnimation()
     {
-        if (cameraShake != null) cameraShake.DeathShake();
+        G.I.Container.cameraShake.DeathShake();
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.emptyHit);
         deathVfx.Play();
     }

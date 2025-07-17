@@ -24,15 +24,12 @@ public class CursorController : MonoBehaviour
 
     private float _currentHarvestScale;
     
+    private readonly CursorDamageHelper _damageHelper = new();
+    private readonly CursorCollectorHelper _collectorHelper = new();
+    
     public float CurrentDamageScale { get; set; }
     private float CurrentDamageScaleHalf { get; set; }
     private float CollectRadius { get; set; }
-    
-    private readonly Collider2D[] _enemyHits = new Collider2D[256];
-    private readonly Collider2D[] _energyHits = new Collider2D[256];
-    
-    private int _enemyLayer;
-    private int _energyLayer;
     
     private DataSave _save;
     private InputSystem_Actions _actions;
@@ -40,8 +37,8 @@ public class CursorController : MonoBehaviour
     private void Awake()
     {
         _Camera = Camera.main;
-        _enemyLayer = LayerMask.GetMask("Enemy");
-        _energyLayer = LayerMask.GetMask("Energy");
+        _damageHelper.Init();
+        _collectorHelper.Init();
         _isMobile = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer;
         _actions = new InputSystem_Actions();
         _actions.Enable();
@@ -99,7 +96,7 @@ public class CursorController : MonoBehaviour
         if (G.I.roundManager.IsAliveForPlay)
         {
             TryDoDamage();
-            CollectEnergy();
+            _collectorHelper.CollectEnergy(transform, CollectRadius, CurrentDamageScaleHalf);
         }
         if (CursorInput.GetCursorState(out var worldPos, _Camera, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
         transform.position = worldPos;
@@ -113,7 +110,13 @@ public class CursorController : MonoBehaviour
         ShowPulseAnimation();
         view.DoBounceAnimation(CurrentDamageScale);
 
-        var damageResult = DoDamage();
+        var damageResult = _damageHelper.DoDamage
+        (
+            transform, _isAI, 
+            _damageParam, _damagePercent,
+            _critChance, _critMultiplier,
+            CurrentDamageScaleHalf
+        );
         
         if(_isAI) return;
         
@@ -128,44 +131,6 @@ public class CursorController : MonoBehaviour
             G.I.playerCursor.view.hudView.AddDamage(damageResult, CurrentDamageScale);
     }
 
-    private DamageResult DoDamage()
-    {
-        int count = Physics2D.OverlapCircleNonAlloc(
-            transform.position,
-            CurrentDamageScaleHalf,
-            _enemyHits,
-            _enemyLayer);
-        
-        int[] indices = new int[count];
-        
-        for (int i = 0; i < count; i++) 
-            indices[i] = i;
-        
-        for (int i = 0; i < count; i++)
-        {
-            int j = Random.Range(i, count);
-            (indices[i], indices[j]) = (indices[j], indices[i]);
-        }
-        
-        float totalDamage = 0f;
-        float totalShield = 0f;
-        for (int i = 0; i < count; i++)
-        {
-            var enemy = _enemyHits[i].GetComponent<DamageReciever>();
-            if (enemy == null) continue;
-            var critResult = CritHelper.RollCrit(_damageParam.GetValueRandom(_damageParam.boughtActual) * _damagePercent, _critChance, _critMultiplier);
-            enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
-
-            if (_isAI) continue;
-            
-            var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
-            totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
-            totalDamage += finalDamage;
-        }
-        
-        return new DamageResult { PlayerDoDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
-    }
-    
     private void ShowPulseAnimation()
     {
         var interval = 60f / _playerFireRate;
@@ -178,26 +143,10 @@ public class CursorController : MonoBehaviour
         _nextTime = Time.time + interval;
     }
 
-    private void CollectEnergy()
-    {
-        int count = Physics2D.OverlapCircleNonAlloc(
-            transform.position,
-            CollectRadius,
-            _energyHits,
-            _energyLayer);
-        
-        for (int i = 0; i < count; i++)
-        {
-            var energy = _energyHits[i].GetComponent<EnergyView>();
-            if (energy == null)
-                continue;
-            energy.Collect(transform, CurrentDamageScaleHalf);
-        }
-    }
     public void ToggleControl(bool b, bool showDeath)
     {
         _canControl = b;
-        if (!b && showDeath) view.ShowOnDeath();
+        if (!b && showDeath) view.PlayDeathAnimation();
     }
 
     private void OnDisable()
