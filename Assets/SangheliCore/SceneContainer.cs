@@ -20,15 +20,16 @@ namespace SangheliCode
             prefabSpawnerContainer ??= GetComponent<PrefabSpawnerContainer>();
             camera ??= Camera.main;
             
-            // Автоматически добавляем CameraShake на камеру если его нет
-            if (camera != null && cameraShake == null)
-            {
-                cameraShake = camera.GetComponent<CameraShake>();
-                if (cameraShake == null)
-                {
-                    cameraShake = camera.gameObject.AddComponent<CameraShake>();
-                }
-            }
+            SetupCameraShake();
+        }
+
+        private void SetupCameraShake()
+        {
+            if (camera == null || cameraShake != null) 
+                return;
+            
+            cameraShake = camera.GetComponent<CameraShake>();
+            if (cameraShake == null) cameraShake = camera.gameObject.AddComponent<CameraShake>();
         }
     }
 }
