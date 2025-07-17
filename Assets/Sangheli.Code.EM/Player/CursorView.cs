@@ -21,7 +21,7 @@ public class CursorView : MonoBehaviour
     public Color originalInnerColorRingOuter = Color.white;
     private Coroutine _pulseCoroutine;
     private float _currentScale = 1f;
-    private bool _isPulsing;
+    public bool isPulsing;
     private Color _pulseColor;
     public DeathVfx deathVfx;
 
@@ -49,7 +49,7 @@ public class CursorView : MonoBehaviour
         
         if (state)
         {
-            _isPulsing = false;
+            isPulsing = false;
             ApplyVisual();
         }
     }
@@ -68,7 +68,7 @@ public class CursorView : MonoBehaviour
         if (_pulseCoroutine != null)
             StopCoroutine(_pulseCoroutine);
         
-        _isPulsing = false;
+        isPulsing = false;
         ApplyVisual();
 
         _pulseColor = pulseColor;
@@ -77,10 +77,10 @@ public class CursorView : MonoBehaviour
 
     private IEnumerator PulseRingColorCoroutine(Color pulseColor, float duration)
     {
-        _isPulsing = false;
+        isPulsing = false;
         ApplyVisual();
 
-        _isPulsing = true;
+        isPulsing = true;
         float t = 0f;
         while (t < duration)
         {
@@ -109,15 +109,15 @@ public class CursorView : MonoBehaviour
             yield return null;
         }
         
-        _isPulsing = false;
+        isPulsing = false;
         ApplyVisual();
     }
 
-    private void ApplyVisual()
+    public void ApplyVisual()
     {
         PropertyBlock.SetFloat(RingThickness, baseRingThickness / _currentScale);
         PropertyBlock.SetColor(InnerColor, color);
-        PropertyBlock.SetColor(RingColor, _isPulsing ? _pulseColor : originalInnerColorRingOuter);
+        PropertyBlock.SetColor(RingColor, isPulsing ? _pulseColor : originalInnerColorRingOuter);
         viewRender.SetPropertyBlock(PropertyBlock);
     }
 

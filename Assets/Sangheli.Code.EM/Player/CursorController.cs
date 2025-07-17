@@ -70,6 +70,8 @@ public class CursorController : MonoBehaviour
         _damagePercent = damagePercent;
         _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
         CollectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
+        view.isPulsing = false;
+        view.ApplyVisual();
         view.SetScale(CurrentDamageScale, _currentHarvestScale);
         
         view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, 0f);
@@ -105,6 +107,9 @@ public class CursorController : MonoBehaviour
     {
         if (Time.time <= _nextTime)
             return;
+        
+        view.isPulsing = false;
+        view.ApplyVisual();
         
         UpdateNextTime();
         ShowPulseAnimation();
