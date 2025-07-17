@@ -286,6 +286,8 @@ MonoBehaviour:
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
+  speedBoss: 2
+  paddingMove: 15
 --- !u!114 &5411510531200860626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +314,7 @@ MonoBehaviour:
   maxFlashValue: 2
   deathAnimDuration: 0.3
   bossColor: {r: 1, g: 1, b: 1, a: 1}
+  colorMult: 1.07
 --- !u!1 &7355152215114640481
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar

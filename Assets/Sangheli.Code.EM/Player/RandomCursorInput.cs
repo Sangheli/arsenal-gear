@@ -18,46 +18,56 @@ public class RandomCursorInput : ICursorInput
         var delta = _direction * _speed * Time.deltaTime;
         worldPos = _lastWorldPosition + new Vector3(delta.x,delta.y);
 
-        // Проверяем на выход за границы экрана
-        Vector3 screenPos = camera.WorldToScreenPoint(worldPos);
+        var screenPos = camera.WorldToScreenPoint(worldPos);
+        var bounced = MoveBounce(screenPos, ref _direction,0);
+        worldPos = camera.ScreenToWorldPoint(screenPos);
+        _lastWorldPosition = worldPos;
+        worldPos.z = -10f;
+        
+        if (bounced) _direction = _direction.normalized;
+        return CursorState.Mouse;
+    }
+
+    public static bool MoveBounce(Vector3 screenPos, ref Vector2 direction, float paddingPercent)
+    {
         bool bounced = false;
-        if (screenPos.x < 0f)
+        float paddingX = Screen.width * paddingPercent * 0.01f;
+        float paddingY = Screen.height * paddingPercent * 0.01f;
+        float minX = paddingX;
+        float maxX = Screen.width - paddingX;
+        float minY = paddingY;
+        float maxY = Screen.height - paddingY;
+        
+        if (screenPos.x < minX)
         {
-            screenPos.x = 0f;
-            worldPos = camera.ScreenToWorldPoint(screenPos);
-            _direction.x = Mathf.Abs(Random.Range(0.2f, 1f));
-            _direction.y = Random.Range(-1f, 1f);
+            screenPos.x = minX;
+            direction.x = Mathf.Abs(Random.Range(0.2f, 1f));
+            direction.y = Random.Range(-1f, 1f);
             bounced = true;
         }
-        else if (screenPos.x > Screen.width)
+        else if (screenPos.x > maxX)
         {
-            screenPos.x = Screen.width;
-            worldPos = camera.ScreenToWorldPoint(screenPos);
-            _direction.x = -Mathf.Abs(Random.Range(0.2f, 1f));
-            _direction.y = Random.Range(-1f, 1f);
+            screenPos.x = maxX;
+            direction.x = -Mathf.Abs(Random.Range(0.2f, 1f));
+            direction.y = Random.Range(-1f, 1f);
             bounced = true;
         }
-        if (screenPos.y < 0f)
+
+        if (screenPos.y < minY)
         {
-            screenPos.y = 0f;
-            worldPos = camera.ScreenToWorldPoint(screenPos);
-            _direction.y = Mathf.Abs(Random.Range(0.2f, 1f));
-            _direction.x = Random.Range(-1f, 1f);
+            screenPos.y = minY;
+            direction.y = Mathf.Abs(Random.Range(0.2f, 1f));
+            direction.x = Random.Range(-1f, 1f);
             bounced = true;
         }
-        else if (screenPos.y > Screen.height)
+        else if (screenPos.y > maxY)
         {
-            screenPos.y = Screen.height;
-            worldPos = camera.ScreenToWorldPoint(screenPos);
-            _direction.y = -Mathf.Abs(Random.Range(0.2f, 1f));
-            _direction.x = Random.Range(-1f, 1f);
+            screenPos.y = maxY;
+            direction.y = -Mathf.Abs(Random.Range(0.2f, 1f));
+            direction.x = Random.Range(-1f, 1f);
             bounced = true;
         }
         
-        if (bounced) _direction = _direction.normalized;
-
-        _lastWorldPosition = worldPos;
-        worldPos.z = -10f;
-        return CursorState.Mouse;
+        return bounced;
     }
 } 

@@ -123,7 +123,6 @@ public class PrestigeManager : MonoBehaviour
 
     private void OnEnd()
     {
-        Debug.Log("call boss");
         prestigeBar.gameObject.SetActive(false);
         var level = G.I.SaveProvider.Get().level;
         // Проверка флага showBossAfterTimer

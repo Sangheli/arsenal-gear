@@ -25,10 +25,10 @@ public class EnemyView : MonoBehaviour
     public float maxFlashValue = 0.2f;
     public float deathAnimDuration = 0.3f;
     
-    protected Vector3 _originalScale;
-    protected Vector3 _originalScaleShadow;
-    protected Vector3 _originalScaleVfx;
-    protected MaterialPropertyBlock _propertyBlock;
+    protected Vector3 OriginalScale;
+    protected Vector3 OriginalScaleShadow;
+    protected MaterialPropertyBlock PropertyBlock;
+    protected MaterialPropertyBlock PropertyBlockBack;
     private MaterialPropertyBlock _propertyBlockRamka;
     private Color _originalColor;
     private Color _originalRamkaColor;
@@ -43,19 +43,26 @@ public class EnemyView : MonoBehaviour
     
     protected virtual void ApplyPropertyBlock()
     {
-        ViewRenderer.SetPropertyBlock(_propertyBlock);
+        ViewRenderer.SetPropertyBlock(PropertyBlock);
+    }
+    
+    protected virtual void ApplyPropertyBack()
+    {
+        BackRender.SetPropertyBlock(PropertyBlockBack);
     }
 
     private void Awake()
     {
-        _originalScale = view.transform.localScale;
-        _originalScaleShadow = viewShadow.transform.localScale;
-        _originalScaleVfx = deathVfx.transform.localScale;
-        _propertyBlock = new MaterialPropertyBlock();
-        ViewRenderer.GetPropertyBlock(_propertyBlock);
+        OriginalScale = view.transform.localScale;
+        OriginalScaleShadow = viewShadow.transform.localScale;
+        PropertyBlock = new MaterialPropertyBlock();
+        ViewRenderer.GetPropertyBlock(PropertyBlock);
         
         _propertyBlockRamka = new MaterialPropertyBlock();
         RamkaRender.GetPropertyBlock(_propertyBlockRamka);
+        
+        PropertyBlockBack = new MaterialPropertyBlock();
+        BackRender.GetPropertyBlock(PropertyBlockBack);
         
         _originalColor = ViewRenderer.material.color;
         
@@ -65,7 +72,7 @@ public class EnemyView : MonoBehaviour
 
     public void SetHitValue(float value)
     {
-        _propertyBlock.SetFloat(HitEffectBlend, value);
+        PropertyBlock.SetFloat(HitEffectBlend, value);
         ApplyPropertyBlock();
     }
 
@@ -82,8 +89,8 @@ public class EnemyView : MonoBehaviour
         addonScale /= scale;
         
         // Запуск и кеширование новых корутин
-        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(view.transform, _originalScale*scale, 1+addonScale, duration));
-        _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(viewShadow.transform, _originalScaleShadow*scale, 1+addonScale, duration));
+        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(view.transform, OriginalScale*scale, 1+addonScale, duration));
+        _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(viewShadow.transform, OriginalScaleShadow*scale, 1+addonScale, duration));
     }
     
     public void FlashEffect(bool isCrit = false)
@@ -96,10 +103,10 @@ public class EnemyView : MonoBehaviour
 
     private IEnumerator CritColorCoroutine()
     {
-        _propertyBlock.SetColor(ColorProperty, Color.red);
+        PropertyBlock.SetColor(ColorProperty, Color.red);
         ApplyPropertyBlock();
         yield return new WaitForSeconds(duration);
-        _propertyBlock.SetColor(ColorProperty, _originalColor);
+        PropertyBlock.SetColor(ColorProperty, _originalColor);
         ApplyPropertyBlock();
     }
 
@@ -117,8 +124,8 @@ public class EnemyView : MonoBehaviour
         
         var transform2 = view.transform;
         var transform3 = viewShadow.transform;
-        transform2.localScale = _originalScale;
-        transform3.localScale = _originalScaleShadow;
+        transform2.localScale = OriginalScale;
+        transform3.localScale = OriginalScaleShadow;
         
         // Сброс вращения
         transform2.localRotation = Quaternion.identity;
@@ -127,7 +134,7 @@ public class EnemyView : MonoBehaviour
         SetHitValue(0);
         SetFillValue(0);
         
-        _propertyBlock.SetColor(ColorProperty, _originalColor);
+        PropertyBlock.SetColor(ColorProperty, _originalColor);
         ApplyPropertyBlock();
 
         if (manipulateRamkaColor)
@@ -139,7 +146,7 @@ public class EnemyView : MonoBehaviour
 
     public void SetFillValue(float targetClipValue)
     {
-        _propertyBlock.SetFloat(ClipUvUp, targetClipValue);
+        PropertyBlock.SetFloat(ClipUvUp, targetClipValue);
         ApplyPropertyBlock();
     }
 

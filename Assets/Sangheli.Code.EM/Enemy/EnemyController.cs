@@ -78,6 +78,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         if (!_isActive) return;
         if (_isPreSpawned && !_hasChangedSpeed) CheckAndChangeSpeed();
 
+        DoMove();
+    }
+
+    public virtual void DoMove()
+    {
         var deltaTime = Time.deltaTime;
         
         view.view.Rotate(rotationSpeed * deltaTime);
