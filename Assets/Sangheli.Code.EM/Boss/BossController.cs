@@ -14,10 +14,13 @@ public class BossController : EnemyController
     public Collider2D bossCollider;
     private readonly Collider2D[] _results = new Collider2D[4];
     public float damageValue = 8.2f;
+    private ContactFilter2D? _filter;
     
     // Новый Init для босса
     public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
     {
+        _filter ??= GetFilter();
+
         CurrentData = new EnemyData();
         CurrentData.Health = hp;
         CurrentData.DamagePerHit = bossDamage;
@@ -39,6 +42,16 @@ public class BossController : EnemyController
         _mainCamera = Camera.main;
         
         StartRotAnim();
+    }
+
+    private static ContactFilter2D GetFilter()
+    {
+        // Проверяем, пересекается ли bossCollider только с коллайдерами слоя PlayerCollider
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("PlayerCollider"));
+        filter.useLayerMask = true;
+        filter.useTriggers = true; // если нужно учитывать триггеры
+        return filter;
     }
 
     private void SetBossHealth(float hp)
@@ -95,8 +108,8 @@ public class BossController : EnemyController
 
     private void OnAction()
     {
-        // Проверяем, пересекается ли bossCollider с коллайдером курсора
-        int count = Physics2D.OverlapCollider(bossCollider, ContactFilter2D.noFilter, _results);
+        // ReSharper disable once PossibleInvalidOperationException
+        int count = Physics2D.OverlapCollider(bossCollider, _filter.Value, _results);
         for (int i = 0; i < count; i++)
         {
             if (_results[i] == G.I.playerCursor.collider2D)
