@@ -113,14 +113,22 @@ public class G : MonoBehaviour
         bossManager = GetComponent<BossManager>();
     }
 
-    public void StartRunFirstTime()
+    public void StartRunFirstTime(bool newGame)
     {
         CanPlay = false;
         startGameView.Toggle(false);
         var save = SaveProvider.Get();
         save.GetEnemyUpgradeContainer().Init(Data.enemyContainer.List);
         GameTimeManager.Init(save.timeSinceStart);
-        arcMoveAnimator.Play();
+
+        if (newGame)
+        {
+            arcMoveAnimator.Play();
+        }
+        else
+        {
+            StartRun(true);
+        }
     }
 
     public void StartRun(bool playFader = true)

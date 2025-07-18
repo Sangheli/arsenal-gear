@@ -29,7 +29,7 @@ public class StartGameView : MonoBehaviour
     {
         G.I.SaveProvider.CreateNew();
         SaveSystem.Save();
-        G.I.StartRunFirstTime();
+        G.I.StartRunFirstTime(true);
     }
 
     private void LoadCheckpoint()
@@ -42,7 +42,7 @@ public class StartGameView : MonoBehaviour
             return;
         }
 
-        G.I.StartRunFirstTime();
+        G.I.StartRunFirstTime(false);
     }
 
     private void UpdateLoadButtonVisibility()
