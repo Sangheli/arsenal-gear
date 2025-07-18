@@ -19,6 +19,7 @@ MonoBehaviour:
     DisplayName: Damage
     BasePrice: 2
     PriceMult: 1.08
+    ShowUpgrade: 1
     Key: playerDamageMin
     UseRandom: 1
     RandomCoef: 1.5
@@ -28,6 +29,7 @@ MonoBehaviour:
     DisplayName: HP
     BasePrice: 3
     PriceMult: 1.07
+    ShowUpgrade: 1
     Key: hp
     UseRandom: 0
     RandomCoef: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
     DisplayName: Attacks/minute
     BasePrice: 2
     PriceMult: 1.06
+    ShowUpgrade: 1
     Key: playerFireRate
     UseRandom: 0
     RandomCoef: 0
@@ -46,6 +49,7 @@ MonoBehaviour:
     DisplayName: Attack Diameter
     BasePrice: 10
     PriceMult: 1.07
+    ShowUpgrade: 1
     Key: damageDiameter
     UseRandom: 0
     RandomCoef: 0
@@ -55,6 +59,7 @@ MonoBehaviour:
     DisplayName: Collect Diameter
     BasePrice: 4
     PriceMult: 1.08
+    ShowUpgrade: 0
     Key: collectDiameter
     UseRandom: 0
     RandomCoef: 0
@@ -64,6 +69,7 @@ MonoBehaviour:
     DisplayName: Shield Capacity
     BasePrice: 5
     PriceMult: 1.09
+    ShowUpgrade: 1
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
@@ -73,6 +79,7 @@ MonoBehaviour:
     DisplayName: Shield Regen/sec
     BasePrice: 500
     PriceMult: 1.2
+    ShowUpgrade: 1
     Key: shieldRegenRate
     UseRandom: 0
     RandomCoef: 0
@@ -82,6 +89,7 @@ MonoBehaviour:
     DisplayName: Crit Chance %
     BasePrice: 1000
     PriceMult: 1.3
+    ShowUpgrade: 1
     Key: critChance
     UseRandom: 0
     RandomCoef: 0
@@ -91,6 +99,7 @@ MonoBehaviour:
     DisplayName: Crit Multiplier
     BasePrice: 7
     PriceMult: 1.12
+    ShowUpgrade: 1
     Key: critMultiplier
     UseRandom: 0
     RandomCoef: 0
@@ -100,6 +109,7 @@ MonoBehaviour:
     DisplayName: Auto Collect Coins %
     BasePrice: 1000
     PriceMult: 1.3
+    ShowUpgrade: 1
     Key: autoCollectCoinsPercent
     UseRandom: 0
     RandomCoef: 0
@@ -109,6 +119,7 @@ MonoBehaviour:
     DisplayName: AI Cursor Count
     BasePrice: 100
     PriceMult: 1.15
+    ShowUpgrade: 1
     Key: aiCursorCount
     UseRandom: 0
     RandomCoef: 0
@@ -118,6 +129,7 @@ MonoBehaviour:
     DisplayName: AI Cursor Damage % of Player
     BasePrice: 200
     PriceMult: 1.13
+    ShowUpgrade: 1
     Key: aiCursorDamagePercent
     UseRandom: 0
     RandomCoef: 0
@@ -127,6 +139,7 @@ MonoBehaviour:
     DisplayName: AI Cursor Radius % of Player
     BasePrice: 300
     PriceMult: 1.12
+    ShowUpgrade: 1
     Key: aiCursorRadiusPercent
     UseRandom: 0
     RandomCoef: 0
@@ -136,6 +149,7 @@ MonoBehaviour:
     DisplayName: AI Cursor Fire Rate % of Player
     BasePrice: 400
     PriceMult: 1.13
+    ShowUpgrade: 1
     Key: aiCursorFireRatePercent
     UseRandom: 0
     RandomCoef: 0

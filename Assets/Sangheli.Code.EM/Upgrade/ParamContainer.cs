@@ -16,7 +16,7 @@ public class ParamContainer
         if (_cachedParamKeys != null && _cachedParamKeysCount == paramList.Count) 
             return;
         
-        _cachedParamKeys = paramList.Select(x => x.Key).ToList();
+        _cachedParamKeys = paramList.Where(x=>x.ShowUpgrade).Select(x => x.Key).ToList();
         _cachedParamKeysCount = paramList.Count;
     }
 
