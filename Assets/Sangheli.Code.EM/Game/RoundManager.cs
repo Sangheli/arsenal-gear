@@ -175,9 +175,4 @@ public class RoundManager : MonoBehaviour
             }
         }
     }
-    
-    private float GetSpawnRatePerMinute()
-    {
-        return 60f;
-    }
 }

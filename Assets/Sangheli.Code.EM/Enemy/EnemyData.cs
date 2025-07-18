@@ -11,6 +11,9 @@ public class EnemyData
     public float DamagePerHit;
     public EnemyController prefab;
     public string DisplayName = "Basic Enemy";
+    public bool AttractToCursor = false;
+    public float AttractionSpeed = 1.0f;
+    public float MinAttractDistance = 2.0f;
     
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {

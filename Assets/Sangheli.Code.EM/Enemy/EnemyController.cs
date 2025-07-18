@@ -95,7 +95,30 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         
         view.render.viewRenderer.transform.Rotate(rotationSpeed * deltaTime);
         view.render.shadowRender.transform.Rotate(rotationSpeed * deltaTime);
-        transform.Translate(_moveDirection * (deltaTime * _speed));
+        
+        if (_hasChangedSpeed && CurrentData.AttractToCursor)
+        {
+            DoMagnetMove(deltaTime);
+        }
+        else
+        {
+            transform.Translate(_moveDirection * (deltaTime * _speed));
+        }
+    }
+
+    private void DoMagnetMove(float deltaTime)
+    {
+        // Attraction to cursor logic
+        Vector3 cursorPos = G.I.playerCursor.transform.position;
+        // Притяжение только в 2D (XY)
+        cursorPos.z = transform.position.z;
+        Vector3 toCursor = cursorPos - transform.position;
+        float dist = toCursor.magnitude;
+        if (!(dist > CurrentData.MinAttractDistance))
+            return;
+
+        Vector3 moveDir = toCursor.normalized;
+        transform.position += moveDir * (CurrentData.AttractionSpeed * deltaTime);
     }
 
     private void CheckAndChangeSpeed()

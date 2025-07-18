@@ -18,6 +18,7 @@ MonoBehaviour:
     DamagePerHit: 0
     prefab: {fileID: 2325995571859240399, guid: e632b58bb4bc27f469e98d180aa7cf0c, type: 3}
     DisplayName: Square White
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 1
       MaxValue: 15
@@ -25,12 +26,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 100
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 15
     Speed: 0.65
     DamagePerHit: 0.5
     prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
     DisplayName: Square
+    AttractToCursor: 1
     UpgradeInfos:
     - BaseValue: 1
       MaxValue: 15
@@ -38,12 +41,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 5
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 30
     Speed: 0.8
     DamagePerHit: 0.75
     prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
     DisplayName: Round
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 3
       MaxValue: 15
@@ -51,12 +56,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 7
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 45
     Speed: 1
     DamagePerHit: 1
     prefab: {fileID: -6333086523383111919, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
     DisplayName: Triangle
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 3
       MaxValue: 15
@@ -64,12 +71,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 7
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 75
     Speed: 4
     DamagePerHit: 0
     prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
     DisplayName: Star
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 15
       MaxValue: 30
@@ -77,12 +86,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 20
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 45
     Speed: 0.15
     DamagePerHit: 5
     prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
     DisplayName: Saw
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 1
       MaxValue: 15
@@ -90,12 +101,14 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 7
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
   - Health: 45
     Speed: 0.15
     DamagePerHit: 5
     prefab: {fileID: 4631521289559410727, guid: 336eb39c49fc2874e87b30eff8ef615d, type: 3}
     DisplayName: Crown
+    AttractToCursor: 0
     UpgradeInfos:
     - BaseValue: 1
       MaxValue: 15
@@ -103,4 +116,5 @@ MonoBehaviour:
       DisplayName: Energy Drop
       BasePrice: 7
       PriceMult: 1.2
+      ShowUpgrade: 1
       Type: 1
