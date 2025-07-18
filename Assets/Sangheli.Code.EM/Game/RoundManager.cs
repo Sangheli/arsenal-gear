@@ -131,12 +131,9 @@ public class RoundManager : MonoBehaviour
         UpdateAvailableEnemies();
         
         if (_currentLevelConfig == null)
-		return;
-		
-        var value = 10;
-        var num = Random.Range(Mathf.Max(value/2,1), value + 1);
-        
-        for (var i = 0; i < num; i++)
+		    return;
+
+        for (var i = 0; i < _currentLevelConfig.preSpawnEnemyCount; i++)
         {
             if (_availableEnemies.Count == 0) break;
             var enemyData = GetRandomEnemyByChance();

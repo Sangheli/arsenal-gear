@@ -21,3 +21,4 @@ MonoBehaviour:
   showBossAfterTimer: 0
   checkNextRoundFromSave: 0
   showGoToUpgradesButton: 0
+  preSpawnEnemyCount: 3

@@ -31,7 +31,8 @@ public class LevelDataConfigRuntime
             loseHpDuringRound = true,
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
-            showGoToUpgradesButton = true
+            showGoToUpgradesButton = true,
+            preSpawnEnemyCount = 10
         };
 
     private static List<LevelEnemyInfo> GenerateEnemyes()
