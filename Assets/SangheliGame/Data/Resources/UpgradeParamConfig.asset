@@ -43,7 +43,7 @@ MonoBehaviour:
   - BaseValue: 1
     MaxValue: 6
     Step: 0.1
-    DisplayName: Diameter
+    DisplayName: Attack Diameter
     BasePrice: 10
     PriceMult: 1.07
     Key: damageDiameter
