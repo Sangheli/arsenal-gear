@@ -8,12 +8,25 @@ public class LevelDataConfigRuntime
 
     public LevelDataConfigRuntime(LevelDataConfigSO configSO)
     {
+        var save = G.I.SaveProvider.Get();
         if (configSO != null)
         {
             for (var index = 0; index < configSO.Levels.Count; index++) 
             {
                 var level = configSO.Levels[index];
-                if (level.GenerateRandomEnemy) level.enemies = GenerateEnemyes();
+                if (level.GenerateRandomEnemy)
+                {
+                    var savedEnemies = save.GetRandomLevelEnemies(index);
+                    if (savedEnemies != null)
+                    {
+                        level.enemies = savedEnemies;
+                    }
+                    else
+                    {
+                        level.enemies = GenerateEnemyes();
+                        save.SetRandomLevelEnemies(index, level.enemies);
+                    }
+                }
                 _levels[index] = level;
             }
         }
@@ -23,15 +36,22 @@ public class LevelDataConfigRuntime
             if (_levels.ContainsKey(i)) 
                 continue;
             
-            var newLevel = GenerateRandomLevel();
+            var newLevel = GenerateRandomLevel(i, save);
             _levels[i] = newLevel;
         }
     }
 
-    private static LevelConfig GenerateRandomLevel() =>
-        new()
+    private static LevelConfig GenerateRandomLevel(int levelIndex, DataSave save)
+    {
+        var enemies = save.GetRandomLevelEnemies(levelIndex);
+        if (enemies == null)
         {
-            enemies = GenerateEnemyes(),
+            enemies = GenerateEnemyes();
+            save.SetRandomLevelEnemies(levelIndex, enemies);
+        }
+        return new LevelConfig
+        {
+            enemies = enemies,
             loseHpDuringRound = true,
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
@@ -39,6 +59,7 @@ public class LevelDataConfigRuntime
             preSpawnEnemyCount = 10,
             GenerateRandomEnemy = true
         };
+    }
 
     private static List<LevelEnemyInfo> GenerateEnemyes()
     {

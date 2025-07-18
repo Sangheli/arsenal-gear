@@ -14,6 +14,22 @@ public class DataSave
     public EnemyUpgradeContainer enemyUpgradeContainer;
     
     public int upgradesBoughtNum;
+
+    // Сохраняет сгенерированные враги для случайных уровней: ключ - номер уровня, значение - список врагов
+    public System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<LevelEnemyInfo>> randomLevelEnemies = new();
+
+    public void SetRandomLevelEnemies(int level, System.Collections.Generic.List<LevelEnemyInfo> enemies)
+    {
+        if (randomLevelEnemies == null) randomLevelEnemies = new();
+        randomLevelEnemies[level] = enemies;
+    }
+
+    public System.Collections.Generic.List<LevelEnemyInfo> GetRandomLevelEnemies(int level)
+    {
+        if (randomLevelEnemies != null && randomLevelEnemies.TryGetValue(level, out var list))
+            return list;
+        return null;
+    }
     
     public ParamContainer GetParamContainer() => paramContainer ??= new ParamContainer();
     public EnemyUpgradeContainer GetEnemyUpgradeContainer() => enemyUpgradeContainer ??= new EnemyUpgradeContainer();
