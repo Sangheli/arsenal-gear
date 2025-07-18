@@ -39,10 +39,7 @@ public class ArcMoveAnimator : MonoBehaviour
             sortingOrderData.Iterrate();
             
             if (i % delim == 0)
-            {
-                Debug.Log(i);
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.loadinScreen);
-            }
 
             StartCoroutine(AnimateObject(enemy.transform, () =>
             {
