@@ -11,7 +11,7 @@ public class LevelDataConfigRuntime
         if (configSO != null)
         {
             foreach (var level in configSO.Levels)
-                _levels[level.levelId] = level;
+                _levels[level.levelId] = level.config;
         }
         
         for (var i = 0; i < G.I.maxLevel; i++)
@@ -20,7 +20,6 @@ public class LevelDataConfigRuntime
                 continue;
             
             var newLevel = GenerateRandomLevel();
-            newLevel.levelId = i;
             _levels[i] = newLevel;
         }
     }

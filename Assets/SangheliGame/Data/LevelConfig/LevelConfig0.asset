@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9f9951cdc0489184f969040da7ada9, type: 3}
+  m_Name: LevelConfig0
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  LevelStringEntry: "Your cursor deals damage over time\nBreak blocks to collect energy"
+  enemies:
+  - enemyId: 0
+    spawnChance: 100
+    spawnRate: 60
+  loseHpDuringRound: 0
+  showBossAfterTimer: 0
+  checkNextRoundFromSave: 0
+  showGoToUpgradesButton: 0
