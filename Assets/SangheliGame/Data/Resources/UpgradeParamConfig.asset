@@ -52,7 +52,7 @@ MonoBehaviour:
   - BaseValue: 0.25
     MaxValue: 1.5
     Step: 0.3
-    DisplayName: Collect Additional Diameter
+    DisplayName: Collect Diameter
     BasePrice: 4
     PriceMult: 1.08
     Key: collectDiameter
