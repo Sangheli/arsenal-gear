@@ -11,7 +11,11 @@ public class LevelDataConfigRuntime
         if (configSO != null)
         {
             for (var index = 0; index < configSO.Levels.Count; index++) 
-                _levels[index] = configSO.Levels[index];
+            {
+                var level = configSO.Levels[index];
+                if (level.GenerateRandomEnemy) level.enemies = GenerateEnemyes();
+                _levels[index] = level;
+            }
         }
         
         for (var i = 0; i < G.I.maxLevel; i++)
@@ -32,7 +36,8 @@ public class LevelDataConfigRuntime
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
-            preSpawnEnemyCount = 10
+            preSpawnEnemyCount = 10,
+            GenerateRandomEnemy = true
         };
 
     private static List<LevelEnemyInfo> GenerateEnemyes()

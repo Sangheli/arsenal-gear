@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: LevelConfig15
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   LevelStringEntry: 
-  enemies: []
   loseHpDuringRound: 1
   showBossAfterTimer: 1
   checkNextRoundFromSave: 0
   showGoToUpgradesButton: 1
+  GenerateRandomEnemy: 1
+  preSpawnEnemyCount: 10
+  enemies: []
