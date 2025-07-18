@@ -134,7 +134,7 @@ public class UpgradeView : MonoBehaviour
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text =  $"DPS:  {NumberFormatter.Format(dps)}";
+            dpmText.text =  $"DPS: {NumberFormatter.Format(dps)}";
             critText.text = $"Crit: {NumberFormatter.Format(dpsCrit)}";
         }
 
