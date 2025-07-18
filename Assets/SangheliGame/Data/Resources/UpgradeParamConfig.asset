@@ -50,7 +50,7 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0.25
-    MaxValue: 1.5
+    MaxValue: 6
     Step: 0.3
     DisplayName: Collect Diameter
     BasePrice: 4

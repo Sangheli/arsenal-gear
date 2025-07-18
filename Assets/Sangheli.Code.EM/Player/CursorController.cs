@@ -71,7 +71,7 @@ public class CursorController : MonoBehaviour
         _critMultiplier = paramContainer.GetValue("critMultiplier");
         _damagePercent = damagePercent;
         _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
-        CollectRadius = (CurrentDamageScale + _currentHarvestScale) / 2;
+        CollectRadius = (_currentHarvestScale) / 2;
         view.isPulsing = false;
         view.ApplyVisual();
         view.SetScale(CurrentDamageScale, _currentHarvestScale);
