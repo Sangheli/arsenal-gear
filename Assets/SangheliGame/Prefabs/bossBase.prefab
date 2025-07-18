@@ -677,7 +677,7 @@ MonoBehaviour:
   scale: 1
   duration: 0.2
   maxFlashValue: 1
-  deathAnimDuration: 0.3
+  deathAnimDuration: 1
 --- !u!1 &7355152215114640481
 GameObject:
   m_ObjectHideFlags: 0
