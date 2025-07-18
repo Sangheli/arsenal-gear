@@ -10,8 +10,8 @@ public class LevelDataConfigRuntime
     {
         if (configSO != null)
         {
-            foreach (var level in configSO.Levels)
-                _levels[level.levelId] = level.config;
+            for (var index = 0; index < configSO.Levels.Count; index++) 
+                _levels[index] = configSO.Levels[index];
         }
         
         for (var i = 0; i < G.I.maxLevel; i++)
