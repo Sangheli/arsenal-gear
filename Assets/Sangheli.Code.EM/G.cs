@@ -210,9 +210,11 @@ public class G : MonoBehaviour
         prestigeManager.ToggleActive(false);
         playerCursor.ToggleControl(false, true);
 
-        var list = energySpawner.EnergyList.Where(x => x.IsActive && !x.CanCollect).ToList();
-        while (list.Any(x => x.IsActive))
-            yield return null;
+        foreach (var x in energySpawner.EnergyList)
+        {
+            x.IsActive = false;
+            x.PlayerFound = false;
+        }
         
         var save = SaveProvider.Get();
         
