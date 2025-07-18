@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public void Init(EnemyData data, Vector2 moveDirection, bool isPreSpawned = false)
     {
         IsDead = false;
-        CurrentData = data;
+        SetData(data);
         damageReciever.EnemyData = CurrentData;
         CurrentHealth = CurrentData.Health;
         _moveDirection = moveDirection.normalized;
@@ -64,12 +64,21 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _doHpFill = false;
         IsActive = true;
         ResetView();
+        UpdateColors();
+    }
+
+    public void SetData(EnemyData data)
+    {
+        CurrentData = data;
+    }
+
+    public void UpdateColors()
+    {
+        if (!manipulateColor) 
+            return;
         
-        if (manipulateColor)
-        {
-            view.render.SetFullColor(CurrentData.color, CurrentData.borderColor);
-            view.deathVfx.SetColor(view.render.OriginalColor);
-        }
+        view.render.SetFullColor(CurrentData.color, CurrentData.borderColor);
+        view.deathVfx.SetColor(view.render.OriginalColor);
     }
 
     public void ResetView()

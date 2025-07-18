@@ -31,12 +31,15 @@ public class ArcMoveAnimator : MonoBehaviour
 
         for (int i = 0; i < enemyCount; i++)
         {
-            var enemyData = enemyList[UnityEngine.Random.Range(0, enemyList.Count)].prefab;
+            var selected = UnityEngine.Random.Range(0, enemyList.Count);
+            var enemyData = enemyList[selected].prefab;
             var enemy = G.I.ObjectPool.Get(enemyData, GetRandomEdgePosition());
             enemy.ResetView();
             enemy.transform.localScale = Vector3.one * startScale;
             enemy.view.SetSortingOrder(sortingOrderData);
             sortingOrderData.Iterrate();
+            enemy.SetData(enemyList[selected]);
+            enemy.UpdateColors();
             
             if (i % delim == 0)
                 G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.loadinScreen);

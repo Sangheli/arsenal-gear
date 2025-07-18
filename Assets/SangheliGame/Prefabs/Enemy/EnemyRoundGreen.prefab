@@ -303,8 +303,6 @@ MonoBehaviour:
   distanceToChangeSpeed: 6
   manipulateColor: 1
   duration: 0.2
-  color: {r: 0, g: 0.8, b: 0.15294118, a: 1}
-  borderColor: {r: 0, g: 1, b: 0.019607844, a: 1}
 --- !u!114 &1382903050690374469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +324,7 @@ MonoBehaviour:
   punchScaleCrit: 1.44
   scale: 1
   duration: 0.2
-  maxFlashValue: 0.2
+  maxFlashValue: 1
   deathAnimDuration: 0.3
 --- !u!1 &3852211787599547661
 GameObject:

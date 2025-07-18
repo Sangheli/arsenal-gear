@@ -197,4 +197,10 @@ public class EnemyRender : MonoBehaviour
         PropertyBlockRamka.SetColor(_borderColor, OriginalRamkaColor);
         borderRender.SetPropertyBlock(PropertyBlockRamka);
     }
+
+    public void ApplyBorderColor(Color black)
+    {
+        OriginalRamkaColor = black;
+        ApplyBorderColor();
+    }
 }

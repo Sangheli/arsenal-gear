@@ -251,7 +251,7 @@ MonoBehaviour:
   punchScaleCrit: 1.44
   scale: 1
   duration: 0.2
-  maxFlashValue: 0.2
+  maxFlashValue: 1
   deathAnimDuration: 0.3
 --- !u!1 &3852211787599547661
 GameObject:

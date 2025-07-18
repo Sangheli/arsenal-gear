@@ -316,8 +316,6 @@ MonoBehaviour:
   distanceToChangeSpeed: 6
   manipulateColor: 0
   duration: 0.2
-  color: {r: 1, g: 1, b: 1, a: 1}
-  borderColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1553927254607236840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  manipulateRamkaColor: 1
+  borderColorProp: _Color
   viewRenderer: {fileID: 6168234484293521608}
   borderRender: {fileID: 3921777000171173304}
   backRender: {fileID: 8560448842156563371}
@@ -339,7 +337,7 @@ MonoBehaviour:
   punchScaleCrit: 1.44
   scale: 1
   duration: 0.2
-  maxFlashValue: 0.2
+  maxFlashValue: 1
   deathAnimDuration: 0.3
 --- !u!1 &3852211787599547661
 GameObject:

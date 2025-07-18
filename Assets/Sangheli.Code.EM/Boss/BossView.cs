@@ -27,6 +27,7 @@ public class BossView : EnemyView
         
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
+        render.ApplyBorderColor(Color.black);
         
         boss2Render.ApplyPropertyView(color);
         boss2Render.ApplyPropertyBack(backColor);
