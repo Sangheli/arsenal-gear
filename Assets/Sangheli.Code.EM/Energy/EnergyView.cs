@@ -8,20 +8,23 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     
     public float flySpeed = 5f;
     [FormerlySerializedAs("flySpeed2")] public float flySpeedFast = 5f;
+    
+    public float flyAcceleration = 20f; // ускорение полёта
     public float t1 = 0.2f; // Time to scale up
     public float t2 = 0.3f; // Time to scale down
     public float maxScale = 1.5f; // Maximum scale multiplier
     
-    private float maxFlyDistance = 10f; // максимальная дистанция для полёта к игроку
+    private float _maxFlyDistance = 10f; // максимальная дистанция для полёта к игроку
 
     private bool ScaleDownAnimated { get; set; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
     public bool CanCollect { get; private set; }
-    private bool PlayerFound { get; set; }
+    public bool PlayerFound { get; set; }
     
     private float _radius;
     private Transform _target;
     private Vector3 _originalScale;
+    private float _currentFlySpeed; // текущая скорость полёта
     
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
@@ -61,7 +64,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         //    return;
         //}
 
-        var spd = dist > _radius ? flySpeed : flySpeedFast;
+        var spd = UpdateCurrentFlySpeed(dist);
         
         transform.position = Vector2.MoveTowards
         (
@@ -69,6 +72,26 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
             _target.position,
             spd * Time.deltaTime
         );
+    }
+
+    private float UpdateCurrentFlySpeed(float dist)
+    {
+        return dist > _radius ? flySpeed : flySpeedFast;
+
+        // Внутри радиуса всегда максимальная скорость сбора
+        if (dist < _radius)
+        {
+            _currentFlySpeed = flySpeedFast;
+        }
+        else
+        {
+            // Увеличиваем текущую скорость с ускорением только до flySpeedMax
+            if (_currentFlySpeed < flySpeedFast) _currentFlySpeed += flyAcceleration * Time.deltaTime;
+            _currentFlySpeed = Mathf.Clamp(_currentFlySpeed, flySpeed, flySpeedFast);
+        }
+
+        // Если расстояние больше половины максимальной дистанции — сбрасываем скорость к базовой
+        if (dist > _maxFlyDistance / 2f) _currentFlySpeed = flySpeed;
     }
 
     private void TryStartScaleDownAnimation()
@@ -100,11 +123,12 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         if (!IsActive) return;
         if (PlayerFound) return;
         
-        this.maxFlyDistance = maxFlyDistance;
+        _maxFlyDistance = maxFlyDistance;
         CanCollect = false;
         PlayerFound = true;
         _target = collector;
         _radius = radius;
+        _currentFlySpeed = flySpeed; // сброс скорости при начале сбора
     }
 
     public void Init()
