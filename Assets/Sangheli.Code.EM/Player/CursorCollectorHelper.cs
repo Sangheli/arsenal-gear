@@ -23,7 +23,7 @@ public class CursorCollectorHelper
             var energy = _energyHits[i].GetComponent<EnergyView>();
             if (energy == null)
                 continue;
-            energy.Collect(transform, currentDamageScaleHalf);
+            energy.Collect(transform, currentDamageScaleHalf, collectRadius);
         }
     }
 }

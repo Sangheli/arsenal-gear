@@ -11,6 +11,8 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     public float t1 = 0.2f; // Time to scale up
     public float t2 = 0.3f; // Time to scale down
     public float maxScale = 1.5f; // Maximum scale multiplier
+    
+    private float maxFlyDistance = 10f; // максимальная дистанция для полёта к игроку
 
     private bool ScaleDownAnimated { get; set; }
     public bool IsActive { get; private set; }
@@ -38,6 +40,10 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
             return;
         
         FlyToPlayer();
+        
+        if (!PlayerFound) 
+            return;
+        
         var dist = Vector2.Distance(transform.position, _target.position);
         if (dist > _radius) return;
         TryStartScaleDownAnimation();
@@ -46,6 +52,15 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     private void FlyToPlayer()
     {
         var dist = Vector2.Distance(transform.position, _target.position);
+
+        // Если игрок слишком далеко — сбрасываем цель
+        //if (dist > maxFlyDistance)
+        //{
+        //    _target = null;
+        //    PlayerFound = false;
+        //    return;
+        //}
+
         var spd = dist > _radius ? flySpeed : flySpeedFast;
         
         transform.position = Vector2.MoveTowards
@@ -80,11 +95,12 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         G.I.ObjectPool.Return(this);
     }
 
-    public void Collect(Transform collector, float radius)
+    public void Collect(Transform collector, float radius, float maxFlyDistance)
     {
         if (!IsActive) return;
         if (PlayerFound) return;
         
+        this.maxFlyDistance = maxFlyDistance;
         CanCollect = false;
         PlayerFound = true;
         _target = collector;
