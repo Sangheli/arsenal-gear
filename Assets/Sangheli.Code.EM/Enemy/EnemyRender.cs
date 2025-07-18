@@ -7,8 +7,10 @@ public class EnemyRender : MonoBehaviour
     private readonly int _clipUvUp = Shader.PropertyToID("_ClipUvUp");
     private readonly int _hitEffectBlend = Shader.PropertyToID("_HitEffectBlend");
     public readonly int ColorProperty = Shader.PropertyToID("_Color");
+
+    public string borderColorProp = "_Color";
+    private int _borderColor = 0;
     
-    public bool manipulateRamkaColor;
     
     [Space]
     public Renderer viewRenderer;
@@ -40,6 +42,8 @@ public class EnemyRender : MonoBehaviour
     
     private void Awake()
     {
+        _borderColor = Shader.PropertyToID(borderColorProp);
+        
         _originalScale = viewRenderer.transform.localScale;
         _originalScaleShadow = shadowRender.transform.localScale;
 
@@ -54,30 +58,28 @@ public class EnemyRender : MonoBehaviour
         
         OriginalColor = viewRenderer.material.color;
         
-        if(manipulateRamkaColor)
-            OriginalRamkaColor = borderRender.material.color;
     }
     
     public void ApplyPropertyBack(Color bossColor)
     {
-        PropertyBlock.SetColor(ColorProperty, bossColor);
+        PropertyBlockBack.SetColor(ColorProperty, bossColor);
         ApplyPropertyBack();
     }
 
     public virtual void ApplyPropertyBack()
     {
-        viewRenderer.SetPropertyBlock(PropertyBlock);
+        backRender.SetPropertyBlock(PropertyBlockBack);
     }
     
     public void ApplyPropertyView(Color backColor)
     {
-        PropertyBlockBack.SetColor(ColorProperty, backColor);
+        PropertyBlock.SetColor(ColorProperty, backColor);
         ApplyPropertyView();
     }
 
     public virtual void ApplyPropertyView()
     {
-        backRender.SetPropertyBlock(PropertyBlockBack);
+        viewRenderer.SetPropertyBlock(PropertyBlock);
     }
 
     public void SetScale(float scale)
@@ -90,13 +92,13 @@ public class EnemyRender : MonoBehaviour
     public void SetFillValue(float targetClipValue)
     {
         PropertyBlock.SetFloat(_clipUvUp, targetClipValue);
-        ApplyPropertyBack();
+        ApplyPropertyView();
     }
 
     public void SetHitValue(float value)
     {
         PropertyBlock.SetFloat(_hitEffectBlend, value);
-        ApplyPropertyBack();
+        ApplyPropertyView();
     }
 
     public void DoBounceAnimation(bool isCrit)
@@ -154,10 +156,10 @@ public class EnemyRender : MonoBehaviour
     public IEnumerator CritColorCoroutine()
     {
         PropertyBlock.SetColor(ColorProperty, Color.red);
-        ApplyPropertyBack();
+        ApplyPropertyView();
         yield return new WaitForSeconds(duration);
         PropertyBlock.SetColor(ColorProperty, OriginalColor);
-        ApplyPropertyBack();
+        ApplyPropertyView();
     }
 
     public void SetSortingOrder(SortingOrderData data)
@@ -175,5 +177,24 @@ public class EnemyRender : MonoBehaviour
         
         StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
         yield return StartCoroutine(GameAnimation.ShrinkAndDisappear(transform2, transform2.localScale, deathAnimDuration));
+    }
+
+    public void SetFullColor(Color color, Color borderColor)
+    {
+        OriginalColor = color;
+        OriginalRamkaColor = borderColor;
+
+        var colorBack = color;
+        colorBack.a = 100f / 255f;
+        
+        ApplyPropertyBack(colorBack);
+        ApplyPropertyView(OriginalColor);
+        ApplyBorderColor();
+    }
+
+    public void ApplyBorderColor()
+    {
+        PropertyBlockRamka.SetColor(_borderColor, OriginalRamkaColor);
+        borderRender.SetPropertyBlock(PropertyBlockRamka);
     }
 }

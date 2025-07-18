@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemySQ_Blue
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 15
+  Health: 20
   Speed: 0.65
   DamagePerHit: 0.5
   prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
@@ -20,8 +20,10 @@ MonoBehaviour:
   AttractToCursor: 0
   AttractionSpeed: 2
   MinAttractDistance: 5
+  color: {r: 0.18431373, g: 0.49411765, b: 0.9607843, a: 1}
+  borderColor: {r: 0, g: 0.41960785, b: 1, a: 1}
   UpgradeInfos:
-  - BaseValue: 1
+  - BaseValue: 4
     MaxValue: 15
     Step: 1
     DisplayName: Energy Drop

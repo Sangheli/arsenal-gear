@@ -25,11 +25,11 @@ public class BossView : EnemyView
         var backColor = color;
         backColor.a = 64 / 255f;
         
-        render.ApplyPropertyView(backColor);
-        render.ApplyPropertyBack(color);
+        render.ApplyPropertyView(color);
+        render.ApplyPropertyBack(backColor);
         
-        boss2Render.ApplyPropertyView(backColor);
-        boss2Render.ApplyPropertyBack(color);
+        boss2Render.ApplyPropertyView(color);
+        boss2Render.ApplyPropertyBack(backColor);
         
         deathVfx.SetColor(color);
     }

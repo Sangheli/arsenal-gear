@@ -20,6 +20,8 @@ MonoBehaviour:
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
+  color: {r: 1, g: 1, b: 1, a: 1}
+  borderColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 15

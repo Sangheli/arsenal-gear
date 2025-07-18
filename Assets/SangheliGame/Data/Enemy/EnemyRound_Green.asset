@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRound_Green
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 30
-  Speed: 0.15
+  Health: 10
+  Speed: 0.5
   DamagePerHit: 0.75
   prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
-  DisplayName: Round
+  DisplayName: Round Green
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
+  color: {r: 0, g: 0.8, b: 0.15294118, a: 1}
+  borderColor: {r: 0, g: 1, b: 0.019607844, a: 1}
   UpgradeInfos:
   - BaseValue: 3
     MaxValue: 15

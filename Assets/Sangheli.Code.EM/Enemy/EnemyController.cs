@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     private float _currentClipValue;
     private bool _doHpFill;
     private float _fillStartTime;
+    public bool manipulateColor = true;
 
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
@@ -63,6 +64,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _doHpFill = false;
         IsActive = true;
         ResetView();
+        
+        if (manipulateColor)
+        {
+            view.render.SetFullColor(CurrentData.color, CurrentData.borderColor);
+            view.deathVfx.SetColor(view.render.OriginalColor);
+        }
     }
 
     public void ResetView()

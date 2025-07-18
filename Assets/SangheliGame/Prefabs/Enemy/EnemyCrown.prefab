@@ -294,16 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9abd32343224715ad107909d2dc0f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  view: {fileID: 5548160587331954462}
-  viewShadow: {fileID: 1516038100016689909}
   deathVfx: {fileID: 8069377908262886169}
-  manipulateRamkaColor: 1
-  punchScale: 1.2
-  punchScaleCrit: 1.44
-  duration: 0.2
-  maxFlashValue: 2
-  deathAnimDuration: 0.3
-  enemyRender: {fileID: 0}
+  render: {fileID: 1553927254607236840}
 --- !u!114 &4631521289559410727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +314,10 @@ MonoBehaviour:
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
+  manipulateColor: 0
+  duration: 0.2
+  color: {r: 1, g: 1, b: 1, a: 1}
+  borderColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1553927254607236840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,11 +332,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
   manipulateRamkaColor: 1
   viewRenderer: {fileID: 6168234484293521608}
-  ramkaRender: {fileID: 3921777000171173304}
-  shadowRender: {fileID: 4245914269587504957}
+  borderRender: {fileID: 3921777000171173304}
   backRender: {fileID: 8560448842156563371}
-  originalColor: {r: 0, g: 0, b: 0, a: 0}
-  originalRamkaColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowRender: {fileID: 4245914269587504957}
+  punchScale: 1.2
+  punchScaleCrit: 1.44
+  scale: 1
+  duration: 0.2
+  maxFlashValue: 0.2
+  deathAnimDuration: 0.3
 --- !u!1 &3852211787599547661
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a5cbc5cc713955640a60b25ced6deb86, type: 2}
+  - {fileID: 2100000, guid: 08fe1d91e29402f4f8348a3594826beb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

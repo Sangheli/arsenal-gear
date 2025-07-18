@@ -61,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0f1a7e4f5da7d8a4cb4d82db2bf9fa0a, type: 2}
+  - {fileID: 2100000, guid: 77259feaa8327dc4ab0a8e21e5c39e9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,16 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9abd32343224715ad107909d2dc0f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  view: {fileID: 5548160587331954462}
-  viewShadow: {fileID: 1516038100016689909}
   deathVfx: {fileID: 8069377908262886169}
-  manipulateRamkaColor: 1
-  punchScale: 1.2
-  punchScaleCrit: 1.44
-  duration: 0.2
-  maxFlashValue: 2
-  deathAnimDuration: 0.3
-  enemyRender: {fileID: 8251769850607054768}
+  render: {fileID: 8251769850607054768}
 --- !u!114 &4631521289559410727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +228,8 @@ MonoBehaviour:
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
+  manipulateColor: 1
+  duration: 0.2
 --- !u!114 &8251769850607054768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,11 +242,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  manipulateRamkaColor: 1
+  borderColorProp: _Color
   viewRenderer: {fileID: 6168234484293521608}
   borderRender: {fileID: 3921777000171173304}
   backRender: {fileID: 3164044634923808250}
   shadowRender: {fileID: 4245914269587504957}
+  punchScale: 1.2
+  punchScaleCrit: 1.44
+  scale: 1
+  duration: 0.2
+  maxFlashValue: 0.2
+  deathAnimDuration: 0.3
 --- !u!1 &3852211787599547661
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 10fe799b013b06848ba93491398aa2b0, type: 2}
+  - {fileID: 2100000, guid: 08fe1d91e29402f4f8348a3594826beb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -400,7 +400,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 01c82d00f5dc3b04bb783278af5dc8e6, type: 2}
+  - {fileID: 2100000, guid: 44913275f79ce5543b3dba4bd798be58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,7 +490,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c1f82337580a82c4fb6bc4810104e091, type: 2}
+  - {fileID: 2100000, guid: 929bd65ac1d3edc4fb0de960921823f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

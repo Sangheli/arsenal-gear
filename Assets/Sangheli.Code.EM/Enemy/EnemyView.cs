@@ -27,14 +27,8 @@ public class EnemyView : MonoBehaviour
         SetHitValue(0);
         SetFillValue(0);
         
-        render.PropertyBlock.SetColor(render.ColorProperty, render.OriginalColor);
-        render.ApplyPropertyBack();
-
-        if (render.manipulateRamkaColor)
-        {
-            render.PropertyBlockRamka.SetColor(render.ColorProperty, render.OriginalRamkaColor);
-            render.borderRender.SetPropertyBlock(render.PropertyBlockRamka);
-        }
+        render.ApplyPropertyView(render.OriginalColor);
+        render.ApplyBorderColor();
     }
 
     public void SetSortingOrder(SortingOrderData data)

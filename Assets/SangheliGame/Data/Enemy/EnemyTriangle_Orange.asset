@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyTriangle_Orange
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 45
-  Speed: 1
+  Health: 10
+  Speed: 0.15
   DamagePerHit: 1
   prefab: {fileID: -6333086523383111919, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
   DisplayName: Triangle
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
+  color: {r: 1, g: 0.5254902, b: 0, a: 1}
+  borderColor: {r: 0.7529412, g: 0.21176471, b: 0, a: 1}
   UpgradeInfos:
-  - BaseValue: 3
+  - BaseValue: 2
     MaxValue: 15
     Step: 1
     DisplayName: Energy Drop

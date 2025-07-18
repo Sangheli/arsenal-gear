@@ -16,6 +16,9 @@ public class EnemyData : ScriptableObject
     public float AttractionSpeed = 1.0f;
     public float MinAttractDistance = 2.0f;
     
+    public Color color = Color.white;
+    public Color borderColor = Color.white;
+    
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
         new EnemyUpgradeInfo
