@@ -51,6 +51,9 @@ public class CursorController : MonoBehaviour
     public void Toggle(bool state)
     {
         view.Toggle(state);
+#if !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
+        Cursor.visible = !state;
+#endif
         if (state)
         {
             _save = G.I.SaveProvider.Get();
