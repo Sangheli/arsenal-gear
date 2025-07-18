@@ -24,7 +24,8 @@ public class CursorView : MonoBehaviour
     public bool isPulsing;
     private Color _pulseColor;
     public DeathVfx deathVfx;
-
+    public GameObject dot;
+    
     private void Awake()
     {
         _originalScale = view.transform.localScale;
@@ -37,7 +38,7 @@ public class CursorView : MonoBehaviour
     {
         _currentScale = damageScale;
         view.transform.localScale = _originalScale * damageScale;
-        viewHarvest.transform.localScale = _originalScale * (damageScale + harvestScale);
+        viewHarvest.transform.localScale = _originalScale * ( harvestScale);
         deathVfx.SetScale(damageScale);
         ApplyVisual();
     }
@@ -46,6 +47,7 @@ public class CursorView : MonoBehaviour
     {
         view.gameObject.SetActive(state);
         viewHarvest.gameObject.SetActive(false);
+        dot.gameObject.SetActive(state);
         
         if (state)
         {
