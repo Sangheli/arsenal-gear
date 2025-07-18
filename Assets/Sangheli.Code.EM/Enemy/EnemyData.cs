@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using UnityEngine;
 
-[Serializable]
-public class EnemyData
+[CreateAssetMenu(menuName = "Sangheli/EnemyData")]
+public class EnemyData : ScriptableObject
 {
     public float Health;
     public float Speed;
@@ -30,12 +31,12 @@ public class EnemyData
     
     [JsonIgnore]
     public int EnemyId { get; set; }
-    private int _cachedEnergyDropLevel;
+    private int CachedEnergyDropLevel { get; set; }
 
     public void Init(DataSave dataSave)
     {
         var upgradeContainer = dataSave.GetEnemyUpgradeContainer();
-        _cachedEnergyDropLevel = upgradeContainer.GetBoughtLevel(EnemyId, UpgradeType.EnergyDrop);
+        CachedEnergyDropLevel = upgradeContainer.GetBoughtLevel(EnemyId, UpgradeType.EnergyDrop);
     }
 
     public EnemyUpgradeInfo GetUpgradeInfo(UpgradeType upgradeType) => UpgradeInfos.FirstOrDefault(info => info.Type == upgradeType);
@@ -44,5 +45,5 @@ public class EnemyData
     public float GetUpgradePrice(UpgradeType upgradeType, int boughtLevel, int upgradesBoughtNum) => GetUpgradeInfo(upgradeType)?.GetPrice(boughtLevel, upgradesBoughtNum) ?? float.MaxValue;
     public int GetMaxUpgradeLevel(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.MaxUpgrades ?? 0;
     public string GetUpgradeDisplayName(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.DisplayName ?? "";
-    public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, _cachedEnergyDropLevel);
+    public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 }

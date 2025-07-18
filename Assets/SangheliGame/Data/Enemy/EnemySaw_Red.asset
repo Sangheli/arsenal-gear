@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
+  m_Name: EnemySaw_Red
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  Health: 45
+  Speed: 0.15
+  DamagePerHit: 5
+  prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
+  DisplayName: Saw
+  AttractToCursor: 0
+  AttractionSpeed: 1
+  MinAttractDistance: 2
+  UpgradeInfos:
+  - BaseValue: 1
+    MaxValue: 15
+    Step: 1
+    DisplayName: Energy Drop
+    BasePrice: 7
+    PriceMult: 1.2
+    ShowUpgrade: 1
+    Type: 1
