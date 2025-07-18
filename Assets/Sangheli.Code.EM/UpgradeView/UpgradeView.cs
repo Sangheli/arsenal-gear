@@ -12,6 +12,7 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Button cheatButton;
     
     [SerializeField] private Text dpmText;
+    [SerializeField] private Text critText;
     
     [Space]
     [SerializeField] private Text prestigeText;
@@ -133,7 +134,8 @@ public class UpgradeView : MonoBehaviour
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text = $"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}";
+            dpmText.text =  $"DPS:  {NumberFormatter.Format(dps)}";
+            critText.text = $"Crit: {NumberFormatter.Format(dpsCrit)}";
         }
 
         if (prestigeText != null)
