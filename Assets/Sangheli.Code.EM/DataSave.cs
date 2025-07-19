@@ -44,12 +44,15 @@ public class DataSave
     {
         var playerUpgrades = paramContainer?.UpgradesBought?.Values.Sum() ?? 0;
         var enemyUpgrades = 0;
+        
         if (enemyUpgradeContainer?.enemyUpgrades != null)
         {
-            foreach (var enemy in enemyUpgradeContainer.enemyUpgrades)
-                if (enemy?.upgradesBought != null)
-                    enemyUpgrades += enemy.upgradesBought.Sum();
+            enemyUpgrades += enemyUpgradeContainer
+                .enemyUpgrades
+                .Where(enemy => enemy?.upgradesBought != null)
+                .Sum(enemy => enemy.upgradesBought.Sum());
         }
+        
         upgradesBoughtNum = playerUpgrades + enemyUpgrades;
     }
 
