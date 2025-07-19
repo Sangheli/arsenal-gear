@@ -48,9 +48,9 @@ GameObject:
   - component: {fileID: 3581889741638269892}
   - component: {fileID: 6477743462093636934}
   - component: {fileID: 3346481164807626802}
-  - component: {fileID: 7385573931749061792}
   - component: {fileID: 7938004754653314499}
   - component: {fileID: 4207948937290102108}
+  - component: {fileID: 621981015209158953}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -119,21 +119,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: GEOMETRIC
---- !u!114 &7385573931749061792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872567388252003413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7764706}
-  m_EffectDistance: {x: 20, y: -20}
-  m_UseGraphicAlpha: 1
 --- !u!223 &7938004754653314499
 Canvas:
   m_ObjectHideFlags: 0
@@ -178,6 +163,21 @@ MonoBehaviour:
   - {r: 0.46037197, g: 0, b: 1, a: 1}
   - {r: 0, g: 1, b: 0.9085827, a: 1}
   textComponent: {fileID: 3346481164807626802}
+--- !u!114 &621981015209158953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872567388252003413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5346932625684389814
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,9 +189,9 @@ GameObject:
   - component: {fileID: 7708913916145888805}
   - component: {fileID: 2114735801066377715}
   - component: {fileID: 1050411649667860965}
-  - component: {fileID: 3100361301806493175}
   - component: {fileID: 7347237952511095047}
   - component: {fileID: 1337993273023121096}
+  - component: {fileID: 1708658157336656234}
   m_Layer: 5
   m_Name: Text (Legacy) (1)
   m_TagString: Untagged
@@ -260,21 +260,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: FIGHTER
---- !u!114 &3100361301806493175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5346932625684389814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7764706}
-  m_EffectDistance: {x: 10, y: -10}
-  m_UseGraphicAlpha: 1
 --- !u!223 &7347237952511095047
 Canvas:
   m_ObjectHideFlags: 0
@@ -319,3 +304,18 @@ MonoBehaviour:
   - {r: 0, g: 0.41124964, b: 1, a: 1}
   - {r: 0.7779927, g: 0, b: 1, a: 1}
   textComponent: {fileID: 1050411649667860965}
+--- !u!114 &1708658157336656234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346932625684389814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 1
