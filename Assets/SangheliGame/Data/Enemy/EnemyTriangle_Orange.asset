@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.15
   DamagePerHit: 1
   prefab: {fileID: -6333086523383111919, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
-  DisplayName: Triangle
+  DisplayName: Triangle Orange
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2

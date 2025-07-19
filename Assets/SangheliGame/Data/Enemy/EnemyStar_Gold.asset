@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 4
   DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
-  DisplayName: Star
+  DisplayName: Star Gold
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
