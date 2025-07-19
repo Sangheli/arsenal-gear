@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: LevelConfig2
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   LevelStringEntry: Some blocks fight back!
+  loseHpDuringRound: 1
+  showBossAfterTimer: 0
+  checkNextRoundFromSave: 0
+  showGoToUpgradesButton: 1
+  GenerateRandomEnemy: 0
+  preSpawnEnemyCount: 10
+  levelId: 2
   enemies:
   - enemyId: 0
     spawnChance: 100
@@ -20,7 +27,3 @@ MonoBehaviour:
   - enemyId: 2
     spawnChance: 100
     spawnRate: 45
-  loseHpDuringRound: 1
-  showBossAfterTimer: 0
-  checkNextRoundFromSave: 0
-  showGoToUpgradesButton: 1
