@@ -76,13 +76,13 @@ public static class GameAnimation
         setHitValue(0f);
     }
 
-    public static IEnumerator PulseInnerRadius(Renderer viewRender, MaterialPropertyBlock propertyBlock, float duration)
+    public static IEnumerator PulseInnerRadius(Renderer viewRender, MaterialPropertyBlock propertyBlock, float duration, float baseValue)
     {
         var time = 0f;
         while (time < duration)
         {
             var t = time / duration;
-            var radius = Mathf.Lerp(0f, 1f, t);
+            var radius = Mathf.Lerp(baseValue, 1f, t);
 
             propertyBlock.SetFloat(PropInnerRadius, radius);
             viewRender.SetPropertyBlock(propertyBlock);
@@ -91,7 +91,7 @@ public static class GameAnimation
             yield return null;
         }
         
-        propertyBlock.SetFloat(PropInnerRadius, 0f);
+        propertyBlock.SetFloat(PropInnerRadius, baseValue);
         viewRender.SetPropertyBlock(propertyBlock);
     }
     

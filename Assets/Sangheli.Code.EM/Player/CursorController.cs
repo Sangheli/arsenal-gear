@@ -21,6 +21,9 @@ public class CursorController : MonoBehaviour
     private float _critMultiplier;
     private ParamInfo _damageParam;
     private float _damagePercent;
+    
+    public float baseInner = 0.234f;
+    private float _baseInnerCurrent = 0.234f;
 
     private float _currentHarvestScale;
     
@@ -79,8 +82,10 @@ public class CursorController : MonoBehaviour
         view.isPulsing = false;
         view.ApplyVisual();
         view.SetScale(CurrentDamageScale, _currentHarvestScale);
+
+        _baseInnerCurrent = baseInner / CurrentDamageScale;
         
-        view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, 0f);
+        view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, _baseInnerCurrent);
         view.viewRender.SetPropertyBlock(view.PropertyBlock);
         
         UpdateNextTime();
@@ -145,7 +150,7 @@ public class CursorController : MonoBehaviour
     private void ShowPulseAnimation()
     {
         var interval = 60f / _playerFireRate;
-        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval));
+        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval, _baseInnerCurrent));
     }
 
     private void UpdateNextTime()
