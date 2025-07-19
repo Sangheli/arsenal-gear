@@ -137,6 +137,7 @@ public class PrestigeManager : MonoBehaviour
         float scale = 9f;
         float damage = 1;
         _active = false;
+        G.I.tutorial.OnEndRound(); // Скрываем туториал при появлении босса
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
     }
 
