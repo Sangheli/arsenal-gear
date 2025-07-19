@@ -66,60 +66,17 @@ public class LevelDataConfigRuntime
         var allEnemies = G.I.Data.enemyContainer.List;
         if (allEnemies.Count == 0) return new List<LevelEnemyInfo>();
 
-        var enemiesWithDifficulty = allEnemies
-            .Select(e => new { Enemy = e, Difficulty = GetEnemyDifficulty(e) })
-            .OrderBy(x => x.Difficulty)
-            .ToList();
-
-        float t = Mathf.Clamp01(levelIndex / (float)Mathf.Max(1, G.I.maxLevel - 1));
-        int n = enemiesWithDifficulty.Count;
-        float[] weights = new float[n];
-        float sum = 0f;
-        for (int i = 0; i < n; i++)
+        var result = new List<LevelEnemyInfo>();
+        foreach (var enemy in allEnemies)
         {
-            float normalized = i / (float)(n - 1);
-            float baseWeight = Mathf.Lerp(1f - normalized, normalized, t);
-            var enemy = enemiesWithDifficulty[i].Enemy;
-            float energy = enemy.GetEnergy();
-            bool nonAttacker = Mathf.Approximately(enemy.DamagePerHit, 0f);
-            float maxEnergy = allEnemies.Max(e => e.GetEnergy());
-            float energyScore = maxEnergy > 0 ? energy / maxEnergy : 0f;
-            float bonus = 1f;
-            if (nonAttacker && energyScore > 0.5f)
+            result.Add(new LevelEnemyInfo
             {
-                bonus += t * t * energyScore * 3f;
-            }
-            weights[i] = baseWeight * bonus;
-            weights[i] = Mathf.Max(weights[i], 0.01f);
-            sum += weights[i];
+                enemyId = enemy.EnemyId,
+                spawnChance = UnityEngine.Random.Range(0, 101), // теперь целое число 0..100
+                spawnRate = UnityEngine.Random.Range(5, 22) // 5..21 включительно, целое
+            });
         }
-        for (int i = 0; i < n; i++) weights[i] /= sum;
-
-        // --- Количество типов врагов: от 50% до 90% от общего числа, округляем вверх ---
-        int minTypes = Mathf.CeilToInt(n * 0.5f);
-        int maxTypes = Mathf.CeilToInt(n * 0.9f);
-        int numEnemies = UnityEngine.Random.Range(minTypes, maxTypes + 1);
-        numEnemies = Mathf.Clamp(numEnemies, 1, n);
-
-        var chosenIndices = new HashSet<int>();
-        while (chosenIndices.Count < numEnemies)
-        {
-            float r = UnityEngine.Random.value;
-            float acc = 0f;
-            for (int i = 0; i < n; i++)
-            {
-                acc += weights[i];
-                if (r <= acc)
-                {
-                    chosenIndices.Add(i);
-                    break;
-                }
-            }
-        }
-        return chosenIndices
-            .Select(x => enemiesWithDifficulty[x].Enemy)
-            .Select(e => GenerateEnemy(e, levelIndex))
-            .ToList();
+        return result;
     }
     // старый GenerateEnemyes для обратной совместимости
     private static List<LevelEnemyInfo> GenerateEnemyes()
