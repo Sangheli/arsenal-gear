@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRound_Green
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 10
-  Speed: 0.5
-  DamagePerHit: 0.75
+  Health: 12
+  Speed: 0.55
+  DamagePerHit: 2
   prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
   DisplayName: Round Green
   AttractToCursor: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 15
     Step: 1
     DisplayName: Energy Drop
-    BasePrice: 7
+    BasePrice: 20
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

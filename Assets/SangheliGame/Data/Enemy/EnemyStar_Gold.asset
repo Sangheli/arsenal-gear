@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyStar_Gold
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 75
-  Speed: 4
+  Health: 50
+  Speed: 3
   DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
   DisplayName: Star Gold
@@ -23,11 +23,11 @@ MonoBehaviour:
   color: {r: 0.7764706, g: 0.78431374, b: 0.03529412, a: 1}
   borderColor: {r: 0.9882353, g: 1, b: 0, a: 1}
   UpgradeInfos:
-  - BaseValue: 15
+  - BaseValue: 12
     MaxValue: 30
-    Step: 1
+    Step: 3
     DisplayName: Energy Drop
-    BasePrice: 20
+    BasePrice: 50
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

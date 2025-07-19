@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 45
   Speed: 0.15
-  DamagePerHit: 5
+  DamagePerHit: 10
   prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
   DisplayName: Saw Red
   AttractToCursor: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
   borderColor: {r: 1, g: 0, b: 0.043137256, a: 1}
   UpgradeInfos:
   - BaseValue: 1
-    MaxValue: 15
+    MaxValue: 5
     Step: 1
     DisplayName: Energy Drop
-    BasePrice: 7
+    BasePrice: 10
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

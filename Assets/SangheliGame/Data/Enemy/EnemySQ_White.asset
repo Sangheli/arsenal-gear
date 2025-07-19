@@ -24,7 +24,7 @@ MonoBehaviour:
   borderColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   UpgradeInfos:
   - BaseValue: 1
-    MaxValue: 15
+    MaxValue: 5
     Step: 1
     DisplayName: Energy Drop
     BasePrice: 100
