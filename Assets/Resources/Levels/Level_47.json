@@ -1,0 +1,60 @@
+{
+    "levelId": 47,
+    "loseHpDuringRound": true,
+    "showBossAfterTimer": true,
+    "checkNextRoundFromSave": false,
+    "showGoToUpgradesButton": true,
+    "preSpawnEnemyCount": 10,
+    "enemies": [
+        {
+            "enemyId": 10,
+            "spawnChance": 97.32920837402344,
+            "spawnRate": 117.89461517333985
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 100.13176727294922,
+            "spawnRate": 134.8162841796875
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 32.097007751464847,
+            "spawnRate": 126.12902069091797
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 94.50309753417969,
+            "spawnRate": 121.3668212890625
+        },
+        {
+            "enemyId": 2,
+            "spawnChance": 65.00328063964844,
+            "spawnRate": 123.42489624023438
+        },
+        {
+            "enemyId": 4,
+            "spawnChance": 90.45077514648438,
+            "spawnRate": 117.3454360961914
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 86.22589874267578,
+            "spawnRate": 125.19807434082031
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 42.955291748046878,
+            "spawnRate": 121.80332946777344
+        },
+        {
+            "enemyId": 3,
+            "spawnChance": 74.5319595336914,
+            "spawnRate": 137.55381774902345
+        },
+        {
+            "enemyId": 1,
+            "spawnChance": 98.0517349243164,
+            "spawnRate": 133.04164123535157
+        }
+    ]
+}
