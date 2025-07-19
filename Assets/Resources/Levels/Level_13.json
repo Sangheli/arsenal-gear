@@ -7,39 +7,59 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 4,
-            "spawnChance": 83.50784301757813,
-            "spawnRate": 27.78374481201172
+            "enemyId": 0,
+            "spawnChance": 4.0,
+            "spawnRate": 21.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 83.72518157958985,
-            "spawnRate": 28.130966186523439
+            "spawnChance": 3.0,
+            "spawnRate": 11.0
         },
         {
             "enemyId": 2,
-            "spawnChance": 84.18120574951172,
-            "spawnRate": 28.497358322143556
+            "spawnChance": 66.0,
+            "spawnRate": 16.0
         },
         {
-            "enemyId": 10,
-            "spawnChance": 70.92709350585938,
-            "spawnRate": 27.49761199951172
+            "enemyId": 3,
+            "spawnChance": 51.0,
+            "spawnRate": 21.0
         },
         {
-            "enemyId": 0,
-            "spawnChance": 88.22616577148438,
-            "spawnRate": 27.95227813720703
+            "enemyId": 4,
+            "spawnChance": 77.0,
+            "spawnRate": 6.0
         },
         {
             "enemyId": 5,
-            "spawnChance": 30.667163848876954,
-            "spawnRate": 28.75068473815918
+            "spawnChance": 77.0,
+            "spawnRate": 20.0
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 56.0,
+            "spawnRate": 6.0
         },
         {
             "enemyId": 7,
-            "spawnChance": 58.92882537841797,
-            "spawnRate": 28.550893783569337
+            "spawnChance": 13.0,
+            "spawnRate": 17.0
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 46.0,
+            "spawnRate": 21.0
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 56.0,
+            "spawnRate": 8.0
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 27.0,
+            "spawnRate": 6.0
         }
     ]
 }

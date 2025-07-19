@@ -7,39 +7,59 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 10,
-            "spawnChance": 89.00202941894531,
-            "spawnRate": 5
-        },
-        {
-            "enemyId": 2,
-            "spawnChance": 56.30423355102539,
-            "spawnRate": 7
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 55.19481658935547,
-            "spawnRate": 9
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 63.242305755615237,
-            "spawnRate": 11
+            "enemyId": 0,
+            "spawnChance": 45.0,
+            "spawnRate": 13.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 38.94341278076172,
-            "spawnRate": 13
+            "spawnChance": 36.0,
+            "spawnRate": 8.0
         },
         {
-            "enemyId": 9,
-            "spawnChance": 37.5991325378418,
-            "spawnRate": 15
+            "enemyId": 2,
+            "spawnChance": 10.0,
+            "spawnRate": 7.0
+        },
+        {
+            "enemyId": 3,
+            "spawnChance": 62.0,
+            "spawnRate": 21.0
+        },
+        {
+            "enemyId": 4,
+            "spawnChance": 16.0,
+            "spawnRate": 19.0
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 68.0,
+            "spawnRate": 14.0
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 95.0,
+            "spawnRate": 16.0
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 34.0,
+            "spawnRate": 19.0
         },
         {
             "enemyId": 8,
-            "spawnChance": 62.604103088378909,
-            "spawnRate": 17
+            "spawnChance": 86.0,
+            "spawnRate": 11.0
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 30.0,
+            "spawnRate": 12.0
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 33.0,
+            "spawnRate": 6.0
         }
     ]
 }

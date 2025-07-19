@@ -7,39 +7,59 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 7,
-            "spawnChance": 62.335689544677737,
-            "spawnRate": 90.5700454711914
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 74.59769439697266,
-            "spawnRate": 100.87517547607422
+            "enemyId": 0,
+            "spawnChance": 83.0,
+            "spawnRate": 19.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 56.35974884033203,
-            "spawnRate": 93.43335723876953
+            "spawnChance": 73.0,
+            "spawnRate": 8.0
         },
         {
             "enemyId": 2,
-            "spawnChance": 74.6911849975586,
-            "spawnRate": 99.18484497070313
+            "spawnChance": 93.0,
+            "spawnRate": 15.0
         },
         {
-            "enemyId": 8,
-            "spawnChance": 45.335296630859378,
-            "spawnRate": 84.6291275024414
+            "enemyId": 3,
+            "spawnChance": 2.0,
+            "spawnRate": 15.0
         },
         {
-            "enemyId": 6,
-            "spawnChance": 89.44335174560547,
-            "spawnRate": 99.9035873413086
+            "enemyId": 4,
+            "spawnChance": 70.0,
+            "spawnRate": 12.0
         },
         {
             "enemyId": 5,
-            "spawnChance": 49.07817840576172,
-            "spawnRate": 102.1150894165039
+            "spawnChance": 100.0,
+            "spawnRate": 17.0
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 42.0,
+            "spawnRate": 13.0
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 73.0,
+            "spawnRate": 15.0
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 80.0,
+            "spawnRate": 7.0
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 26.0,
+            "spawnRate": 15.0
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 26.0,
+            "spawnRate": 9.0
         }
     ]
 }

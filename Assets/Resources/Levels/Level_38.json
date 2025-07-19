@@ -8,53 +8,58 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 53.794620513916019,
-            "spawnRate": 83.55197143554688
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 44.01353454589844,
-            "spawnRate": 97.05778503417969
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 95.1173095703125,
-            "spawnRate": 82.58927154541016
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 37.87120056152344,
-            "spawnRate": 90.45924377441406
-        },
-        {
-            "enemyId": 3,
-            "spawnChance": 89.0689926147461,
-            "spawnRate": 94.97865295410156
-        },
-        {
-            "enemyId": 2,
-            "spawnChance": 66.51251983642578,
-            "spawnRate": 93.07064056396485
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 97.94638061523438,
-            "spawnRate": 82.06221771240235
-        },
-        {
-            "enemyId": 7,
-            "spawnChance": 92.92037200927735,
-            "spawnRate": 97.69873809814453
+            "spawnChance": 5.0,
+            "spawnRate": 6.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 64.30904388427735,
-            "spawnRate": 97.9463119506836
+            "spawnChance": 42.0,
+            "spawnRate": 8.0
+        },
+        {
+            "enemyId": 2,
+            "spawnChance": 100.0,
+            "spawnRate": 14.0
+        },
+        {
+            "enemyId": 3,
+            "spawnChance": 79.0,
+            "spawnRate": 5.0
+        },
+        {
+            "enemyId": 4,
+            "spawnChance": 9.0,
+            "spawnRate": 16.0
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 65.0,
+            "spawnRate": 11.0
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 26.0,
+            "spawnRate": 20.0
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 41.0,
+            "spawnRate": 21.0
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 75.0,
+            "spawnRate": 16.0
         },
         {
             "enemyId": 9,
-            "spawnChance": 33.08432388305664,
-            "spawnRate": 92.89280700683594
+            "spawnChance": 38.0,
+            "spawnRate": 19.0
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 98.0,
+            "spawnRate": 9.0
         }
     ]
 }
