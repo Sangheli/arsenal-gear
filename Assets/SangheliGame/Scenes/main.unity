@@ -2005,7 +2005,7 @@ MonoBehaviour:
   ViewImage: {fileID: 1432769164}
   MaxValue: -0.055
   MinValue: 0.744
-  animTime: 0.4
+  animTime: 0.5
   texts:
   - {fileID: 1193849971}
   - {fileID: 1075629591}

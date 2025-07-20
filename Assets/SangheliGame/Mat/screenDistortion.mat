@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
-        m_Texture: {fileID: 2800000, guid: 55ab042a9f5510946a39f467bc7d7930, type: 3}
+        m_Texture: {fileID: 2800000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
         m_Scale: {x: 8, y: 4.5}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -145,7 +145,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DistortAmount: 0.1
     - _DistortTexXSpeed: 0
-    - _DistortTexYSpeed: 10
+    - _DistortTexYSpeed: -5
     - _DstBlend: 0
     - _EditorDrawers: 6
     - _FadeAmount: -0.1
@@ -220,7 +220,7 @@ Material:
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.004
     - _OverlayBlend: 1
-    - _OverlayGlow: 5.3
+    - _OverlayGlow: 19
     - _OverlayTextureScrollXSpeed: 0
     - _OverlayTextureScrollYSpeed: 0.01
     - _Parallax: 0.02
@@ -281,7 +281,7 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FadeBurnColor: {r: 1, g: 0.7128137, b: 0, a: 1}
+    - _FadeBurnColor: {r: 0.42312032, g: 0, b: 0.51572317, a: 1}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
@@ -292,7 +292,7 @@ Material:
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OverlayColor: {r: 0.4448597, g: 0.49092567, b: 0.52201253, a: 1}
+    - _OverlayColor: {r: 0.44313726, g: 0.46880457, b: 0.52156866, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
