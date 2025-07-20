@@ -37,17 +37,11 @@ public class LevelDataConfigRuntime
         SaveLevelToJson(i, newLevel);
     }
 
-    private static float GetEnemyDifficulty(EnemyData enemy)
-    {
-        // Можно скорректировать веса под баланс
-        return enemy.Health * 0.5f + enemy.DamagePerHit * 1.0f + enemy.Speed * 0.3f + (enemy.AttractToCursor ? 10f : 0f);
-    }
-
     private static LevelConfig GenerateRandomLevel(int i)
     {
         return new LevelConfig
         {
-            enemies = GenerateEnemyes(i),
+            enemies = GenerateEnemies(),
             loseHpDuringRound = true,
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
@@ -55,50 +49,20 @@ public class LevelDataConfigRuntime
             preSpawnEnemyCount = 10,
         };
     }
-    // старый GenerateRandomLevel для обратной совместимости
-    private static LevelConfig GenerateRandomLevel()
-    {
-        return GenerateRandomLevel(0);
-    }
 
-    private static List<LevelEnemyInfo> GenerateEnemyes(int levelIndex)
+    private static List<LevelEnemyInfo> GenerateEnemies()
     {
         var allEnemies = G.I.Data.enemyContainer.List;
-        if (allEnemies.Count == 0) return new List<LevelEnemyInfo>();
-
-        var result = new List<LevelEnemyInfo>();
-        foreach (var enemy in allEnemies)
-        {
-            result.Add(new LevelEnemyInfo
-            {
-                enemyId = enemy.EnemyId,
-                spawnChance = UnityEngine.Random.Range(0, 101), // теперь целое число 0..100
-                spawnRate = UnityEngine.Random.Range(5, 22) // 5..21 включительно, целое
-            });
-        }
-        return result;
-    }
-    // старый GenerateEnemyes для обратной совместимости
-    private static List<LevelEnemyInfo> GenerateEnemyes()
-    {
-        return GenerateEnemyes(0);
+        return allEnemies.Count == 0 ? default : allEnemies.Select(GetEnemy).ToList();
     }
 
-    private static LevelEnemyInfo GenerateEnemy(EnemyData enemy, int levelIndex = 0)
-    {
-        // spawnRate: на 0 уровне 60, на максимальном — случайно от 120 до 150, рост нелинейный
-        float tRaw = levelIndex / (float)Mathf.Max(1, G.I.maxLevel - 1);
-        float t = tRaw * tRaw; // нелинейный рост (ускоряющийся)
-        float minSpawn = Mathf.Lerp(20, 120f, t);
-        float maxSpawn = Mathf.Lerp(20, 150f, t);
-        float spawnRate = UnityEngine.Random.Range(minSpawn, maxSpawn);
-        return new LevelEnemyInfo
+    private static LevelEnemyInfo GetEnemy(EnemyData enemy) =>
+        new()
         {
             enemyId = enemy.EnemyId,
-            spawnChance = UnityEngine.Random.Range(30f, 101f),
-            spawnRate = spawnRate
+            spawnChance = UnityEngine.Random.Range(0, 101),
+            spawnRate = UnityEngine.Random.Range(0, 22)
         };
-    }
 
     public LevelConfig Get(int levelId)
     {
@@ -158,6 +122,7 @@ public class LevelDataConfigRuntime
         var path = GetLevelJsonPath(levelIndex);
         if (!File.Exists(path))
             return null;
+        
         try
         {
             var json = File.ReadAllText(path);
@@ -177,6 +142,7 @@ public class LevelDataConfigRuntime
     private class LevelConfigSerializable
     {
         public int levelId;
+        public string LevelStringEntry; // Добавлено поле
         public bool loseHpDuringRound;
         public bool showBossAfterTimer;
         public bool checkNextRoundFromSave;
@@ -193,6 +159,7 @@ public class LevelDataConfigRuntime
             showGoToUpgradesButton = config.showGoToUpgradesButton;
             preSpawnEnemyCount = config.preSpawnEnemyCount;
             enemies = config.enemies;
+            LevelStringEntry = config.LevelStringEntry; // Копирование
         }
 
         public LevelConfig ToLevelConfig()
@@ -205,6 +172,7 @@ public class LevelDataConfigRuntime
             config.showGoToUpgradesButton = showGoToUpgradesButton;
             config.preSpawnEnemyCount = preSpawnEnemyCount;
             config.enemies = enemies;
+            config.LevelStringEntry = LevelStringEntry; // Копирование
             return config;
         }
     }
