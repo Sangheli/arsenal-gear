@@ -23,7 +23,7 @@ public class BossController : EnemyController
 
         CurrentData = new EnemyData();
         CurrentData.Health = hp;
-        CurrentData.DamagePerHit = bossDamage;
+        damageValue = bossDamage;
         CurrentData.DamagePerHit = 0;
         damageReciever.EnemyData = CurrentData;
         
