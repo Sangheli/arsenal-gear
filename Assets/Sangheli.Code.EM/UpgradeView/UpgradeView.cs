@@ -37,7 +37,7 @@ public class UpgradeView : MonoBehaviour
         InitCheatButtons();
     }
 
-    // #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void InitCheatButtons()
     {
         cheatButton.gameObject.SetActive(true);
@@ -65,9 +65,9 @@ public class UpgradeView : MonoBehaviour
         SaveSystem.Save();
         RefreshAll();
     }
-// #else
-//     private void InitCheatButtons();
-// #endif
+#else
+    private void InitCheatButtons() { }
+#endif
     
     private void GenerateUpgradeViews()
     {
