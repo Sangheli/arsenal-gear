@@ -13,16 +13,6 @@ MonoBehaviour:
   m_Name: UpgradeParamConfig
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
-  - BaseValue: 5
-    MaxValue: 25
-    Step: 1
-    DisplayName: Damage
-    BasePrice: 2
-    PriceMult: 1.08
-    ShowUpgrade: 1
-    Key: playerDamageMin
-    UseRandom: 1
-    RandomCoef: 1.5
   - BaseValue: 10
     MaxValue: 300
     Step: 10
@@ -33,6 +23,16 @@ MonoBehaviour:
     Key: hp
     UseRandom: 0
     RandomCoef: 0
+  - BaseValue: 5
+    MaxValue: 25
+    Step: 1
+    DisplayName: Damage
+    BasePrice: 2
+    PriceMult: 1.08
+    ShowUpgrade: 1
+    Key: playerDamageMin
+    UseRandom: 1
+    RandomCoef: 1.5
   - BaseValue: 60
     MaxValue: 180
     Step: 2
