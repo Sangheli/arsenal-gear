@@ -107,7 +107,7 @@ public class G : MonoBehaviour
         
         SaveProvider.Get();
         
-        LevelDataConfig = new LevelDataConfigRuntime(Data.levelDataConfigSO);
+        LevelDataConfig = new LevelDataConfigRuntime();
         
         prestigeManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();

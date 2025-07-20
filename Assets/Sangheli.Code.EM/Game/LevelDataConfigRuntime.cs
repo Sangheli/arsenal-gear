@@ -8,13 +8,8 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    public LevelDataConfigRuntime(LevelDataConfigSO configSO)
+    public LevelDataConfigRuntime()
     {
-        if (configSO != null)
-        {
-            foreach (var level in configSO.Levels) _levels[level.levelId] = level;
-        }
-        
         for (var i = 0; i < G.I.maxLevel; i++)
         {
             if (_levels.ContainsKey(i)) continue;
@@ -41,6 +36,7 @@ public class LevelDataConfigRuntime
     {
         return new LevelConfig
         {
+            levelId = i,
             enemies = GenerateEnemies(),
             loseHpDuringRound = true,
             showBossAfterTimer = true,
@@ -89,7 +85,7 @@ public class LevelDataConfigRuntime
         try
         {
             level.levelId = levelIndex;
-            var json = JsonUtility.ToJson(new LevelConfigSerializable(level), true); // pretty print
+            var json = JsonUtility.ToJson(level, true); // pretty print
             File.WriteAllText(GetLevelJsonPath(levelIndex), json);
         }
         catch (Exception e)
@@ -103,77 +99,27 @@ public class LevelDataConfigRuntime
         // 1. Try load from Resources
         string resourcePath = $"Levels/Level_{levelIndex}"; // Resources/Levels/Level_X.json (without .json)
         TextAsset jsonAsset = Resources.Load<TextAsset>(resourcePath);
-        if (jsonAsset != null)
-        {
-            try
-            {
-                var serializable = JsonUtility.FromJson<LevelConfigSerializable>(jsonAsset.text);
-                var config = serializable?.ToLevelConfig();
-                if (config != null) config.levelId = levelIndex;
-                return config;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Failed to load level {levelIndex} from Resources: {e}");
-            }
-        }
+        if (jsonAsset != null) return ParseLevelConfig(jsonAsset.text, levelIndex);
 
         // 2. Fallback to file system
         var path = GetLevelJsonPath(levelIndex);
-        if (!File.Exists(path))
-            return null;
-        
+        if (!File.Exists(path)) return null;
+        var json = File.ReadAllText(path);
+        return ParseLevelConfig(json, levelIndex);
+    }
+    
+    private static LevelConfig ParseLevelConfig(string json, int levelIndex)
+    {
         try
         {
-            var json = File.ReadAllText(path);
-            var serializable = JsonUtility.FromJson<LevelConfigSerializable>(json);
-            var config = serializable?.ToLevelConfig();
+            var config = JsonUtility.FromJson<LevelConfig>(json);
             if (config != null) config.levelId = levelIndex;
             return config;
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to load level {levelIndex} from JSON: {e}");
+            Debug.LogError($"Failed to parse level {levelIndex} config: {e}");
             return null;
-        }
-    }
-
-    [Serializable]
-    private class LevelConfigSerializable
-    {
-        public int levelId;
-        public string LevelStringEntry; // Добавлено поле
-        public bool loseHpDuringRound;
-        public bool showBossAfterTimer;
-        public bool checkNextRoundFromSave;
-        public bool showGoToUpgradesButton;
-        public int preSpawnEnemyCount;
-        public List<LevelEnemyInfo> enemies;
-
-        public LevelConfigSerializable(LevelConfig config)
-        {
-            levelId = config.levelId;
-            loseHpDuringRound = config.loseHpDuringRound;
-            showBossAfterTimer = config.showBossAfterTimer;
-            checkNextRoundFromSave = config.checkNextRoundFromSave;
-            showGoToUpgradesButton = config.showGoToUpgradesButton;
-            preSpawnEnemyCount = config.preSpawnEnemyCount;
-            enemies = config.enemies;
-            LevelStringEntry = config.LevelStringEntry; // Копирование
-        }
-
-        public LevelConfig ToLevelConfig()
-        {
-            var config = ScriptableObject.CreateInstance<LevelConfig>();
-            config.levelId = levelId;
-            config.loseHpDuringRound = loseHpDuringRound;
-            config.showBossAfterTimer = showBossAfterTimer;
-            config.checkNextRoundFromSave = checkNextRoundFromSave;
-            config.showGoToUpgradesButton = showGoToUpgradesButton;
-            config.preSpawnEnemyCount = preSpawnEnemyCount;
-            config.enemies = enemies;
-            config.LevelStringEntry = LevelStringEntry; // Копирование
-            return config;
         }
     }
 }

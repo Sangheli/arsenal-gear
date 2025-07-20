@@ -7,7 +7,6 @@ public class DataContainer : ScriptableObject
     public SoundContainer soundContainer;
     public SpriteContainer spriteContainer;
     public FontContainer fontContainer;
-    public LevelDataConfigSO levelDataConfigSO; // ScriptableObject с уровнями
     public UpgradeParamConfig ParamData; // ScriptableObject с параметрами апгрейдов
     public EnemyContainer enemyContainer; // ScriptableObject с врагами
     
