@@ -1,6 +1,7 @@
 {
     "levelId": 2,
     "LevelStringEntry": "Some blocks fight back!",
+    "roundTime": 20.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": false,
@@ -13,7 +14,7 @@
             "spawnRate": 15.0
         },
         {
-            "enemyId": 2,
+            "enemyId": 1,
             "spawnChance": 100.0,
             "spawnRate": 45.0
         }

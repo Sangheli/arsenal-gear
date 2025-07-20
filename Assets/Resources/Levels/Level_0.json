@@ -1,6 +1,7 @@
 {
     "levelId": 0,
     "LevelStringEntry": "Your cursor deals damage over time\nBreak blocks to collect energy",
+    "roundTime": 20.0,
     "loseHpDuringRound": false,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": false,

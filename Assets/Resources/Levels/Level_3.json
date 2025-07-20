@@ -1,6 +1,7 @@
 {
     "levelId": 3,
     "LevelStringEntry": "Complete Level And\nFight With Boss",
+    "roundTime": 20.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -8,14 +9,14 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 0,
+            "enemyId": 1,
             "spawnChance": 100.0,
-            "spawnRate": 15.0
+            "spawnRate": 25.0
         },
         {
             "enemyId": 2,
             "spawnChance": 100.0,
-            "spawnRate": 45.0
+            "spawnRate": 30.0
         }
     ]
 }

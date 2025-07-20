@@ -1,6 +1,7 @@
 {
     "levelId": 8,
     "LevelStringEntry": "",
+    "roundTime": 45.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -9,58 +10,58 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 69.0,
-            "spawnRate": 18.0
+            "spawnChance": 55.0,
+            "spawnRate": 10.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 30.0,
-            "spawnRate": 7.0
+            "spawnChance": 91.0,
+            "spawnRate": 11.0
         },
         {
             "enemyId": 2,
-            "spawnChance": 59.0,
-            "spawnRate": 14.0
+            "spawnChance": 95.0,
+            "spawnRate": 20.0
         },
         {
             "enemyId": 3,
-            "spawnChance": 72.0,
-            "spawnRate": 19.0
+            "spawnChance": 17.0,
+            "spawnRate": 14.0
         },
         {
             "enemyId": 4,
-            "spawnChance": 43.0,
-            "spawnRate": 19.0
+            "spawnChance": 19.0,
+            "spawnRate": 21.0
         },
         {
             "enemyId": 5,
-            "spawnChance": 67.0,
-            "spawnRate": 2.0
+            "spawnChance": 89.0,
+            "spawnRate": 16.0
         },
         {
             "enemyId": 6,
-            "spawnChance": 41.0,
-            "spawnRate": 4.0
+            "spawnChance": 57.0,
+            "spawnRate": 8.0
         },
         {
             "enemyId": 7,
-            "spawnChance": 17.0,
-            "spawnRate": 19.0
+            "spawnChance": 4.0,
+            "spawnRate": 10.0
         },
         {
             "enemyId": 8,
-            "spawnChance": 65.0,
-            "spawnRate": 0.0
+            "spawnChance": 43.0,
+            "spawnRate": 18.0
         },
         {
             "enemyId": 9,
-            "spawnChance": 64.0,
+            "spawnChance": 66.0,
             "spawnRate": 16.0
         },
         {
             "enemyId": 10,
-            "spawnChance": 87.0,
-            "spawnRate": 6.0
+            "spawnChance": 21.0,
+            "spawnRate": 13.0
         }
     ]
 }
