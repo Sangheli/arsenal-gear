@@ -35,7 +35,7 @@ public class LevelDataConfigRuntime
     private static LevelConfig GenerateRandomLevel(int i)
     {
         // Геометрическая прогрессия для bossHp и bossReward
-        float bossHpBase = 30f;
+        float bossHpBase = 60;
         int bossRewardBase = 100;
         int bossAttackBase = 5;
         

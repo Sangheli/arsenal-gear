@@ -24,8 +24,8 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 5
-    MaxValue: 250
-    Step: 5
+    MaxValue: 20
+    Step: 1
     DisplayName: Damage
     BasePrice: 40
     PriceMult: 1.2
@@ -47,7 +47,7 @@ MonoBehaviour:
     MaxValue: 6
     Step: 0.5
     DisplayName: Attack Diameter
-    BasePrice: 55
+    BasePrice: 90
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: damageDiameter
@@ -77,7 +77,7 @@ MonoBehaviour:
     MaxValue: 250
     Step: 0.5
     DisplayName: Shield Regen/sec
-    BasePrice: 250
+    BasePrice: 210
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: shieldRegenRate
@@ -87,7 +87,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 2.5
     DisplayName: Crit Chance %
-    BasePrice: 500
+    BasePrice: 350
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: critChance
@@ -97,7 +97,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 0.2
     DisplayName: Crit Multiplier
-    BasePrice: 600
+    BasePrice: 360
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: critMultiplier
@@ -107,7 +107,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 2
     DisplayName: Auto Collect Coins %
-    BasePrice: 800
+    BasePrice: 350
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: autoCollectCoinsPercent
@@ -117,7 +117,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: AI Cursor Count
-    BasePrice: 1200
+    BasePrice: 370
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: aicursorCount
@@ -127,7 +127,7 @@ MonoBehaviour:
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Damage % of Player
-    BasePrice: 1250
+    BasePrice: 380
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: aicursorDamagePercent
@@ -137,7 +137,7 @@ MonoBehaviour:
     MaxValue: 100
     Step: 5
     DisplayName: AI Cursor Radius % of Player
-    BasePrice: 1250
+    BasePrice: 380
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: aicursorRadiusPercent
@@ -147,7 +147,7 @@ MonoBehaviour:
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Fire Rate % of Player
-    BasePrice: 1250
+    BasePrice: 380
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: aicursorFireRatePercent
