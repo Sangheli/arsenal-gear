@@ -15,8 +15,9 @@ public abstract class BaseUpgradeInfo
     
     public float GetPrice(int bought, int upgradesBoughtNum)
     {
-        // var basePrice = BasePrice * Mathf.Pow(PriceMult, bought);
-        var basePrice = BasePrice;
-        return basePrice * G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
+        var basePrice = BasePrice * Mathf.Pow(PriceMult, bought);
+        return basePrice;
+        // var basePrice = BasePrice;
+        // return basePrice * G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
     }
 } 

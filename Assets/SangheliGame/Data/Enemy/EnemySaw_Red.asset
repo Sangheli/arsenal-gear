@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 125
   Speed: 0.15
-  DamagePerHit: 30
+  DamagePerHit: 20
   prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
   DisplayName: Saw Red
   AttractToCursor: 0

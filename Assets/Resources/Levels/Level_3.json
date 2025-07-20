@@ -1,6 +1,6 @@
 {
     "levelId": 3,
-    "LevelStringEntry": "Complete Level And\nFight With Boss",
+    "LevelStringEntry": "Complete Level\nAnd Fight With Boss",
     "roundTime": 20.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 30
   Speed: 0.4
-  DamagePerHit: 5
+  DamagePerHit: 2.5
   prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
   DisplayName: Square Blue
   AttractToCursor: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 25
     Step: 2
     DisplayName: Energy Drop
-    BasePrice: 60
+    BasePrice: 90
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

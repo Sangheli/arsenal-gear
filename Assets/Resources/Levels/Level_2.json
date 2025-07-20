@@ -1,6 +1,6 @@
 {
     "levelId": 2,
-    "LevelStringEntry": "Some blocks fight back!",
+    "LevelStringEntry": "Some blocks fight back!\nAnd Gives More Energy",
     "roundTime": 20.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": false,

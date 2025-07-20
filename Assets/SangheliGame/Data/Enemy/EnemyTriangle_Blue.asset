@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 50
   Speed: 0.4
-  DamagePerHit: 9
+  DamagePerHit: 3.5
   prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
   DisplayName: Triangle Blue
   AttractToCursor: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 35
     Step: 3
     DisplayName: Energy Drop
-    BasePrice: 80
+    BasePrice: 110
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

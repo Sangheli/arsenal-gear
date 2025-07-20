@@ -70,7 +70,7 @@ public class RoundManager : MonoBehaviour
     {
         // Получаем процент времени уровня из PrestigeManager
         var timePercent = G.I.prestigeManager.GetLevelTimePercent();
-        float spawnRateMultiplier = 1.0f + 0.2f * timePercent; // от 1.0 до 1.2
+        float spawnRateMultiplier = 1.0f + 0.35f * timePercent; // от 1.0 до 1.2
         
         float effectiveSpawnRate = Mathf.Max(info.spawnRate, 0.1f) * spawnRateMultiplier;
 

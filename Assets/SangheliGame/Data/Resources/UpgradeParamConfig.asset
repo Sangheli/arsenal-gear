@@ -14,41 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
   - BaseValue: 10
-    MaxValue: 300
+    MaxValue: 1000
     Step: 10
     DisplayName: HP
-    BasePrice: 3
-    PriceMult: 1.07
+    BasePrice: 25
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: hp
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 5
-    MaxValue: 25
-    Step: 1
+    MaxValue: 250
+    Step: 5
     DisplayName: Damage
-    BasePrice: 2
-    PriceMult: 1.08
+    BasePrice: 40
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: playerDamageMin
     UseRandom: 1
     RandomCoef: 1.5
   - BaseValue: 60
     MaxValue: 180
-    Step: 2
+    Step: 3
     DisplayName: Attacks/minute
-    BasePrice: 2
-    PriceMult: 1.06
+    BasePrice: 50
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: playerFireRate
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 1
     MaxValue: 6
-    Step: 0.1
+    Step: 0.5
     DisplayName: Attack Diameter
-    BasePrice: 10
-    PriceMult: 1.07
+    BasePrice: 55
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: damageDiameter
     UseRandom: 0
@@ -58,26 +58,26 @@ MonoBehaviour:
     Step: 0.3
     DisplayName: Collect Diameter
     BasePrice: 4
-    PriceMult: 1.08
+    PriceMult: 1.2
     ShowUpgrade: 0
     Key: collectDiameter
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 10
-    Step: 1
+    MaxValue: 1000
+    Step: 4
     DisplayName: Shield Capacity
-    BasePrice: 5
-    PriceMult: 1.09
+    BasePrice: 200
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 2.5
+    MaxValue: 250
     Step: 0.5
     DisplayName: Shield Regen/sec
-    BasePrice: 500
+    BasePrice: 250
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: shieldRegenRate
@@ -87,8 +87,8 @@ MonoBehaviour:
     MaxValue: 50
     Step: 2.5
     DisplayName: Crit Chance %
-    BasePrice: 1000
-    PriceMult: 1.3
+    BasePrice: 500
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: critChance
     UseRandom: 0
@@ -97,8 +97,8 @@ MonoBehaviour:
     MaxValue: 5
     Step: 0.2
     DisplayName: Crit Multiplier
-    BasePrice: 7
-    PriceMult: 1.12
+    BasePrice: 600
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: critMultiplier
     UseRandom: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     MaxValue: 50
     Step: 2
     DisplayName: Auto Collect Coins %
-    BasePrice: 1000
-    PriceMult: 1.3
+    BasePrice: 800
+    PriceMult: 1.2
     ShowUpgrade: 1
     Key: autoCollectCoinsPercent
     UseRandom: 0
@@ -117,39 +117,39 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: AI Cursor Count
-    BasePrice: 100
-    PriceMult: 1.15
+    BasePrice: 1200
+    PriceMult: 1.2
     ShowUpgrade: 1
-    Key: aiCursorCount
+    Key: aicursorCount
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 20
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Damage % of Player
-    BasePrice: 200
-    PriceMult: 1.13
+    BasePrice: 1250
+    PriceMult: 1.2
     ShowUpgrade: 1
-    Key: aiCursorDamagePercent
+    Key: aicursorDamagePercent
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 50
     MaxValue: 100
     Step: 5
     DisplayName: AI Cursor Radius % of Player
-    BasePrice: 300
-    PriceMult: 1.12
+    BasePrice: 1250
+    PriceMult: 1.2
     ShowUpgrade: 1
-    Key: aiCursorRadiusPercent
+    Key: aicursorRadiusPercent
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 20
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Fire Rate % of Player
-    BasePrice: 400
-    PriceMult: 1.13
+    BasePrice: 1250
+    PriceMult: 1.2
     ShowUpgrade: 1
-    Key: aiCursorFireRatePercent
+    Key: aicursorFireRatePercent
     UseRandom: 0
     RandomCoef: 0
