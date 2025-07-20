@@ -10,6 +10,9 @@ public class LevelConfig
     [Space]
     public string LevelStringEntry;
     
+    [Header("Round Settings")]
+    public float roundTime = 45f; // Время раунда в секундах
+    
     [Space]
     public bool loseHpDuringRound = true; // Тратить ли жизнь игрока во время раунда
     public bool showBossAfterTimer = true; // Показывать ли босса после таймера (true) или сразу засчитывать победу (false)

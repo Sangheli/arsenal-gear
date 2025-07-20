@@ -22,8 +22,6 @@ public class PrestigeManager : MonoBehaviour
     public int delim = 100;
 
     [Header("Prestige Progression Settings")]
-    [SerializeField] private float basePrestigeTime = 30f;
-    [SerializeField] private float prestigeTimeGrowth = 1.08f;
     [SerializeField] private float baseBossHp = 1000f;
     [SerializeField] private float bossHpGrowth = 1.15f;
     [Header("Prestige Reward Settings")]
@@ -86,11 +84,10 @@ public class PrestigeManager : MonoBehaviour
         saveData.level = Mathf.Max(saveData.level, 0);
     }
 
-    public float GetTime()
+    private float GetTime()
     {
-        return basePrestigeTime;
-        int level = G.I.SaveProvider.Get().level;
-        return (int)( basePrestigeTime * Mathf.Pow(prestigeTimeGrowth, level));
+        var level = _save.level;
+        return G.I.LevelDataConfig.Get(level).roundTime;
     }
     
     public float GetBossHp(int prestigeLevel) => baseBossHp * Mathf.Pow(bossHpGrowth, prestigeLevel);

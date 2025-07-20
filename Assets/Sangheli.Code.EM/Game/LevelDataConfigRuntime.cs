@@ -43,6 +43,7 @@ public class LevelDataConfigRuntime
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
             preSpawnEnemyCount = 10,
+            roundTime = 45f,
         };
     }
 
