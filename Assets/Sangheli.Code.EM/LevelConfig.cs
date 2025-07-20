@@ -11,7 +11,12 @@ public class LevelConfig
     public string LevelStringEntry;
     
     [Header("Round Settings")]
-    public float roundTime = 45f; // Время раунда в секундах
+    public float roundTime = 30f; // Время раунда в секундах
+    
+    [Header("Boss Settings")]
+    public int bossHp = 30;
+    public int bossReward = 100;
+    public int bossAttack = 5;
     
     [Space]
     public bool loseHpDuringRound = true; // Тратить ли жизнь игрока во время раунда

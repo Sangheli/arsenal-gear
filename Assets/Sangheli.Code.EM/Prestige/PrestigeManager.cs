@@ -21,12 +21,6 @@ public class PrestigeManager : MonoBehaviour
     public int maxPrestiges = 1000;
     public int delim = 100;
 
-    [Header("Prestige Progression Settings")]
-    [SerializeField] private float baseBossHp = 1000f;
-    [SerializeField] private float bossHpGrowth = 1.15f;
-    [Header("Prestige Reward Settings")]
-    [SerializeField] private int baseBossReward = 100;
-    [SerializeField] private float bossRewardGrowth = 1.1f;
     private DataSave _save;
 
     private float _currentTime;
@@ -90,8 +84,6 @@ public class PrestigeManager : MonoBehaviour
         return G.I.LevelDataConfig.Get(level).roundTime;
     }
     
-    public float GetBossHp(int prestigeLevel) => baseBossHp * Mathf.Pow(bossHpGrowth, prestigeLevel);
-
     public void StopRound()
     {
         Toggle(false);
@@ -129,10 +121,10 @@ public class PrestigeManager : MonoBehaviour
             CompletePrestigeAfterBoss(); // Сразу победа
             return;
         }
-        float bossHp = GetBossHp(level);
+        float bossHp = levelConfig?.bossHp ?? 1000f;
         Color bossColor = GetLevelColor(level + 1);
         float scale = 9f;
-        float damage = 1;
+        float damage = levelConfig?.bossAttack ?? 1;
         _active = false;
         G.I.tutorial.OnEndRound(); // Скрываем туториал при появлении босса
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
@@ -152,7 +144,13 @@ public class PrestigeManager : MonoBehaviour
 
     public int GetBossReward(int level)
     {
-        var levelFix = Mathf.Max(0, level);
-        return Mathf.RoundToInt(baseBossReward * Mathf.Pow(bossRewardGrowth, levelFix));
+        var levelConfig = G.I.LevelDataConfig.Get(level);
+        return levelConfig != null ? levelConfig.bossReward : 100;
+    }
+
+    public float GetLevelTimePercent()
+    {
+        if (_prestigeTime <= 0f) return 0f;
+        return Mathf.Clamp01(_currentTime / _prestigeTime);
     }
 } 

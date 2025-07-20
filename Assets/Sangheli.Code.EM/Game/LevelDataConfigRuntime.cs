@@ -34,23 +34,101 @@ public class LevelDataConfigRuntime
 
     private static LevelConfig GenerateRandomLevel(int i)
     {
+        // Геометрическая прогрессия для bossHp и bossReward
+        float bossHpBase = 30f;
+        int bossRewardBase = 100;
+        int bossAttackBase = 5;
+        
+        int scaleIndex = Mathf.Max(0, i - 3);
+        
+        float progressionHp = Mathf.Pow(1.4f, scaleIndex);
+        float progressionReward = Mathf.Pow(1.3f, scaleIndex);
+        float progressionAttack = Mathf.Pow(1.1f, scaleIndex);
+        
+        int bossHp = Mathf.RoundToInt(bossHpBase * progressionHp);
+        int bossReward = Mathf.RoundToInt(bossRewardBase * progressionReward);
+        int bossAttack = Mathf.RoundToInt(bossAttackBase * progressionAttack);
+        
         return new LevelConfig
         {
             levelId = i,
-            enemies = GenerateEnemies(),
+            enemies = GenerateEnemies(i),
             loseHpDuringRound = true,
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
             preSpawnEnemyCount = 10,
-            roundTime = 45f,
+            roundTime = 30f,
+            bossHp = bossHp,
+            bossReward = bossReward,
+            bossAttack = bossAttack
         };
     }
 
-    private static List<LevelEnemyInfo> GenerateEnemies()
+    private static List<LevelEnemyInfo> GenerateEnemies(int levelIndex)
     {
         var allEnemies = G.I.Data.enemyContainer.List;
-        return allEnemies.Count == 0 ? default : allEnemies.Select(GetEnemy).ToList();
+        if (allEnemies.Count == 0) return default;
+
+        // Сортируем врагов по "силе"
+        var sortedEnemies = allEnemies.OrderBy(e => e.Health + e.DamagePerHit).ToList();
+
+        // На ранних уровнях доступно меньше врагов, на поздних — все
+        int minEnemies = Math.Min(2, sortedEnemies.Count); // минимум 2 врага всегда
+        int maxEnemies = sortedEnemies.Count;
+        float t = levelIndex / (float)(G.I.maxLevel - 1); // 0..1
+        int allowedCount = Mathf.RoundToInt(Mathf.Lerp(minEnemies, maxEnemies, t));
+        allowedCount = Mathf.Clamp(allowedCount, minEnemies, maxEnemies);
+
+        var allowedEnemies = sortedEnemies.Take(allowedCount).ToList();
+
+        // Добавляем сильного врага на малых уровнях
+        if (allowedCount < maxEnemies)
+        {
+            int strongStart = sortedEnemies.Count / 2;
+            var strongCandidates = sortedEnemies.Skip(strongStart).Except(allowedEnemies).ToList();
+            if (strongCandidates.Count > 0)
+            {
+                var strongEnemy = strongCandidates[UnityEngine.Random.Range(0, strongCandidates.Count)];
+                allowedEnemies.Add(strongEnemy);
+            }
+        }
+
+        float minHp = allowedEnemies.Min(e => e.Health);
+        float maxHp = allowedEnemies.Max(e => e.Health);
+        float hpRange = Mathf.Max(maxHp - minHp, 0.01f);
+
+        float minDmg = allowedEnemies.Min(e => e.DamagePerHit);
+        float maxDmg = allowedEnemies.Max(e => e.DamagePerHit);
+        float dmgRange = Mathf.Max(maxDmg - minDmg, 0.01f);
+
+        float baseChance = 5f;
+        float maxChance = 70f;
+
+        return allowedEnemies.Select(enemy =>
+        {
+            float normalizedHp = (enemy.Health - minHp) / hpRange;
+            float normalizedDmg = (enemy.DamagePerHit - minDmg) / dmgRange;
+            float combined = (normalizedHp + normalizedDmg) / 2f;
+            float chance01 = Mathf.Lerp(1f - combined, combined, t);
+            float chance = baseChance + (maxChance - baseChance) * chance01;
+            chance = Mathf.Clamp(chance, baseChance, maxChance);
+
+            int spawnRate;
+            // Если это добавленный сильный враг на малом уровне — даём средний spawnRate
+            int strongStart = sortedEnemies.Count / 2;
+            if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
+                spawnRate = 13; // средний спавнрейт
+            else
+                spawnRate = UnityEngine.Random.Range(5, 22);
+
+            return new LevelEnemyInfo
+            {
+                enemyId = enemy.EnemyId,
+                spawnChance = (int)chance,
+                spawnRate = spawnRate
+            };
+        }).ToList();
     }
 
     private static LevelEnemyInfo GetEnemy(EnemyData enemy) =>

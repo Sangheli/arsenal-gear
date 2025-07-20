@@ -4,6 +4,6 @@ using System;
 public class LevelEnemyInfo
 {
     public int enemyId;
-    public float spawnChance; // Вероятность появления (0..100)
-    public float spawnRate;   // Спавнрейт (врагов в минуту)
+    public int spawnChance; // Вероятность появления (0..100)
+    public int spawnRate;   // Спавнрейт (врагов в минуту)
 }
