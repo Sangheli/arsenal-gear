@@ -1,5 +1,6 @@
 {
     "levelId": 26,
+    "LevelStringEntry": "",
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -8,58 +9,58 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 100.0,
-            "spawnRate": 19.0
+            "spawnChance": 48.0,
+            "spawnRate": 15.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 74.0,
-            "spawnRate": 7.0
+            "spawnChance": 29.0,
+            "spawnRate": 18.0
         },
         {
             "enemyId": 2,
-            "spawnChance": 19.0,
-            "spawnRate": 16.0
+            "spawnChance": 87.0,
+            "spawnRate": 3.0
         },
         {
             "enemyId": 3,
-            "spawnChance": 11.0,
-            "spawnRate": 6.0
+            "spawnChance": 67.0,
+            "spawnRate": 16.0
         },
         {
             "enemyId": 4,
-            "spawnChance": 44.0,
-            "spawnRate": 6.0
+            "spawnChance": 63.0,
+            "spawnRate": 15.0
         },
         {
             "enemyId": 5,
-            "spawnChance": 80.0,
+            "spawnChance": 38.0,
             "spawnRate": 8.0
         },
         {
             "enemyId": 6,
-            "spawnChance": 63.0,
-            "spawnRate": 21.0
+            "spawnChance": 54.0,
+            "spawnRate": 15.0
         },
         {
             "enemyId": 7,
-            "spawnChance": 98.0,
-            "spawnRate": 5.0
+            "spawnChance": 71.0,
+            "spawnRate": 0.0
         },
         {
             "enemyId": 8,
             "spawnChance": 99.0,
-            "spawnRate": 8.0
+            "spawnRate": 11.0
         },
         {
             "enemyId": 9,
-            "spawnChance": 65.0,
-            "spawnRate": 21.0
+            "spawnChance": 50.0,
+            "spawnRate": 11.0
         },
         {
             "enemyId": 10,
-            "spawnChance": 100.0,
-            "spawnRate": 15.0
+            "spawnChance": 12.0,
+            "spawnRate": 9.0
         }
     ]
 }

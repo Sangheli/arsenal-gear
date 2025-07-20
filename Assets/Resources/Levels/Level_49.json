@@ -1,5 +1,6 @@
 {
     "levelId": 49,
+    "LevelStringEntry": "",
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -8,58 +9,58 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 15.0,
+            "spawnChance": 26.0,
             "spawnRate": 15.0
         },
         {
             "enemyId": 1,
-            "spawnChance": 71.0,
-            "spawnRate": 21.0
+            "spawnChance": 33.0,
+            "spawnRate": 5.0
         },
         {
             "enemyId": 2,
-            "spawnChance": 100.0,
-            "spawnRate": 12.0
+            "spawnChance": 43.0,
+            "spawnRate": 1.0
         },
         {
             "enemyId": 3,
-            "spawnChance": 15.0,
-            "spawnRate": 16.0
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 40.0,
-            "spawnRate": 19.0
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 59.0,
-            "spawnRate": 21.0
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 95.0,
-            "spawnRate": 6.0
-        },
-        {
-            "enemyId": 7,
-            "spawnChance": 14.0,
+            "spawnChance": 50.0,
             "spawnRate": 15.0
         },
         {
-            "enemyId": 8,
-            "spawnChance": 55.0,
-            "spawnRate": 13.0
+            "enemyId": 4,
+            "spawnChance": 3.0,
+            "spawnRate": 14.0
         },
         {
-            "enemyId": 9,
-            "spawnChance": 73.0,
+            "enemyId": 5,
+            "spawnChance": 47.0,
+            "spawnRate": 7.0
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 64.0,
             "spawnRate": 17.0
         },
         {
+            "enemyId": 7,
+            "spawnChance": 99.0,
+            "spawnRate": 10.0
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 38.0,
+            "spawnRate": 3.0
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 85.0,
+            "spawnRate": 16.0
+        },
+        {
             "enemyId": 10,
-            "spawnChance": 25.0,
-            "spawnRate": 8.0
+            "spawnChance": 15.0,
+            "spawnRate": 7.0
         }
     ]
 }
