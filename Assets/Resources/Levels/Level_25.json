@@ -1,7 +1,10 @@
 {
     "levelId": 25,
     "LevelStringEntry": "",
-    "roundTime": 45.0,
+    "roundTime": 30.0,
+    "bossHp": 49197,
+    "bossReward": 32118,
+    "bossAttack": 41,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -10,58 +13,43 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 82.0,
-            "spawnRate": 0.0
+            "spawnChance": 36,
+            "spawnRate": 12
         },
         {
             "enemyId": 1,
-            "spawnChance": 56.0,
-            "spawnRate": 7.0
+            "spawnChance": 36,
+            "spawnRate": 17
         },
         {
             "enemyId": 2,
-            "spawnChance": 85.0,
-            "spawnRate": 0.0
+            "spawnChance": 36,
+            "spawnRate": 10
         },
         {
             "enemyId": 3,
-            "spawnChance": 65.0,
-            "spawnRate": 8.0
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 38.0,
-            "spawnRate": 20.0
+            "spawnChance": 36,
+            "spawnRate": 8
         },
         {
             "enemyId": 5,
-            "spawnChance": 24.0,
-            "spawnRate": 9.0
+            "spawnChance": 37,
+            "spawnRate": 13
         },
         {
             "enemyId": 6,
-            "spawnChance": 16.0,
-            "spawnRate": 2.0
+            "spawnChance": 37,
+            "spawnRate": 13
         },
         {
             "enemyId": 7,
-            "spawnChance": 15.0,
-            "spawnRate": 19.0
-        },
-        {
-            "enemyId": 8,
-            "spawnChance": 46.0,
-            "spawnRate": 8.0
+            "spawnChance": 37,
+            "spawnRate": 13
         },
         {
             "enemyId": 9,
-            "spawnChance": 59.0,
-            "spawnRate": 13.0
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 1.0,
-            "spawnRate": 9.0
+            "spawnChance": 38,
+            "spawnRate": 13
         }
     ]
 }

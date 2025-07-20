@@ -1,7 +1,10 @@
 {
     "levelId": 28,
     "LevelStringEntry": "",
-    "roundTime": 45.0,
+    "roundTime": 30.0,
+    "bossHp": 134996,
+    "bossReward": 70564,
+    "bossAttack": 54,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -10,58 +13,43 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 66.0,
-            "spawnRate": 0.0
+            "spawnChance": 32,
+            "spawnRate": 10
         },
         {
             "enemyId": 1,
-            "spawnChance": 42.0,
-            "spawnRate": 6.0
+            "spawnChance": 33,
+            "spawnRate": 6
         },
         {
             "enemyId": 2,
-            "spawnChance": 93.0,
-            "spawnRate": 13.0
+            "spawnChance": 33,
+            "spawnRate": 21
         },
         {
             "enemyId": 3,
-            "spawnChance": 7.0,
-            "spawnRate": 0.0
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 67.0,
-            "spawnRate": 3.0
+            "spawnChance": 33,
+            "spawnRate": 11
         },
         {
             "enemyId": 5,
-            "spawnChance": 22.0,
-            "spawnRate": 12.0
+            "spawnChance": 34,
+            "spawnRate": 19
         },
         {
             "enemyId": 6,
-            "spawnChance": 96.0,
-            "spawnRate": 8.0
+            "spawnChance": 34,
+            "spawnRate": 13
         },
         {
             "enemyId": 7,
-            "spawnChance": 91.0,
-            "spawnRate": 20.0
-        },
-        {
-            "enemyId": 8,
-            "spawnChance": 8.0,
-            "spawnRate": 4.0
-        },
-        {
-            "enemyId": 9,
-            "spawnChance": 35.0,
-            "spawnRate": 8.0
+            "spawnChance": 35,
+            "spawnRate": 13
         },
         {
             "enemyId": 10,
-            "spawnChance": 6.0,
-            "spawnRate": 7.0
+            "spawnChance": 42,
+            "spawnRate": 13
         }
     ]
 }
