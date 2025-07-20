@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyStar_Aqua
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 35
-  Speed: 2
+  Health: 25
+  Speed: 4
   DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: 41ccfde013d4a17469cbb33a3ecd0caf, type: 3}
   DisplayName: Star Aqua
@@ -24,10 +24,10 @@ MonoBehaviour:
   borderColor: {r: 0.01388386, g: 0.47559175, b: 0.49056602, a: 1}
   UpgradeInfos:
   - BaseValue: 7
-    MaxValue: 30
-    Step: 2
+    MaxValue: 46
+    Step: 3
     DisplayName: Energy Drop
-    BasePrice: 40
+    BasePrice: 50
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

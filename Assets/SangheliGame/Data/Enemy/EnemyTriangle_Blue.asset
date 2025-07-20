@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyTriangle_Blue
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 15
-  Speed: 0.2
-  DamagePerHit: 3
+  Health: 50
+  Speed: 0.4
+  DamagePerHit: 9
   prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
   DisplayName: Triangle Blue
   AttractToCursor: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
   color: {r: 0, g: 0.5137255, b: 1, a: 1}
   borderColor: {r: 0.04139467, g: 0.31414813, b: 0.57232696, a: 1}
   UpgradeInfos:
-  - BaseValue: 3
-    MaxValue: 15
-    Step: 1
+  - BaseValue: 11
+    MaxValue: 35
+    Step: 3
     DisplayName: Energy Drop
-    BasePrice: 20
+    BasePrice: 80
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

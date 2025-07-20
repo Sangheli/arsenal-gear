@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyCrown_RGB
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 55
-  Speed: 0.2
-  DamagePerHit: 12
+  Health: 150
+  Speed: 0.5
+  DamagePerHit: 50
   prefab: {fileID: 4631521289559410727, guid: 336eb39c49fc2874e87b30eff8ef615d, type: 3}
   DisplayName: Crown
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   UpgradeInfos:
-  - BaseValue: 8
-    MaxValue: 30
-    Step: 2
+  - BaseValue: 50
+    MaxValue: 150
+    Step: 10
     DisplayName: Energy Drop
-    BasePrice: 35
+    BasePrice: 150
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRound_Purple
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 13
-  Speed: 0.5
-  DamagePerHit: 2
+  Health: 10
+  Speed: 0.4
+  DamagePerHit: 1
   prefab: {fileID: -2922211598481618706, guid: 22810f2fc7bbcd54e9ca5280b917d634, type: 3}
   DisplayName: Round Purple
   AttractToCursor: 0
@@ -25,9 +25,9 @@ MonoBehaviour:
   UpgradeInfos:
   - BaseValue: 3
     MaxValue: 15
-    Step: 1
+    Step: 2
     DisplayName: Energy Drop
-    BasePrice: 20
+    BasePrice: 30
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1

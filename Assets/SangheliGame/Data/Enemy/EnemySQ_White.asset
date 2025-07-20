@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemySQ_White
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 5
-  Speed: 0
+  Speed: 0.05
   DamagePerHit: 0
   prefab: {fileID: 2325995571859240399, guid: e632b58bb4bc27f469e98d180aa7cf0c, type: 3}
   DisplayName: Square White

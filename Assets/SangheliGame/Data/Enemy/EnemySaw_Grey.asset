@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemySaw_Grey
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 45
+  Health: 60
   Speed: 0.15
-  DamagePerHit: 10
+  DamagePerHit: 15
   prefab: {fileID: -4566179502049351345, guid: ddcc5d57f48c0af46b1be1e64ea99c5d, type: 3}
   DisplayName: Saw Grey
   AttractToCursor: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
   borderColor: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 1}
   UpgradeInfos:
   - BaseValue: 1
-    MaxValue: 5
+    MaxValue: 15
     Step: 1
     DisplayName: Energy Drop
-    BasePrice: 10
+    BasePrice: 30
     PriceMult: 1.2
     ShowUpgrade: 1
     Type: 1
