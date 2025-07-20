@@ -2,7 +2,7 @@
     "levelId": 46,
     "LevelStringEntry": "",
     "roundTime": 30.0,
-    "bossHp": 57627060,
+    "bossHp": 115254120,
     "bossReward": 7935302,
     "bossAttack": 301,
     "loseHpDuringRound": true,
@@ -13,57 +13,27 @@
     "enemies": [
         {
             "enemyId": 0,
-            "spawnChance": 8,
-            "spawnRate": 14
+            "spawnChance": 54,
+            "spawnRate": 13
         },
         {
             "enemyId": 1,
-            "spawnChance": 10,
-            "spawnRate": 5
+            "spawnChance": 47,
+            "spawnRate": 15
         },
         {
             "enemyId": 2,
-            "spawnChance": 13,
-            "spawnRate": 6
+            "spawnChance": 40,
+            "spawnRate": 5
         },
         {
             "enemyId": 3,
-            "spawnChance": 12,
-            "spawnRate": 17
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 16,
-            "spawnRate": 6
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 19,
-            "spawnRate": 13
+            "spawnChance": 47,
+            "spawnRate": 8
         },
         {
             "enemyId": 7,
-            "spawnChance": 22,
-            "spawnRate": 13
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 28,
-            "spawnRate": 13
-        },
-        {
-            "enemyId": 8,
-            "spawnChance": 22,
-            "spawnRate": 13
-        },
-        {
-            "enemyId": 9,
-            "spawnChance": 49,
-            "spawnRate": 13
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 66,
+            "spawnChance": 20,
             "spawnRate": 13
         }
     ]
