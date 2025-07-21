@@ -283,4 +283,9 @@ public class G : MonoBehaviour
         
         distortionUI.DoBlock(false);
     }
+
+    [Header("Level Progression Curves")]
+    public AnimationCurve progressionHpCurve = AnimationCurve.Linear(0, 1, 1, 2);
+    public AnimationCurve progressionRewardCurve = AnimationCurve.Linear(0, 1, 1, 2);
+    public AnimationCurve progressionAttackCurve = AnimationCurve.Linear(0, 1, 1, 2);
 }

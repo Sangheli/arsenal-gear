@@ -7,6 +7,10 @@ public class EnemyUpgradeContainer
 {
     public List<EnemyUpgradeData> enemyUpgrades;
 
+    // Кэш для типов апгрейдов по enemyId
+    private Dictionary<int, List<UpgradeType>> _cachedUpgradeTypes = new();
+    private Dictionary<int, int> _cachedUpgradeTypesCount = new();
+
     public void ValidateAndRepair()
     {
         enemyUpgrades ??= new List<EnemyUpgradeData>();
@@ -152,5 +156,27 @@ public class EnemyUpgradeContainer
     private EnemyUpgradeInfo GetUpgradeInfoFromEnemyData(int id, UpgradeType type) => GetById(id)?.GetUpgradeInfo(type);
     private float GetUpgradeValueFromEnemyData(int id, UpgradeType type, int level) => GetById(id)?.GetUpgradeValue(type, level) ?? 0f;
     private float GetUpgradePriceFromEnemyData(int id, UpgradeType type, int level, int num) => GetById(id)?.GetUpgradePrice(type, level, num) ?? 0;
-    public IEnumerable<UpgradeType> GetAvailableUpgradeTypes(int id) => GetById(id)?.UpgradeInfos.Select(info => info.Type) ?? new List<UpgradeType>();
+    public IEnumerable<UpgradeType> GetAvailableUpgradeTypes(int id)
+    {
+        UpdateUpgradeTypesCache(id);
+        return _cachedUpgradeTypes.ContainsKey(id) ? _cachedUpgradeTypes[id] : new List<UpgradeType>();
+    }
+
+    private void UpdateUpgradeTypesCache(int enemyId)
+    {
+        var enemyData = GetById(enemyId);
+        if (enemyData == null)
+            return;
+
+        var upgradeInfos = enemyData.UpgradeInfos;
+        if (_cachedUpgradeTypes.ContainsKey(enemyId) &&
+            _cachedUpgradeTypesCount[enemyId] == upgradeInfos.Count)
+            return;
+
+        _cachedUpgradeTypes[enemyId] = upgradeInfos
+            .Where(x => x.ShowUpgrade)
+            .Select(x => x.Type)
+            .ToList();
+        _cachedUpgradeTypesCount[enemyId] = upgradeInfos.Count;
+    }
 } 

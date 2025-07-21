@@ -7960,6 +7960,105 @@ MonoBehaviour:
   maxLevel: 75
   delim: 25
   arcMoveAnimator: {fileID: 308878766}
+  progressionHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0059051514
+      value: 0.69799805
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.80608094
+      value: 0.5311351
+      inSlope: -0.4241679
+      outSlope: -0.4241679
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20046352
+      outWeight: 0.782961
+    - serializedVersion: 3
+      time: 1.0046113
+      value: 0.34664744
+      inSlope: -1.6031
+      outSlope: -1.6031
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.26480767
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  progressionRewardCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0020523071
+      value: 0.57195663
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.77557594
+      value: 0.46755046
+      inSlope: -0.4241679
+      outSlope: -0.4241679
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20046352
+      outWeight: 0.782961
+    - serializedVersion: 3
+      time: 1.0046113
+      value: 0.34664744
+      inSlope: -0.64825624
+      outSlope: -0.64825624
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2779602
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  progressionAttackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.002418518
+      value: 0.17911911
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7094681
+      value: 0.14652073
+      inSlope: -0.12065621
+      outSlope: -0.12065621
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08687433
+      outWeight: 0.29606107
+    - serializedVersion: 3
+      time: 1.011905
+      value: 0.1034376
+      inSlope: -0.22337277
+      outSlope: -0.22337277
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5016456
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1503166276
 Transform:
   m_ObjectHideFlags: 0

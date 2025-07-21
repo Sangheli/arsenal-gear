@@ -8,12 +8,30 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
+    private const float BossHpBase = 15;
+    private const int BossRewardBase = 100;
+    private const float BossAttackBase = 4.75f;
+
     public LevelDataConfigRuntime()
     {
+        float prevHp = 0; 
+        float prevReward = 0;
+        float prevAttack = 0;
+        
         for (var i = 0; i < G.I.maxLevel; i++)
         {
             if (_levels.ContainsKey(i)) continue;
-            if (!TryLoadLevel(i)) TrySaveLevel(i);
+            if (TryLoadLevel(i)) continue;
+            
+            var level = GenerateRandomLevel(i, prevHp, prevReward, prevAttack);
+            _levels[i] = level;
+            SaveLevelToJson(i, level);
+
+            int scaleIndex = Mathf.Max(0, i - 3);
+            float t = scaleIndex / (float)(G.I.maxLevel - 1);
+            prevHp += BossHpBase * G.I.progressionHpCurve.Evaluate(t);
+            prevReward += BossRewardBase * G.I.progressionRewardCurve.Evaluate(t);
+            prevAttack += BossAttackBase * G.I.progressionAttackCurve.Evaluate(t);
         }
     }
     
@@ -24,29 +42,18 @@ public class LevelDataConfigRuntime
         _levels[i] = loadedLevel;
         return true;
     }
-    
-    private void TrySaveLevel(int i)
-    {
-        var newLevel = GenerateRandomLevel(i);
-        _levels[i] = newLevel;
-        SaveLevelToJson(i, newLevel);
-    }
 
-    private static LevelConfig GenerateRandomLevel(int i)
+    private LevelConfig GenerateRandomLevel(int i, float prevHp, float prevReward, float prevAttack)
     {
-        // Геометрическая прогрессия для bossHp и bossReward
-        float bossHpBase = 15;
-        int bossRewardBase = 100;
-        int bossAttackBase = 5;
-        
         int scaleIndex = Mathf.Max(0, i - 3);
-        float progressionHp = CalculateProgression(1.4f, 1.05f, scaleIndex, G.I.maxLevel);
-        float progressionReward = CalculateProgression(1.3f, 1.05f, scaleIndex, G.I.maxLevel);
-        float progressionAttack = CalculateProgression(1.1f, 1.03f, scaleIndex, G.I.maxLevel);
+        float t = scaleIndex / (float)(G.I.maxLevel - 1);
+        float progressionHp = prevHp + BossHpBase * G.I.progressionHpCurve.Evaluate(t);
+        float progressionReward = prevReward + BossRewardBase * G.I.progressionRewardCurve.Evaluate(t);
+        float progressionAttack = prevAttack + BossAttackBase * G.I.progressionAttackCurve.Evaluate(t);
         
-        int bossHp = Mathf.RoundToInt(bossHpBase * progressionHp);
-        int bossReward = Mathf.RoundToInt(bossRewardBase * progressionReward);
-        int bossAttack = Mathf.RoundToInt(bossAttackBase * progressionAttack);
+        int bossHp = Mathf.RoundToInt(progressionHp);
+        int bossReward = Mathf.RoundToInt(progressionReward);
+        int bossAttack = Mathf.RoundToInt(progressionAttack);
         
         return new LevelConfig
         {
@@ -57,23 +64,16 @@ public class LevelDataConfigRuntime
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
             preSpawnEnemyCount = 10,
-            roundTime = 25,
+            roundTime = 23.5f,
             bossHp = bossHp,
             bossReward = bossReward,
             bossAttack = bossAttack
         };
     }
 
-    private static float CalculateProgression(float startCoef, float minCoef, int scaleIndex, int maxLevel)
-    {
-        float tCoef = Mathf.Clamp01(scaleIndex / (float)(maxLevel - 1));
-        float coef = Mathf.Lerp(startCoef, minCoef, tCoef);
-        return Mathf.Pow(coef, scaleIndex);
-    }
-
     private static List<LevelEnemyInfo> GenerateEnemies(int levelIndex)
     {
-        var allEnemies = G.I.Data.enemyContainer.List;
+        var allEnemies = G.I.Data.enemyContainer.List.Skip(1).ToList();
         if (allEnemies.Count == 0) return default;
 
         // Сортируем врагов по "силе"
@@ -131,9 +131,9 @@ public class LevelDataConfigRuntime
 
         int spawnRate;
         // Если id врага равен 0, то ставим spawnRate от 2 до 8 включительно
-        if (enemy.EnemyId == 0)
+        if (enemy.EnemyId == 1)
         {
-            spawnRate = UnityEngine.Random.Range(9, 12); // 9 не включается, диапазон 2-8
+            spawnRate = UnityEngine.Random.Range(17, 22); // 9 не включается, диапазон 2-8
         }
         // Если это добавленный сильный враг на малом уровне — даём средний spawnRate
         else if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
@@ -143,11 +143,12 @@ public class LevelDataConfigRuntime
         else
         {
             // Вычисляем максимальный spawnRate в зависимости от уровня
-            int minSpawnRate = 22;
-            int maxSpawnRate = 35;
+            int minSpawnRate = 30;
+            int maxSpawnRate = 45;
             float tSpawn = Mathf.Clamp01(levelIndex / (float)(G.I.maxLevel - 1));
             int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
-            spawnRate = UnityEngine.Random.Range(17, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
+            int dynamicMinSpawnRate = Mathf.RoundToInt(Mathf.Lerp(22, 30, tSpawn)); // Нижняя граница теперь зависит от уровня
+            spawnRate = UnityEngine.Random.Range(dynamicMinSpawnRate, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
         }
 
         return new LevelEnemyInfo
