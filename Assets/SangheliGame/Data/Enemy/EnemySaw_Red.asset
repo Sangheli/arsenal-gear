@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 45
     Step: 3
     DisplayName: Energy Drop
-    BasePrice: 70
-    PriceMult: 1.1
+    BasePrice: 100
+    PriceMult: 1.5
     ShowUpgrade: 1
     Type: 1

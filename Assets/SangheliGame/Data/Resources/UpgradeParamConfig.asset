@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 2
-    BasePrice: 150
+    BasePrice: 250
     PriceMult: 1.3
     ShowUpgrade: 1
     Key: hp2
@@ -37,7 +37,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 3
-    BasePrice: 750
+    BasePrice: 1000
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: hp3
@@ -47,7 +47,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 4
-    BasePrice: 1200
+    BasePrice: 1500
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: hp4
@@ -57,7 +57,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 5
-    BasePrice: 2000
+    BasePrice: 2500
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: hp5
@@ -77,7 +77,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 2
-    BasePrice: 150
+    BasePrice: 250
     PriceMult: 1.15
     ShowUpgrade: 1
     Key: playerDamageMin2
@@ -87,7 +87,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 3
-    BasePrice: 300
+    BasePrice: 1000
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin3
@@ -97,7 +97,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 4
-    BasePrice: 400
+    BasePrice: 1500
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin4
@@ -107,7 +107,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 5
-    BasePrice: 500
+    BasePrice: 2500
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin5
@@ -144,21 +144,21 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 1000
-    Step: 4
+    MaxValue: 249
+    Step: 3
     DisplayName: Shield Capacity
     BasePrice: 200
-    PriceMult: 1.2
+    PriceMult: 1.1165
     ShowUpgrade: 1
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 250
-    Step: 0.5
+    MaxValue: 2.5
+    Step: 0.05
     DisplayName: Shield Regen/sec
-    BasePrice: 210
-    PriceMult: 1.2
+    BasePrice: 500
+    PriceMult: 1.12
     ShowUpgrade: 1
     Key: shieldRegenRate
     UseRandom: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
     Step: 2.5
     DisplayName: Crit Chance %
     BasePrice: 350
-    PriceMult: 1.2
+    PriceMult: 1.15
     ShowUpgrade: 1
     Key: critChance
     UseRandom: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
     Step: 0.1
     DisplayName: Crit Multiplier
     BasePrice: 360
-    PriceMult: 1.2
+    PriceMult: 1.15
     ShowUpgrade: 1
     Key: critMultiplier
     UseRandom: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
     Step: 2
     DisplayName: Auto Collect Coins %
     BasePrice: 350
-    PriceMult: 1.2
+    PriceMult: 1.1
     ShowUpgrade: 1
     Key: autoCollectCoinsPercent
     UseRandom: 0
@@ -197,8 +197,8 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: AI Cursor Count
-    BasePrice: 370
-    PriceMult: 1.2
+    BasePrice: 1000
+    PriceMult: 1.4
     ShowUpgrade: 1
     Key: aicursorCount
     UseRandom: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Damage % of Player
-    BasePrice: 380
-    PriceMult: 1.2
+    BasePrice: 1100
+    PriceMult: 1.15
     ShowUpgrade: 1
     Key: aicursorDamagePercent
     UseRandom: 0
@@ -217,8 +217,8 @@ MonoBehaviour:
     MaxValue: 100
     Step: 5
     DisplayName: AI Cursor Radius % of Player
-    BasePrice: 380
-    PriceMult: 1.2
+    BasePrice: 1100
+    PriceMult: 1.15
     ShowUpgrade: 1
     Key: aicursorRadiusPercent
     UseRandom: 0
@@ -227,8 +227,8 @@ MonoBehaviour:
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Fire Rate % of Player
-    BasePrice: 380
-    PriceMult: 1.2
+    BasePrice: 1100
+    PriceMult: 1.15
     ShowUpgrade: 1
     Key: aicursorFireRatePercent
     UseRandom: 0
