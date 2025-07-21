@@ -50,12 +50,13 @@ public class ShieldManager
     
     public float ProcessDamage(float incomingDamage)
     {
-        if (!_isShieldAvailable || CurrentShieldEnergy < incomingDamage)
+        if (!_isShieldAvailable || CurrentShieldEnergy <= 0f)
             return incomingDamage;
 
-        CurrentShieldEnergy -= incomingDamage;
+        float absorbed = Mathf.Min(CurrentShieldEnergy, incomingDamage);
+        CurrentShieldEnergy -= absorbed;
         _doBlink = true;
-        return 0; // Весь урон поглощен
+        return incomingDamage - absorbed; // Возвращаем остаток урона, если щит не смог поглотить всё
     }
 
     public bool IsShieldAvailable() => _isShieldAvailable;

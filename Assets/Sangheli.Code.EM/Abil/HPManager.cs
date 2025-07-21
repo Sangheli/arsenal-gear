@@ -44,6 +44,9 @@ public class HPManager
             ? reduceValue
             : G.I.ShieldManager.ProcessDamage(reduceValue);
 
+        if (actualDamage <= 0)
+            _doBlink = false;
+        
         RoundHp -= Mathf.Abs(actualDamage);
 
         if (RoundHp < 0)
