@@ -1,10 +1,10 @@
 {
     "levelId": 61,
     "LevelStringEntry": "",
-    "roundTime": 25.0,
-    "bossHp": 14390,
-    "bossReward": 31149,
-    "bossAttack": 65,
+    "roundTime": 23.5,
+    "bossHp": 603,
+    "bossReward": 3392,
+    "bossAttack": 49,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -12,48 +12,48 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 0,
-            "spawnChance": 16,
-            "spawnRate": 9
-        },
-        {
             "enemyId": 1,
-            "spawnChance": 17,
-            "spawnRate": 24
+            "spawnChance": 16,
+            "spawnRate": 21
         },
         {
             "enemyId": 2,
-            "spawnChance": 19,
-            "spawnRate": 22
+            "spawnChance": 17,
+            "spawnRate": 32
         },
         {
             "enemyId": 3,
             "spawnChance": 19,
-            "spawnRate": 18
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 21,
-            "spawnRate": 25
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 22,
-            "spawnRate": 5
-        },
-        {
-            "enemyId": 7,
-            "spawnChance": 24,
-            "spawnRate": 5
+            "spawnRate": 29
         },
         {
             "enemyId": 4,
-            "spawnChance": 40,
+            "spawnChance": 19,
+            "spawnRate": 36
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 21,
+            "spawnRate": 42
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 23,
             "spawnRate": 5
         },
         {
             "enemyId": 8,
-            "spawnChance": 26,
+            "spawnChance": 25,
+            "spawnRate": 5
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 41,
+            "spawnRate": 5
+        },
+        {
+            "enemyId": 9,
+            "spawnChance": 28,
             "spawnRate": 5
         },
         {

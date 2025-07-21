@@ -1,7 +1,7 @@
 {
     "levelId": 3,
     "LevelStringEntry": "Complete Level\nAnd Fight With Boss",
-    "roundTime": 12.0,
+    "roundTime": 15.0,
     "bossHp": 10,
     "bossReward": 100,
     "bossAttack": 5,
@@ -17,9 +17,14 @@
             "spawnRate": 25.0
         },
         {
+            "enemyId": 0,
+            "spawnChance": 100.0,
+            "spawnRate": 30.0
+        },
+        {
             "enemyId": 2,
             "spawnChance": 100.0,
-            "spawnRate": 5.0
+            "spawnRate": 10.0
         }
     ]
 }

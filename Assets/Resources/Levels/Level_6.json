@@ -1,10 +1,10 @@
 {
     "levelId": 6,
     "LevelStringEntry": "",
-    "roundTime": 25.0,
-    "bossHp": 40,
-    "bossReward": 215,
-    "bossAttack": 7,
+    "roundTime": 23.5,
+    "bossHp": 73,
+    "bossReward": 400,
+    "bossAttack": 6,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
@@ -12,22 +12,22 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 0,
-            "spawnChance": 64,
-            "spawnRate": 11
-        },
-        {
             "enemyId": 1,
-            "spawnChance": 61,
-            "spawnRate": 20
-        },
-        {
-            "enemyId": 2,
-            "spawnChance": 55,
+            "spawnChance": 64,
             "spawnRate": 19
         },
         {
-            "enemyId": 4,
+            "enemyId": 2,
+            "spawnChance": 61,
+            "spawnRate": 27
+        },
+        {
+            "enemyId": 3,
+            "spawnChance": 55,
+            "spawnRate": 26
+        },
+        {
+            "enemyId": 5,
             "spawnChance": 10,
             "spawnRate": 5
         }

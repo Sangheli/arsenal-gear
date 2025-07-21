@@ -9,7 +9,7 @@
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 0,
+            "enemyId": 1,
             "spawnChance": 100.0,
             "spawnRate": 60.0
         }

@@ -1,7 +1,7 @@
 {
     "levelId": 2,
     "LevelStringEntry": "Some blocks fight back!\nAnd Gives More Energy",
-    "roundTime": 12.0,
+    "roundTime": 15.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": false,
@@ -11,12 +11,12 @@
         {
             "enemyId": 0,
             "spawnChance": 100.0,
-            "spawnRate": 15.0
+            "spawnRate": 35.0
         },
         {
             "enemyId": 1,
             "spawnChance": 100.0,
-            "spawnRate": 15.0
+            "spawnRate": 25.0
         }
     ]
 }
