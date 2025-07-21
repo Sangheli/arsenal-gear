@@ -10,7 +10,7 @@ public class CursorDamageHelper
         _enemyLayer = LayerMask.GetMask("Enemy");
     }
 
-    public DamageResult DoDamage(Transform transform, bool isAI, ParamInfo damageParam, float damagePercent, float critChance, float critMultiplier, float currentDamageScaleHalf)
+    public DamageResult DoDamage(Transform transform, bool isAI, ParamInfo damageParam,float damageValue, float damagePercent, float critChance, float critMultiplier, float currentDamageScaleHalf)
     {
         int count = Physics2D.OverlapCircleNonAlloc(
             transform.position,
@@ -35,7 +35,7 @@ public class CursorDamageHelper
         {
             var enemy = _enemyHits[i].GetComponent<DamageReciever>();
             if (enemy == null) continue;
-            var critResult = CritHelper.RollCrit(damageParam.GetValueRandom(damageParam.boughtActual) * damagePercent, critChance, critMultiplier);
+            var critResult = CritHelper.RollCrit(damageParam.GetValueRandomFromValue(damageValue) * damagePercent, critChance, critMultiplier);
             enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
 
             if (isAI) continue;

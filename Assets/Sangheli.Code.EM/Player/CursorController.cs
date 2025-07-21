@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
@@ -39,6 +40,8 @@ public class CursorController : MonoBehaviour
     private DataSave _save;
     private InputSystem_Actions _actions;
     
+    private float _damageValueSum;
+    
     private void Awake()
     {
         _Camera = Camera.main;
@@ -77,6 +80,7 @@ public class CursorController : MonoBehaviour
         _critMultiplier = paramContainer.GetValue("critMultiplier");
         _damagePercent = damagePercent;
         _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
+        _damageValueSum = DPSManager.keys.Sum(x => paramContainer.GetValue(x));
         CollectRadius = (_currentHarvestScale) / 2;
         CollectRadius = CurrentDamageScaleHalf;
         view.isPulsing = false;
@@ -129,7 +133,7 @@ public class CursorController : MonoBehaviour
         var damageResult = _damageHelper.DoDamage
         (
             transform, _isAI, 
-            _damageParam, _damagePercent,
+            _damageParam, _damageValueSum, _damagePercent,
             _critChance, _critMultiplier,
             CurrentDamageScaleHalf
         );

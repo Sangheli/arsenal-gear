@@ -16,4 +16,6 @@ public class ParamInfo : BaseUpgradeInfo
             ? Random.Range(currentValue, currentValue * RandomCoef)
             : GetValue(bought);
     }
+    
+    public float GetValueRandomFromValue(float value) => Random.Range(value, value * RandomCoef);
 }

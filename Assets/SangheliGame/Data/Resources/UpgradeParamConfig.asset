@@ -64,18 +64,58 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 5
-    MaxValue: 20
+    MaxValue: 10
     Step: 1
-    DisplayName: Damage
+    DisplayName: Damage Level 1
     BasePrice: 40
-    PriceMult: 1.5
+    PriceMult: 1.3
     ShowUpgrade: 1
     Key: playerDamageMin
     UseRandom: 1
+    RandomCoef: 1.3
+  - BaseValue: 0
+    MaxValue: 5
+    Step: 1
+    DisplayName: Damage Level 2
+    BasePrice: 150
+    PriceMult: 1.15
+    ShowUpgrade: 1
+    Key: playerDamageMin2
+    UseRandom: 0
+    RandomCoef: 1.5
+  - BaseValue: 0
+    MaxValue: 5
+    Step: 1
+    DisplayName: Damage Level 3
+    BasePrice: 300
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerDamageMin3
+    UseRandom: 0
+    RandomCoef: 1.5
+  - BaseValue: 0
+    MaxValue: 5
+    Step: 1
+    DisplayName: Damage Level 4
+    BasePrice: 400
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerDamageMin4
+    UseRandom: 0
+    RandomCoef: 1.5
+  - BaseValue: 0
+    MaxValue: 5
+    Step: 1
+    DisplayName: Damage Level 5
+    BasePrice: 500
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerDamageMin5
+    UseRandom: 0
     RandomCoef: 1.5
   - BaseValue: 60
     MaxValue: 180
-    Step: 3
+    Step: 5
     DisplayName: Attacks/minute
     BasePrice: 35
     PriceMult: 1.2
