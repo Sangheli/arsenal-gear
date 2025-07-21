@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: EnemyContainer
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContainer
   List:
+  - {fileID: 11400000, guid: d8f65a5612614f344adb26891d840942, type: 2}
   - {fileID: 11400000, guid: af790d8f76a8ff74c99d33ec1b9e3a7a, type: 2}
   - {fileID: 11400000, guid: 2c266752eb133e44ba4e282e9b604a3d, type: 2}
   - {fileID: 11400000, guid: 9463a4606b4348a4ab59a82da1b19716, type: 2}
-  - {fileID: 11400000, guid: 1775e87fe3ed3284e809c2c3bf187d16, type: 2}
   - {fileID: 11400000, guid: 390b19329a4c08f4d8dfb260f9e9f1b5, type: 2}
+  - {fileID: 11400000, guid: 1775e87fe3ed3284e809c2c3bf187d16, type: 2}
   - {fileID: 11400000, guid: 736ffac97e1722043b0a9928ed786c1c, type: 2}
   - {fileID: 11400000, guid: b31809124994d3a4faaab623304f5c0a, type: 2}
   - {fileID: 11400000, guid: 0048866f19362074b941cb0335e660a6, type: 2}
-  - {fileID: 11400000, guid: b34740869b0660b4d898d43b3aad5b5b, type: 2}
   - {fileID: 11400000, guid: f365accc6203a4f40aad7c6dd77d04ce, type: 2}
+  - {fileID: 11400000, guid: b34740869b0660b4d898d43b3aad5b5b, type: 2}
   - {fileID: 11400000, guid: ae7aa92ecf1bfb24c8da8625b5ebf720, type: 2}

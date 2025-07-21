@@ -27,7 +27,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 2
-    BasePrice: 250
+    BasePrice: 300
     PriceMult: 1.3
     ShowUpgrade: 1
     Key: hp2
@@ -37,7 +37,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 3
-    BasePrice: 1000
+    BasePrice: 1150
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: hp3
@@ -47,7 +47,7 @@ MonoBehaviour:
     MaxValue: 50
     Step: 10
     DisplayName: HP Level 4
-    BasePrice: 1500
+    BasePrice: 1700
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: hp4
@@ -87,7 +87,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 3
-    BasePrice: 1000
+    BasePrice: 1150
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin3
@@ -97,7 +97,7 @@ MonoBehaviour:
     MaxValue: 5
     Step: 1
     DisplayName: Damage Level 4
-    BasePrice: 1500
+    BasePrice: 1700
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin4
@@ -147,15 +147,15 @@ MonoBehaviour:
     MaxValue: 249
     Step: 3
     DisplayName: Shield Capacity
-    BasePrice: 200
+    BasePrice: 300
     PriceMult: 1.1165
     ShowUpgrade: 1
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 2.5
-    Step: 0.05
+    MaxValue: 1.25
+    Step: 0.025
     DisplayName: Shield Regen/sec
     BasePrice: 500
     PriceMult: 1.12
