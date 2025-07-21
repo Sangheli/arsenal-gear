@@ -35,7 +35,7 @@ public class LevelDataConfigRuntime
     private static LevelConfig GenerateRandomLevel(int i)
     {
         // Геометрическая прогрессия для bossHp и bossReward
-        float bossHpBase = 50;
+        float bossHpBase = 15;
         int bossRewardBase = 100;
         int bossAttackBase = 5;
         
@@ -57,7 +57,7 @@ public class LevelDataConfigRuntime
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
             preSpawnEnemyCount = 10,
-            roundTime = 30f,
+            roundTime = 25,
             bossHp = bossHp,
             bossReward = bossReward,
             bossAttack = bossAttack
@@ -124,7 +124,7 @@ public class LevelDataConfigRuntime
             // Если это добавленный сильный враг на малом уровне — даём средний spawnRate
             int strongStart = sortedEnemies.Count / 2;
             if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
-                spawnRate = 13; // средний спавнрейт
+                spawnRate = 5; // средний спавнрейт
             else
             {
                 // Вычисляем максимальный spawnRate в зависимости от уровня
