@@ -18,14 +18,14 @@ public class PrestigeManager : MonoBehaviour
     private MaterialPropertyBlock _propertyBlock;
     private static readonly int ColorProperty = Shader.PropertyToID("_OverlayColor");
     public Gradient gradient; // градиент для цвета престижа
-    public int maxPrestiges = 1000;
-    public int delim = 100;
 
     private DataSave _save;
 
     private float _currentTime;
     private float _prestigeTime;
     private bool _active;
+
+    public bool IsTimerOver => _currentTime >= _prestigeTime;
 
     public void OnLoadInit()
     {
@@ -60,10 +60,10 @@ public class PrestigeManager : MonoBehaviour
     
     private Color GetLevelColor(int level)
     {
-        var prestigePosition = (level % delim) *1f / delim;
+        var prestigePosition = (level % G.I.delim) *1f / G.I.delim;
         var color = gradient.Evaluate(Mathf.Clamp01(prestigePosition));
         
-        var stepIndex = (float) Math.Round(level*1f / maxPrestiges, 2);
+        var stepIndex = (float) Math.Round(level*1f / G.I.maxLevel, 2);
         var value = 0.75f + 0.25f * stepIndex;
         color *= value;
         color.a = 1;
@@ -145,12 +145,9 @@ public class PrestigeManager : MonoBehaviour
     public int GetBossReward(int level)
     {
         var levelConfig = G.I.LevelDataConfig.Get(level);
-        return levelConfig != null ? levelConfig.bossReward : 100;
+        return levelConfig?.bossReward ?? 100;
     }
 
-    public float GetLevelTimePercent()
-    {
-        if (_prestigeTime <= 0f) return 0f;
-        return Mathf.Clamp01(_currentTime / _prestigeTime);
-    }
+    public float GetLevelTimePercent() => 
+        _prestigeTime <= 0f ? 0f : Mathf.Clamp01(_currentTime / _prestigeTime);
 } 

@@ -35,15 +35,14 @@ public class LevelDataConfigRuntime
     private static LevelConfig GenerateRandomLevel(int i)
     {
         // Геометрическая прогрессия для bossHp и bossReward
-        float bossHpBase = 60;
+        float bossHpBase = 50;
         int bossRewardBase = 100;
         int bossAttackBase = 5;
         
         int scaleIndex = Mathf.Max(0, i - 3);
-        
-        float progressionHp = Mathf.Pow(1.4f, scaleIndex);
-        float progressionReward = Mathf.Pow(1.3f, scaleIndex);
-        float progressionAttack = Mathf.Pow(1.1f, scaleIndex);
+        float progressionHp = CalculateProgression(1.4f, 1.05f, scaleIndex, G.I.maxLevel);
+        float progressionReward = CalculateProgression(1.3f, 1.05f, scaleIndex, G.I.maxLevel);
+        float progressionAttack = CalculateProgression(1.1f, 1.03f, scaleIndex, G.I.maxLevel);
         
         int bossHp = Mathf.RoundToInt(bossHpBase * progressionHp);
         int bossReward = Mathf.RoundToInt(bossRewardBase * progressionReward);
@@ -63,6 +62,13 @@ public class LevelDataConfigRuntime
             bossReward = bossReward,
             bossAttack = bossAttack
         };
+    }
+
+    private static float CalculateProgression(float startCoef, float minCoef, int scaleIndex, int maxLevel)
+    {
+        float tCoef = Mathf.Clamp01(scaleIndex / (float)(maxLevel - 1));
+        float coef = Mathf.Lerp(startCoef, minCoef, tCoef);
+        return Mathf.Pow(coef, scaleIndex);
     }
 
     private static List<LevelEnemyInfo> GenerateEnemies(int levelIndex)
@@ -120,7 +126,14 @@ public class LevelDataConfigRuntime
             if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
                 spawnRate = 13; // средний спавнрейт
             else
-                spawnRate = UnityEngine.Random.Range(5, 22);
+            {
+                // Вычисляем максимальный spawnRate в зависимости от уровня
+                int minSpawnRate = 22;
+                int maxSpawnRate = 35;
+                float tSpawn = Mathf.Clamp01(levelIndex / (float)(G.I.maxLevel - 1));
+                int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
+                spawnRate = UnityEngine.Random.Range(5, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
+            }
 
             return new LevelEnemyInfo
             {

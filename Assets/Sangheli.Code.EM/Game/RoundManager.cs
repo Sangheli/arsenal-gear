@@ -68,11 +68,7 @@ public class RoundManager : MonoBehaviour
 
     private void TrySpawnEnemyWithRate(EnemyData enemyData, LevelEnemyInfo info)
     {
-        // Получаем процент времени уровня из PrestigeManager
-        var timePercent = G.I.prestigeManager.GetLevelTimePercent();
-        float spawnRateMultiplier = 1.0f + 0.35f * timePercent; // от 1.0 до 1.2
-        
-        float effectiveSpawnRate = Mathf.Max(info.spawnRate, 0.1f) * spawnRateMultiplier;
+        float effectiveSpawnRate = Mathf.Max(info.spawnRate, 0.1f) * GetSpawnRateMultiplier();
 
         if (!_enemySpawnTimers.ContainsKey(enemyData))
             _enemySpawnTimers[enemyData] = Time.time + 60f / effectiveSpawnRate;
@@ -83,6 +79,11 @@ public class RoundManager : MonoBehaviour
         _enemySpawnTimers[enemyData] = Time.time + 60f / effectiveSpawnRate;
         SpawnEnemy(enemyData, isPreSpawned: true);
     }
+
+    private static float GetSpawnRateMultiplier() =>
+        G.I.prestigeManager.IsTimerOver
+            ? 0.75f
+            : 1.0f + 0.35f * G.I.prestigeManager.GetLevelTimePercent();
 
     private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
     {

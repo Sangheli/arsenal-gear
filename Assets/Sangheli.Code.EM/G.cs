@@ -46,6 +46,7 @@ public class G : MonoBehaviour
     [Space]
     public UpgradePriceMultiplierManager upgradePriceMultiplierManager = new();
     public int maxLevel;
+    public int delim = 25;
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;

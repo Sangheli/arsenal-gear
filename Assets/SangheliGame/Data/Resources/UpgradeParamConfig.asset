@@ -94,8 +94,8 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 1
-    MaxValue: 5
-    Step: 0.2
+    MaxValue: 2.5
+    Step: 0.1
     DisplayName: Crit Multiplier
     BasePrice: 360
     PriceMult: 1.2

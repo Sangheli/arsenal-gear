@@ -7956,7 +7956,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     delim: 10
-  maxLevel: 200
+  maxLevel: 75
+  delim: 25
   arcMoveAnimator: {fileID: 308878766}
 --- !u!4 &1503166276
 Transform:
