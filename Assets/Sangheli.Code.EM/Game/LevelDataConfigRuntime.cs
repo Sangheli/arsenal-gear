@@ -79,6 +79,8 @@ public class LevelDataConfigRuntime
         // Сортируем врагов по "силе"
         var sortedEnemies = allEnemies.OrderBy(e => e.Health + e.DamagePerHit).ToList();
 
+        int strongStart = sortedEnemies.Count / 2;
+
         // На ранних уровнях доступно меньше врагов, на поздних — все
         int minEnemies = Math.Min(2, sortedEnemies.Count); // минимум 2 врага всегда
         int maxEnemies = sortedEnemies.Count;
@@ -91,7 +93,6 @@ public class LevelDataConfigRuntime
         // Добавляем сильного врага на малых уровнях
         if (allowedCount < maxEnemies)
         {
-            int strongStart = sortedEnemies.Count / 2;
             var strongCandidates = sortedEnemies.Skip(strongStart).Except(allowedEnemies).ToList();
             if (strongCandidates.Count > 0)
             {
@@ -111,46 +112,51 @@ public class LevelDataConfigRuntime
         float baseChance = 5f;
         float maxChance = 70f;
 
-        return allowedEnemies.Select(enemy =>
-        {
-            float normalizedHp = (enemy.Health - minHp) / hpRange;
-            float normalizedDmg = (enemy.DamagePerHit - minDmg) / dmgRange;
-            float combined = (normalizedHp + normalizedDmg) / 2f;
-            float chance01 = Mathf.Lerp(1f - combined, combined, t);
-            float chance = baseChance + (maxChance - baseChance) * chance01;
-            chance = Mathf.Clamp(chance, baseChance, maxChance);
-
-            int spawnRate;
-            // Если это добавленный сильный враг на малом уровне — даём средний spawnRate
-            int strongStart = sortedEnemies.Count / 2;
-            if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
-                spawnRate = 5; // средний спавнрейт
-            else
-            {
-                // Вычисляем максимальный spawnRate в зависимости от уровня
-                int minSpawnRate = 22;
-                int maxSpawnRate = 35;
-                float tSpawn = Mathf.Clamp01(levelIndex / (float)(G.I.maxLevel - 1));
-                int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
-                spawnRate = UnityEngine.Random.Range(5, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
-            }
-
-            return new LevelEnemyInfo
-            {
-                enemyId = enemy.EnemyId,
-                spawnChance = (int)chance,
-                spawnRate = spawnRate
-            };
-        }).ToList();
+        return allowedEnemies
+            .Select(enemy => 
+                GetLevelEnemyInfo(levelIndex, enemy, minHp, hpRange, minDmg, dmgRange, t, baseChance, maxChance, allowedCount, maxEnemies, sortedEnemies, strongStart))
+            .ToList();
     }
 
-    private static LevelEnemyInfo GetEnemy(EnemyData enemy) =>
-        new()
+    private static LevelEnemyInfo GetLevelEnemyInfo(int levelIndex, EnemyData enemy, float minHp, float hpRange,
+        float minDmg, float dmgRange, float t, float baseChance, float maxChance, int allowedCount, int maxEnemies,
+        List<EnemyData> sortedEnemies, int strongStart)
+    {
+        float normalizedHp = (enemy.Health - minHp) / hpRange;
+        float normalizedDmg = (enemy.DamagePerHit - minDmg) / dmgRange;
+        float combined = (normalizedHp + normalizedDmg) / 2f;
+        float chance01 = Mathf.Lerp(1f - combined, combined, t);
+        float chance = baseChance + (maxChance - baseChance) * chance01;
+        chance = Mathf.Clamp(chance, baseChance, maxChance);
+
+        int spawnRate;
+        // Если id врага равен 0, то ставим spawnRate от 2 до 8 включительно
+        if (enemy.EnemyId == 0)
+        {
+            spawnRate = UnityEngine.Random.Range(9, 12); // 9 не включается, диапазон 2-8
+        }
+        // Если это добавленный сильный враг на малом уровне — даём средний spawnRate
+        else if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart)
+        {
+            spawnRate = 5; // средний спавнрейт
+        }
+        else
+        {
+            // Вычисляем максимальный spawnRate в зависимости от уровня
+            int minSpawnRate = 22;
+            int maxSpawnRate = 35;
+            float tSpawn = Mathf.Clamp01(levelIndex / (float)(G.I.maxLevel - 1));
+            int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
+            spawnRate = UnityEngine.Random.Range(17, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
+        }
+
+        return new LevelEnemyInfo
         {
             enemyId = enemy.EnemyId,
-            spawnChance = UnityEngine.Random.Range(0, 101),
-            spawnRate = UnityEngine.Random.Range(0, 22)
+            spawnChance = (int)chance,
+            spawnRate = spawnRate
         };
+    }
 
     public LevelConfig Get(int levelId)
     {
