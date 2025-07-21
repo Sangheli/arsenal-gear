@@ -14,13 +14,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
   - BaseValue: 10
-    MaxValue: 1000
+    MaxValue: 50
     Step: 10
-    DisplayName: HP
+    DisplayName: HP Level 1
     BasePrice: 25
-    PriceMult: 1.2
+    PriceMult: 1.4
     ShowUpgrade: 1
     Key: hp
+    UseRandom: 0
+    RandomCoef: 0
+  - BaseValue: 0
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP Level 2
+    BasePrice: 150
+    PriceMult: 1.3
+    ShowUpgrade: 1
+    Key: hp2
+    UseRandom: 0
+    RandomCoef: 0
+  - BaseValue: 0
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP Level 3
+    BasePrice: 750
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: hp3
+    UseRandom: 0
+    RandomCoef: 0
+  - BaseValue: 0
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP Level 4
+    BasePrice: 1200
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: hp4
+    UseRandom: 0
+    RandomCoef: 0
+  - BaseValue: 0
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP Level 5
+    BasePrice: 2000
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: hp5
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 5
@@ -28,7 +68,7 @@ MonoBehaviour:
     Step: 1
     DisplayName: Damage
     BasePrice: 40
-    PriceMult: 1.2
+    PriceMult: 1.5
     ShowUpgrade: 1
     Key: playerDamageMin
     UseRandom: 1
@@ -37,7 +77,7 @@ MonoBehaviour:
     MaxValue: 180
     Step: 3
     DisplayName: Attacks/minute
-    BasePrice: 50
+    BasePrice: 35
     PriceMult: 1.2
     ShowUpgrade: 1
     Key: playerFireRate
@@ -47,8 +87,8 @@ MonoBehaviour:
     MaxValue: 6
     Step: 0.5
     DisplayName: Attack Diameter
-    BasePrice: 90
-    PriceMult: 1.2
+    BasePrice: 40
+    PriceMult: 1.5
     ShowUpgrade: 1
     Key: damageDiameter
     UseRandom: 0

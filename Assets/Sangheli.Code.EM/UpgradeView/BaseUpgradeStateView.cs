@@ -29,10 +29,10 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
         _upgradeButton.enabled = !IsDisabled;
     }
 
-    private void UpdatePriceText(bool isMax, float price) => 
-        _priceText.text = isMax ? "Max" : $"Price: {NumberFormatter.Format(price, 0)}";
+    private void UpdatePriceText(bool isMax, int price) => 
+        _priceText.text = isMax ? "Max" : $"Price: {NumberFormatter.Format(price, 2)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, float price, float maxValue, float baseValue)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, int price, float maxValue, float baseValue)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class UpgradeView : MonoBehaviour
     
     [SerializeField] private Text dpmText;
     [SerializeField] private Text critText;
+    
+    [SerializeField] private Text hpText;
     
     [Space]
     [SerializeField] private Text prestigeText;
@@ -138,13 +141,16 @@ public class UpgradeView : MonoBehaviour
             critText.text = $"Crit: {NumberFormatter.Format(dpsCrit)}";
         }
 
+        // Обновляем HP
+        if (hpText != null)
+        {
+            var save = G.I.SaveProvider.Get();
+            var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
+            hpText.text = $"HP: {NumberFormatter.Format(totalHp, 1)}";
+        }
+
         if (prestigeText != null)
             prestigeText.text = $"Level: {G.I.SaveProvider.Get().level + 1}";
-
-        var upgradesBoughtNum =  G.I.SaveProvider.Get().upgradesBoughtNum;
-        var multiplier=  G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
-        
-        priceMultiplierText.text = $"Price Mult: x{multiplier:F4}";
 
         foreach (var x in _spawned)
             x.Refresh();

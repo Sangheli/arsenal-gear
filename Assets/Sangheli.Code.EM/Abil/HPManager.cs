@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class HPManager
@@ -15,10 +16,19 @@ public class HPManager
 
     private DataSave _save;
     
+    public static readonly string[] Keys = 
+    {
+        "hp",
+        "hp2",
+        "hp3",
+        "hp4",
+        "hp5",
+    };
+
     public void OnStartRound()
     {
         _save = G.I.SaveProvider.Get();
-        RoundHp = _maxHp = _save.GetParamContainer().GetValue("hp");
+        RoundHp = _maxHp = Keys.Sum(x => _save.GetParamContainer().GetValue(x));
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false);
     }
 
