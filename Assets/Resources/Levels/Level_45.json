@@ -19,22 +19,22 @@
         {
             "enemyId": 1,
             "spawnChance": 33,
-            "spawnRate": 27
+            "spawnRate": 22
         },
         {
             "enemyId": 2,
             "spawnChance": 35,
-            "spawnRate": 24
+            "spawnRate": 29
         },
         {
             "enemyId": 3,
             "spawnChance": 32,
-            "spawnRate": 17
+            "spawnRate": 28
         },
         {
             "enemyId": 5,
             "spawnChance": 37,
-            "spawnRate": 25
+            "spawnRate": 28
         },
         {
             "enemyId": 6,

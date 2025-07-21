@@ -14,22 +14,22 @@
         {
             "enemyId": 0,
             "spawnChance": 8,
-            "spawnRate": 18
+            "spawnRate": 11
         },
         {
             "enemyId": 1,
             "spawnChance": 10,
-            "spawnRate": 19
+            "spawnRate": 28
         },
         {
             "enemyId": 2,
             "spawnChance": 12,
-            "spawnRate": 26
+            "spawnRate": 24
         },
         {
             "enemyId": 3,
             "spawnChance": 12,
-            "spawnRate": 33
+            "spawnRate": 25
         },
         {
             "enemyId": 5,
@@ -39,17 +39,17 @@
         {
             "enemyId": 6,
             "spawnChance": 17,
-            "spawnRate": 14
+            "spawnRate": 20
         },
         {
             "enemyId": 7,
             "spawnChance": 19,
-            "spawnRate": 8
+            "spawnRate": 24
         },
         {
             "enemyId": 4,
             "spawnChance": 41,
-            "spawnRate": 16
+            "spawnRate": 20
         },
         {
             "enemyId": 8,
@@ -59,12 +59,12 @@
         {
             "enemyId": 9,
             "spawnChance": 61,
-            "spawnRate": 28
+            "spawnRate": 27
         },
         {
             "enemyId": 10,
             "spawnChance": 66,
-            "spawnRate": 21
+            "spawnRate": 26
         }
     ]
 }
