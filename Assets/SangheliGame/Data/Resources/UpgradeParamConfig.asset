@@ -200,17 +200,17 @@ MonoBehaviour:
     BasePrice: 1000
     PriceMult: 1.4
     ShowUpgrade: 1
-    Key: aicursorCount
+    Key: aiCursorCount
     UseRandom: 0
     RandomCoef: 0
-  - BaseValue: 20
+  - BaseValue: 50
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Damage % of Player
     BasePrice: 1100
     PriceMult: 1.15
     ShowUpgrade: 1
-    Key: aicursorDamagePercent
+    Key: aiCursorDamagePercent
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 50
@@ -220,16 +220,16 @@ MonoBehaviour:
     BasePrice: 1100
     PriceMult: 1.15
     ShowUpgrade: 1
-    Key: aicursorRadiusPercent
+    Key: aiCursorRadiusPercent
     UseRandom: 0
     RandomCoef: 0
-  - BaseValue: 20
+  - BaseValue: 50
     MaxValue: 100
     Step: 10
     DisplayName: AI Cursor Fire Rate % of Player
     BasePrice: 1100
     PriceMult: 1.15
     ShowUpgrade: 1
-    Key: aicursorFireRatePercent
+    Key: aiCursorFireRatePercent
     UseRandom: 0
     RandomCoef: 0

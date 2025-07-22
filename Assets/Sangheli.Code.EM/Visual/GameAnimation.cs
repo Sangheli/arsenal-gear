@@ -116,8 +116,12 @@ public static class GameAnimation
         
         var player = G.I.playerCursor.transform;
         
-        foreach (var x in selectedToCollect) 
-            x.Collect(player, 1000000000,1000000);
+        foreach (var x in selectedToCollect)
+        {
+            x.IsActive = true;
+            x.Collect(player, 0.1f,0.1f);
+        }
+            
         
         while (selectedToCollect.Any(x => x.IsActive))
             yield return null;
