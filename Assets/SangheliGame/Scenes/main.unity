@@ -7521,6 +7521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeMenu
   startButton: {fileID: 889247428}
   startButtonText: {fileID: 2013694050}
+  upgradeButtonText: {fileID: 729101386}
   loadCheckpointButton: {fileID: 370308620}
   loadCheckpointText: {fileID: 2005506573}
   saveStatGO: {fileID: 1896741269}

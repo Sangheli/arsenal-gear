@@ -11,8 +11,8 @@ main_menu;Main Menu;Главное меню;Ana Menü
 total_energy;Total Energy;Всего энергии;Toplam Enerji
 round_energy;Round Energy;Энергия за раунд;Raunt Enerjisi
 boss_energy;Boss Energy;Энергия босса;Boss Enerjisi
-win;Win;Победа;Kazan
-lose;Lose;Поражение;Kaybet
+win;Win;Победа;Kazandı
+lose;Lose;Поражение;Kaybetti
 next_level;Next Level;Следующий уровень;Sonraki Seviye
 try_again;Try Again;Попробовать снова;Tekrar Dene
 upgrades;Upgrades;Улучшения;Yükseltmeler
@@ -25,7 +25,12 @@ boss;Boss;Босс;Boss
 reward;Reward;Награда;Ödül
 auto_collect;Auto Collect;Автосбор;Otomatik Topla
 language;Language;Язык;Dil
-tutor0;Your cursor deals damage over time\nBreak blocks to collect energy;Курсор наносит урон со временем\nРазрушай блоки чтобы собирать энергию;İmlecin zamanla hasar verir\nEnerji toplamak için blokları kır
-tutor1;You Lose HP over Time;Ты теряешь здоровье со временем;Zamanla can kaybedersin
-tutor2;Some blocks fight back!\nAnd Gives More Energy;Некоторые блоки отбиваются\nНо дают больше энергии;Bazı bloklar karşılık verir!\nAma daha fazla enerji kazandırır
+tutor0;Your cursor deals damage over time\nBreak blocks to collect energy;Курсор наносит урон со временем\nРазрушай блоки, чтобы собирать энергию;İmleç zamanla hasar verir\nEnerji toplamak için blokları kır
+tutor1;You Lose HP over Time;Ты теряешь здоровье со временем;Zamanla HP kaybedersin
+tutor2;Some blocks fight back!\nAnd Gives More Energy;Некоторые блоки отбиваются\nИ дают больше энергии;Bazı bloklar karşılık verir!\nVe daha fazla enerji verir
 tutor3;Complete Level\nAnd Fight With Boss;Заверши уровень\nИ сразись с боссом;Bölümü tamamla\nVe bossla savaş
+start_new;Start New;Новая игра;Yeni Oyun Başlat
+load_checkpoint;Load checkpoint;Загрузить чекпоинт;Checkpoint Yükle
+checkpoint;Checkpoint;Чекпоинт;Checkpoint
+play_time;Play time;Время игры;Oynama Süresi
+go_to_upgrades;Go To Upgrades;Улучшения;Yükseltmelere Git
