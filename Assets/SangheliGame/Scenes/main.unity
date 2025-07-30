@@ -6578,17 +6578,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bfc21f68b14a449f9cbf9023346755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndRoundView
+  energyText: {fileID: 616511348}
+  rewardText: {fileID: 1065462156}
+  rewardBossText: {fileID: 1962419846}
+  buttonStartNewRoundText: {fileID: 203970953}
+  upgradesText: {fileID: 1171849016}
+  checkPointText: {fileID: 1847897433}
   View: {fileID: 389631541}
   buttonEndRound: {fileID: 816755334}
   buttonStartNewRound: {fileID: 1926312990}
-  energyText: {fileID: 616511348}
   animationTime: 0.5
   intervalNum: 20
-  buttonStartNewRoundText: {fileID: 203970953}
   distortion: {fileID: 1254258378}
   waitBeforeAnim: 0.35
-  rewardText: {fileID: 1065462156}
-  rewardBossText: {fileID: 1962419846}
   saveInfo: {fileID: 1100491442}
 --- !u!1 &1225120828
 GameObject:

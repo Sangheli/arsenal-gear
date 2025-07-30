@@ -1,15 +1,15 @@
 key;en;ru;tr
-start_game;Start Game;Начать игру;Başlat
+start_game;Start Game;Играть;Başlat
 upgrade;Upgrade;Улучшить;Yükselt
-settings;Settings;Настройки;Ayarlar
-quit;Quit;Выйти;Çıkış
+settings;Settings;Опции;Ayarlar
+quit;Quit;Выход;Çıkış
 level;Level;Уровень;Seviye
 energy;Energy;Энергия;Enerji
 continue;Continue;Продолжить;Devam
-restart;Restart;Заново;Yeniden Başlat
 main_menu;Main Menu;Главное меню;Ana Menü
 total_energy;Total Energy;Всего энергии;Toplam Enerji
 round_energy;Round Energy;Энергия за раунд;Raunt Enerjisi
+restart;Restart;Заново;Yeniden
 boss_energy;Boss Energy;Энергия босса;Boss Enerjisi
 win;Win;Победа;Kazandı
 lose;Lose;Поражение;Kaybetti
@@ -23,7 +23,7 @@ shield;Shield;Щит;Kalkan
 prestige;Prestige;Престиж;Prestij
 boss;Boss;Босс;Boss
 reward;Reward;Награда;Ödül
-auto_collect;Auto Collect;Автосбор;Otomatik Topla
+auto_collect;Auto Collect;Автосбор;Oto Topla
 language;Language;Язык;Dil
 tutor0;Your cursor deals damage over time\nBreak blocks to collect energy;Курсор наносит урон со временем\nРазрушай блоки, чтобы собирать энергию;İmleç zamanla hasar verir\nEnerji toplamak için blokları kır
 tutor1;You Lose HP over Time;Ты теряешь здоровье со временем;Zamanla HP kaybedersin
@@ -34,3 +34,9 @@ load_checkpoint;Load checkpoint;Загрузить чекпоинт;Checkpoint Y
 checkpoint;Checkpoint;Чекпоинт;Checkpoint
 play_time;Play time;Время игры;Oynama Süresi
 go_to_upgrades;Go To Upgrades;Улучшения;Yükseltmelere Git
+round_reward;Round reward: ;Награда за раунд: ;Raunt ödülü: 
+boss_reward;Boss reward: ;Награда босса: ;Boss ödülü: 
+total;Total: ;Итого: ;Toplam: 
+play_level_again;Play Level Again;Играть снова;Tekrar Oyna
+play_next_level;Play next level: ;Следующий: ;Sonraki: 
+checkpoint_done;Checkpoint Done;Сохранено;Kaydedildi

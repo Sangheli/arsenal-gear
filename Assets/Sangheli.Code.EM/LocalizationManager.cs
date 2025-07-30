@@ -60,7 +60,7 @@ public class LocalizationManager
             if (parts.Length <= languageColumnIndex) continue;
             
             var key = parts[0].Trim();
-            var value = parts[languageColumnIndex].Trim().Replace("\\n", "\n");
+            var value = parts[languageColumnIndex].Replace("\\n", "\n");
             _localizedText[key] = value;
         }
     }
