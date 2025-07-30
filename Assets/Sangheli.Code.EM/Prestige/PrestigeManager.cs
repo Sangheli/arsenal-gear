@@ -1,13 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PrestigeManager : MonoBehaviour
 {
+    public Text progressText;
     public DoubleImageFillBar prestigeBar;
     public GameObject view;
 
     private void Toggle(bool state)
     {
+        if (state)
+        {
+            progressText.text = G.I.LocalizationManager.GetLocalizedValue("progress");
+        }
+        
         view.gameObject.SetActive(state);
         prestigeBar.gameObject.SetActive(state);
     }

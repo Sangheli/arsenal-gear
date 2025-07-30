@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d840d997e54d8c04b9b0571ce46fd70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrestigeManager
+  progressText: {fileID: 32383717201892763}
   prestigeBar: {fileID: 7075999532391719099}
   view: {fileID: 5768030189571553995}
   targetRenderer: {fileID: 0}
@@ -648,5 +649,3 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
-  maxPrestiges: 200
-  delim: 25

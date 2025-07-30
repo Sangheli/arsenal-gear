@@ -6978,8 +6978,6 @@ MonoBehaviour:
   MinValue: 0.744
   animTime: 0.35
   resultText: {fileID: 143059367}
-  winText: Boss defeated!
-  failText: "You\u2019re out of HP\\nGrab upgrades and play again!"
   winTextColor: {r: 1, g: 1, b: 1, a: 1}
   failTextColor: {r: 1, g: 1, b: 1, a: 1}
   demoTextColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7521,6 +7519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10dc6709bed44dfa625509775116417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeMenu
+  autoSaveInfoText: {fileID: 120043085}
   startButton: {fileID: 889247428}
   startButtonText: {fileID: 2013694050}
   upgradeButtonText: {fileID: 729101386}
@@ -7900,18 +7899,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922650036b2a40468f3b11ce5c13efb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeView
-  _upgradeStatePrefab: {fileID: 7231649950462385200, guid: e64719ef8215ade4b87644be0841ea30, type: 3}
-  _enemyUpgradeStatePrefab: {fileID: 5300171571511178013, guid: 36dc41c33f8cb3246b148944fe1b7daa, type: 3}
-  _container: {fileID: 966224643}
   moneyText: {fileID: 1984410207}
-  cheatButton: {fileID: 1552332124}
   dpmText: {fileID: 993326984}
   critText: {fileID: 1714042028}
   hpText: {fileID: 514807413}
   prestigeText: {fileID: 1115230006}
+  startRoundText: {fileID: 714899302}
+  _upgradeStatePrefab: {fileID: 7231649950462385200, guid: e64719ef8215ade4b87644be0841ea30, type: 3}
+  _enemyUpgradeStatePrefab: {fileID: 5300171571511178013, guid: 36dc41c33f8cb3246b148944fe1b7daa, type: 3}
+  _container: {fileID: 966224643}
+  cheatButton: {fileID: 1552332124}
   prestigeMinusButton: {fileID: 1158633543}
   prestigePlusButton: {fileID: 164648190}
-  priceMultiplierText: {fileID: 514807413}
   startButton: {fileID: 859440900}
 --- !u!1 &1503166272
 GameObject:

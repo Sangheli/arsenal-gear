@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class StartGameView : MonoBehaviour
 {
+    public Text autoSaveInfoText;
     public Button startButton;
     public Text startButtonText;
     public Text upgradeButtonText;
@@ -64,6 +65,7 @@ public class StartGameView : MonoBehaviour
             : G.I.LocalizationManager.GetLocalizedValue("start_game");
         
         upgradeButtonText.text = G.I.LocalizationManager.GetLocalizedValue("go_to_upgrades");
+        autoSaveInfoText.text = G.I.LocalizationManager.GetLocalizedValue("auto_save_info_text");
 
         if (hasSave)
         {
