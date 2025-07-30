@@ -149,6 +149,12 @@
                 }).then((unityInstance) => {
                     ygGameInstance = unityInstance;
                     loadingCover.style.display = "none";
+
+                    const lang = ysdk.environment.i18n.lang; // например "ru"
+                    console.log('lang: ', lang);
+                    console.log('lang ygGameInstance: ', ygGameInstance);
+                    ygGameInstance.SendMessage("LocalizationBridge", "SetLanguage", lang);
+                    
                 }).catch((message) => {
                     console.error(message);
                 });

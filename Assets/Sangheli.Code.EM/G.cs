@@ -11,6 +11,8 @@ using UnityEngine;
 [RequireComponent(typeof(SceneContainer))]
 public class G : MonoBehaviour
 {
+    public List<UILocalization> Localizations = new List<UILocalization>();
+    
     public GameObject debugConsole;
 
     public RoundManager roundManager;
@@ -50,6 +52,7 @@ public class G : MonoBehaviour
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
+    public LocalizationManager LocalizationManager;
 
     public bool CanPlay { get; private set; }
 
@@ -93,6 +96,8 @@ public class G : MonoBehaviour
 
     private void OnFirstLoad()
     {
+        LocalizationManager = new LocalizationManager();
+        UpdateLocalization();
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -288,4 +293,9 @@ public class G : MonoBehaviour
     public AnimationCurve progressionHpCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionRewardCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionAttackCurve = AnimationCurve.Linear(0, 1, 1, 2);
+    
+    public void UpdateLocalization()
+    {
+        foreach (var x in Localizations) x.UpdateText();
+    }
 }
