@@ -8,9 +8,11 @@ using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
 
-[RequireComponent(typeof(SceneContainer))]
+[RequireComponent(typeof(SceneContainer),typeof(LocalizationBridge))]
 public class G : MonoBehaviour
 {
+    public readonly HashSet<UILocalization> Localizations = new();
+    public LocalizationSelector localizationSelector;
     public GameObject debugConsole;
 
     public RoundManager roundManager;
@@ -50,6 +52,7 @@ public class G : MonoBehaviour
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
+    public LocalizationManager LocalizationManager;
 
     public bool CanPlay { get; private set; }
 
@@ -88,11 +91,19 @@ public class G : MonoBehaviour
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
-        OnFirstLoad();
+        OnLangSelector();
     }
 
-    private void OnFirstLoad()
+    private void OnLangSelector()
     {
+        localizationSelector.gameObject.SetActive(true);
+    }
+
+    public void OnFirstLoad()
+    {
+        LocalizationManager = new LocalizationManager();
+        UpdateLocalization();
+        localizationSelector.gameObject.SetActive(false);
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -142,6 +153,7 @@ public class G : MonoBehaviour
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
+        UpdateLocalization();
         
         if(playFader)
             yield return distortionUI.DoFade(forward: true);
@@ -288,4 +300,9 @@ public class G : MonoBehaviour
     public AnimationCurve progressionHpCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionRewardCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionAttackCurve = AnimationCurve.Linear(0, 1, 1, 2);
+    
+    public void UpdateLocalization()
+    {
+        foreach (var x in Localizations) x.UpdateText();
+    }
 }

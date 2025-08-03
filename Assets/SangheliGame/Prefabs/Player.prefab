@@ -474,6 +474,7 @@ MonoBehaviour:
   inputMoveSpeed: 1500
   shift: {x: 0, y: 0}
   view: {fileID: 5905678528098800148}
+  baseInner: 0.234
   collider2D: {fileID: 625971210322362438}
 --- !u!114 &5905678528098800148
 MonoBehaviour:
@@ -602,6 +603,7 @@ GameObject:
   - component: {fileID: 6676551602451435318}
   - component: {fileID: 560551382531503735}
   - component: {fileID: 5900496087193446296}
+  - component: {fileID: 6005063833288078400}
   m_Layer: 0
   m_Name: textAI
   m_TagString: Untagged
@@ -685,6 +687,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 4, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &6005063833288078400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927475734032057697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7267acf9857d4a869311e20e3029b240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILocalizationMonobeh
+  text: {fileID: 560551382531503735}
+  key: ai
 --- !u!1 &8435829333379794009
 GameObject:
   m_ObjectHideFlags: 0

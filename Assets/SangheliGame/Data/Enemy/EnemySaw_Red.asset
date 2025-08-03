@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.15
   DamagePerHit: 20
   prefab: {fileID: -4566179502049351345, guid: bb5655e961ebae348a89b4b0fe2ef54e, type: 3}
-  DisplayName: Saw Red
+  DisplayName: Saw_Red
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 5
     MaxValue: 45
     Step: 3
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 100
     PriceMult: 1.5
     ShowUpgrade: 1

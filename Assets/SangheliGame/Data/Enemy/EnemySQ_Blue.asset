@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.4
   DamagePerHit: 1
   prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
-  DisplayName: Square Blue
+  DisplayName: Square_Blue
   AttractToCursor: 0
   AttractionSpeed: 2
   MinAttractDistance: 5
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 7
     MaxValue: 25
     Step: 2
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 140
     PriceMult: 1.2
     ShowUpgrade: 1

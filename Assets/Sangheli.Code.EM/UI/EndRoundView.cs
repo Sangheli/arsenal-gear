@@ -4,32 +4,34 @@ using UnityEngine.UI;
 
 public class EndRoundView : MonoBehaviour
 {
+    //text
+    public Text energyText;
+    public Text rewardText;
+    public Text rewardBossText;
+    public Text buttonStartNewRoundText;
+    public Text upgradesText;
+    public Text checkPointText;
+    
+    [Space]
     public GameObject View;
     public Button buttonEndRound;
     public Button buttonStartNewRound;
-
-    public Text energyText;
     public float animationTime = 1;
     public float intervalNum = 10;
     
-    public Text buttonStartNewRoundText;
     public EndRoundViewDistortion distortion;
     
     [Space]
     // Параметры баунс анимации
     public float waitBeforeAnim = 0.5f;
 
-    [Space] 
-    public Text rewardText;
-    public Text rewardBossText;
-    
+    [Space]
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundTextOriginalColor;
-
     
-    private const string PrefixRound = "Round reward: ";
-    private const string PrefixBoss = "Boss reward: ";
-    private const string PrefixTotal = "Total: ";
+    private const string PrefixRound = "round_reward";
+    private const string PrefixBoss = "boss_reward";
+    private const string PrefixTotal = "total";
     
     private Coroutine _showCoroutine;
 
@@ -68,6 +70,12 @@ public class EndRoundView : MonoBehaviour
 
     public void Toggle(bool state)
     {
+        if (state)
+        {
+            upgradesText.text = G.I.LocalizationManager.GetLocalizedValue("go_to_upgrades");
+            checkPointText.text = G.I.LocalizationManager.GetLocalizedValue("checkpoint_done");
+        }
+        
         buttonEndRound.interactable = false;
         buttonStartNewRound.interactable = false;
         buttonStartNewRound.interactable = false;
@@ -85,8 +93,8 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
         
-        rewardText.text = $"{PrefixRound}{NumberFormatter.Format(energy)}";
-        rewardBossText.text = $"{PrefixBoss}{NumberFormatter.Format(bossReward)}";
+        rewardText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixRound)}{NumberFormatter.Format(energy)}";
+        rewardBossText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixBoss)}{NumberFormatter.Format(bossReward)}";
 
         var save = G.I.SaveProvider.Get();
         var showGoToUpgradesButton = true;
@@ -116,7 +124,7 @@ public class EndRoundView : MonoBehaviour
         yield return distortion.DoFade(fadeType);
         Toggle(true);
 
-        buttonStartNewRoundText.text = fadeType == EndRoundFadeEnum.Fail ? "Play Level Again" : $"Play next level: {save.level+1}";
+        buttonStartNewRoundText.text = fadeType == EndRoundFadeEnum.Fail ? G.I.LocalizationManager.GetLocalizedValue("play_level_again") : $"{G.I.LocalizationManager.GetLocalizedValue("play_next_level")} {save.level+1}";
 
         saveInfo.Show();
         saveInfo.FadeOut(2,1);
@@ -136,13 +144,13 @@ public class EndRoundView : MonoBehaviour
         }
         else if (textToDecrease == rewardText) // Только для обычной награды обновляем energyText
         {
-            energyText.text = $"{PrefixTotal}{NumberFormatter.Format(reward + totalEnergy)}";
+            energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(reward + totalEnergy)}";
         }
     }
 
     private IEnumerator ShowCoinAnim(int energy, float totalEnergy, string prefix, Text textToDecrease)
     {
-        energyText.text = $"{PrefixTotal}{NumberFormatter.Format(totalEnergy)}";
+        energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(totalEnergy)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
@@ -165,8 +173,8 @@ public class EndRoundView : MonoBehaviour
     
     private void PrintCoinAnim(string prefix, Text textToDecrease, float addTemp, float currentTotal)
     {
-        textToDecrease.text = $"{prefix}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
-        energyText.text = $"{PrefixTotal}{NumberFormatter.Format(currentTotal)}";
+        textToDecrease.text = $"{G.I.LocalizationManager.GetLocalizedValue(prefix)}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
+        energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(currentTotal)}";
     }
 
     private void StopShowCoroutine()

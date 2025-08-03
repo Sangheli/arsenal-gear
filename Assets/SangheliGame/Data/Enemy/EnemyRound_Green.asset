@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.4
   DamagePerHit: 1.25
   prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
-  DisplayName: Round Green
+  DisplayName: Round_Green
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 9
     MaxValue: 30
     Step: 3
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 160
     PriceMult: 1.2
     ShowUpgrade: 1

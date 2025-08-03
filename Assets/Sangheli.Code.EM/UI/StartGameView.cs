@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 public class StartGameView : MonoBehaviour
 {
+    public Text autoSaveInfoText;
     public Button startButton;
     public Text startButtonText;
+    public Text upgradeButtonText;
     public Button loadCheckpointButton;
     public Text loadCheckpointText;
     public GameObject saveStatGO;
@@ -58,12 +60,17 @@ public class StartGameView : MonoBehaviour
         saveStatGO.gameObject.SetActive(hasSave);
         
         // Обновляем текст кнопки старта в зависимости от наличия чекпоинта
-        startButtonText.text = hasSave ? "Start New" : "Start";
+        startButtonText.text = hasSave 
+            ? G.I.LocalizationManager.GetLocalizedValue("start_new") 
+            : G.I.LocalizationManager.GetLocalizedValue("start_game");
+        
+        upgradeButtonText.text = G.I.LocalizationManager.GetLocalizedValue("go_to_upgrades");
+        autoSaveInfoText.text = G.I.LocalizationManager.GetLocalizedValue("auto_save_info_text");
 
         if (hasSave)
         {
             G.I.SaveProvider.ApplyFromSave(SaveSystem.GetSlot());
-            loadCheckpointText.text = $"Load checkpoint";
+            loadCheckpointText.text = G.I.LocalizationManager.GetLocalizedValue("load_checkpoint");
             UpdateSaveStats();
         }
     }
@@ -75,10 +82,10 @@ public class StartGameView : MonoBehaviour
         var paramContainer = saveData.GetParamContainer();
         
         var stats = new System.Text.StringBuilder();
-        stats.AppendLine($"Checkpoint: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
-        stats.AppendLine($"Level: {saveData.level+1}");
-        stats.AppendLine($"Total Energy: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
-        stats.AppendLine($"Play time: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
+        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("checkpoint")}: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
+        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("level")}: {saveData.level+1}");
+        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("total_energy")}: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
+        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("play_time")}: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
 
         // Добавляем DPS
         var (dps, dpsCrit) = DPSManager.GetPlayerDps();

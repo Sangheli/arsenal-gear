@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.4
   DamagePerHit: 1.5
   prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
-  DisplayName: Triangle Blue
+  DisplayName: Triangle_Blue
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 11
     MaxValue: 35
     Step: 3
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 180
     PriceMult: 1.2
     ShowUpgrade: 1

@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class UpgradeView : MonoBehaviour
 {
+    [SerializeField] private Text moneyText;
+    [SerializeField] private Text dpmText;
+    [SerializeField] private Text critText;
+    [SerializeField] private Text hpText;
+    [SerializeField] private Text prestigeText;
+    [SerializeField] private Text startRoundText;
+    
+    [Space]
     [SerializeField] private UpgradeStateView _upgradeStatePrefab;
     [SerializeField] private EnemyUpgradeStateView _enemyUpgradeStatePrefab;
     [SerializeField] private Transform _container;
-    [SerializeField] private Text moneyText;
     
     [SerializeField] private Button cheatButton;
     
-    [SerializeField] private Text dpmText;
-    [SerializeField] private Text critText;
-    
-    [SerializeField] private Text hpText;
-    
     [Space]
-    [SerializeField] private Text prestigeText;
     [SerializeField] private Button prestigeMinusButton;
     [SerializeField] private Button prestigePlusButton;
-    [SerializeField] private Text priceMultiplierText;
     
     public Button startButton;
     
@@ -126,19 +126,26 @@ public class UpgradeView : MonoBehaviour
         G.I.StartRun();
     }
 
-    public void Toggle(bool state) => gameObject.SetActive(state);
+    public void Toggle(bool state)
+    {
+        gameObject.SetActive(state);
+        if (state)
+        {
+            startRoundText.text = G.I.LocalizationManager.GetLocalizedValue("start_round");
+        }
+    }
 
     private void RefreshAll()
     {
         if (moneyText != null)
-            moneyText.text = $"Energy: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
+            moneyText.text = $"{G.I.LocalizationManager.GetLocalizedValue("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
 
         // Обновляем DPS
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text =  $"DPS: {NumberFormatter.Format(dps)}";
-            critText.text = $"Crit: {NumberFormatter.Format(dpsCrit)}";
+            dpmText.text =  $"{G.I.LocalizationManager.GetLocalizedValue("dps")}: {NumberFormatter.Format(dps)}";
+            critText.text = $"{G.I.LocalizationManager.GetLocalizedValue("crit")}: {NumberFormatter.Format(dpsCrit)}";
         }
 
         // Обновляем HP
@@ -146,11 +153,11 @@ public class UpgradeView : MonoBehaviour
         {
             var save = G.I.SaveProvider.Get();
             var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
-            hpText.text = $"HP: {NumberFormatter.Format(totalHp, 1)}";
+            hpText.text = $"{G.I.LocalizationManager.GetLocalizedValue("hp")}: {NumberFormatter.Format(totalHp, 1)}";
         }
 
         if (prestigeText != null)
-            prestigeText.text = $"Level: {G.I.SaveProvider.Get().level + 1}";
+            prestigeText.text = $"{G.I.LocalizationManager.GetLocalizedValue("level")}: {G.I.SaveProvider.Get().level + 1}";
 
         foreach (var x in _spawned)
             x.Refresh();

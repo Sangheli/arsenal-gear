@@ -10,8 +10,6 @@ public class EndRoundViewDistortion : MonoBehaviour
     public float animTime = 0.1f;
     
     public Text resultText;
-    public string winText = "Boss Defeated";
-    public string failText = "HP out";
     public Color winTextColor = Color.black;
     public Color failTextColor = Color.black;
     public Color demoTextColor = Color.black;
@@ -74,7 +72,7 @@ public class EndRoundViewDistortion : MonoBehaviour
             case EndRoundFadeEnum.Fail:
                 targetColor = failColor;
                 textColor = failTextColor;
-                valueText = failText;
+                valueText = G.I.LocalizationManager.GetLocalizedValue("fail_text");
                 break;
             case EndRoundFadeEnum.Win:
                 targetColor = blueColor;
@@ -89,12 +87,12 @@ public class EndRoundViewDistortion : MonoBehaviour
                     if (levelConfig != null)
                         showBoss = levelConfig.showBossAfterTimer;
                 }
-                valueText = showBoss ? winText : "Level Complete";
+                valueText = showBoss ? G.I.LocalizationManager.GetLocalizedValue("win_text") :  G.I.LocalizationManager.GetLocalizedValue("level_complete") ;
                 break;
             case EndRoundFadeEnum.EndDemo:
                 targetColor = demoColor;
                 textColor = demoTextColor;
-                valueText = "Demo complete\nThanks for playing\nReload page to start a new game";
+                valueText = G.I.LocalizationManager.GetLocalizedValue("demo_done");
                 break;
             default:
                 targetColor = Color.clear;
