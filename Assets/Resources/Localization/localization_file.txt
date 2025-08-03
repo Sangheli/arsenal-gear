@@ -54,3 +54,4 @@ progress;Progress:;Прогресс:;İlerleme:
 auto_save_info_text;No worries, your game auto-saves;Не переживай, игра сохраняется автоматически;İlerleme otomatik kaydediliyor
 hp_short;HP;ХП;HP
 shield_short;S;Щ;S
+lowhp;Low HP;Мало ХП;_

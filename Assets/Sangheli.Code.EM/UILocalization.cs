@@ -1,9 +1,13 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UILocalization
 {
-    public string localizationKey;
-    public Text textComponent;
+    public string LocalizationKey;
+    public Text TextComponent;
 
-    public void UpdateText() => textComponent.text = G.I.LocalizationManager.GetLocalizedValue(localizationKey);
+    public void UpdateText()
+    {
+        TextComponent.text = G.I.LocalizationManager.GetLocalizedValue(LocalizationKey);
+    }
 }

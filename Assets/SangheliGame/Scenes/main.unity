@@ -11944,15 +11944,72 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4926049195715080076, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926049195715080076, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 5265390130083471924, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7636876363593562641, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 37.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636876363593562641, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -58.737
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636876363593562641, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.013999939
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636876363593562641, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -6.167
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4196815628027294375, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2310805538210765342}
   m_SourcePrefab: {fileID: 100100000, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+--- !u!1 &2310805538210765340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4196815628027294375, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+  m_PrefabInstance: {fileID: 2310805538210765339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2310805538210765341 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4926049195715080076, guid: 258fcdb1857a97c4f8b192813ecca64c, type: 3}
+  m_PrefabInstance: {fileID: 2310805538210765339}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2310805538210765340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+--- !u!114 &2310805538210765342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2310805538210765340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7267acf9857d4a869311e20e3029b240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILocalizationMonobeh
+  text: {fileID: 2310805538210765341}
+  key: lowhp
 --- !u!224 &2752370613131137483
 RectTransform:
   m_ObjectHideFlags: 0

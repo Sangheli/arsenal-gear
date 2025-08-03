@@ -11,7 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(SceneContainer))]
 public class G : MonoBehaviour
 {
-    public List<UILocalization> Localizations = new List<UILocalization>();
+    public readonly HashSet<UILocalization> Localizations = new();
     
     public GameObject debugConsole;
 
@@ -147,6 +147,7 @@ public class G : MonoBehaviour
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
+        UpdateLocalization();
         
         if(playFader)
             yield return distortionUI.DoFade(forward: true);
