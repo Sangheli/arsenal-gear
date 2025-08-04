@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d5949007ad4c53a1279de1ffabb309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G
-  debugConsole: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+  debugConsole: {fileID: 0}
   LayoutPlaceHolder: {fileID: 7056455792470746562}
   orientationChecker: {fileID: 1503166287}
   localization: {fileID: 1503166286}
@@ -2357,6 +2357,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471699096600260288, guid: b293e7406d3213246894f21d906f7ebb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6318046485547879953, guid: b293e7406d3213246894f21d906f7ebb, type: 3}
       propertyPath: m_Name
       value: LocalizationSelectorCanvas
@@ -2478,6 +2482,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3089902326043256495, guid: 0c05682543ea8694f8c872ed0d83eace, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4803205938419476670, guid: 0c05682543ea8694f8c872ed0d83eace, type: 3}
       propertyPath: m_Name
       value: LayoutPlaceholder
