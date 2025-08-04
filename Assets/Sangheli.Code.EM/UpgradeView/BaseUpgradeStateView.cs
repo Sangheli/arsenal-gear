@@ -12,22 +12,26 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     [SerializeField] protected Image _progressFill;
 
     protected Action RefreshMoneyCallback;
-    private Color _normalColor;
+    protected Color _normalColor;
     public Color disabledColor;
+    public Color goldColor = new Color(1f, 0.84f, 0f, 1f); // Gold color for maxed upgrades
 
-    public bool IsDisabled{ get; private set; }
+    public bool IsDisabled{ get; protected set; }
 
     protected virtual void Awake() => _normalColor = _upgradeButton.image.color;
 
     public abstract void OnUpgradeClicked();
     public abstract void Refresh();
 
-    private void UpdateButtonState(bool isMax, float price)
+    protected virtual void UpdateButtonState(bool isMax, float price)
     {
         IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price));
-        _upgradeButton.image.color = IsDisabled ? disabledColor : _normalColor;
-        _upgradeButton.enabled = !IsDisabled;
+        _upgradeButton.image.color = GetColor(isMax, IsDisabled);
+        _upgradeButton.enabled = GetButtonState(isMax, IsDisabled);
     }
+
+    protected Color GetColor(bool isMax, bool isDisabled) => isMax ? goldColor : isDisabled ? disabledColor : _normalColor;
+    protected static bool GetButtonState(bool isMax, bool isDisabled) => !isMax && !isDisabled;
 
     private void UpdatePriceText(bool isMax, int price) => 
         _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.Format(price, 2)}";

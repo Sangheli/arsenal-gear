@@ -701,6 +701,7 @@ MonoBehaviour:
   _upgradeButton: {fileID: 3166167773061101890}
   _progressFill: {fileID: 5921231039002256778}
   disabledColor: {r: 0.3647059, g: 0.3647059, b: 0.3647059, a: 1}
+  goldColor: {r: 0.7484276, g: 0.7261908, b: 0, a: 1}
 --- !u!82 &8664430839387088531
 AudioSource:
   m_ObjectHideFlags: 0

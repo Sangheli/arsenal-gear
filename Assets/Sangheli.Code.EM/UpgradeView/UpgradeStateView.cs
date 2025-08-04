@@ -32,6 +32,17 @@ public class UpgradeStateView : BaseUpgradeStateView
         G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
     }
 
+    protected override void UpdateButtonState(bool isMax, float price)
+    {
+        var save = G.I.SaveProvider.Get();
+        var paramContainer = save.paramContainer;
+        var isAvailable = paramContainer.IsUpgradeAvailable(_paramKey);
+        
+        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price) && isAvailable);
+        _upgradeButton.image.color = GetColor(isMax, IsDisabled);
+        _upgradeButton.enabled = GetButtonState(isMax, IsDisabled);
+    }
+
     public override void Refresh()
     {
         var save = G.I.SaveProvider.Get();

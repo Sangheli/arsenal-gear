@@ -36,10 +36,41 @@ public class ParamContainer
         }
     }
 
-    public void BuyUpgrade(string key)
+    /// <summary>
+    /// Checks if an upgrade is available for purchase based on dependency requirements
+    /// </summary>
+    public bool IsUpgradeAvailable(string key)
     {
         var paramInfo = G.I.Data.ParamData.GetParamInfo(key);
-        if (paramInfo == null || UpgradesBought[key] >= paramInfo.MaxUpgrades) 
+        if (paramInfo == null || UpgradesBought[key] >= paramInfo.MaxUpgrades)
+            return false;
+
+        // Check fullDepentList - all upgrades in this list must be fully maxed out
+        if (paramInfo.fullDepentList != null && paramInfo.fullDepentList.Count > 0)
+        {
+            foreach (var dependentKey in paramInfo.fullDepentList)
+            {
+                if (!IsMaxLevelReached(dependentKey))
+                    return false;
+            }
+        }
+
+        // Check anyDepnetList - at least one level must be purchased for each upgrade in this list
+        if (paramInfo.anyDepnetList != null && paramInfo.anyDepnetList.Count > 0)
+        {
+            foreach (var dependentKey in paramInfo.anyDepnetList)
+            {
+                if (GetBoughtLevel(dependentKey) < 1)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void BuyUpgrade(string key)
+    {
+        if (!IsUpgradeAvailable(key))
             return;
         
         UpgradesBought[key]++;
