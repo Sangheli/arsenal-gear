@@ -89,7 +89,7 @@ public class G : MonoBehaviour
 #if UNITY_EDITOR
         Application.runInBackground = true;
 #endif
-        
+        LocalizationBridge.Localizations = new HashSet<IUILocalization>();
         StartGame();
     }
 #pragma warning restore CS4014

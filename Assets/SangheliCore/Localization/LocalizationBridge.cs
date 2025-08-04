@@ -7,7 +7,7 @@ namespace SangheliCore
     {
         public LocalizationSelector localizationSelector;
         
-        public readonly HashSet<IUILocalization> Localizations = new();
+        public static HashSet<IUILocalization> Localizations = new();
         private LocalizationManager _localizationManager;
 
         public void SetLanguage(string lang)

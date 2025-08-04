@@ -21,7 +21,7 @@ namespace SangheliCore
 
         private void Start()
         {
-            G.I.localization.Localizations.Add(this);
+            LocalizationBridge.Localizations.Add(this);
             UpdateText();
         }
 
