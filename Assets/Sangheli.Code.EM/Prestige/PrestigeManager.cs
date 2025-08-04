@@ -12,7 +12,7 @@ public class PrestigeManager : MonoBehaviour
     {
         if (state)
         {
-            progressText.text = G.I.LocalizationManager.GetLocalizedValue("progress");
+            progressText.text = G.I.localization.Get("progress");
         }
         
         view.gameObject.SetActive(state);
@@ -140,7 +140,6 @@ public class PrestigeManager : MonoBehaviour
     public void CompletePrestigeAfterBoss()
     {
         ChangeLevel(1);
-        SaveSystem.Save();
         G.I.StopRun(EndRoundFadeEnum.Win);
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 150
   Speed: 0.5
-  DamagePerHit: 20
+  DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: 336eb39c49fc2874e87b30eff8ef615d, type: 3}
   DisplayName: Crown
   AttractToCursor: 0

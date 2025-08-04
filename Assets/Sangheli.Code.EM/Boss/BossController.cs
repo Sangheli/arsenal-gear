@@ -15,6 +15,7 @@ public class BossController : EnemyController
     private readonly Collider2D[] _results = new Collider2D[4];
     public float damageValue = 8.2f;
     private ContactFilter2D? _filter;
+    public bool CanAttack;
     
     // Новый Init для босса
     public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
@@ -40,8 +41,6 @@ public class BossController : EnemyController
         // Инициализация направления и камеры
         _direction = Random.insideUnitCircle.normalized;
         _mainCamera = Camera.main;
-        
-        StartRotAnim();
     }
 
     private static ContactFilter2D GetFilter()
@@ -66,6 +65,9 @@ public class BossController : EnemyController
 
     protected override void DoMove()
     {
+        if(!CanAttack)
+            return;
+        
         var transform1 = transform;
         
         var delta = _direction * speedBoss * Time.deltaTime;
@@ -91,11 +93,15 @@ public class BossController : EnemyController
         base.Die(isCrit);
     }
 
-    // DOTween-анимация вращения босса
-    private void StartRotAnim()
+    public void RewindAnim()
     {
         _rotAnimSequence?.Kill(); // Остановить предыдущую анимацию, если есть
         rotAnimation.ReturnToZero();
+    }
+
+    // DOTween-анимация вращения босса
+    public void StartRotAnim()
+    {
         _rotAnimSequence = DOTween.Sequence();
         var startPos = rotAnimation._zeroLocalPosition;
         var downPos = startPos + Vector3.down * rotAnimation.moveDownDistance;
@@ -111,8 +117,8 @@ public class BossController : EnemyController
         if(!IsActive || IsDead)
             return;
         
-        var hasPlayer = GetPlayer();
-        if (hasPlayer)
+        var canAttack = CanAttack && GetPlayer();
+        if (canAttack)
         {
             DoDamageBoss();
             G.I.Container.cameraShake.DeathShake();

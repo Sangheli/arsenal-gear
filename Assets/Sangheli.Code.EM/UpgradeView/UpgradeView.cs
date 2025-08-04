@@ -131,21 +131,21 @@ public class UpgradeView : MonoBehaviour
         gameObject.SetActive(state);
         if (state)
         {
-            startRoundText.text = G.I.LocalizationManager.GetLocalizedValue("start_round");
+            startRoundText.text = G.I.localization.Get("start_round");
         }
     }
 
     private void RefreshAll()
     {
         if (moneyText != null)
-            moneyText.text = $"{G.I.LocalizationManager.GetLocalizedValue("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
+            moneyText.text = $"{G.I.localization.Get("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
 
         // Обновляем DPS
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text =  $"{G.I.LocalizationManager.GetLocalizedValue("dps")}: {NumberFormatter.Format(dps)}";
-            critText.text = $"{G.I.LocalizationManager.GetLocalizedValue("crit")}: {NumberFormatter.Format(dpsCrit)}";
+            dpmText.text =  $"{G.I.localization.Get("dps")}: {NumberFormatter.Format(dps)}";
+            critText.text = $"{G.I.localization.Get("crit")}: {NumberFormatter.Format(dpsCrit)}";
         }
 
         // Обновляем HP
@@ -153,11 +153,11 @@ public class UpgradeView : MonoBehaviour
         {
             var save = G.I.SaveProvider.Get();
             var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
-            hpText.text = $"{G.I.LocalizationManager.GetLocalizedValue("hp")}: {NumberFormatter.Format(totalHp, 1)}";
+            hpText.text = $"{G.I.localization.Get("hp")}: {NumberFormatter.Format(totalHp, 1)}";
         }
 
         if (prestigeText != null)
-            prestigeText.text = $"{G.I.LocalizationManager.GetLocalizedValue("level")}: {G.I.SaveProvider.Get().level + 1}";
+            prestigeText.text = $"{G.I.localization.Get("level")}: {G.I.SaveProvider.Get().level + 1}";
 
         foreach (var x in _spawned)
             x.Refresh();

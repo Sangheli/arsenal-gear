@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossManager : MonoBehaviour
@@ -15,13 +16,23 @@ public class BossManager : MonoBehaviour
     public void SpawnBoss(float hp, Color color, float scale, float bossDamage, System.Action onBossDefeated)
     {
         _currentBoss = G.I.ObjectPool.Get(bossPrefab);
+        _currentBoss.CanAttack = false;
+        _currentBoss.RewindAnim();
         _onBossDefeated = onBossDefeated;
-        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(_mainCamera);
+        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition();
         _currentBoss.transform.position = spawnPosition;
         _currentBoss.gameObject.SetActive(true);
         _currentBoss.Init(hp, color, scale, bossDamage, OnBossDeath);
         _currentBoss.StopAllCoroutines();
-        _currentBoss.StartCoroutine(SpawnUtils.MoveToCenter(_currentBoss.transform, _mainCamera));
+        _currentBoss.StartCoroutine(SpawnAndAttack());
+    }
+
+    private IEnumerator SpawnAndAttack()
+    {
+        yield return SpawnUtils.MoveToCenter(_currentBoss.transform, _mainCamera);
+        yield return new WaitForSeconds(1);
+        _currentBoss.StartRotAnim();
+        _currentBoss.CanAttack = true;
     }
 
     private void OnBossDeath()

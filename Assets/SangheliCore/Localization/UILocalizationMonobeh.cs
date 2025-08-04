@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UILocalizationMonobeh : MonoBehaviour
+namespace SangheliCore
 {
-    private UILocalization _uiLocalization;
-    public Text text;
-    public string key;
+    public class UILocalizationMonobeh : MonoBehaviour, IUILocalization
+    {
+        private UILocalization _uiLocalization;
+        public Text text;
+        public string key;
     
-    private void OnValidate()
-    {
-        text ??= GetComponent<Text>();
-    }
+        private void OnValidate()
+        {
+            text ??= GetComponent<Text>();
+        }
 
-    private void Awake()
-    {
-        _uiLocalization = new UILocalization { LocalizationKey = key, TextComponent = text };
-    }
+        private void Awake()
+        {
+            _uiLocalization = new UILocalization { LocalizationKey = key, TextComponent = text };
+        }
 
-    private void Start()
-    {
-        G.I.Localizations.Add(_uiLocalization);
-        _uiLocalization.UpdateText();
+        private void Start()
+        {
+            G.I.localization.Localizations.Add(this);
+            UpdateText();
+        }
+
+        public void UpdateText()
+        {
+            _uiLocalization.UpdateText();
+        }
     }
 }

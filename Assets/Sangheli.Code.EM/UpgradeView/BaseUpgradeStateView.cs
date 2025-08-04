@@ -30,7 +30,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     }
 
     private void UpdatePriceText(bool isMax, int price) => 
-        _priceText.text = isMax ? G.I.LocalizationManager.GetLocalizedValue("max") : $"{G.I.LocalizationManager.GetLocalizedValue("price")}: {NumberFormatter.Format(price, 2)}";
+        _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.Format(price, 2)}";
 
     protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, int price, float maxValue, float baseValue)
     {

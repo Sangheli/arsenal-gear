@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 50
   Speed: 0.4
-  DamagePerHit: 1.5
+  DamagePerHit: 1.05
   prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
   DisplayName: Triangle_Blue
   AttractToCursor: 0

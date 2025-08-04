@@ -1,16 +1,18 @@
-using UnityEngine;
 using UnityEngine.UI;
 
-public class UILocalization
+namespace SangheliCore
 {
-    public string LocalizationKey;
-    public Text TextComponent;
-
-    public void UpdateText()
+    public class UILocalization : IUILocalization
     {
-        if(G.I.LocalizationManager == null)
-            return;
+        public string LocalizationKey;
+        public Text TextComponent;
+
+        public void UpdateText()
+        {
+            if(G.I.localization == null)
+                return;
         
-        TextComponent.text = G.I.LocalizationManager.GetLocalizedValue(LocalizationKey);
+            TextComponent.text = G.I.localization.Get(LocalizationKey);
+        }
     }
 }

@@ -25,8 +25,8 @@ public class LevelStringManager : MonoBehaviour
         if (G.I.LevelDataConfig.Count() == 0 )
             return string.Empty;
         
-        return G.I.LocalizationManager
-            .GetLocalizedValue
+        return G.I.localization
+            .Get
                 (G.I.LevelDataConfig.Get(level)?.LevelStringEntry ?? string.Empty)
             .ReplaceEscapedNewlines();
     }

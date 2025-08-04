@@ -18,6 +18,8 @@ public class EnemyData : ScriptableObject
     
     public Color color = Color.white;
     public Color borderColor = Color.white;
+
+    public bool superHard;
     
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {

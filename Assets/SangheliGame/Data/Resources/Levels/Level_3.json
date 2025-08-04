@@ -1,0 +1,16 @@
+{
+    "levelId": 3,
+    "LevelStringEntry": "tutor3",
+    "roundTime": 5.0,
+    "bossHp": 35,
+    "bossReward": 100,
+    "bossAttack": 0.5,
+    "loseHpDuringRound": true,
+    "showBossAfterTimer": true,
+    "checkNextRoundFromSave": false,
+    "showGoToUpgradesButton": true,
+    "preSpawnEnemyCount": 10,
+    "showTerminateButton": false,
+    "enemies": [
+    ]
+}

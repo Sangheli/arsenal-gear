@@ -9,6 +9,7 @@ public class DataSave
     public bool hasVisitedUpgradeMenu;
 
     public int level;
+    public int loadTimes;
     
     public ParamContainer paramContainer;
     public EnemyUpgradeContainer enemyUpgradeContainer;

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,8 +73,8 @@ public class EndRoundView : MonoBehaviour
     {
         if (state)
         {
-            upgradesText.text = G.I.LocalizationManager.GetLocalizedValue("go_to_upgrades");
-            checkPointText.text = G.I.LocalizationManager.GetLocalizedValue("checkpoint_done");
+            upgradesText.text = G.I.localization.Get("go_to_upgrades");
+            checkPointText.text = G.I.localization.Get("checkpoint_done");
         }
         
         buttonEndRound.interactable = false;
@@ -93,8 +94,8 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
         
-        rewardText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixRound)}{NumberFormatter.Format(energy)}";
-        rewardBossText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixBoss)}{NumberFormatter.Format(bossReward)}";
+        rewardText.text = $"{G.I.localization.Get(PrefixRound)}{NumberFormatter.Format(energy)}";
+        rewardBossText.text = $"{G.I.localization.Get(PrefixBoss)}{NumberFormatter.Format(bossReward)}";
 
         var save = G.I.SaveProvider.Get();
         var showGoToUpgradesButton = true;
@@ -124,7 +125,7 @@ public class EndRoundView : MonoBehaviour
         yield return distortion.DoFade(fadeType);
         Toggle(true);
 
-        buttonStartNewRoundText.text = fadeType == EndRoundFadeEnum.Fail ? G.I.LocalizationManager.GetLocalizedValue("play_level_again") : $"{G.I.LocalizationManager.GetLocalizedValue("play_next_level")} {save.level+1}";
+        buttonStartNewRoundText.text = G.PlayLevelAgainFader.Contains(fadeType) ? G.I.localization.Get("play_level_again") : $"{G.I.localization.Get("play_next_level")} {save.level + 1}";
 
         saveInfo.Show();
         saveInfo.FadeOut(2,1);
@@ -144,13 +145,13 @@ public class EndRoundView : MonoBehaviour
         }
         else if (textToDecrease == rewardText) // Только для обычной награды обновляем energyText
         {
-            energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(reward + totalEnergy)}";
+            energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(reward + totalEnergy)}";
         }
     }
 
     private IEnumerator ShowCoinAnim(int energy, float totalEnergy, string prefix, Text textToDecrease)
     {
-        energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(totalEnergy)}";
+        energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(totalEnergy)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
@@ -173,8 +174,8 @@ public class EndRoundView : MonoBehaviour
     
     private void PrintCoinAnim(string prefix, Text textToDecrease, float addTemp, float currentTotal)
     {
-        textToDecrease.text = $"{G.I.LocalizationManager.GetLocalizedValue(prefix)}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
-        energyText.text = $"{G.I.LocalizationManager.GetLocalizedValue(PrefixTotal)}{NumberFormatter.Format(currentTotal)}";
+        textToDecrease.text = $"{G.I.localization.Get(prefix)}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
+        energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(currentTotal)}";
     }
 
     private void StopShowCoroutine()

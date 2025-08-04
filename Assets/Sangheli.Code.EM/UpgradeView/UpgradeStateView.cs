@@ -42,7 +42,7 @@ public class UpgradeStateView : BaseUpgradeStateView
         var isMax = paramContainer.IsMaxLevelReached(_paramKey);
         var bought = paramContainer.GetBoughtLevel(_paramKey);
         var max = paramContainer.GetMaxLevel(_paramKey);
-        var paramName = G.I.LocalizationManager.GetLocalizedValue(paramContainer.GetDisplayName(_paramKey));
+        var paramName = G.I.localization.Get(paramContainer.GetDisplayName(_paramKey));
         float? nextValue = isMax ? null : paramContainer.GetNextLevelValue(_paramKey);
         save.UpdateUpgradesBoughtNum();
         var price = paramContainer.GetPrice(_paramKey, save.upgradesBoughtNum);

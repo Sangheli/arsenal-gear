@@ -19,6 +19,7 @@ public class HPManager
     public static readonly string[] Keys = 
     {
         "hp",
+        "hp1",
         "hp2",
         "hp3",
         "hp4",

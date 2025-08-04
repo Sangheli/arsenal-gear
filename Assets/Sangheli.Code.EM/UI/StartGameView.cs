@@ -22,10 +22,16 @@ public class StartGameView : MonoBehaviour
         loadCheckpointButton.onClick.AddListener(LoadCheckpoint);
         buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
         buttonDS.onClick.AddListener(MediaUrlOpener.OpenDs);
-        buttonGoToUpgrades.onClick.AddListener(OnExitFromRound);
+        buttonGoToUpgrades.onClick.AddListener(OnUpgradesFromStartMenu);
     }
 
-    private void OnExitFromRound() => G.I.GoToUpgrades();
+    private void OnUpgradesFromStartMenu()
+    {
+        var save = G.I.SaveProvider.Get();
+        G.I.GameTimeManager.Init(save.timeSinceStart);
+        save.loadTimes++;
+        G.I.GoToUpgrades();
+    }
 
     private void OnStartButtonClick()
     {
@@ -61,16 +67,16 @@ public class StartGameView : MonoBehaviour
         
         // Обновляем текст кнопки старта в зависимости от наличия чекпоинта
         startButtonText.text = hasSave 
-            ? G.I.LocalizationManager.GetLocalizedValue("start_new") 
-            : G.I.LocalizationManager.GetLocalizedValue("start_game");
+            ? G.I.localization.Get("start_new") 
+            : G.I.localization.Get("start_game");
         
-        upgradeButtonText.text = G.I.LocalizationManager.GetLocalizedValue("go_to_upgrades");
-        autoSaveInfoText.text = G.I.LocalizationManager.GetLocalizedValue("auto_save_info_text");
+        upgradeButtonText.text = G.I.localization.Get("go_to_upgrades");
+        autoSaveInfoText.text = G.I.localization.Get("auto_save_info_text");
 
         if (hasSave)
         {
             G.I.SaveProvider.ApplyFromSave(SaveSystem.GetSlot());
-            loadCheckpointText.text = G.I.LocalizationManager.GetLocalizedValue("load_checkpoint");
+            loadCheckpointText.text = G.I.localization.Get("load_checkpoint");
             UpdateSaveStats();
         }
     }
@@ -82,10 +88,10 @@ public class StartGameView : MonoBehaviour
         var paramContainer = saveData.GetParamContainer();
         
         var stats = new System.Text.StringBuilder();
-        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("checkpoint")}: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
-        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("level")}: {saveData.level+1}");
-        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("total_energy")}: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
-        stats.AppendLine($"{G.I.LocalizationManager.GetLocalizedValue("play_time")}: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
+        stats.AppendLine($"{G.I.localization.Get("checkpoint")}: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
+        stats.AppendLine($"{G.I.localization.Get("level")}: {saveData.level+1}");
+        stats.AppendLine($"{G.I.localization.Get("total_energy")}: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
+        stats.AppendLine($"{G.I.localization.Get("play_time")}: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
 
         // Добавляем DPS
         var (dps, dpsCrit) = DPSManager.GetPlayerDps();

@@ -10,7 +10,7 @@ public class LevelDataConfigRuntime
 
     private const float BossHpBase = 15;
     private const int BossRewardBase = 100;
-    private const float BossAttackBase = 4.75f;
+    private const float BossAttackBase = 3.75f;
 
     public LevelDataConfigRuntime()
     {
@@ -63,6 +63,7 @@ public class LevelDataConfigRuntime
             showBossAfterTimer = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
+            showTerminateButton = true,
             preSpawnEnemyCount = 10,
             roundTime = 23.5f,
             bossHp = bossHp,
@@ -131,7 +132,12 @@ public class LevelDataConfigRuntime
 
         int spawnRate;
         // Если id врага равен 0, то ставим spawnRate от 2 до 8 включительно
-        if (enemy.EnemyId == 1)
+
+        if (enemy.superHard)
+        {
+            spawnRate = 3;
+        }
+        else if (enemy.EnemyId == 1)
         {
             spawnRate = UnityEngine.Random.Range(17, 22); // 9 не включается, диапазон 2-8
         }
@@ -144,7 +150,7 @@ public class LevelDataConfigRuntime
         {
             // Вычисляем максимальный spawnRate в зависимости от уровня
             int minSpawnRate = 30;
-            int maxSpawnRate = 45;
+            int maxSpawnRate = 60;
             float tSpawn = Mathf.Clamp01(levelIndex / (float)(G.I.maxLevel - 1));
             int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
             int dynamicMinSpawnRate = Mathf.RoundToInt(Mathf.Lerp(22, 30, tSpawn)); // Нижняя граница теперь зависит от уровня

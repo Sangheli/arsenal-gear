@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 10
   Speed: 0.4
-  DamagePerHit: 0.5
+  DamagePerHit: 0.35
   prefab: {fileID: -2922211598481618706, guid: 22810f2fc7bbcd54e9ca5280b917d634, type: 3}
   DisplayName: Round_Purple
   AttractToCursor: 0

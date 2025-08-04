@@ -1,0 +1,98 @@
+key;en;ru;tr
+start_game;Start Game;Играть;Başlat
+start_round;Start Round;Начать раунд;Raunt Başlat
+upgrade;Upgrade;Улучшить;Yükselt
+settings;Settings;Опции;Ayarlar
+quit;Quit;Выход;Çıkış
+level;Level;Уровень;Seviye
+energy;Energy;Энергия;Enerji
+continue;Continue;Продолжить;Devam
+main_menu;Main Menu;Главное меню;Ana Menü
+total_energy;Total Energy;Всего энергии;Toplam Enerji
+round_energy;Round Energy;Энергия за раунд;Raunt Enerjisi
+restart;Restart;Заново;Yeniden
+boss_energy;Boss Energy;Энергия босса;Boss Enerjisi
+win;Win;Победа;Kazandı
+lose;Lose;Поражение;Kaybetti
+next_level;Next Level;Следующий уровень;Sonraki Seviye
+try_again;Try Again;Попробовать снова;Tekrar Dene
+upgrades;Upgrades;Улучшения;Yükseltmeler
+back;Back;Назад;Geri
+damage;Damage;Урон;Hasar
+dps;DPS;Урон в секунду;Saniye Başına Hasar
+crit;Crit;Крит. урон;Kritik
+hp;HP;Здоровье;Can
+shield;Shield;Щит;Kalkan
+prestige;Prestige;Престиж;Prestij
+boss;Boss;Босс;Boss
+reward;Reward;Награда;Ödül
+auto_collect;Auto Collect;Автосбор;Oto Topla
+language;Language;Язык;Dil
+tutor0;Your cursor deals damage over time\nBreak blocks to collect energy;Курсор наносит урон со временем\nРазрушай блоки, чтобы собирать энергию;İmleç zamanla hasar verir\nEnerji toplamak için blokları kır
+tutor1;You Lose HP over Time;Ты теряешь здоровье со временем;Zamanla can kaybedersin
+tutor2;Some blocks fight back!\nAnd Gives More Energy;Некоторые блоки отбиваются\nИ дают больше энергии;Bazı bloklar karşılık verir!\nVe daha fazla enerji verir
+tutor3;Fight with Boss\nTo Complete Level;Сразись с боссом\nчтобы завершить уровень;Bossla savaş\nbölümü tamamla
+start_new;Start New;Новая игра;Yeni Oyun Başlat
+load_checkpoint;Load checkpoint;Загрузить чекпоинт;Checkpoint Yükle
+checkpoint;Checkpoint;Чекпоинт;Checkpoint
+play_time;Play time;Время игры;Oynama Süresi
+go_to_upgrades;Go To Upgrades;Улучшения;Yükseltmelere Git
+round_reward;Round reward: ;Награда за раунд: ;Raunt ödülü: 
+boss_reward;Boss reward: ;Награда за босса: ;Boss ödülü: 
+total;Total: ;Всего: ;Toplam: 
+play_level_again;Play Level Again;Играть снова;Tekrar Oyna
+play_next_level;Play next level: ;Следующий: ;Sonraki: 
+checkpoint_done;Checkpoint Done;Сохранение выполнено;Kaydedildi
+s;s;с;sn
+m;m;м;dk
+h;h;ч;s
+win_text;Boss defeated;Босс побеждён;Boss yenildi
+fail_text;You’re out of HP\nGrab upgrades and play again;Здоровье на нуле\nКупи улучшения и попробуй снова;Canın bitti\nYükseltmeleri al ve tekrar oyna
+level_complete;Level Complete;Уровень пройден;Seviye tamamlandı
+demo_done;Demo complete\nThanks for playing\nReload page to start a new game;Демо завершено\nСпасибо за игру\nПерезагрузи страницу, чтобы начать сначала;Demo tamamlandı\nOynadığın için teşekkürler\nYeni oyun için sayfayı yenile
+progress;Progress:;Прогресс:;İlerleme:
+auto_save_info_text;No worries, your game auto-saves;Не переживай, игра сохраняется автоматически;İlerleme otomatik kaydediliyor
+hp_short;HP;ХП;HP
+shield_short;S;Щ;S
+lowhp;Low HP;Мало ХП;Az Can
+price;Price;Цена;Fiyat
+max;Max;Макс;Maks
+Crown;Crown;Корона;Taç
+Round_Green;Round Green;Зелёный круг;Yeşil Daire
+Round_Purple;Round Purple;Фиолетовый круг;Mor Daire
+Round_Orange;Round Orange;Оранжевый круг;Turuncu Daire
+Saw_Grey;Saw Grey;Серая пила;Gri Testere
+Saw_Red;Saw Red;Красная пила;Kırmızı Testere
+Square_Blue;Square Blue;Синий квадрат;Mavi Kare
+Square_White;Square White;Белый квадрат;Beyaz Kare
+Star_Aqua;Star Aqua;Аквамариновая звезда;Açık Mavi Yıldız
+Star_Gold;Star Gold;Золотая звезда;Altın Yıldız
+Triangle_Blue;Triangle Blue;Синий треугольник;Mavi Üçgen
+Triangle_Orange;Triangle Orange;Оранжевый треугольник;Turuncu Üçgen
+Energy_Drop;Energy Drop;Энергии за врага;Bir düşmandan enerji
+HP_Level_1;HP Level 1;Здоровье I;Can I
+HP_Level_2;HP Level 2;Здоровье II;Can II
+HP_Level_3;HP Level 3;Здоровье III;Can III
+HP_Level_4;HP Level 4;Здоровье IV;Can IV
+HP_Level_5;HP Level 5;Здоровье V;Can V
+Damage_Level_1;Damage Level 1;Урон I;Hasar I
+Damage_Level_2;Damage Level 2;Урон II;Hasar II
+Damage_Level_3;Damage Level 3;Урон III;Hasar III
+Damage_Level_4;Damage Level 4;Урон IV;Hasar IV
+Damage_Level_5;Damage Level 5;Урон V;Hasar V
+Attacks_minute;Attacks/minute;Атак/минута;Saldırı/dakika
+Attack_Diameter;Attack Diameter;Диаметр атаки;Saldırı Çapı
+Collect_Diameter;Collect Diameter;Диаметр сбора;Toplama Çapı
+Shield_Capacity;Shield Capacity;Ёмкость щита;Kalkan Kapasitesi
+Shield_Regen_sec;Shield Regen/sec;Регенерация щита/сек;Kalkan Yenilenme/sn
+Crit_Chance;Crit Chance %;Шанс крит. урона %;Kritik Şans %
+Crit_Multiplier;Crit Multiplier;Коэффициент крита;Kritik Çarpanı
+Auto_Collect_Coins;Auto Collect Coins %;Автосбор монет %;Otomatik Para Toplama %
+AI_Cursor_Count;AI Cursor Count;ИИ-курсоров;Yapay Zeka İmleç Sayısı
+AI_Cursor_Damage_Player;AI Cursor Damage % of Player;Урон ИИ-курсора (% от игрока);Yapay Zeka Hasarı (Oyuncunun %’si)
+AI_Cursor_Radius_Player;AI Cursor Radius % of Player;Радиус ИИ-курсора (% от игрока);Yapay Zeka Yarıçapı (Oyuncunun %’si)
+AI_Cursor_Fire_Rate_Player;AI Cursor Fire Rate % of Player;Скорострельность ИИ-курсора (% от игрока);Yapay Zeka Atış Hızı (Oyuncunun %’si)
+ai;AI;ИИ;AI
+player_terminated_text;Round Terminated;Раунд прерван;Raunt Sonlandırıldı
+terminate;Terminate;Прервать;Sonlandır
+

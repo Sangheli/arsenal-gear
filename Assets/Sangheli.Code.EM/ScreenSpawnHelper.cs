@@ -10,11 +10,24 @@ public static class ScreenSpawnHelper
         new(0, 1)   // Top
     };
 
+    public static Vector2 GetRandomScreenPosition()
+    {
+        Vector2 min = new Vector2(-G.I.MaxX, -G.I.MaxY);
+        Vector2 max = new Vector2(G.I.MaxX, G.I.MaxY);
+        
+        return GetRandomScreenPosition(min, max);
+    }
+    
     public static Vector2 GetRandomScreenPosition(Camera camera)
     {
         Vector2 min = camera.ViewportToWorldPoint(new Vector2(0f, 0f));
         Vector2 max = camera.ViewportToWorldPoint(new Vector2(1f, 1f));
         
+        return GetRandomScreenPosition(min, max);
+    }
+    
+    public static Vector2 GetRandomScreenPosition(Vector2 min, Vector2 max)
+    {
         var side = Random.Range(0, 4);
         
         var pos = new Vector2(
@@ -31,6 +44,13 @@ public static class ScreenSpawnHelper
             offset.x != 0 ? (offset.x < 0 ? min.x + dx : max.x + dx) : pos.x,
             offset.y != 0 ? (offset.y < 0 ? min.y + dy : max.y + dy) : pos.y
         );
+    }
+    
+    public static Vector2 GetMovementDirection(Vector2 spawnPosition)
+    {
+        Vector2 min = new Vector2(-G.I.MaxX, -G.I.MaxY);
+        Vector2 max = new Vector2(G.I.MaxX, G.I.MaxY);
+        return GetPos(spawnPosition, min, max);
     }
 
     public static Vector2 GetMovementDirection(Camera camera, Vector2 spawnPosition)

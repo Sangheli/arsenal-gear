@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Health: 60
   Speed: 0.15
-  DamagePerHit: 15
+  DamagePerHit: 10.5
   prefab: {fileID: -4566179502049351345, guid: ddcc5d57f48c0af46b1be1e64ea99c5d, type: 3}
   DisplayName: Saw_Grey
   AttractToCursor: 0
@@ -22,6 +22,7 @@ MonoBehaviour:
   MinAttractDistance: 2
   color: {r: 0.5921569, g: 0.5921569, b: 0.5921569, a: 1}
   borderColor: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 1}
+  superHard: 1
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 15

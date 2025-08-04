@@ -3,5 +3,6 @@
     None,
     Fail,
     Win,
-    EndDemo
+    EndDemo,
+    PlayerTerminated
 }

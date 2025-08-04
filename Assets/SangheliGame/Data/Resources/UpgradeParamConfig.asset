@@ -13,14 +13,24 @@ MonoBehaviour:
   m_Name: UpgradeParamConfig
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
-  - BaseValue: 10
+  - BaseValue: 5
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP_Level_0
+    BasePrice: 25
+    PriceMult: 1.4
+    ShowUpgrade: 0
+    Key: hp
+    UseRandom: 0
+    RandomCoef: 0
+  - BaseValue: 0
     MaxValue: 50
     Step: 10
     DisplayName: HP_Level_1
     BasePrice: 25
     PriceMult: 1.4
     ShowUpgrade: 1
-    Key: hp
+    Key: hp1
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
@@ -194,10 +204,10 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
   - BaseValue: 0
-    MaxValue: 5
+    MaxValue: 1
     Step: 1
     DisplayName: AI_Cursor_Count
-    BasePrice: 1000
+    BasePrice: 10000
     PriceMult: 1.4
     ShowUpgrade: 1
     Key: aiCursorCount
@@ -215,7 +225,7 @@ MonoBehaviour:
     RandomCoef: 0
   - BaseValue: 50
     MaxValue: 100
-    Step: 5
+    Step: 10
     DisplayName: AI_Cursor_Radius_Player
     BasePrice: 1100
     PriceMult: 1.15
