@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +13,7 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Text startRoundText;
     
     [Space]
-    [SerializeField] private UpgradeStateView _upgradeStatePrefab;
-    [SerializeField] private EnemyUpgradeStateView _enemyUpgradeStatePrefab;
+    [SerializeField] private UpgradeRowView _upgradeRowPrefab;
     [SerializeField] private Transform _container;
     
     [SerializeField] private Button cheatButton;
@@ -26,6 +25,7 @@ public class UpgradeView : MonoBehaviour
     public Button startButton;
     
     private List<BaseUpgradeStateView> _spawned;
+    private Dictionary<int, UpgradeRowView> _upgradeRows;
     private const int CheatEnergyAmount = 10000000;
     
     private void Awake()
@@ -78,32 +78,84 @@ public class UpgradeView : MonoBehaviour
             return;
         
         _spawned = new List<BaseUpgradeStateView>();
+        _upgradeRows = new Dictionary<int, UpgradeRowView>();
         GeneratePlayerUpgradeViews();
         GenerateEnemyUpgradeViews();
     }
     
     private void GeneratePlayerUpgradeViews()
     {
-        foreach (var key in G.I.SaveProvider.Get().GetParamContainer().GetAllParamKeys())
+        var paramContainer = G.I.SaveProvider.Get().GetParamContainer();
+        foreach (var key in paramContainer.GetAllParamKeys())
         {
-            var view = Instantiate(_upgradeStatePrefab, _container);
-            view.Init(key, RefreshAll);
-            _spawned.Add(view);
+            var paramInfo = G.I.Data.ParamData.GetParamInfo(key);
+            if (paramInfo != null)
+            {
+                var row = GetOrCreateUpgradeRow(paramInfo.row);
+                row.SpawnUpgradeView(key, RefreshAll);
+                
+                // Add the spawned view to our tracking list
+                if (row.views.Count > 0)
+                {
+                    _spawned.Add(row.views[row.views.Count - 1]);
+                }
+            }
         }
     }
     
     private void GenerateEnemyUpgradeViews()
     {
         var upgradeContainer = G.I.SaveProvider.Get().GetEnemyUpgradeContainer();
-        foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
+        
+        // Find the highest row index used by player upgrades
+        int lastPlayerUpgradeRow = 0;
+        var paramContainer = G.I.SaveProvider.Get().GetParamContainer();
+        foreach (var key in paramContainer.GetAllParamKeys())
         {
-            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId))
+            var paramInfo = G.I.Data.ParamData.GetParamInfo(key);
+            if (paramInfo != null && paramInfo.row > lastPlayerUpgradeRow)
             {
-                var view = Instantiate(_enemyUpgradeStatePrefab, _container);
-                view.Init(enemyId, upgradeType, RefreshAll);
-                _spawned.Add(view);
+                lastPlayerUpgradeRow = paramInfo.row;
             }
         }
+        
+        // Assign row numbers for enemy upgrades starting after the last player upgrade row
+        foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
+        {
+            var enemyData = G.I.Data.enemyContainer.List.Find(e => e.EnemyId == G.I.Data.enemyContainer.List[enemyId].EnemyId);
+            if (enemyData == null) continue;
+            
+            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId))
+            {
+                var upgradeInfo = enemyData.UpgradeInfos.Find(x => x.Type == upgradeType);
+                if (upgradeInfo != null)
+                {
+                    // Use automatic row numbering for enemy upgrades
+                    // Start after the last player upgrade row
+                    var row = GetOrCreateUpgradeRow(lastPlayerUpgradeRow + 1 + enemyId);
+                    row.SpawnEnemyUpgradeView(enemyId, upgradeType, RefreshAll);
+                    
+                    // Add the spawned view to our tracking list
+                    if (row.views.Count > 0)
+                    {
+                        _spawned.Add(row.views[row.views.Count - 1]);
+                    }
+                }
+            }
+        }
+    }
+    
+    private UpgradeRowView GetOrCreateUpgradeRow(int rowIndex)
+    {
+        if (_upgradeRows.TryGetValue(rowIndex, out var existingRow))
+        {
+            return existingRow;
+        }
+        
+        var newRow = Instantiate(_upgradeRowPrefab, _container);
+        newRow.Initialize(rowIndex);
+        _upgradeRows[rowIndex] = newRow;
+        return newRow;
     }
 
     public void Init()

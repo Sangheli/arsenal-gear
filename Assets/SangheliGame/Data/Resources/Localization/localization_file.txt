@@ -69,7 +69,7 @@ Star_Aqua;Star Aqua;Аквамариновая звезда;Açık Mavi Yıldız
 Star_Gold;Star Gold;Золотая звезда;Altın Yıldız
 Triangle_Blue;Triangle Blue;Синий треугольник;Mavi Üçgen
 Triangle_Orange;Triangle Orange;Оранжевый треугольник;Turuncu Üçgen
-Energy_Drop;Energy Drop;Энергия за врага;Bir düşmandan enerji
+Energy_Drop;Energy;Энергия;Enerji
 HP_Level_1;HP Level 1;Здоровье I;Can I
 HP_Level_2;HP Level 2;Здоровье II;Can II
 HP_Level_3;HP Level 3;Здоровье III;Can III
@@ -89,9 +89,9 @@ Crit_Chance;Crit Chance %;Шанс крит. урона %;Kritik Şans %
 Crit_Multiplier;Crit Multiplier;Коэффициент крита;Kritik Çarpanı
 Auto_Collect_Coins;Auto Collect Coins %;Автосбор монет %;Otomatik Para Toplama %
 AI_Cursor_Count;AI Cursor Count;Курсоры ИИ;Yapay Zeka İmleçleri
-AI_Cursor_Damage_Player;AI Cursor Damage % of Player;Урон ИИ-курсора (% от игрока);Yapay Zeka Hasarı (Oyuncunun %’si)
-AI_Cursor_Radius_Player;AI Cursor Radius % of Player;Радиус ИИ-курсора (% от игрока);Yapay Zeka Yarıçapı (Oyuncunun %’si)
-AI_Cursor_Fire_Rate_Player;AI Cursor Fire Rate % of Player;Скорострельность ИИ-курсора (% от игрока);Yapay Zeka Atış Hızı (Oyuncunun %’si)
+AI_Cursor_Damage_Player;Damage\n% of Player;Урон\n% от игрока;Yapay Zeka Hasarı\nOyuncunun %’si
+AI_Cursor_Radius_Player;Radius\n% of Player;Радиус\n% от игрока;Yapay Zeka Yarıçapı\nOyuncunun %’si
+AI_Cursor_Fire_Rate_Player;Fire Rate\n% of Player;Скорострельность\n% от игрока;Yapay Zeka Atış Hızı\nOyuncunun %’si
 ai;AI;ИИ;AI
 player_terminated_text;Round Terminated;Раунд прерван;Raunt Sonlandırıldı
 terminate;Terminate;Прервать;Sonlandır
