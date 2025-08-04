@@ -22,6 +22,12 @@ public class OrientationChecker : MonoBehaviour
         UpdateFlag(_lastOrientation);
     }
 
+    public void Detect()
+    {
+        _lastOrientation = Screen.orientation;
+        UpdateFlag(_lastOrientation);
+    }
+
     private void UpdateFlag(ScreenOrientation orientation)
     {
         IsHorizontal = orientation is ScreenOrientation.LandscapeLeft or ScreenOrientation.LandscapeRight;

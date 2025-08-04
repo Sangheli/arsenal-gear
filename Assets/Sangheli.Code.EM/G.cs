@@ -113,6 +113,8 @@ public class G : MonoBehaviour
         I = this;
         OnOrientationChanged(isHorizontal: true);
         orientationChecker.UpdateOrientation += OnOrientationChanged;
+        orientationChecker.UpdateOrientation += localization.localizationSelector.OnOrientationChanged;
+        orientationChecker.Detect();
         localization.ShowLangSelector();
     }
 
