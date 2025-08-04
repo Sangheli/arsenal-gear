@@ -1,6 +1,6 @@
 key;en;ru;tr
-start_game;Start Game;Играть;Başlat
-start_round;Start Round;Начать раунд;Raunt Başlat
+start_game;Play;Играть;Başlat
+start_round;Play;Играть;Başlat
 upgrade;Upgrade;Улучшить;Yükselt
 settings;Settings;Опции;Ayarlar
 quit;Quit;Выход;Çıkış
@@ -15,13 +15,13 @@ boss_energy;Boss Energy;Энергия босса;Boss Enerjisi
 win;Win;Победа;Kazandı
 lose;Lose;Поражение;Kaybetti
 next_level;Next Level;Следующий уровень;Sonraki Seviye
-try_again;Try Again;Попробовать снова;Tekrar Dene
+try_again;Try Again;Повторить попытку;Tekrar Dene
 upgrades;Upgrades;Улучшения;Yükseltmeler
 back;Back;Назад;Geri
 damage;Damage;Урон;Hasar
-dps;DPS;Урон в секунду;Saniye Başına Hasar
-crit;Crit;Крит. урон;Kritik
-hp;HP;Здоровье;Can
+dps;DPS;УВС;Saniye Başına Hasar
+crit;Crit;Крит;Kritik
+hp;HP;ХП;Can
 shield;Shield;Щит;Kalkan
 prestige;Prestige;Престиж;Prestij
 boss;Boss;Босс;Boss
@@ -37,11 +37,11 @@ load_checkpoint;Load checkpoint;Загрузить чекпоинт;Checkpoint Y
 checkpoint;Checkpoint;Чекпоинт;Checkpoint
 play_time;Play time;Время игры;Oynama Süresi
 go_to_upgrades;Go To Upgrades;Улучшения;Yükseltmelere Git
-round_reward;Round reward: ;Награда за раунд: ;Raunt ödülü: 
-boss_reward;Boss reward: ;Награда за босса: ;Boss ödülü: 
+round_reward;Round reward: ;Награда раунд: ;Raunt ödülü: 
+boss_reward;Boss reward: ;Награда босс: ;Boss ödülü: 
 total;Total: ;Всего: ;Toplam: 
 play_level_again;Play Level Again;Играть снова;Tekrar Oyna
-play_next_level;Play next level: ;Следующий: ;Sonraki: 
+play_next_level;Play next level: ;Следующий уровень: ;Sonraki: 
 checkpoint_done;Checkpoint Done;Сохранение выполнено;Kaydedildi
 s;s;с;sn
 m;m;м;dk
@@ -51,7 +51,7 @@ fail_text;You’re out of HP\nGrab upgrades and play again;Здоровье на
 level_complete;Level Complete;Уровень пройден;Seviye tamamlandı
 demo_done;Demo complete\nThanks for playing\nReload page to start a new game;Демо завершено\nСпасибо за игру\nПерезагрузи страницу, чтобы начать сначала;Demo tamamlandı\nOynadığın için teşekkürler\nYeni oyun için sayfayı yenile
 progress;Progress:;Прогресс:;İlerleme:
-auto_save_info_text;No worries, your game auto-saves;Не переживай, игра сохраняется автоматически;İlerleme otomatik kaydediliyor
+auto_save_info_text;No worries, your game auto-saves;Игра сохраняется автоматически;Oyun otomatik
 hp_short;HP;ХП;HP
 shield_short;S;Щ;S
 lowhp;Low HP;Мало ХП;Az Can
@@ -69,7 +69,7 @@ Star_Aqua;Star Aqua;Аквамариновая звезда;Açık Mavi Yıldız
 Star_Gold;Star Gold;Золотая звезда;Altın Yıldız
 Triangle_Blue;Triangle Blue;Синий треугольник;Mavi Üçgen
 Triangle_Orange;Triangle Orange;Оранжевый треугольник;Turuncu Üçgen
-Energy_Drop;Energy Drop;Энергии за врага;Bir düşmandan enerji
+Energy_Drop;Energy Drop;Энергия за врага;Bir düşmandan enerji
 HP_Level_1;HP Level 1;Здоровье I;Can I
 HP_Level_2;HP Level 2;Здоровье II;Can II
 HP_Level_3;HP Level 3;Здоровье III;Can III
@@ -88,7 +88,7 @@ Shield_Regen_sec;Shield Regen/sec;Регенерация щита/сек;Kalkan 
 Crit_Chance;Crit Chance %;Шанс крит. урона %;Kritik Şans %
 Crit_Multiplier;Crit Multiplier;Коэффициент крита;Kritik Çarpanı
 Auto_Collect_Coins;Auto Collect Coins %;Автосбор монет %;Otomatik Para Toplama %
-AI_Cursor_Count;AI Cursor Count;ИИ-курсоров;Yapay Zeka İmleç Sayısı
+AI_Cursor_Count;AI Cursor Count;Курсоры ИИ;Yapay Zeka İmleçleri
 AI_Cursor_Damage_Player;AI Cursor Damage % of Player;Урон ИИ-курсора (% от игрока);Yapay Zeka Hasarı (Oyuncunun %’si)
 AI_Cursor_Radius_Player;AI Cursor Radius % of Player;Радиус ИИ-курсора (% от игрока);Yapay Zeka Yarıçapı (Oyuncunun %’si)
 AI_Cursor_Fire_Rate_Player;AI Cursor Fire Rate % of Player;Скорострельность ИИ-курсора (% от игрока);Yapay Zeka Atış Hızı (Oyuncunun %’si)

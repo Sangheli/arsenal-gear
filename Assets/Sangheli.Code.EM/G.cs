@@ -111,7 +111,8 @@ public class G : MonoBehaviour
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
-        orientationChecker.UpdateOrientation += OnOrientationChanged;
+        OnOrientationChanged(isHorizontal: true);
+        // orientationChecker.UpdateOrientation += OnOrientationChanged;
         localization.ShowLangSelector();
     }
 

@@ -460,7 +460,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -668,6 +668,10 @@ PrefabInstance:
     - target: {fileID: 5865423946101083286, guid: 6c312a70250d165418d7dbe8ca107262, type: 3}
       propertyPath: m_Name
       value: energyBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401187881224045388, guid: 6c312a70250d165418d7dbe8ca107262, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8434545378886638687, guid: 6c312a70250d165418d7dbe8ca107262, type: 3}
       propertyPath: m_Pivot.x
