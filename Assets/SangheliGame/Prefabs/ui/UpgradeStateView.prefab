@@ -72,7 +72,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 25
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 25
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -524,6 +524,7 @@ MonoBehaviour:
   _upgradeButton: {fileID: 3166167773061101890}
   _progressFill: {fileID: 4968804479827635598}
   disabledColor: {r: 0.36477977, g: 0.36477977, b: 0.36477977, a: 1}
+  goldColor: {r: 0.7490196, g: 0.7254902, b: 0, a: 1}
 --- !u!114 &616797115189814208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,7 +828,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 25
+    m_MaxSize: 35
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

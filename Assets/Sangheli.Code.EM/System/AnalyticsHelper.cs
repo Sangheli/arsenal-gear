@@ -1,4 +1,7 @@
-﻿using Unity.Services.Analytics;
+using Unity.Services.Analytics;
+#if UNITY_EDITOR
+using UnityEngine;
+#endif
 
 public static class AnalyticsHelper
 {
@@ -10,9 +13,14 @@ public static class AnalyticsHelper
             { "playtime", (int) save.timeSinceStart },
             { "level", save.level },
             { "money", save.totalEnergy },
+            { "loadcount", save.loadTimes },
         };
 
         AnalyticsService.Instance.RecordEvent(customEvent);
+        
+#if UNITY_EDITOR
+        Debug.Log($"Analytics Event: checkpoint, Playtime: {(int) save.timeSinceStart}, Level: {save.level}, Money: {save.totalEnergy}, LoadCount: {save.loadTimes}");
+#endif
     }
     
     public static void OnYoutubeClicked()
@@ -23,6 +31,10 @@ public static class AnalyticsHelper
         };
 
         AnalyticsService.Instance.RecordEvent(customEvent);
+        
+#if UNITY_EDITOR
+        Debug.Log("Analytics Event: youtube clicked");
+#endif
     }
     
     public static void OnDsClicked()
@@ -33,5 +45,9 @@ public static class AnalyticsHelper
         };
 
         AnalyticsService.Instance.RecordEvent(customEvent);
+        
+#if UNITY_EDITOR
+        Debug.Log("Analytics Event: discord clicked");
+#endif
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 0.2
   DamagePerHit: 0.05
   prefab: {fileID: -2922211598481618706, guid: 22810f2fc7bbcd54e9ca5280b917d634, type: 3}
-  DisplayName: Round Orange
+  DisplayName: Round_Orange
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 4
     MaxValue: 16
     Step: 2
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 100
     PriceMult: 1.2
     ShowUpgrade: 0

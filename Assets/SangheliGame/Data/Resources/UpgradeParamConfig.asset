@@ -13,223 +13,330 @@ MonoBehaviour:
   m_Name: UpgradeParamConfig
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
-  - BaseValue: 10
+  - BaseValue: 5
     MaxValue: 50
     Step: 10
-    DisplayName: HP Level 1
+    DisplayName: HP_Level_0
     BasePrice: 25
     PriceMult: 1.4
-    ShowUpgrade: 1
+    ShowUpgrade: 0
+    row: 0
     Key: hp
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 50
     Step: 10
-    DisplayName: HP Level 2
+    DisplayName: HP_Level_1
+    BasePrice: 25
+    PriceMult: 1.4
+    ShowUpgrade: 1
+    row: 0
+    Key: hp1
+    UseRandom: 0
+    RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
+  - BaseValue: 0
+    MaxValue: 50
+    Step: 10
+    DisplayName: HP_Level_2
     BasePrice: 300
     PriceMult: 1.3
     ShowUpgrade: 1
+    row: 0
     Key: hp2
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList:
+    - hp1
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 50
     Step: 10
-    DisplayName: HP Level 3
+    DisplayName: HP_Level_3
     BasePrice: 1150
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 0
     Key: hp3
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList:
+    - hp1
+    - hp2
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 50
     Step: 10
-    DisplayName: HP Level 4
+    DisplayName: HP_Level_4
     BasePrice: 1700
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 0
     Key: hp4
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList:
+    - hp1
+    - hp2
+    - hp3
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 50
     Step: 10
-    DisplayName: HP Level 5
+    DisplayName: HP_Level_5
     BasePrice: 2500
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 0
     Key: hp5
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList:
+    - hp1
+    - hp2
+    - hp3
+    - hp4
+    anyDepnetList: []
   - BaseValue: 5
     MaxValue: 10
     Step: 1
-    DisplayName: Damage Level 1
+    DisplayName: Damage_Level_1
     BasePrice: 40
     PriceMult: 1.3
     ShowUpgrade: 1
+    row: 1
     Key: playerDamageMin
     UseRandom: 1
     RandomCoef: 1.3
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 5
     Step: 1
-    DisplayName: Damage Level 2
+    DisplayName: Damage_Level_2
     BasePrice: 250
     PriceMult: 1.15
     ShowUpgrade: 1
+    row: 1
     Key: playerDamageMin2
     UseRandom: 0
     RandomCoef: 1.5
+    fullDepentList:
+    - playerDamageMin
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 5
     Step: 1
-    DisplayName: Damage Level 3
+    DisplayName: Damage_Level_3
     BasePrice: 1150
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 1
     Key: playerDamageMin3
     UseRandom: 0
     RandomCoef: 1.5
+    fullDepentList:
+    - playerDamageMin
+    - playerDamageMin2
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 5
     Step: 1
-    DisplayName: Damage Level 4
+    DisplayName: Damage_Level_4
     BasePrice: 1700
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 1
     Key: playerDamageMin4
     UseRandom: 0
     RandomCoef: 1.5
+    fullDepentList:
+    - playerDamageMin
+    - playerDamageMin2
+    - playerDamageMin3
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 5
     Step: 1
-    DisplayName: Damage Level 5
+    DisplayName: Damage_Level_5
     BasePrice: 2500
     PriceMult: 1.05
     ShowUpgrade: 1
+    row: 1
     Key: playerDamageMin5
     UseRandom: 0
     RandomCoef: 1.5
+    fullDepentList:
+    - playerDamageMin
+    - playerDamageMin2
+    - playerDamageMin3
+    - playerDamageMin4
+    anyDepnetList: []
   - BaseValue: 60
     MaxValue: 180
     Step: 5
-    DisplayName: Attacks/minute
+    DisplayName: Attacks_minute
     BasePrice: 35
     PriceMult: 1.2
     ShowUpgrade: 1
+    row: 2
     Key: playerFireRate
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 1
     MaxValue: 6
     Step: 0.5
-    DisplayName: Attack Diameter
+    DisplayName: Attack_Diameter
     BasePrice: 40
     PriceMult: 1.5
     ShowUpgrade: 1
+    row: 2
     Key: damageDiameter
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 0.25
     MaxValue: 6
     Step: 0.3
-    DisplayName: Collect Diameter
+    DisplayName: Collect_Diameter
     BasePrice: 4
     PriceMult: 1.2
     ShowUpgrade: 0
+    row: 2
     Key: collectDiameter
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 249
     Step: 3
-    DisplayName: Shield Capacity
+    DisplayName: Shield_Capacity
     BasePrice: 300
     PriceMult: 1.1165
     ShowUpgrade: 1
+    row: 3
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 0
     MaxValue: 1.25
     Step: 0.025
-    DisplayName: Shield Regen/sec
+    DisplayName: Shield_Regen_sec
     BasePrice: 500
     PriceMult: 1.12
     ShowUpgrade: 1
+    row: 3
     Key: shieldRegenRate
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - shieldCapacity
   - BaseValue: 0
     MaxValue: 50
     Step: 2.5
-    DisplayName: Crit Chance %
+    DisplayName: Crit_Chance
     BasePrice: 350
     PriceMult: 1.15
     ShowUpgrade: 1
+    row: 4
     Key: critChance
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList: []
   - BaseValue: 1
     MaxValue: 2.5
     Step: 0.1
-    DisplayName: Crit Multiplier
+    DisplayName: Crit_Multiplier
     BasePrice: 360
     PriceMult: 1.15
     ShowUpgrade: 1
+    row: 4
     Key: critMultiplier
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - critChance
   - BaseValue: 0
     MaxValue: 50
     Step: 2
-    DisplayName: Auto Collect Coins %
+    DisplayName: Auto_Collect_Coins
     BasePrice: 350
     PriceMult: 1.1
     ShowUpgrade: 1
+    row: 5
     Key: autoCollectCoinsPercent
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - shieldCapacity
+    - critChance
   - BaseValue: 0
-    MaxValue: 5
+    MaxValue: 1
     Step: 1
-    DisplayName: AI Cursor Count
-    BasePrice: 1000
+    DisplayName: AI_Cursor_Count
+    BasePrice: 10000
     PriceMult: 1.4
     ShowUpgrade: 1
+    row: 6
     Key: aiCursorCount
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - autoCollectCoinsPercent
   - BaseValue: 50
     MaxValue: 100
     Step: 10
-    DisplayName: AI Cursor Damage % of Player
+    DisplayName: AI_Cursor_Damage_Player
     BasePrice: 1100
     PriceMult: 1.15
     ShowUpgrade: 1
+    row: 6
     Key: aiCursorDamagePercent
     UseRandom: 0
     RandomCoef: 0
-  - BaseValue: 50
-    MaxValue: 100
-    Step: 5
-    DisplayName: AI Cursor Radius % of Player
-    BasePrice: 1100
-    PriceMult: 1.15
-    ShowUpgrade: 1
-    Key: aiCursorRadiusPercent
-    UseRandom: 0
-    RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - aiCursorCount
   - BaseValue: 50
     MaxValue: 100
     Step: 10
-    DisplayName: AI Cursor Fire Rate % of Player
+    DisplayName: AI_Cursor_Radius_Player
     BasePrice: 1100
     PriceMult: 1.15
     ShowUpgrade: 1
+    row: 6
+    Key: aiCursorRadiusPercent
+    UseRandom: 0
+    RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - aiCursorCount
+  - BaseValue: 50
+    MaxValue: 100
+    Step: 10
+    DisplayName: AI_Cursor_Fire_Rate_Player
+    BasePrice: 1100
+    PriceMult: 1.15
+    ShowUpgrade: 1
+    row: 6
     Key: aiCursorFireRatePercent
     UseRandom: 0
     RandomCoef: 0
+    fullDepentList: []
+    anyDepnetList:
+    - aiCursorCount

@@ -46,6 +46,7 @@ public class RoundManager : MonoBehaviour
         if (!IsAlive) return;
         
         var diff = Time.deltaTime * 1;
+        diff *= 2/3f;
         if (_currentLevelConfig == null || _currentLevelConfig.loseHpDuringRound)
             G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
 
@@ -87,8 +88,8 @@ public class RoundManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
     {
-        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(_mainCamera);
-        var moveDirection = ScreenSpawnHelper.GetMovementDirection(_mainCamera, spawnPosition);
+        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition();
+        var moveDirection = ScreenSpawnHelper.GetMovementDirection(spawnPosition);
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
@@ -139,16 +140,23 @@ public class RoundManager : MonoBehaviour
         
         if (_currentLevelConfig == null)
 		    return;
+        var filteredEnemiesForPreSpawn = GetFilteredEnemiesForPreSpawn();
 
         for (var i = 0; i < _currentLevelConfig.preSpawnEnemyCount; i++)
         {
-            if (_availableEnemies.Count == 0) break;
-            var enemyData = GetRandomEnemyByChance();
+            if (filteredEnemiesForPreSpawn.Count == 0) break;
+            var enemyData = GetRandomEnemyByChanceForPreSpawn(filteredEnemiesForPreSpawn);
             if (enemyData != null)
                 SpawnEnemy(enemyData, isPreSpawned: true);
         }
     }
     
+    private List<LevelEnemyInfo> GetFilteredEnemiesForPreSpawn() =>
+        _currentLevelConfig.enemies
+            .Select(info => (info, enemy: G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId)))
+            .Where(x => x.enemy != null && !x.enemy.superHard)
+            .Select(x => x.info).ToList();
+
     private EnemyData GetRandomEnemyByChance()
     {
         if (_currentLevelConfig == null) return null;
@@ -157,6 +165,23 @@ public class RoundManager : MonoBehaviour
         float rand = Random.value * total;
         float acc = 0f;
         foreach (var info in _currentLevelConfig.enemies)
+        {
+            acc += info.spawnChance;
+            if (rand <= acc)
+                return G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
+        }
+        return null;
+    }
+    
+    private EnemyData GetRandomEnemyByChanceForPreSpawn(List<LevelEnemyInfo> filteredEnemies)
+    {
+        if (filteredEnemies.Count == 0) return null;
+        
+        float total = 0f;
+        foreach (var info in filteredEnemies) total += info.spawnChance;
+        float rand = Random.value * total;
+        float acc = 0f;
+        foreach (var info in filteredEnemies)
         {
             acc += info.spawnChance;
             if (rand <= acc)
@@ -178,5 +203,13 @@ public class RoundManager : MonoBehaviour
                 _availableEnemies.Add(enemy);
             }
         }
+    }
+
+    public void TerminateRound()
+    {
+        if (!IsAlive) return;
+        
+        G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
+        G.I.StopRun(EndRoundFadeEnum.PlayerTerminated);
     }
 }

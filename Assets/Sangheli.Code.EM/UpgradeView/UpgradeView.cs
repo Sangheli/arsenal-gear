@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +13,7 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private Text startRoundText;
     
     [Space]
-    [SerializeField] private UpgradeStateView _upgradeStatePrefab;
-    [SerializeField] private EnemyUpgradeStateView _enemyUpgradeStatePrefab;
+    [SerializeField] private UpgradeRowView _upgradeRowPrefab;
     [SerializeField] private Transform _container;
     
     [SerializeField] private Button cheatButton;
@@ -26,6 +25,7 @@ public class UpgradeView : MonoBehaviour
     public Button startButton;
     
     private List<BaseUpgradeStateView> _spawned;
+    private Dictionary<int, UpgradeRowView> _upgradeRows;
     private const int CheatEnergyAmount = 10000000;
     
     private void Awake()
@@ -78,32 +78,84 @@ public class UpgradeView : MonoBehaviour
             return;
         
         _spawned = new List<BaseUpgradeStateView>();
+        _upgradeRows = new Dictionary<int, UpgradeRowView>();
         GeneratePlayerUpgradeViews();
         GenerateEnemyUpgradeViews();
     }
     
     private void GeneratePlayerUpgradeViews()
     {
-        foreach (var key in G.I.SaveProvider.Get().GetParamContainer().GetAllParamKeys())
+        var paramContainer = G.I.SaveProvider.Get().GetParamContainer();
+        foreach (var key in paramContainer.GetAllParamKeys())
         {
-            var view = Instantiate(_upgradeStatePrefab, _container);
-            view.Init(key, RefreshAll);
-            _spawned.Add(view);
+            var paramInfo = G.I.Data.ParamData.GetParamInfo(key);
+            if (paramInfo != null)
+            {
+                var row = GetOrCreateUpgradeRow(paramInfo.row);
+                row.SpawnUpgradeView(key, RefreshAll);
+                
+                // Add the spawned view to our tracking list
+                if (row.views.Count > 0)
+                {
+                    _spawned.Add(row.views[row.views.Count - 1]);
+                }
+            }
         }
     }
     
     private void GenerateEnemyUpgradeViews()
     {
         var upgradeContainer = G.I.SaveProvider.Get().GetEnemyUpgradeContainer();
-        foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
+        
+        // Find the highest row index used by player upgrades
+        int lastPlayerUpgradeRow = 0;
+        var paramContainer = G.I.SaveProvider.Get().GetParamContainer();
+        foreach (var key in paramContainer.GetAllParamKeys())
         {
-            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId))
+            var paramInfo = G.I.Data.ParamData.GetParamInfo(key);
+            if (paramInfo != null && paramInfo.row > lastPlayerUpgradeRow)
             {
-                var view = Instantiate(_enemyUpgradeStatePrefab, _container);
-                view.Init(enemyId, upgradeType, RefreshAll);
-                _spawned.Add(view);
+                lastPlayerUpgradeRow = paramInfo.row;
             }
         }
+        
+        // Assign row numbers for enemy upgrades starting after the last player upgrade row
+        foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
+        {
+            var enemyData = G.I.Data.enemyContainer.List.Find(e => e.EnemyId == G.I.Data.enemyContainer.List[enemyId].EnemyId);
+            if (enemyData == null) continue;
+            
+            foreach (var upgradeType in upgradeContainer.GetAvailableUpgradeTypes(enemyId))
+            {
+                var upgradeInfo = enemyData.UpgradeInfos.Find(x => x.Type == upgradeType);
+                if (upgradeInfo != null)
+                {
+                    // Use automatic row numbering for enemy upgrades
+                    // Start after the last player upgrade row
+                    var row = GetOrCreateUpgradeRow(lastPlayerUpgradeRow + 1 + enemyId);
+                    row.SpawnEnemyUpgradeView(enemyId, upgradeType, RefreshAll);
+                    
+                    // Add the spawned view to our tracking list
+                    if (row.views.Count > 0)
+                    {
+                        _spawned.Add(row.views[row.views.Count - 1]);
+                    }
+                }
+            }
+        }
+    }
+    
+    private UpgradeRowView GetOrCreateUpgradeRow(int rowIndex)
+    {
+        if (_upgradeRows.TryGetValue(rowIndex, out var existingRow))
+        {
+            return existingRow;
+        }
+        
+        var newRow = Instantiate(_upgradeRowPrefab, _container);
+        newRow.Initialize(rowIndex);
+        _upgradeRows[rowIndex] = newRow;
+        return newRow;
     }
 
     public void Init()
@@ -131,21 +183,21 @@ public class UpgradeView : MonoBehaviour
         gameObject.SetActive(state);
         if (state)
         {
-            startRoundText.text = G.I.LocalizationManager.GetLocalizedValue("start_round");
+            startRoundText.text = G.I.localization.Get("start_round");
         }
     }
 
     private void RefreshAll()
     {
         if (moneyText != null)
-            moneyText.text = $"{G.I.LocalizationManager.GetLocalizedValue("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
+            moneyText.text = $"{G.I.localization.Get("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
 
         // Обновляем DPS
         if (dpmText != null)
         {
             var (dps, dpsCrit) = DPSManager.GetPlayerDps();
-            dpmText.text =  $"{G.I.LocalizationManager.GetLocalizedValue("dps")}: {NumberFormatter.Format(dps)}";
-            critText.text = $"{G.I.LocalizationManager.GetLocalizedValue("crit")}: {NumberFormatter.Format(dpsCrit)}";
+            dpmText.text =  $"{G.I.localization.Get("dps")}: {NumberFormatter.Format(dps)}";
+            critText.text = $"{G.I.localization.Get("crit")}: {NumberFormatter.Format(dpsCrit)}";
         }
 
         // Обновляем HP
@@ -153,11 +205,11 @@ public class UpgradeView : MonoBehaviour
         {
             var save = G.I.SaveProvider.Get();
             var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
-            hpText.text = $"{G.I.LocalizationManager.GetLocalizedValue("hp")}: {NumberFormatter.Format(totalHp, 1)}";
+            hpText.text = $"{G.I.localization.Get("hp")}: {NumberFormatter.Format(totalHp, 1)}";
         }
 
         if (prestigeText != null)
-            prestigeText.text = $"{G.I.LocalizationManager.GetLocalizedValue("level")}: {G.I.SaveProvider.Get().level + 1}";
+            prestigeText.text = $"{G.I.localization.Get("level")}: {G.I.SaveProvider.Get().level + 1}";
 
         foreach (var x in _spawned)
             x.Refresh();

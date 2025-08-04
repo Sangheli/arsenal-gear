@@ -15,15 +15,15 @@ public class GameTimeDisplay : MonoBehaviour
         // Формируем строку в зависимости от времени
         if (hours > 0)
         {
-            return $"{hours}{G.I.LocalizationManager.GetLocalizedValue("h")} {minutes}{G.I.LocalizationManager.GetLocalizedValue("m")} {seconds}{G.I.LocalizationManager.GetLocalizedValue("s")}";
+            return $"{hours}{G.I.localization.Get("h")} {minutes}{G.I.localization.Get("m")} {seconds}{G.I.localization.Get("s")}";
         }
         else if (minutes > 0)
         {
-            return $"{minutes}{G.I.LocalizationManager.GetLocalizedValue("m")} {seconds}{G.I.LocalizationManager.GetLocalizedValue("s")}";
+            return $"{minutes}{G.I.localization.Get("m")} {seconds}{G.I.localization.Get("s")}";
         }
         else
         {
-            return $"{seconds}{G.I.LocalizationManager.GetLocalizedValue("s")}";
+            return $"{seconds}{G.I.localization.Get("s")}";
         }
     }
 

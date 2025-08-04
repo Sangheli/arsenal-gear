@@ -4,17 +4,24 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SangheliCode;
+using SangheliCore;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
 
-[RequireComponent(typeof(SceneContainer))]
+[RequireComponent(
+    typeof(SceneContainer),
+    typeof(LocalizationBridge), 
+    typeof(OrientationChecker)
+)]
+
 public class G : MonoBehaviour
 {
-    public readonly HashSet<UILocalization> Localizations = new();
-    
     public GameObject debugConsole;
 
+    public LayoutPlaceHolder LayoutPlaceHolder;
+    public OrientationChecker orientationChecker;
+    public LocalizationBridge localization;
     public RoundManager roundManager;
     public StartGameView startGameView;
     public CursorController playerCursor;
@@ -52,13 +59,26 @@ public class G : MonoBehaviour
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
-    public LocalizationManager LocalizationManager;
 
     public bool CanPlay { get; private set; }
+    public float orthoHor = 5;
+    public float orthoVert = 10;
+    public int maxYBase = 6;
+    public int maxXBase = 10;
+    public int MaxY { get; private set; }
+    public int MaxX { get; private set; }
 
+    public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
+    {
+        EndRoundFadeEnum.PlayerTerminated,
+        EndRoundFadeEnum.Fail,
+    };
+    
     private void OnValidate()
     {
+        orientationChecker ??= GetComponent<OrientationChecker>();
         Container ??= GetComponent<SceneContainer>();
+        localization ??= GetComponent<LocalizationBridge>();
     }
     
     private void LateUpdate()
@@ -81,23 +101,33 @@ public class G : MonoBehaviour
 #if UNITY_EDITOR
         Application.runInBackground = true;
 #endif
-        
+        LocalizationBridge.Localizations = new HashSet<IUILocalization>();
         StartGame();
     }
 #pragma warning restore CS4014
     
     private async UniTaskVoid StartGame()
     {
+        await UniTask.Yield();
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
-        OnFirstLoad();
+        OnOrientationChanged(isHorizontal: true);
+        orientationChecker.UpdateOrientation += OnOrientationChanged;
+        orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
+        orientationChecker.Detect();
+        localization.ShowLangSelector();
     }
 
-    private void OnFirstLoad()
+    private void OnOrientationChanged(bool isHorizontal)
     {
-        LocalizationManager = new LocalizationManager();
-        UpdateLocalization();
+        MaxY = isHorizontal ? maxYBase : maxXBase;
+        MaxX = isHorizontal ? maxXBase : maxYBase;
+        Container.camera.orthographicSize = isHorizontal ? orthoHor : orthoVert;
+    }
+
+    public void OnFirstLoad()
+    {
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
@@ -133,7 +163,8 @@ public class G : MonoBehaviour
         }
         else
         {
-            StartRun(true);
+            save.loadTimes++;
+            StartRun();
         }
     }
 
@@ -147,7 +178,7 @@ public class G : MonoBehaviour
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
-        UpdateLocalization();
+        localization.UpdateLocalization();
         
         if(playFader)
             yield return distortionUI.DoFade(forward: true);
@@ -217,6 +248,8 @@ public class G : MonoBehaviour
         prestigeManager.ToggleActive(false);
         playerCursor.ToggleControl(false, true);
 
+            uiManager.terminateButton.gameObject.SetActive(false);
+
         foreach (var x in energySpawner.EnergyList)
         {
             x.IsActive = false;
@@ -229,7 +262,7 @@ public class G : MonoBehaviour
         var roundEnergy = EnergyManager.RoundEnergyCount;
 
         int bossLevel = SaveProvider.Get().level - 1;
-        var bossEnergy = fadeType == EndRoundFadeEnum.Fail ? 0 : GetBossEnergy(bossLevel);
+        var bossEnergy =  PlayLevelAgainFader.Contains(fadeType) ? 0 : GetBossEnergy(bossLevel);
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
         save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
@@ -294,9 +327,4 @@ public class G : MonoBehaviour
     public AnimationCurve progressionHpCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionRewardCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionAttackCurve = AnimationCurve.Linear(0, 1, 1, 2);
-    
-    public void UpdateLocalization()
-    {
-        foreach (var x in Localizations) x.UpdateText();
-    }
 }

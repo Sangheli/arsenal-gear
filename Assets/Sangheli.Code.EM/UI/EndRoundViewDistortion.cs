@@ -13,6 +13,7 @@ public class EndRoundViewDistortion : MonoBehaviour
     public Color winTextColor = Color.black;
     public Color failTextColor = Color.black;
     public Color demoTextColor = Color.black;
+    public Color playerTerminatedTextColor = Color.black;
 
     private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
     private static readonly int ColorKey = Shader.PropertyToID("_Color");
@@ -22,6 +23,7 @@ public class EndRoundViewDistortion : MonoBehaviour
     public Color failColor;
     public Color blueColor;
     public Color demoColor;
+    public Color playerTerminatedColor;
 
     private void Awake()
     {
@@ -72,7 +74,7 @@ public class EndRoundViewDistortion : MonoBehaviour
             case EndRoundFadeEnum.Fail:
                 targetColor = failColor;
                 textColor = failTextColor;
-                valueText = G.I.LocalizationManager.GetLocalizedValue("fail_text");
+                valueText = G.I.localization.Get("fail_text");
                 break;
             case EndRoundFadeEnum.Win:
                 targetColor = blueColor;
@@ -87,12 +89,17 @@ public class EndRoundViewDistortion : MonoBehaviour
                     if (levelConfig != null)
                         showBoss = levelConfig.showBossAfterTimer;
                 }
-                valueText = showBoss ? G.I.LocalizationManager.GetLocalizedValue("win_text") :  G.I.LocalizationManager.GetLocalizedValue("level_complete") ;
+                valueText = showBoss ? G.I.localization.Get("win_text") :  G.I.localization.Get("level_complete") ;
                 break;
             case EndRoundFadeEnum.EndDemo:
                 targetColor = demoColor;
                 textColor = demoTextColor;
-                valueText = G.I.LocalizationManager.GetLocalizedValue("demo_done");
+                valueText = G.I.localization.Get("demo_done");
+                break;
+            case EndRoundFadeEnum.PlayerTerminated:
+                targetColor = playerTerminatedColor;
+                textColor = playerTerminatedTextColor;
+                valueText = G.I.localization.Get("player_terminated_text");
                 break;
             default:
                 targetColor = Color.clear;

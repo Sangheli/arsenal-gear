@@ -10,6 +10,7 @@ public abstract class BaseUpgradeInfo
     public float BasePrice;
     public float PriceMult;
     public bool ShowUpgrade = true;
+    public int row = 0;
 
     public float GetValue(int bought) => Mathf.Max(BaseValue + bought * Step, BaseValue);
     

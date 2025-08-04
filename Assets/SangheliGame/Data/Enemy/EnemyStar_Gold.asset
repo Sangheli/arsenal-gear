@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 8
   DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: d2cfc5c877d5f234185bbb3259e194dd, type: 3}
-  DisplayName: Star Gold
+  DisplayName: Star_Gold
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
@@ -26,7 +26,7 @@ MonoBehaviour:
   - BaseValue: 12
     MaxValue: 90
     Step: 5
-    DisplayName: Energy Drop
+    DisplayName: Energy_Drop
     BasePrice: 300
     PriceMult: 1.2
     ShowUpgrade: 1

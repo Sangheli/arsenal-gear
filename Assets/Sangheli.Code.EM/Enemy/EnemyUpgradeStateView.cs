@@ -46,7 +46,10 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         var isMax = upgradeContainer.IsMaxLevelReached(_enemyId, _upgradeType);
         var bought = upgradeContainer.GetBoughtLevel(_enemyId, _upgradeType);
         var max = upgradeContainer.GetMaxLevel(_enemyId, _upgradeType);
-        var paramName = $"[{ upgradeContainer.GetEnemyDisplayName(_enemyId)}] {upgradeContainer.GetDisplayName(_enemyId, _upgradeType)}";
+
+        var paramNameEnemy = upgradeContainer.GetEnemyDisplayName(_enemyId);
+        var paramNameDisplay = upgradeContainer.GetDisplayName(_enemyId, _upgradeType);
+        var paramName = $"[{G.I.localization.Get(paramNameEnemy)}] {G.I.localization.Get(paramNameDisplay)}";
         float? nextValue = isMax ? null : upgradeContainer.GetNextLevelValue(_enemyId, _upgradeType);
         save.UpdateUpgradesBoughtNum();
         var price = upgradeContainer.GetPrice(_enemyId, _upgradeType, save.upgradesBoughtNum);
