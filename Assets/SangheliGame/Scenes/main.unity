@@ -9403,6 +9403,7 @@ GameObject:
   - component: {fileID: 1503166284}
   - component: {fileID: 1503166285}
   - component: {fileID: 1503166286}
+  - component: {fileID: 1503166287}
   m_Layer: 0
   m_Name: G
   m_TagString: Untagged
@@ -9435,6 +9436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G
   debugConsole: {fileID: 0}
+  orientationChecker: {fileID: 1503166287}
   localization: {fileID: 1503166286}
   roundManager: {fileID: 1503166274}
   startGameView: {fileID: 1382977756}
@@ -9481,8 +9483,12 @@ MonoBehaviour:
   maxLevel: 75
   delim: 25
   arcMoveAnimator: {fileID: 308878766}
+  MaxYBase: 6
+  MaxXBase: 10
   MaxY: 6
   MaxX: 10
+  orthoHor: 5
+  orthoVert: 9.5
   progressionHpCurve:
     serializedVersion: 2
     m_Curve:
@@ -9703,6 +9709,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationBridge
   localizationSelector: {fileID: 530380502}
+--- !u!114 &1503166287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503166272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c9df99a9a846f892aa9cfc721428b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrientationChecker
+  isHorizontal: 0
 --- !u!1 &1537534445
 GameObject:
   m_ObjectHideFlags: 0
@@ -13996,6 +14015,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
