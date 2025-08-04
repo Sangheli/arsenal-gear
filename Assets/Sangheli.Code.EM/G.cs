@@ -9,11 +9,17 @@ using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
 
-[RequireComponent(typeof(SceneContainer),typeof(LocalizationBridge))]
+[RequireComponent(
+    typeof(SceneContainer),
+    typeof(LocalizationBridge), 
+    typeof(OrientationChecker)
+)]
+
 public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
+    public OrientationChecker orientationChecker;
     public LocalizationBridge localization;
     public RoundManager roundManager;
     public StartGameView startGameView;
@@ -54,8 +60,12 @@ public class G : MonoBehaviour
     public ArcMoveAnimator arcMoveAnimator;
 
     public bool CanPlay { get; private set; }
-    public int MaxY = 3;
-    public int MaxX = 5;
+    public float orthoHor = 5;
+    public float orthoVert = 10;
+    public int maxYBase = 6;
+    public int maxXBase = 10;
+    public int MaxY { get; private set; }
+    public int MaxX { get; private set; }
 
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
     {
@@ -65,6 +75,7 @@ public class G : MonoBehaviour
     
     private void OnValidate()
     {
+        orientationChecker ??= GetComponent<OrientationChecker>();
         Container ??= GetComponent<SceneContainer>();
         localization ??= GetComponent<LocalizationBridge>();
     }
@@ -96,10 +107,19 @@ public class G : MonoBehaviour
     
     private async UniTaskVoid StartGame()
     {
+        await UniTask.Yield();
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
+        orientationChecker.UpdateOrientation += OnOrientationChanged;
         localization.ShowLangSelector();
+    }
+
+    private void OnOrientationChanged(bool isHorizontal)
+    {
+        MaxY = isHorizontal ? maxYBase : maxXBase;
+        MaxX = isHorizontal ? maxXBase : maxYBase;
+        Container.camera.orthographicSize = isHorizontal ? orthoHor : orthoVert;
     }
 
     public void OnFirstLoad()
