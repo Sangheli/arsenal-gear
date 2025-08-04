@@ -5,9 +5,6 @@ namespace SangheliCore
 {
     public class LocalizationSelector : MonoBehaviour
     {
-        public GameObject errorMessage;
-        public GameObject normMessage;
-        
         public Button bEn;
         public Button bRu;
         public Button bTr;
@@ -24,11 +21,5 @@ namespace SangheliCore
         }
 
         private static void SetLang(string lang) => G.I.localization.OnLangSelected(lang);
-        
-        public void OnOrientationChanged(bool isHorizontal)
-        {
-            errorMessage.gameObject.SetActive(!isHorizontal);
-            normMessage.gameObject.SetActive(isHorizontal);
-        }
     }
 }

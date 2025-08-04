@@ -19,6 +19,7 @@ public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
+    public LayoutPlaceHolder LayoutPlaceHolder;
     public OrientationChecker orientationChecker;
     public LocalizationBridge localization;
     public RoundManager roundManager;
@@ -113,7 +114,7 @@ public class G : MonoBehaviour
         I = this;
         OnOrientationChanged(isHorizontal: true);
         orientationChecker.UpdateOrientation += OnOrientationChanged;
-        orientationChecker.UpdateOrientation += localization.localizationSelector.OnOrientationChanged;
+        orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
         orientationChecker.Detect();
         localization.ShowLangSelector();
     }
