@@ -113,9 +113,9 @@ public class G : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
         I = this;
         OnOrientationChanged(isHorizontal: true);
-        orientationChecker.UpdateOrientation += OnOrientationChanged;
-        orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
-        orientationChecker.Detect();
+        // orientationChecker.UpdateOrientation += OnOrientationChanged;
+        // orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
+        // orientationChecker.Detect();
         localization.ShowLangSelector();
     }
 
