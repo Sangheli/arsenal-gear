@@ -10,17 +10,28 @@ namespace SangheliCore
         public static string Lang = "en";
         private readonly Dictionary<string, string> _localizedText = new();
     
-        // Supported languages
-        private readonly string[] _supportedLanguages = { "en", "ru", "tr" };
+        public static readonly List<string> LangFallbackRu = new() { "be", "kk", "uk", "uz", };
+        public static readonly List<string> SupportedLanguages = new() { "en", "ru", "tr" };
 
         public LocalizationManager(string lang) => InitializeLocalization(lang);
 
         private void InitializeLocalization(string lang)
         {
-            Lang = _supportedLanguages.Contains(lang) ? lang : "en";
+            Lang = GetLang(lang);
             LoadLocalizedText(Lang);
         }
     
+        private static string GetLang(string lang)
+        {
+            if (LocalizationManager.LangFallbackRu.Contains(lang))
+                lang = "ru";
+
+            if (!LocalizationManager.SupportedLanguages.Contains(lang))
+                lang = "en";
+            
+            return lang;
+        }
+        
         private void LoadLocalizedText(string language)
         {
             var csvFile = Resources.Load<TextAsset>("Localization/localization_file");

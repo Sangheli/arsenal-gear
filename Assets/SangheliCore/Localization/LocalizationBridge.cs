@@ -5,28 +5,16 @@ namespace SangheliCore
 {
     public class LocalizationBridge : MonoBehaviour
     {
-        public LocalizationSelector localizationSelector;
-        
         public static HashSet<IUILocalization> Localizations = new();
         private LocalizationManager _localizationManager;
 
-        public void SetLanguage(string lang)
-        {
-            LocalizationManager.Lang = lang;
-            UpdateLocalization();
-        }
-
-        public void ShowLangSelector()
-        {
-            localizationSelector.gameObject.SetActive(true);
-        }
+        public void SetLanguage(string lang) => LocalizationManager.Lang = lang;
+        public void OnLangSelected() => OnLangSelected(LocalizationManager.Lang);
 
         public void OnLangSelected(string lang)
         {
             _localizationManager = new LocalizationManager(lang);
             UpdateLocalization();
-            localizationSelector.gameObject.SetActive(false);
-            
             G.I.OnFirstLoad();
         }
     

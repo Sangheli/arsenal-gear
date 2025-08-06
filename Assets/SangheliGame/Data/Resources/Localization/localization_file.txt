@@ -49,7 +49,7 @@ h;h;ч;s
 win_text;Boss defeated;Босс побеждён;Boss yenildi
 fail_text;You’re out of HP\nGrab upgrades and play again;Здоровье на нуле\nКупи улучшения и попробуй снова;Canın bitti\nYükseltmeleri al ve tekrar oyna
 level_complete;Level Complete;Уровень пройден;Seviye tamamlandı
-demo_done;Demo complete\nThanks for playing\nReload page to start a new game;Демо завершено\nСпасибо за игру\nПерезагрузи страницу, чтобы начать сначала;Demo tamamlandı\nOynadığın için teşekkürler\nYeni oyun için sayfayı yenile
+demo_done;All levels complete\nThanks for playing\nReturn to the start screen to begin a new game;Все уровни пройдены\nСпасибо за игру\nВернись на стартовый экран, чтобы начать заново;Tüm seviyeler tamamlandı\nOynadığın için teşekkürler\nYeni oyun için başlangıç ekranına dön
 progress;Progress:;Прогресс:;İlerleme:
 auto_save_info_text;No worries, your game auto-saves;Игра сохраняется автоматически;Oyun otomatik
 hp_short;HP;ХП;HP
