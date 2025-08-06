@@ -11,7 +11,6 @@ using UnityEngine;
 
 [RequireComponent(
     typeof(SceneContainer),
-    typeof(LocalizationBridge), 
     typeof(OrientationChecker)
 )]
 
