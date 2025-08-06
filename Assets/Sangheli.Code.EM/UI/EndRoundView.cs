@@ -27,6 +27,9 @@ public class EndRoundView : MonoBehaviour
     public float waitBeforeAnim = 0.5f;
 
     [Space]
+    public Button returnToStartButton;
+    public Text returnToStartText;
+    
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundTextOriginalColor;
     
@@ -49,6 +52,8 @@ public class EndRoundView : MonoBehaviour
         _buttonStartNewRoundTextOriginalColor = buttonStartNewRoundText.color;
         buttonEndRound.onClick.AddListener(OnExitFromRound);
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
+        if (returnToStartButton != null)
+            returnToStartButton.onClick.AddListener(OnReturnToStartScreen);
         Toggle(false);
         
         buttonStartNewRound.image.color = Color.clear;
@@ -69,6 +74,34 @@ public class EndRoundView : MonoBehaviour
         G.I.StartRun();
     }
 
+    private void OnReturnToStartScreen()
+    {
+        // Clear all enemies and energy
+        G.I.roundManager.ClearAll();
+        foreach (var energy in G.I.energySpawner.EnergyList)
+        {
+            if (energy != null && energy.gameObject.activeSelf)
+            {
+                energy.IsActive = false;
+                energy.PlayerFound = false;
+                G.I.ObjectPool.Return(energy);
+            }
+        }
+        
+        // Disable game UI
+        G.I.uiManager.Toggle(false);
+        
+        // Show start screen
+        G.I.startGameView.Toggle(true);
+        G.I.startGameView.saveInfo.gameObject.SetActive(false);
+        
+        // Hide end round view
+        Toggle(false);
+        
+        distortion.ResetView();
+        distortion.gameObject.SetActive(false);
+    }
+
     public void Toggle(bool state)
     {
         if (state)
@@ -81,6 +114,7 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.interactable = false;
         buttonStartNewRound.interactable = false;
         View.SetActive(state);
+        returnToStartButton.gameObject.SetActive(false);
     }
 
     public void Show(int energy, int totalEnergy, int bossReward, EndRoundFadeEnum fadeType)

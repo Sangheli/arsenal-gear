@@ -95,4 +95,4 @@ AI_Cursor_Fire_Rate_Player;Fire Rate\n% of Player;Скорострельност
 ai;AI;ИИ;AI
 player_terminated_text;Round Terminated;Раунд прерван;Raunt Sonlandırıldı
 terminate;Terminate;Прервать;Sonlandır
-
+return_to_start;To Start Screen;На начальный экран;Başlangıç ekranına dön
