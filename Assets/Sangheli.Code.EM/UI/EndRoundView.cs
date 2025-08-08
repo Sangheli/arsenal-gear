@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class EndRoundView : MonoBehaviour
 {
@@ -64,12 +65,14 @@ public class EndRoundView : MonoBehaviour
 
     private void OnExitFromRound()
     {
+        YG2.InterstitialAdvShow();
         StopShowCoroutine();
         G.I.GoToUpgrades();
     }
 
     private void OnStartNewRound()
     {
+        YG2.InterstitialAdvShow();
         StopShowCoroutine();
         G.I.StartRun();
     }
