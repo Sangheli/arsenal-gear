@@ -241,6 +241,9 @@ public class G : MonoBehaviour
         endRoundView.distortion.ResetView();
         yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndDemo);
         uiManager.Toggle(false);
+
+        endRoundView.returnToStartButton.gameObject.SetActive(true);
+        endRoundView.returnToStartText.text = G.I.localization.Get("return_to_start");
     }
 
     private IEnumerator StopRunSequence(EndRoundFadeEnum fadeType)
