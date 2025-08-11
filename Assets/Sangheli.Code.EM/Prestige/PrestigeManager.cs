@@ -7,6 +7,7 @@ public class PrestigeManager : MonoBehaviour
     public Text progressText;
     public DoubleImageFillBar prestigeBar;
     public GameObject view;
+    public bool doNotApplyColor;
 
     private void Toggle(bool state)
     {
@@ -55,6 +56,9 @@ public class PrestigeManager : MonoBehaviour
     
     public void ApplyLevelColor()
     {
+        if(doNotApplyColor)
+            return;
+        
         _propertyBlock.SetColor(ColorProperty, GetCurrentLevelColor());
         targetRenderer.SetPropertyBlock(_propertyBlock);
     }
