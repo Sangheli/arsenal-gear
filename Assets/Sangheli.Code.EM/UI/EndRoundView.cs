@@ -139,7 +139,7 @@ public class EndRoundView : MonoBehaviour
 
         if (save != null && save.level < G.I.LevelDataConfig.Count())
         {
-            var levelId = fadeType == EndRoundFadeEnum.Win ? save.level - 1 : save.level;
+            var levelId = fadeType == EndRoundFadeEnum.RoundWin ? save.level - 1 : save.level;
             var levelConfig = G.I.LevelDataConfig.Get(levelId);
             if (levelConfig != null)
             {

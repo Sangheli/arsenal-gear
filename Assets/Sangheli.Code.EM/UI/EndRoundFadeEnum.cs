@@ -1,8 +1,8 @@
 ﻿public enum EndRoundFadeEnum
 {
     None,
-    Fail,
-    Win,
-    EndDemo,
-    PlayerTerminated
+    RoundFail,
+    RoundWin,
+    EndGame,
+    RoundTerminated
 }

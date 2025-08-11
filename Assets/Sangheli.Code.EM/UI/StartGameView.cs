@@ -42,7 +42,7 @@ public class StartGameView : MonoBehaviour
     private void OnStartButtonClick()
     {
         G.I.SaveProvider.CreateNew();
-        SaveSystem.Save();
+        SaveSystem.SaveSilent();
         G.I.StartRunFirstTime(true);
     }
 

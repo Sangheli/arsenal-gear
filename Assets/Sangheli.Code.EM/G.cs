@@ -70,8 +70,8 @@ public class G : MonoBehaviour
 
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
     {
-        EndRoundFadeEnum.PlayerTerminated,
-        EndRoundFadeEnum.Fail,
+        EndRoundFadeEnum.RoundTerminated,
+        EndRoundFadeEnum.RoundFail,
     };
 
     public string predefinedLang = "en";
@@ -152,7 +152,7 @@ public class G : MonoBehaviour
         Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
-        SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
+        SaveProvider.OnSaveAnalyticsCallback = AnalyticsHelper.Checkpoint;
         energySpawner.OnLoadInit();
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
@@ -179,6 +179,7 @@ public class G : MonoBehaviour
 
         if (newGame)
         {
+            AnalyticsHelper.OnFirstGameLaunch();
             arcMoveAnimator.Play();
         }
         else
@@ -190,7 +191,7 @@ public class G : MonoBehaviour
 
     public void StartRun(bool playFader = true)
     {
-        SaveSystem.Save();
+        SaveSystem.SaveSilent();
         StartCoroutine(StartRunSequence(playFader));
     }
 
@@ -238,7 +239,7 @@ public class G : MonoBehaviour
     public void StopRun(EndRoundFadeEnum fadeType)
     {
         var save = SaveProvider.Get();
-        var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.Win;
+        var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.RoundWin;
         StartCoroutine( demoEnd ? ShowEndGame() : StopRunSequence(fadeType));
     }
     
@@ -246,7 +247,7 @@ public class G : MonoBehaviour
     {
         var save = SaveProvider.Get();
         save.level = maxLevel - 1;
-        SaveSystem.Save();
+        SaveSystem.Save(sendAnalytics: true, endRoundType: EndRoundFadeEnum.EndGame);
         
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
@@ -257,7 +258,7 @@ public class G : MonoBehaviour
         tutorial.OnEndRound();
         endRoundView.distortion.gameObject.SetActive(true);
         endRoundView.distortion.ResetView();
-        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndDemo);
+        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndGame);
         uiManager.Toggle(false);
 
         endRoundView.returnToStartButton.gameObject.SetActive(true);
@@ -289,7 +290,7 @@ public class G : MonoBehaviour
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
         save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
-        SaveSystem.Save();
+        SaveSystem.Save(sendAnalytics: true, fadeType);
         
         yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
         yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
@@ -344,6 +345,8 @@ public class G : MonoBehaviour
         yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
+        
+        AnalyticsHelper.OnShopEntered();
     }
 
     [Header("Level Progression Curves")]

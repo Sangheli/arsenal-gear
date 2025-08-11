@@ -71,12 +71,12 @@ public class EndRoundViewDistortion : MonoBehaviour
         Color targetColor;
         switch (fadeType)
         {
-            case EndRoundFadeEnum.Fail:
+            case EndRoundFadeEnum.RoundFail:
                 targetColor = failColor;
                 textColor = failTextColor;
                 valueText = G.I.localization.Get("fail_text");
                 break;
-            case EndRoundFadeEnum.Win:
+            case EndRoundFadeEnum.RoundWin:
                 targetColor = blueColor;
                 textColor = winTextColor;
                 // Проверка showBossAfterTimer
@@ -91,12 +91,12 @@ public class EndRoundViewDistortion : MonoBehaviour
                 }
                 valueText = showBoss ? G.I.localization.Get("win_text") :  G.I.localization.Get("level_complete") ;
                 break;
-            case EndRoundFadeEnum.EndDemo:
+            case EndRoundFadeEnum.EndGame:
                 targetColor = demoColor;
                 textColor = demoTextColor;
                 valueText = G.I.localization.Get("demo_done");
                 break;
-            case EndRoundFadeEnum.PlayerTerminated:
+            case EndRoundFadeEnum.RoundTerminated:
                 targetColor = playerTerminatedColor;
                 textColor = playerTerminatedTextColor;
                 valueText = G.I.localization.Get("player_terminated_text");

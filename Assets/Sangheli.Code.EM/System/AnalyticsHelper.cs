@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Unity.Services.Analytics;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 public static class AnalyticsHelper
 {
-    public static void Checkpoint()
+    public static void Checkpoint(EndRoundFadeEnum fadeType)
     {
         const string eventName = "checkpoint";
         
@@ -18,6 +19,7 @@ public static class AnalyticsHelper
             { "level", save.level },
             { "money", save.totalEnergy },
             { "loadcount", save.loadTimes },
+            { "winState", fadeType.ToString() },
         };
         
         Send(customEvent, eventName);
@@ -121,7 +123,7 @@ public static class AnalyticsHelper
 #else
         
         var sb = new StringBuilder();
-        sb.Append($"[Event][{name}]");
+        sb.Append($"[Event][{name}] ");
         
         foreach (KeyValuePair<string, object> parameter in customEvent)
             sb.Append($"{parameter.Key}: [{parameter.Value}] ");
