@@ -75,6 +75,8 @@ public class G : MonoBehaviour
     };
 
     public string predefinedLang = "en";
+    public bool useOrientationChecker = false;
+    public LayoutPlaceHolder layoutPlaceHolder;
     
     private void OnValidate()
     {
@@ -115,9 +117,14 @@ public class G : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
         I = this;
         OnOrientationChanged(isHorizontal: true);
-        orientationChecker.UpdateOrientation += OnOrientationChanged;
-        orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
-        orientationChecker.Detect();
+
+        if (useOrientationChecker)
+        {
+            orientationChecker.UpdateOrientation += OnOrientationChanged;
+            orientationChecker.UpdateOrientation += layoutPlaceHolder.OnOrientationChanged;
+            orientationChecker.Detect();
+        }
+
         localization.ShowLangSelector(GetLang());
     }
 
