@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d81340ebe6daeb44086666a35a2f2eb0
+guid: 904bf2a8eb12f594da576d12ce664fc2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4057891523182213997
-    second: spark2_0
+      213: -4036963120909953766
+    second: grad1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 0
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spark2_0
+      name: grad1_0
       rect:
         serializedVersion: 2
-        x: 87
-        y: 3
-        width: 338
-        height: 508
+        x: 0
+        y: 0
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef817ce047e4436a0800000000000000
-      internalID: -6470460504253458178
+      spriteID: a155fc62e63d9f7c0800000000000000
+      internalID: -4036963120909953766
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spark2_0: -4057891523182213997
+      grad1_0: -4036963120909953766
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
