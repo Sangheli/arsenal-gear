@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class DistortionUI : MonoBehaviour
 {
-    public Image ViewImage;
+    public Image distDown;
+    public Image distUp;
     public float MaxValue;
     public float MinValue;
     public float animTime = 0.1f;
@@ -13,7 +14,8 @@ public class DistortionUI : MonoBehaviour
     
     private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
     private Coroutine _fadeCoroutine;
-    private Material _mat;
+    private Material _matDown;
+    private Material _matUp;
 
     private Color[] _startTextColors;
     public float starGameWaitTime = 1;
@@ -32,20 +34,27 @@ public class DistortionUI : MonoBehaviour
         for (int i = 0; i < texts.Length; i++)
             _startTextColors[i] = texts[i].color;
         
-        // Создаём копию материала, чтобы не менять sharedMaterial
-        if (ViewImage.material != null)
-            ViewImage.material = Instantiate(ViewImage.material);
-        
-        _mat = ViewImage.material;
+        _matDown = GetMat(distDown);
+        _matUp = GetMat(distUp);
         DoBlock(false);
         
         StartCoroutine(StartFadeOut());
     }
 
+    private Material GetMat(Image img)
+    {
+        // Создаём копию материала, чтобы не менять sharedMaterial
+        if (img.material != null)
+            img.material = Instantiate(img.material);
+
+        return img.material;
+    }
+
     private IEnumerator StartFadeOut()
     {
         DoBlock(true);
-        _mat.SetFloat(FadeAmount, MaxValue);
+        _matDown.SetFloat(FadeAmount, MaxValue);
+        _matUp.SetFloat(FadeAmount, MinValue);
         for (int i = 0; i < texts.Length; i++)
             texts[i].color = _startTextColors[i];
         yield return new WaitForSeconds(starGameWaitTime);
@@ -55,6 +64,9 @@ public class DistortionUI : MonoBehaviour
 
     public IEnumerator DoFade(bool forward)
     {
+        distDown.gameObject.SetActive(forward);
+        distUp.gameObject.SetActive(!forward);
+
         var startValue = forward ? MinValue : MaxValue;
         var endValue = forward ? MaxValue : MinValue;
         var endValue1 = forward ? 1f : 0f;
@@ -76,24 +88,39 @@ public class DistortionUI : MonoBehaviour
             elapsed += Time.deltaTime;
             var t = Mathf.Clamp01(elapsed / animTime);
             var currentValue = Mathf.Lerp(startValue, endValue, t);
-
-            _mat.SetFloat(FadeAmount, currentValue);
+            
             for (int i = 0; i < texts.Length; i++)
                 texts[i].color = Color.Lerp(startColors[i], endColors[i], t);
-
-            canvasGroup.alpha = forward ? t*3 : 1 - t;
+            
+            if (forward)
+            {
+                _matDown.SetFloat(FadeAmount, currentValue);
+            }
+            else
+            {
+                _matUp.SetFloat(FadeAmount, currentValue);
+            }
+            
             yield return null;
         }
         
         for (int i = 0; i < texts.Length; i++)
             texts[i].color = endColors[i];
         
-        canvasGroup.alpha = endValue1;
-        _mat.SetFloat(FadeAmount, endValue);
+        if (forward)
+        {
+            _matDown.SetFloat(FadeAmount, endValue);    
+        }
+        else
+        {
+            _matUp.SetFloat(FadeAmount, endValue);
+        }
+        
     }
 
     public void DoBlock(bool state)
     {
-        ViewImage.raycastTarget = state;
+        distDown.raycastTarget = state;
+        distUp.raycastTarget = state;
     }
 }
