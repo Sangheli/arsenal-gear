@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SangheliCode;
 using SangheliCore;
+using SangheliCore.Adv;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
@@ -67,6 +68,7 @@ public class G : MonoBehaviour
     public int maxXBase = 10;
     public int MaxY { get; private set; }
     public int MaxX { get; private set; }
+    public readonly IAdvertisement Advertisement = new MockAdvertisement();
 
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
     {
