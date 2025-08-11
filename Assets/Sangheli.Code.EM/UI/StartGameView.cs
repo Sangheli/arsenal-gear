@@ -15,14 +15,20 @@ public class StartGameView : MonoBehaviour
     [SerializeField] private Button buttonDS;
     public Button buttonGoToUpgrades;
     public SaveInfo saveInfo;
+    public bool useMediaButtons = false;
+    public bool useAutoSaveInfo = false;
     
     private void Start()
     {
         startButton.onClick.AddListener(OnStartButtonClick);
         loadCheckpointButton.onClick.AddListener(LoadCheckpoint);
-        buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
-        buttonDS.onClick.AddListener(MediaUrlOpener.OpenDs);
         buttonGoToUpgrades.onClick.AddListener(OnUpgradesFromStartMenu);
+
+        if (useMediaButtons)
+        {
+            buttonYoutube.onClick.AddListener(MediaUrlOpener.OpenYoutube);
+            buttonDS.onClick.AddListener(MediaUrlOpener.OpenDs);
+        }
     }
 
     private void OnUpgradesFromStartMenu()
@@ -71,7 +77,9 @@ public class StartGameView : MonoBehaviour
             : G.I.localization.Get("start_game");
         
         upgradeButtonText.text = G.I.localization.Get("go_to_upgrades");
-        autoSaveInfoText.text = G.I.localization.Get("auto_save_info_text");
+        
+        if(useAutoSaveInfo)
+            autoSaveInfoText.text = G.I.localization.Get("auto_save_info_text");
 
         if (hasSave)
         {
@@ -141,5 +149,11 @@ public class StartGameView : MonoBehaviour
     {
         gameObject.SetActive(b);
         if (b) UpdateLoadButtonVisibility();
+    }
+
+    public void DoSaveInfoFadeOut(float duration, float delay)
+    {
+        if(useAutoSaveInfo)
+            saveInfo.FadeOut(duration, delay);
     }
 }
