@@ -64,12 +64,14 @@ public class EndRoundView : MonoBehaviour
 
     private void OnExitFromRound()
     {
+        G.I.Advertisement.ShowInterstitial();
         StopShowCoroutine();
         G.I.GoToUpgrades();
     }
 
     private void OnStartNewRound()
     {
+        G.I.Advertisement.ShowInterstitial();
         StopShowCoroutine();
         G.I.StartRun();
     }

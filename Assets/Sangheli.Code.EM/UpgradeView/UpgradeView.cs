@@ -175,6 +175,7 @@ public class UpgradeView : MonoBehaviour
 
     private void OnStart()
     {
+        G.I.Advertisement.ShowInterstitial();
         G.I.StartRun();
     }
 
