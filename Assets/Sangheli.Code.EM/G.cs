@@ -12,7 +12,6 @@ using UnityEngine;
 
 [RequireComponent(
     typeof(SceneContainer),
-    typeof(LocalizationBridge), 
     typeof(OrientationChecker)
 )]
 
@@ -20,7 +19,6 @@ public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
-    public LayoutPlaceHolder LayoutPlaceHolder;
     public OrientationChecker orientationChecker;
     public LocalizationBridge localization;
     public RoundManager roundManager;
@@ -75,6 +73,8 @@ public class G : MonoBehaviour
         EndRoundFadeEnum.PlayerTerminated,
         EndRoundFadeEnum.Fail,
     };
+
+    public string predefinedLang = "en";
     
     private void OnValidate()
     {
@@ -118,7 +118,18 @@ public class G : MonoBehaviour
         orientationChecker.UpdateOrientation += OnOrientationChanged;
         orientationChecker.UpdateOrientation += LayoutPlaceHolder.OnOrientationChanged;
         orientationChecker.Detect();
-        localization.ShowLangSelector();
+        localization.ShowLangSelector(GetLang());
+    }
+
+    private string GetLang()
+    {
+        string lang = null;
+        
+#if UNITY_EDITOR
+        lang = predefinedLang;
+#endif
+
+        return lang;
     }
 
     private void OnOrientationChanged(bool isHorizontal)

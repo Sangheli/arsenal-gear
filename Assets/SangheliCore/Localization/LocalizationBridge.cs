@@ -5,6 +5,9 @@ namespace SangheliCore
 {
     public class LocalizationBridge : MonoBehaviour
     {
+        public static string LangStatic = "en";
+        
+        public bool useLocSelector = false;
         public LocalizationSelector localizationSelector;
         
         public static HashSet<IUILocalization> Localizations = new();
@@ -12,20 +15,27 @@ namespace SangheliCore
 
         public void SetLanguage(string lang)
         {
-            LocalizationManager.Lang = lang;
-            UpdateLocalization();
+            LangStatic = lang;
         }
 
-        public void ShowLangSelector()
+        public void ShowLangSelector(string lang)
         {
-            localizationSelector.gameObject.SetActive(true);
+            if(useLocSelector)
+                localizationSelector.gameObject.SetActive(true);
+            else
+                OnLangSelected(lang);
         }
 
         public void OnLangSelected(string lang)
         {
+            if (string.IsNullOrEmpty(lang))
+                lang = LangStatic;
+            
             _localizationManager = new LocalizationManager(lang);
             UpdateLocalization();
-            localizationSelector.gameObject.SetActive(false);
+            
+            if(useLocSelector)
+                localizationSelector.gameObject.SetActive(false);
             
             G.I.OnFirstLoad();
         }
