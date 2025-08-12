@@ -9,6 +9,7 @@ public class BossView : EnemyView
     public EnemyRender boss2Render;
     private Coroutine _bounceRoutineBoss2;
     private Coroutine _bounceShadowRoutineBoss;
+    public Color ramkaColor = Color.black;
 
     public void SetScale(float viewScale)
     {
@@ -27,7 +28,7 @@ public class BossView : EnemyView
         
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
-        render.ApplyBorderColor(Color.black);
+        render.ApplyBorderColor(ramkaColor);
         
         boss2Render.ApplyPropertyView(color);
         boss2Render.ApplyPropertyBack(backColor);

@@ -15,6 +15,7 @@ public class EnemyRender : MonoBehaviour
     [Space]
     public Renderer viewRenderer;
     [FormerlySerializedAs("ramkaRender")] public Renderer borderRender;
+    public Renderer[] borderRenderArr;
     public Renderer backRender;
     public Renderer shadowRender;
 
@@ -165,6 +166,7 @@ public class EnemyRender : MonoBehaviour
     public void SetSortingOrder(SortingOrderData data)
     {
         borderRender.sortingOrder = data.ramka;
+        foreach (var x in borderRenderArr) x.sortingOrder = data.ramka;
         viewRenderer.sortingOrder = data.view;
         shadowRender.sortingOrder = data.shadow;
         backRender.sortingOrder = data.back;
@@ -191,11 +193,18 @@ public class EnemyRender : MonoBehaviour
         ApplyPropertyView(OriginalColor);
         ApplyBorderColor();
     }
+    
+    public void SetBorderColor(Color borderColor)
+    {
+        OriginalRamkaColor = borderColor;
+        ApplyBorderColor();
+    }
 
     public void ApplyBorderColor()
     {
         PropertyBlockRamka.SetColor(_borderColor, OriginalRamkaColor);
         borderRender.SetPropertyBlock(PropertyBlockRamka);
+        foreach (var x in borderRenderArr) x.SetPropertyBlock(PropertyBlockRamka);
     }
 
     public void ApplyBorderColor(Color black)
