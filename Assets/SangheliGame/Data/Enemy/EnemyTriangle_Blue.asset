@@ -21,7 +21,8 @@ MonoBehaviour:
   AttractionSpeed: 1
   MinAttractDistance: 2
   color: {r: 0, g: 0.5137255, b: 1, a: 1}
-  borderColor: {r: 0.04139467, g: 0.31414813, b: 0.57232696, a: 1}
+  borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
+  superHard: 0
   UpgradeInfos:
   - BaseValue: 11
     MaxValue: 35
@@ -30,4 +31,5 @@ MonoBehaviour:
     BasePrice: 180
     PriceMult: 1.2
     ShowUpgrade: 1
+    row: 0
     Type: 1

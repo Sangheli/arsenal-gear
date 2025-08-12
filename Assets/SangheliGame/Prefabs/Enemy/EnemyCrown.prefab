@@ -315,6 +315,7 @@ MonoBehaviour:
   speedSuper: 40
   distanceToChangeSpeed: 6
   manipulateColor: 0
+  manipulateBorderColor: 1
   duration: 0.2
 --- !u!114 &1553927254607236840
 MonoBehaviour:
@@ -331,6 +332,7 @@ MonoBehaviour:
   borderColorProp: _Color
   viewRenderer: {fileID: 6168234484293521608}
   borderRender: {fileID: 3921777000171173304}
+  borderRenderArr: []
   backRender: {fileID: 8560448842156563371}
   shadowRender: {fileID: 4245914269587504957}
   punchScale: 1.2
@@ -486,7 +488,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0dae99743cfb568419afff8941a452e6, type: 2}
+  - {fileID: 2100000, guid: 44913275f79ce5543b3dba4bd798be58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
