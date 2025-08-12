@@ -54,7 +54,7 @@ public class DistortionUI : MonoBehaviour
     {
         DoBlock(true);
         _matDown.SetFloat(FadeAmount, MaxValue);
-        _matUp.SetFloat(FadeAmount, MinValue);
+        _matUp.SetFloat(FadeAmount, MaxValue);
         for (int i = 0; i < texts.Length; i++)
             texts[i].color = _startTextColors[i];
         yield return new WaitForSeconds(starGameWaitTime);
