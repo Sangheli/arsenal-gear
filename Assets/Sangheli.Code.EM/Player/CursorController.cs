@@ -58,7 +58,7 @@ public class CursorController : MonoBehaviour
     {
         view.Toggle(state);
 #if !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
-        Cursor.visible = !state;
+        //Cursor.visible = !state;
 #endif
         if (state)
         {
