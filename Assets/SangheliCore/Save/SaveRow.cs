@@ -28,8 +28,9 @@ public class SaveRow : MonoBehaviour
 
     private void Save()
     {
+        var sendAnalytics = true; 
         PlayerPrefs.SetString(SaveKeyPrefix + _saveSlot, DateTime.Now.ToString(CultureInfo.InvariantCulture));
-        saveProvider.Save(_saveSlot); // your actual save logic here
+        saveProvider.Save(_saveSlot, sendAnalytics: sendAnalytics, endRoundType: EndRoundFadeEnum.None); // your actual save logic here
         UpdateLabel();
     }
 

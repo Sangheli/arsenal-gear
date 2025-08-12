@@ -65,7 +65,7 @@ public class UpgradeView : MonoBehaviour
     {
         G.I.prestigeManager.ChangeLevel(delta);
         G.I.prestigeManager.ApplyLevelColor();
-        SaveSystem.Save();
+        SaveSystem.SaveSilent();
         RefreshAll();
     }
 #else
@@ -166,7 +166,7 @@ public class UpgradeView : MonoBehaviour
         if (!save.hasVisitedUpgradeMenu)
         {
             save.hasVisitedUpgradeMenu = true;
-            SaveSystem.Save();
+            SaveSystem.SaveSilent();
         }
 
         GenerateUpgradeViews();
@@ -175,6 +175,7 @@ public class UpgradeView : MonoBehaviour
 
     private void OnStart()
     {
+        G.I.Advertisement.ShowInterstitial();
         G.I.StartRun();
     }
 

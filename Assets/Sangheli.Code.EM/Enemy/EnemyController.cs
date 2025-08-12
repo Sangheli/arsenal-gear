@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     private bool _doHpFill;
     private float _fillStartTime;
     public bool manipulateColor = true;
+    public bool manipulateBorderColor = false;
 
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
@@ -74,6 +75,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 
     public void UpdateColors()
     {
+        if (!manipulateColor && manipulateBorderColor)
+        {
+            view.render.SetBorderColor(CurrentData.borderColor);
+            return;
+        }
+        
         if (!manipulateColor) 
             return;
         

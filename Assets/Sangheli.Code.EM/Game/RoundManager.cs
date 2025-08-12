@@ -53,7 +53,7 @@ public class RoundManager : MonoBehaviour
         if (G.I.HpManager.RoundHp <= 0)
         {
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
-            G.I.StopRun(EndRoundFadeEnum.Fail);
+            G.I.StopRun(EndRoundFadeEnum.RoundFail);
         }
         
         if(!IsAlive) return;
@@ -210,6 +210,6 @@ public class RoundManager : MonoBehaviour
         if (!IsAlive) return;
         
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
-        G.I.StopRun(EndRoundFadeEnum.PlayerTerminated);
+        G.I.StopRun(EndRoundFadeEnum.RoundTerminated);
     }
 }

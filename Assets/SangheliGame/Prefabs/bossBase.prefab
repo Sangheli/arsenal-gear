@@ -50,6 +50,7 @@ MonoBehaviour:
   borderColorProp: _Color
   viewRenderer: {fileID: 6127105749793152546}
   borderRender: {fileID: 358007954849645678}
+  borderRenderArr: []
   backRender: {fileID: 1294318770649464827}
   shadowRender: {fileID: 779189242470408236}
   punchScale: 1.2
@@ -633,12 +634,14 @@ MonoBehaviour:
   speedSuper: 40
   distanceToChangeSpeed: 6
   manipulateColor: 1
+  manipulateBorderColor: 0
   duration: 0.2
   rotAnimation: {fileID: 2954480633441605223}
   speedBoss: 2
   paddingMove: 15
   bossCollider: {fileID: 5136882526281064439}
   damageValue: 8.2
+  CanAttack: 0
 --- !u!114 &5411510531200860626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +658,7 @@ MonoBehaviour:
   render: {fileID: 247238818932793025}
   colorMult: 1.07
   boss2Render: {fileID: 5051980881560045711}
+  ramkaColor: {r: 0.106918216, g: 0.106918216, b: 0.106918216, a: 1}
 --- !u!114 &247238818932793025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,6 +674,8 @@ MonoBehaviour:
   borderColorProp: _Color
   viewRenderer: {fileID: 5621766057088278709}
   borderRender: {fileID: 9185902343706225897}
+  borderRenderArr:
+  - {fileID: 358007954849645678}
   backRender: {fileID: 3364157572222779180}
   shadowRender: {fileID: 3984409825930138585}
   punchScale: 1.7

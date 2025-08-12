@@ -2,10 +2,10 @@ using System;
 
 public interface IDataSaveProvider
 {
-    Action OnSaveCallback { set; }
+    Action<EndRoundFadeEnum> OnSaveAnalyticsCallback { set; }
     DataSave Get();
     SystemSave GetSystemSave();
-    void Save(int slot);
+    void Save(int slot, bool sendAnalytics, EndRoundFadeEnum endRoundType);
     void SaveSystemSave();
     void CreateNew();
     void ResetSystemSave();

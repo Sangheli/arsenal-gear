@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Energy
   flySpeed: 15
   flySpeedFast: 15
+  flyAcceleration: 20
   t1: 0.2
   t2: 0.3
   maxScale: 1.5
@@ -169,7 +170,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 32759
-  m_Sprite: {fileID: 21300000, guid: b7c45c163ed199747ba27a9b5c97b56a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02dab3a1e6c908c4987af49820910412, type: 3}
   m_Color: {r: 1, g: 0.9568628, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

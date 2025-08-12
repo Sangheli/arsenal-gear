@@ -144,7 +144,7 @@ public class PrestigeManager : MonoBehaviour
     public void CompletePrestigeAfterBoss()
     {
         ChangeLevel(1);
-        G.I.StopRun(EndRoundFadeEnum.Win);
+        G.I.StopRun(EndRoundFadeEnum.RoundWin);
     }
 
     public void ToggleActive(bool state)

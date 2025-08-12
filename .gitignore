@@ -92,3 +92,5 @@ Assets/Plugins/IngameDebugConsole.meta
 webgl_build*.zip
 Assets/PluginYourGames/Editor/BuildLogYG2.txt.meta
 Assets/PluginYourGames/Editor/BuildLogYG2.txt
+.vscode/
+global.json

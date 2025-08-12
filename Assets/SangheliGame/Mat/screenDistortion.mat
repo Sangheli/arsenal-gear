@@ -12,11 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - DISTORT_ON
   - FADE_ON
-  - FISHEYE_ON
-  - OVERLAY_ON
-  - TEXTURESCROLL_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -65,12 +61,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeBurnTex:
-        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
+        m_Texture: {fileID: 2800000, guid: fab06e0be9375cc4d823efa71629885c, type: 3}
         m_Scale: {x: 2, y: 1.125}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
-        m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
-        m_Scale: {x: 2, y: 1.125}
+        m_Texture: {fileID: 2800000, guid: 196ee46b40c9c91419ddf602911c28c4, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTex:
         m_Texture: {fileID: 0}
@@ -148,10 +144,10 @@ Material:
     - _DistortTexYSpeed: -5
     - _DstBlend: 0
     - _EditorDrawers: 6
-    - _FadeAmount: -0.1
+    - _FadeAmount: 0.78
     - _FadeBurnGlow: 227
-    - _FadeBurnTransition: 0.075
-    - _FadeBurnWidth: 0.025
+    - _FadeBurnTransition: 0.01
+    - _FadeBurnWidth: 0
     - _FishEyeUvAmount: 0.178
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
@@ -222,7 +218,7 @@ Material:
     - _OverlayBlend: 1
     - _OverlayGlow: 19
     - _OverlayTextureScrollXSpeed: 0
-    - _OverlayTextureScrollYSpeed: 0.01
+    - _OverlayTextureScrollYSpeed: 0.025
     - _Parallax: 0.02
     - _PinchUvAmount: 0.35
     - _PixelateSize: 32
@@ -270,7 +266,7 @@ Material:
     - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.24040093, g: 0.10387242, b: 0.32704395, a: 1}
     - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}
@@ -281,7 +277,7 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FadeBurnColor: {r: 0.42312032, g: 0, b: 0.51572317, a: 1}
+    - _FadeBurnColor: {r: 1, g: 1, b: 1, a: 0}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
@@ -292,7 +288,7 @@ Material:
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OverlayColor: {r: 0.44313726, g: 0.46880457, b: 0.52156866, a: 1}
+    - _OverlayColor: {r: 0.5597484, g: 0.5597484, b: 0.5597484, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SangheliCode;
 using SangheliCore;
+using SangheliCore.Adv;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
@@ -65,12 +66,17 @@ public class G : MonoBehaviour
     public int maxXBase = 10;
     public int MaxY { get; private set; }
     public int MaxX { get; private set; }
+    public readonly IAdvertisement Advertisement = new MockAdvertisement();
 
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
     {
-        EndRoundFadeEnum.PlayerTerminated,
-        EndRoundFadeEnum.Fail,
+        EndRoundFadeEnum.RoundTerminated,
+        EndRoundFadeEnum.RoundFail,
     };
+
+    public string predefinedLang = "en";
+    public bool useOrientationChecker = false;
+    public LayoutPlaceHolder layoutPlaceHolder;
     
     private void OnValidate()
     {
@@ -111,7 +117,26 @@ public class G : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
         I = this;
         OnOrientationChanged(isHorizontal: true);
-        localization.OnLangSelected();
+
+        if (useOrientationChecker)
+        {
+            orientationChecker.UpdateOrientation += OnOrientationChanged;
+            orientationChecker.UpdateOrientation += layoutPlaceHolder.OnOrientationChanged;
+            orientationChecker.Detect();
+        }
+
+        localization.ShowLangSelector(GetLang());
+    }
+
+    private string GetLang()
+    {
+        string lang = null;
+        
+#if UNITY_EDITOR
+        lang = predefinedLang;
+#endif
+
+        return lang;
     }
 
     private void OnOrientationChanged(bool isHorizontal)
@@ -127,12 +152,12 @@ public class G : MonoBehaviour
         Data.enemyContainer.UpdateEnemyIndices();
         playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
-        SaveProvider.OnSaveCallback = AnalyticsHelper.Checkpoint;
+        SaveProvider.OnSaveAnalyticsCallback = AnalyticsHelper.Checkpoint;
         energySpawner.OnLoadInit();
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
         startGameView.Toggle(true);
-        startGameView.saveInfo.FadeOut(2.0f,1);
+        startGameView.DoSaveInfoFadeOut(2.0f,1);
         upgradeView.Toggle(false);
         endRoundView.distortion.OnLoadInit();
         
@@ -154,6 +179,7 @@ public class G : MonoBehaviour
 
         if (newGame)
         {
+            AnalyticsHelper.OnFirstGameLaunch();
             arcMoveAnimator.Play();
         }
         else
@@ -165,7 +191,7 @@ public class G : MonoBehaviour
 
     public void StartRun(bool playFader = true)
     {
-        SaveSystem.Save();
+        SaveSystem.SaveSilent();
         StartCoroutine(StartRunSequence(playFader));
     }
 
@@ -213,7 +239,7 @@ public class G : MonoBehaviour
     public void StopRun(EndRoundFadeEnum fadeType)
     {
         var save = SaveProvider.Get();
-        var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.Win;
+        var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.RoundWin;
         StartCoroutine( demoEnd ? ShowEndGame() : StopRunSequence(fadeType));
     }
     
@@ -221,7 +247,7 @@ public class G : MonoBehaviour
     {
         var save = SaveProvider.Get();
         save.level = maxLevel - 1;
-        SaveSystem.Save();
+        SaveSystem.Save(sendAnalytics: true, endRoundType: EndRoundFadeEnum.EndGame);
         
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
@@ -232,7 +258,7 @@ public class G : MonoBehaviour
         tutorial.OnEndRound();
         endRoundView.distortion.gameObject.SetActive(true);
         endRoundView.distortion.ResetView();
-        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndDemo);
+        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndGame);
         uiManager.Toggle(false);
 
         endRoundView.returnToStartButton.gameObject.SetActive(true);
@@ -264,7 +290,7 @@ public class G : MonoBehaviour
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
         save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
-        SaveSystem.Save();
+        SaveSystem.Save(sendAnalytics: true, fadeType);
         
         yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
         yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
@@ -319,6 +345,8 @@ public class G : MonoBehaviour
         yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
+        
+        AnalyticsHelper.OnShopEntered();
     }
 
     [Header("Level Progression Curves")]

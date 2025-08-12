@@ -8,7 +8,7 @@ public class DataSavePrefsProvider : IDataSaveProvider
     private readonly SaveManager<DataSave> _saveManager = new("game_save");
     private readonly SaveManager<SystemSave> _saveManagerSystemSave = new("system_save");
 
-    public Action OnSaveCallback { get; set; }
+    public Action<EndRoundFadeEnum> OnSaveAnalyticsCallback { get; set; }
     
     public DataSave Get() => _dataSave ??= new DataSave();
     public SystemSave GetSystemSave() => _systemSave ??= _saveManagerSystemSave.Load();
@@ -18,12 +18,14 @@ public class DataSavePrefsProvider : IDataSaveProvider
         var result =_saveManagerSystemSave.Save(_systemSave);
     }
 
-    public void Save(int slot)
+    public void Save(int slot, bool sendAnalytics, EndRoundFadeEnum endRoundType)
     {
         _dataSave ??= new DataSave();
         _dataSave.timeSinceStart = G.I.GameTimeManager.GetCurrentTime();
         var result =_saveManager.Save(_dataSave);
-        OnSaveCallback?.Invoke();
+        
+        if(sendAnalytics)
+            OnSaveAnalyticsCallback?.Invoke(endRoundType);
     }
 
     public void CreateNew()

@@ -7,26 +7,21 @@ namespace SangheliCore
 {
     public class LocalizationManager
     {
-        public static string Lang = "en";
         private readonly Dictionary<string, string> _localizedText = new();
     
-        public static readonly List<string> LangFallbackRu = new() { "be", "kk", "uk", "uz", };
-        public static readonly List<string> SupportedLanguages = new() { "en", "ru", "tr" };
+        private static readonly List<string> LangFallbackRu = new() { "be", "kk", "uk", "uz", };
+        private static readonly List<string> SupportedLanguages = new() { "en", "ru", "tr" };
 
         public LocalizationManager(string lang) => InitializeLocalization(lang);
 
-        private void InitializeLocalization(string lang)
-        {
-            Lang = GetLang(lang);
-            LoadLocalizedText(Lang);
-        }
-    
+        private void InitializeLocalization(string lang) => LoadLocalizedText(GetLang(lang));
+
         private static string GetLang(string lang)
         {
-            if (LocalizationManager.LangFallbackRu.Contains(lang))
+            if (LangFallbackRu.Contains(lang))
                 lang = "ru";
 
-            if (!LocalizationManager.SupportedLanguages.Contains(lang))
+            if (!SupportedLanguages.Contains(lang))
                 lang = "en";
             
             return lang;

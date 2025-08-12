@@ -2568,9 +2568,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndRoundViewDistortion
   ViewImage: {fileID: 7235083215595170175}
-  MaxValue: -0.055
-  MinValue: 0.744
-  animTime: 0.35
+  MaxValue: -0.01
+  MinValue: 1
+  animTime: 0.2
   resultText: {fileID: 1648984292596855652}
   winTextColor: {r: 1, g: 1, b: 1, a: 1}
   failTextColor: {r: 1, g: 1, b: 1, a: 1}
