@@ -47,7 +47,7 @@ public class CursorView : MonoBehaviour
     {
         view.gameObject.SetActive(state);
         viewHarvest.gameObject.SetActive(false);
-        dot.gameObject.SetActive(state);
+        dot.gameObject.SetActive(false);
         
         if (state)
         {

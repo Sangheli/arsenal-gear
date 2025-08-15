@@ -31,6 +31,7 @@ public class HPManager
         _save = G.I.SaveProvider.Get();
         RoundHp = _maxHp = Keys.Sum(x => _save.GetParamContainer().GetValue(x));
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false);
+        G.I.playerCursor.view.hudView.Toggle(false, 0 , false);
     }
 
     public float Reduce(float reduceValue, bool doBlink, bool ignoreShield)
@@ -71,6 +72,6 @@ public class HPManager
         var step = _maxHp * MinHpValueToShowPrc;
         step = Mathf.Max(step, MinHpValueToShow);
         
-        G.I.playerCursor.view.hudView.Toggle(roundedHp < step,G.I.playerCursor.CurrentDamageScale, true);
+        // G.I.playerCursor.view.hudView.Toggle(roundedHp < step,G.I.playerCursor.CurrentDamageScale, true);
     }
 } 
