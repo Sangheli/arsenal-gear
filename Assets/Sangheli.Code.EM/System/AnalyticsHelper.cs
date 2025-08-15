@@ -72,21 +72,21 @@ public static class AnalyticsHelper
     
     public static void OnInterstitialAdRequested()
     {
-        const string eventName = "ce_adIntRequested";
+        const string eventName = "ce_adInterstitialRequested";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnInterstitialAdShown()
     {
-        const string eventName = "ce_adIntShown";
+        const string eventName = "ce_adInterstitialShown";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent,eventName);
     }
     
     public static void OnInterstitialAdFinished()
     {
-        const string eventName = "ce_adIntFinished";
+        const string eventName = "ce_adInterstitialFinished";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent,eventName);
     }
