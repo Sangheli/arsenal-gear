@@ -20,9 +20,13 @@ MonoBehaviour:
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
+  useRandomColor: 0
   color: {r: 0.6862745, g: 0.101960786, b: 0.03137255, a: 1}
   borderColor: {r: 0.15723258, g: 0.15723258, b: 0.15723258, a: 1}
   superHard: 1
+  useRandomSelfDestructTime: 0
+  useSelfDestruct: 0
+  selfDestructTime: 0
   UpgradeInfos:
   - BaseValue: 5
     MaxValue: 45
