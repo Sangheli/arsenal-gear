@@ -1,18 +1,18 @@
 {
     "levelId": 0,
-    "LevelStringEntry": "tutor0",
+    "LevelStringEntry": "tutorMinusOne",
     "roundTime": 12.0,
     "loseHpDuringRound": false,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": false,
-    "preSpawnEnemyCount": 10,
+    "preSpawnEnemyCount": 30,
     "showTerminateButton": false,
     "enemies": [
         {
-            "enemyId": 1,
+            "enemyId": 0,
             "spawnChance": 100.0,
-            "spawnRate": 60.0
+            "spawnRate": 0.0
         }
     ]
 }

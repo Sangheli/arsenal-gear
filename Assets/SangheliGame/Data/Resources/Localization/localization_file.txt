@@ -28,11 +28,12 @@ boss;Boss;Босс;Boss
 reward;Reward;Награда;Ödül
 auto_collect;Auto Collect;Автосбор;Oto Topla
 language;Language;Язык;Dil
+tutorMinusOne;Collect Coins;Собирай монеты;Paraları Topla
 tutor0;Your cursor deals damage over time\nBreak blocks to collect energy;Курсор наносит урон со временем\nРазрушай блоки, чтобы собирать энергию;İmleç zamanla hasar verir\nEnerji toplamak için blokları kır
 tutor1;You Lose HP over Time;Ты теряешь здоровье со временем;Zamanla can kaybedersin
 tutor2;Some blocks fight back!\nAnd Gives More Energy;Некоторые блоки отбиваются\nИ дают больше энергии;Bazı bloklar karşılık verir!\nVe daha fazla enerji verir
 tutor3;Fight with Boss\nTo Complete Level;Сразись с боссом\nчтобы завершить уровень;Bossla savaş\nbölümü tamamla
-start_new;Start New;Новая игра;Yeni Oyun Başlat
+start_new;New Game;Новая Игра;Yeni Oyun
 load_checkpoint;Continue;Продолжить;Yükle
 checkpoint;Checkpoint;Чекпоинт;Checkpoint
 play_time;Play time;Время игры;Oynama Süresi

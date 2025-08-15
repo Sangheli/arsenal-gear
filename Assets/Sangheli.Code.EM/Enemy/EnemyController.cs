@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     [Header("Speed Change Settings")]
     public float speedSuper = 20f;
     public float distanceToChangeSpeed = 2000f;
+    private Coroutine _selfDestructCoroutine;
 
     protected float CurrentHealth;
     private Vector2 _moveDirection;
@@ -34,6 +35,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     
     public float duration = 0.2f;
 
+    private Color _colorMain;
+    private Color _borderColor;
+    private float _selfDestructTime;
 
     private void OnValidate()
     {
@@ -51,6 +55,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         IsDead = false;
         SetData(data);
+        _selfDestructTime = CurrentData.GetSelfDestructTime();
+        _colorMain = CurrentData.GetColor();
+        _borderColor = CurrentData.GetBorderColor();
         damageReciever.EnemyData = CurrentData;
         CurrentHealth = CurrentData.Health;
         _moveDirection = moveDirection.normalized;
@@ -62,6 +69,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         if (_isPreSpawned) _speed = speedSuper;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
+        
+        ActivateSelfDestruct();
+
         _doHpFill = false;
         IsActive = true;
         ResetView();
@@ -77,14 +87,14 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         if (!manipulateColor && manipulateBorderColor)
         {
-            view.render.SetBorderColor(CurrentData.borderColor);
+            view.render.SetBorderColor(_borderColor);
             return;
         }
         
         if (!manipulateColor) 
             return;
         
-        view.render.SetFullColor(CurrentData.color, CurrentData.borderColor);
+        view.render.SetFullColor(_colorMain, _borderColor);
         view.deathVfx.SetColor(view.render.OriginalColor);
     }
 
@@ -187,6 +197,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public virtual void Die(bool isCrit)
     {
         if (!IsActive) return;
+        StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
     }
 
@@ -218,8 +229,35 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _fillStartTime = 0f;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         _lifeTimeCoroutine = null;
+        
+        StopSelfDestruct();
         view.ResetItem();
         transform.SetParent(null);
         transform.localScale = Vector3.one;
+    }
+
+    private void ActivateSelfDestruct()
+    {
+        if (_selfDestructCoroutine != null)
+            StopCoroutine(_selfDestructCoroutine);
+        
+        if (CurrentData.useSelfDestruct && _selfDestructTime > 0)
+            _selfDestructCoroutine = StartCoroutine(SelfDestructCoroutine());
+    }
+    
+    
+    private IEnumerator SelfDestructCoroutine()
+    {
+        yield return new WaitForSeconds(_selfDestructTime);
+        if (!IsActive || IsDead) yield break;
+        IsDead = true;
+        Die(false);
+    }
+
+    private void StopSelfDestruct()
+    {
+        if (_selfDestructCoroutine == null) return;
+        StopCoroutine(_selfDestructCoroutine);
+        _selfDestructCoroutine = null;
     }
 } 

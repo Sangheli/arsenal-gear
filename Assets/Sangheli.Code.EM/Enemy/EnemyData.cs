@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = System.Random;
 
 [CreateAssetMenu(menuName = "Sangheli/EnemyData")]
 public class EnemyData : ScriptableObject
@@ -16,10 +17,15 @@ public class EnemyData : ScriptableObject
     public float AttractionSpeed = 1.0f;
     public float MinAttractDistance = 2.0f;
     
+    public bool useRandomColor;
     public Color color = Color.white;
     public Color borderColor = Color.white;
 
     public bool superHard;
+
+    public bool useRandomSelfDestructTime;
+    public bool useSelfDestruct;
+    public float selfDestructTime;
     
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
@@ -51,4 +57,21 @@ public class EnemyData : ScriptableObject
     public int GetMaxUpgradeLevel(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.MaxUpgrades ?? 0;
     public string GetUpgradeDisplayName(UpgradeType upgradeType) => GetUpgradeInfo(upgradeType)?.DisplayName ?? "";
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
+
+    public Color GetColor() => useRandomColor ? GetRandomColor() : color;
+    public Color GetBorderColor() => useRandomColor ? GetRandomColor() : borderColor;
+    private Color GetRandomColor()
+    {
+        // Generate vibrant colors that fit the neon aesthetic of the game
+        float hue = UnityEngine.Random.value;
+        float saturation = 0.8f + UnityEngine.Random.value * 0.2f; // 0.8-1.0 for vibrant colors
+        float value = 0.8f + UnityEngine.Random.value * 0.2f; // 0.8-1.0 for bright colors
+        
+        var color = Color.HSVToRGB(hue, saturation, value);
+        color.a = 1;
+
+        return color;
+    }
+
+    public float GetSelfDestructTime() => useRandomSelfDestructTime ? selfDestructTime + UnityEngine.Random.value : selfDestructTime;
 }
