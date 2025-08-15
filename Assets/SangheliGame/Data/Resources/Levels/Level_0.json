@@ -8,6 +8,7 @@
     "showGoToUpgradesButton": false,
     "preSpawnEnemyCount": 30,
     "showTerminateButton": false,
+    "autoCollectAllCoins": true,
     "enemies": [
         {
             "enemyId": 0,

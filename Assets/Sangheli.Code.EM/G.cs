@@ -312,8 +312,22 @@ public class G : MonoBehaviour
     {
         var energyViews = energySpawner.EnergyList;
         var toCollect = energyViews.Where(x => x.CanCollect).ToList();
-        var autoCollectPercent = save.GetParamContainer().GetValue("autoCollectCoinsPercent") / 100f;
-        energyAutoCollect = Mathf.Min(toCollect.Count, Mathf.CeilToInt(toCollect.Count * autoCollectPercent));
+        
+        // Check if current level has autoCollectAllCoins enabled
+        var currentLevel = SaveProvider.Get().level - 1;
+        var levelConfig = LevelDataConfig.Get(currentLevel);
+        if (levelConfig != null && levelConfig.autoCollectAllCoins)
+        {
+            // Collect all coins
+            energyAutoCollect = toCollect.Count;
+        }
+        else
+        {
+            // Use the upgrade-based percentage
+            var autoCollectPercent = save.GetParamContainer().GetValue("autoCollectCoinsPercent") / 100f;
+            energyAutoCollect = Mathf.Min(toCollect.Count, Mathf.CeilToInt(toCollect.Count * autoCollectPercent));
+        }
+        
         return toCollect;
     }
 
