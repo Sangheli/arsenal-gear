@@ -214,6 +214,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         view.PlayDeathVfx();
         view.DoBounceAnimation(isCrit);
         view.FlashEffect(isCrit);
+        
+        if(CurrentData.playDeathSound)
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
+        
         IsActive = false;
         yield return new WaitForSeconds(duration);
         yield return view.DeathAnimation();

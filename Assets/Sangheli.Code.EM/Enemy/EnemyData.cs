@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
-using Random = System.Random;
 
 [CreateAssetMenu(menuName = "Sangheli/EnemyData")]
 public class EnemyData : ScriptableObject
@@ -26,7 +24,18 @@ public class EnemyData : ScriptableObject
     public bool useRandomSelfDestructTime;
     public bool useSelfDestruct;
     public float selfDestructTime;
+    public float selfDestructTimeRandomAdd;
+
+    public bool playDeathSound;
+    public bool excludeFromLevelGeneration;
     
+    public bool useCustomSpawnRate;
+    public bool useRandomSpawnRate;
+    public int spawnRate1;
+    public int spawnRate2;
+
+    public int GetSpawnRate() => useRandomSpawnRate ? Random.Range(spawnRate1, spawnRate2) : spawnRate1;
+
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
         new EnemyUpgradeInfo
@@ -73,5 +82,5 @@ public class EnemyData : ScriptableObject
         return color;
     }
 
-    public float GetSelfDestructTime() => useRandomSelfDestructTime ? selfDestructTime + UnityEngine.Random.value : selfDestructTime;
+    public float GetSelfDestructTime() => useRandomSelfDestructTime ? selfDestructTime + UnityEngine.Random.value * selfDestructTimeRandomAdd : selfDestructTime;
 }
