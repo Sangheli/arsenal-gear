@@ -10,7 +10,7 @@ public static class AnalyticsHelper
 {
     public static void Checkpoint(EndRoundFadeEnum fadeType)
     {
-        const string eventName = "checkpoint";
+        const string eventName = "ce_checkpoint";
         
         var save = G.I.SaveProvider.Get();
         var customEvent =  new CustomEvent(eventName)
@@ -27,29 +27,28 @@ public static class AnalyticsHelper
     
     public static void OnYoutubeClicked()
     {
-        const string eventName = "youtube";
-        var customEvent =  new CustomEvent(eventName)
-        {
-            { "clicked",true },
-        };
-
+        const string eventName = "ce_youtube";
+        var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnDsClicked()
     {
-        const string eventName = "discord";
-        var customEvent =  new CustomEvent(eventName)
-        {
-            { "clicked",true },
-        };
-
+        const string eventName = "ce_discord";
+        var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnFirstGameLaunch()
     {
         const string eventName = "ce_newGame";
+        var customEvent = new CustomEvent(eventName);
+        Send(customEvent,eventName);
+    }
+    
+    public static void OnContinue()
+    {
+        const string eventName = "ce_continueGame";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent,eventName);
     }

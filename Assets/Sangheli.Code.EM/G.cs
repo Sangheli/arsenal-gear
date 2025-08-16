@@ -184,6 +184,7 @@ public class G : MonoBehaviour
         }
         else
         {
+            AnalyticsHelper.OnContinue();
             save.loadTimes++;
             StartRun();
         }
