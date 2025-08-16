@@ -11,10 +11,15 @@ public class DataSave
     public int level;
     public int loadTimes;
     
+    public int wins;
+    public int losses;
+    
     public ParamContainer paramContainer;
     public EnemyUpgradeContainer enemyUpgradeContainer;
     
     public int upgradesBoughtNum;
+    public int shopVisits;
+    public int restartsFromEndRound;
 
     public ParamContainer GetParamContainer() => paramContainer ??= new ParamContainer();
     public EnemyUpgradeContainer GetEnemyUpgradeContainer() => enemyUpgradeContainer ??= new EnemyUpgradeContainer();
@@ -43,6 +48,6 @@ public class DataSave
 
     public override string ToString()
     {
-        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(level)}: {level}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}";
+        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(level)}: {level}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}, {nameof(wins)}: {wins}, {nameof(losses)}: {losses}, {nameof(shopVisits)}: {shopVisits}, {nameof(restartsFromEndRound)}: {restartsFromEndRound}";
     }
 }

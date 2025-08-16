@@ -50,5 +50,8 @@ public class BossManager : MonoBehaviour
             G.I.ObjectPool.Return(_currentBoss);
             _currentBoss = null;
         }
+        
+        // Reset boss active flag when boss is reset
+        G.I.roundManager.SetBossActive(false);
     }
 } 

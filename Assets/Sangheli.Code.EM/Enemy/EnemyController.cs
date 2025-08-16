@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 public class EnemyController : MonoBehaviour, IReturnable, IResetable
 {
@@ -35,8 +36,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     
     public float duration = 0.2f;
 
-    private Color _colorMain;
-    private Color _borderColor;
+    private Color? _colorMain;
+    private Color? _borderColor;
     private float _selfDestructTime;
 
     private void OnValidate()
@@ -56,8 +57,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         IsDead = false;
         SetData(data);
         _selfDestructTime = CurrentData.GetSelfDestructTime();
-        _colorMain = CurrentData.GetColor();
-        _borderColor = CurrentData.GetBorderColor();
         damageReciever.EnemyData = CurrentData;
         CurrentHealth = CurrentData.Health;
         _moveDirection = moveDirection.normalized;
@@ -85,16 +84,24 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 
     public void UpdateColors()
     {
+        if (_colorMain == null)
+        {
+            _colorMain = CurrentData.GetColor();
+            _borderColor = CurrentData.GetBorderColor();
+        }
+
+        Debug.Assert(_borderColor != null, nameof(_borderColor) + " != null");
+        
         if (!manipulateColor && manipulateBorderColor)
         {
-            view.render.SetBorderColor(_borderColor);
+            view.render.SetBorderColor(_borderColor.Value);
             return;
         }
         
         if (!manipulateColor) 
             return;
         
-        view.render.SetFullColor(_colorMain, _borderColor);
+        view.render.SetFullColor(_colorMain.Value, _borderColor.Value);
         view.deathVfx.SetColor(view.render.OriginalColor);
     }
 
@@ -207,6 +214,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         view.PlayDeathVfx();
         view.DoBounceAnimation(isCrit);
         view.FlashEffect(isCrit);
+        
+        if(CurrentData.playDeathSound)
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
+        
         IsActive = false;
         yield return new WaitForSeconds(duration);
         yield return view.DeathAnimation();

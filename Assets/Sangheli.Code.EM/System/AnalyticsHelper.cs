@@ -10,16 +10,20 @@ public static class AnalyticsHelper
 {
     public static void Checkpoint(EndRoundFadeEnum fadeType)
     {
-        const string eventName = "checkpoint";
+        const string eventName = "ce_checkpoint";
         
         var save = G.I.SaveProvider.Get();
         var customEvent =  new CustomEvent(eventName)
         {
-            { "playtime", (int) save.timeSinceStart },
-            { "level", save.level },
-            { "money", save.totalEnergy },
-            { "loadcount", save.loadTimes },
-            { "winState", fadeType.ToString() },
+            { "c_playtime", (int) save.timeSinceStart },
+            { "c_level", save.level },
+            { "c_money", save.totalEnergy },
+            { "c_loadcount", save.loadTimes },
+            { "c_checkpointWinState", fadeType.ToString() },
+            { "c_winCount", save.wins },
+            { "c_loseCount", save.losses },
+            { "c_shopVisits", save.shopVisits },
+            { "c_restartsFromEndRound", save.restartsFromEndRound },
         };
         
         Send(customEvent, eventName);
@@ -27,29 +31,28 @@ public static class AnalyticsHelper
     
     public static void OnYoutubeClicked()
     {
-        const string eventName = "youtube";
-        var customEvent =  new CustomEvent(eventName)
-        {
-            { "clicked",true },
-        };
-
+        const string eventName = "ce_youtube";
+        var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnDsClicked()
     {
-        const string eventName = "discord";
-        var customEvent =  new CustomEvent(eventName)
-        {
-            { "clicked",true },
-        };
-
+        const string eventName = "ce_discord";
+        var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnFirstGameLaunch()
     {
         const string eventName = "ce_newGame";
+        var customEvent = new CustomEvent(eventName);
+        Send(customEvent,eventName);
+    }
+    
+    public static void OnContinue()
+    {
+        const string eventName = "ce_continueGame";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent,eventName);
     }
@@ -61,10 +64,11 @@ public static class AnalyticsHelper
         var save = G.I.SaveProvider.Get();
         var customEvent =  new CustomEvent(eventName)
         {
-            { "playtime", (int) save.timeSinceStart },
-            { "level", save.level },
-            { "money", save.totalEnergy },
-            { "loadcount", save.loadTimes },
+            { "c_playtime", (int) save.timeSinceStart },
+            { "c_level", save.level },
+            { "c_money", save.totalEnergy },
+            { "c_loadcount", save.loadTimes },
+            { "c_shopVisits", save.shopVisits },
         };
         
         Send(customEvent, eventName);
@@ -110,9 +114,36 @@ public static class AnalyticsHelper
         const string eventName = "ce_adRewardedFinished";
         var customEvent = new CustomEvent(eventName)
         {
-            { "rewarded", rewarded }
+            { "c_rewardedShown", rewarded }
         };
         
+        Send(customEvent, eventName);
+    }
+    
+    public static void OnStartRound()
+    {
+        var save = G.I.SaveProvider.Get();
+        var bought =  save.paramContainer.GetTempBought();
+        var enemyBought = save.enemyUpgradeContainer.GetTempBought();
+        
+        if(string.IsNullOrEmpty(bought) && string.IsNullOrEmpty(enemyBought))
+            return;
+        
+        const string eventName = "ce_onStartRound";
+        var customEvent = new CustomEvent(eventName);
+
+        // Combine both upgrade information into a single parameter using StringBuilder
+        var sb = new StringBuilder();
+        if (!string.IsNullOrEmpty(bought))
+            sb.Append(bought);
+        if (!string.IsNullOrEmpty(enemyBought))
+        {
+            if (sb.Length > 0)
+                sb.Append("\n");
+            sb.Append(enemyBought);
+        }
+        customEvent.Add("c_upgradesBought", sb.ToString());
+
         Send(customEvent, eventName);
     }
     
@@ -123,10 +154,10 @@ public static class AnalyticsHelper
 #else
         
         var sb = new StringBuilder();
-        sb.Append($"[Event][{name}] ");
+        sb.Append($"[Event][{name}]\n");
         
         foreach (KeyValuePair<string, object> parameter in customEvent)
-            sb.Append($"{parameter.Key}: [{parameter.Value}] ");
+            sb.Append($"{parameter.Key}: [{parameter.Value}]\n");
         
         Debug.Log(sb.ToString());
 #endif

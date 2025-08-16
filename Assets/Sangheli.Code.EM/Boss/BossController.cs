@@ -146,7 +146,7 @@ public class BossController : EnemyController
 
     private void DoDamageBoss()
     {
-        var finalDamage = G.I.HpManager.Reduce(damageValue, doBlink: true, ignoreShield: false);
+        var finalDamage = G.I.HpManager.Reduce(damageValue, doBlink: true, ignoreShield: false, doAnimatedUnfill: true);
         float totalShield = damageValue - finalDamage;
         float totalDamage = finalDamage;
         var damageResult = new DamageResult { PlayerDoDamage = true, TotalDamage = totalDamage, TotalShieldDamage = totalShield };

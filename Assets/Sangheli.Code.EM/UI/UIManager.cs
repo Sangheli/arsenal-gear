@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
         energyBarUI?.ShowEnergy(value);
     }
 
-    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
+    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink, bool doAnimatedUnfill)
     {
         // Проверка флага loseHpDuringRound
         var showHp = true;
@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
         }
         if (healthBarUI != null)
             healthBarUI.gameObject.SetActive(true);
-        return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink);
+        return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink,doAnimatedUnfill);
     }
 
     public bool ShowShield(float hp, float fullValue, float fillValue, bool doBlink) => 

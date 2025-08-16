@@ -1,13 +1,14 @@
 {
     "levelId": 0,
     "LevelStringEntry": "tutorMinusOne",
-    "roundTime": 12.0,
+    "roundTime": 30.0,
     "loseHpDuringRound": false,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": false,
     "preSpawnEnemyCount": 30,
     "showTerminateButton": false,
+    "autoCollectAllCoins": true,
     "enemies": [
         {
             "enemyId": 0,

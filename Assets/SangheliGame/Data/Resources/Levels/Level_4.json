@@ -1,7 +1,7 @@
 {
     "levelId": 4,
     "LevelStringEntry": "tutor3",
-    "roundTime": 5.0,
+    "roundTime": 10.0,
     "bossHp": 35,
     "bossReward": 100,
     "bossAttack": 0.5,

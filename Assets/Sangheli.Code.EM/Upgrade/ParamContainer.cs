@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class ParamContainer
@@ -9,6 +10,25 @@ public class ParamContainer
 
     private List<string> _cachedParamKeys;
     private int _cachedParamKeysCount = -1;
+    
+    private Dictionary<string, int> TempBought { get; set; } = new();
+
+    public void ResetTemp() => TempBought.Clear();
+
+    public string GetTempBought()
+    {
+        if (TempBought == null || TempBought.Count == 0)
+            return "";
+        
+        var sb = new StringBuilder();
+        foreach (var kvp in TempBought)
+        {
+            if (sb.Length > 0)
+                sb.Append("\n");
+            sb.Append($"{kvp.Key}: {kvp.Value}");
+        }
+        return sb.ToString();
+    }
 
     public void UpdateParamKeysCache()
     {
@@ -74,6 +94,9 @@ public class ParamContainer
             return;
         
         UpgradesBought[key]++;
+
+        TempBought.TryAdd(key, 0);
+        TempBought[key]++;
     }
     public float GetValue(string key) => G.I.Data.ParamData.GetParamInfo(key)?.GetValue(UpgradesBought[key]) ?? 0;
     public float GetBaseValue(string key) => G.I.Data.ParamData.GetParamInfo(key)?.GetValue( 0) ?? 0;

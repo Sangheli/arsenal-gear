@@ -26,6 +26,12 @@ public class LevelConfig
     public bool showTerminateButton = true; // Показывать ли кнопку прерывания уровня во время игры
     
     [Space]
+    public bool autoCollectAllCoins = false; // Автоматически собирать все монеты в конце раунда
+    
+    [Space]
+    public float bossEnemySpawnRateMultiplier = 5; // Множитель уменьшения скорости спавна врагов при появлении босса
+    
+    [Space]
     public int preSpawnEnemyCount = 10; // Количество врагов для предспавна в начале раунда
 
     [Space]

@@ -27,6 +27,13 @@ MonoBehaviour:
   useRandomSelfDestructTime: 1
   useSelfDestruct: 1
   selfDestructTime: 1.5
+  selfDestructTimeRandomAdd: 3
+  playDeathSound: 1
+  excludeFromLevelGeneration: 0
+  useCustomSpawnRate: 1
+  useRandomSpawnRate: 1
+  spawnRate1: 4
+  spawnRate2: 10
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 90

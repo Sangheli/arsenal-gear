@@ -27,6 +27,9 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   useSelfDestruct: 0
   selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
+  playDeathSound: 0
+  excludeFromLevelGeneration: 1
   UpgradeInfos:
   - BaseValue: 4
     MaxValue: 16

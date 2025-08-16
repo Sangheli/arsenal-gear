@@ -10,20 +10,21 @@ namespace SangheliCore
         private readonly Dictionary<string, string> _localizedText = new();
     
         private static readonly List<string> LangFallbackRu = new() { "be", "kk", "uk", "uz", };
-        private static readonly List<string> SupportedLanguages = new() { "en", "ru", "tr" };
+        private static readonly List<string> LangFallbackEs = new() { "gl", "ca", "eu" };
 
         public LocalizationManager(string lang) => InitializeLocalization(lang);
 
         private void InitializeLocalization(string lang) => LoadLocalizedText(GetLang(lang));
+        private const char Splitter = ',';
 
         private static string GetLang(string lang)
         {
             if (LangFallbackRu.Contains(lang))
                 lang = "ru";
-
-            if (!SupportedLanguages.Contains(lang))
-                lang = "en";
             
+            if (LangFallbackEs.Contains(lang))
+                lang = "es";
+
             return lang;
         }
         
@@ -46,15 +47,7 @@ namespace SangheliCore
 
             if (lines.Length == 0) return;
 
-            // Parse header to find language column index
-            var headers = lines[0].Split(';');
-            var languageColumnIndex = Array.IndexOf(headers, language);
-
-            // If language not found, fallback to English
-            if (languageColumnIndex == -1) languageColumnIndex = Array.IndexOf(headers, "en");
-
-            // If still not found, default to second column (index 1)
-            if (languageColumnIndex == -1) languageColumnIndex = 1;
+            var languageColumnIndex = GetLanguageColumnIndex(language, lines);
 
             // Parse data rows
             for (int i = 1; i < lines.Length; i++)
@@ -62,15 +55,58 @@ namespace SangheliCore
                 var line = lines[i];
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                var parts = line.Split(';');
+                var parts = SplitCsvLine(line);
                 if (parts.Length <= languageColumnIndex) continue;
             
                 var key = parts[0].Trim();
-                var value = parts[languageColumnIndex].Replace("\\n", "\n");
+                var value = parts[languageColumnIndex].Replace("\\n", "\n").Replace("\"", "");
                 _localizedText[key] = value;
             }
         }
     
+        private static int GetLanguageColumnIndex(string language, string[] lines)
+        {
+            // Parse header to find language column index
+            var headers = lines[0].Split(Splitter);
+            var languageColumnIndex = Array.IndexOf(headers, language);
+
+            // If language not found, fallback to English
+            if (languageColumnIndex == -1) languageColumnIndex = Array.IndexOf(headers, "en");
+
+            // If still not found, default to second column (index 1)
+            if (languageColumnIndex == -1) languageColumnIndex = 1;
+            return languageColumnIndex;
+        }
+
+        private static string[] SplitCsvLine(string line)
+        {
+            var result = new List<string>();
+            var current = "";
+            var inQuotes = false;
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                var c = line[i];
+                
+                switch (c)
+                {
+                    case '"' when i == 0 || line[i - 1] != '\\':
+                        inQuotes = !inQuotes;
+                        break;
+                    case ',' when !inQuotes:
+                        result.Add(current);
+                        current = "";
+                        break;
+                    default:
+                        current += c;
+                        break;
+                }
+            }
+
+            result.Add(current);
+            return result.ToArray();
+        }
+
         public string Get(string key) => 
             _localizedText.TryGetValue(key, out var value) ? value : key;
     }

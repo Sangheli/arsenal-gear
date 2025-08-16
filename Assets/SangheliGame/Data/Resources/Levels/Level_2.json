@@ -1,7 +1,7 @@
 {
     "levelId": 2,
     "LevelStringEntry": "tutor1",
-    "roundTime": 12.0,
+    "roundTime": 15.0,
     "loseHpDuringRound": true,
     "showBossAfterTimer": false,
     "checkNextRoundFromSave": true,
