@@ -525,7 +525,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     delim: 10
-  maxLevel: 75
+  maxLevel: 1000
   delim: 25
   arcMoveAnimator: {fileID: 308878766}
   orthoHor: 5
