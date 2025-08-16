@@ -192,6 +192,9 @@ public class G : MonoBehaviour
 
     public void StartRun(bool playFader = true)
     {
+        AnalyticsHelper.OnStartRound();
+        G.I.SaveProvider.Get().paramContainer.ResetTemp();
+        G.I.SaveProvider.Get().enemyUpgradeContainer.ResetTemp();
         SaveSystem.SaveSilent();
         StartCoroutine(StartRunSequence(playFader));
     }

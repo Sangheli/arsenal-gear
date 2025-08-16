@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class EnemyUpgradeContainer
@@ -10,6 +11,9 @@ public class EnemyUpgradeContainer
     // Кэш для типов апгрейдов по enemyId
     private Dictionary<int, List<UpgradeType>> _cachedUpgradeTypes = new();
     private Dictionary<int, int> _cachedUpgradeTypesCount = new();
+    
+    // Temporary bought tracking for analytics
+    private Dictionary<string, int> TempBought { get; set; } = new();
 
     public void ValidateAndRepair()
     {
@@ -82,12 +86,37 @@ public class EnemyUpgradeContainer
             .ToList();
     }
 
+    public void ResetTemp() => TempBought.Clear();
+
+    public string GetTempBought()
+    {
+        if (TempBought == null || TempBought.Count == 0)
+            return "";
+        
+        var sb = new StringBuilder();
+        foreach (var kvp in TempBought)
+        {
+            if (sb.Length > 0)
+                sb.Append("\n");
+            sb.Append($"{kvp.Key}: {kvp.Value}");
+        }
+        return sb.ToString();
+    }
+
     public void BuyUpgrade(int id, UpgradeType type)
     {
         var enemyData = GetEnemyData(id);
         var currentLevel = enemyData.GetLevel(type);
         var maxLevel = GetMaxLevel(id, type);
-        if (currentLevel < maxLevel) enemyData.SetBoughtLevel(type, currentLevel + 1);
+        if (currentLevel < maxLevel) 
+        {
+            enemyData.SetBoughtLevel(type, currentLevel + 1);
+            
+            // Track temporary bought for analytics
+            var key = $"{GetEnemyDisplayName(id)}_{type}";
+            TempBought.TryAdd(key, 0);
+            TempBought[key]++;
+        }
     }
 
     public float GetValue(int id, UpgradeType type) => GetUpgradeValueFromEnemyData(id, type,  GetEnemyData(id).GetLevel(type));

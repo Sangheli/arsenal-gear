@@ -120,6 +120,33 @@ public static class AnalyticsHelper
         Send(customEvent, eventName);
     }
     
+    public static void OnStartRound()
+    {
+        var save = G.I.SaveProvider.Get();
+        var bought =  save.paramContainer.GetTempBought();
+        var enemyBought = save.enemyUpgradeContainer.GetTempBought();
+        
+        if(string.IsNullOrEmpty(bought) && string.IsNullOrEmpty(enemyBought))
+            return;
+        
+        const string eventName = "ce_onStartRound";
+        var customEvent = new CustomEvent(eventName);
+
+        // Combine both upgrade information into a single parameter using StringBuilder
+        var sb = new StringBuilder();
+        if (!string.IsNullOrEmpty(bought))
+            sb.Append(bought);
+        if (!string.IsNullOrEmpty(enemyBought))
+        {
+            if (sb.Length > 0)
+                sb.Append("\n");
+            sb.Append(enemyBought);
+        }
+        customEvent.Add("c_upgradesBought", sb.ToString());
+
+        Send(customEvent, eventName);
+    }
+    
     private static void Send(CustomEvent customEvent, string name)
     {
 #if !UNITY_EDITOR
@@ -127,10 +154,10 @@ public static class AnalyticsHelper
 #else
         
         var sb = new StringBuilder();
-        sb.Append($"[Event][{name}] ");
+        sb.Append($"[Event][{name}]\n");
         
         foreach (KeyValuePair<string, object> parameter in customEvent)
-            sb.Append($"{parameter.Key}: [{parameter.Value}] ");
+            sb.Append($"{parameter.Key}: [{parameter.Value}]\n");
         
         Debug.Log(sb.ToString());
 #endif
