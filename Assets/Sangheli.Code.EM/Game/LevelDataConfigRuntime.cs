@@ -68,7 +68,8 @@ public class LevelDataConfigRuntime
             roundTime = 23.5f,
             bossHp = bossHp,
             bossReward = bossReward,
-            bossAttack = bossAttack
+            bossAttack = bossAttack,
+            bossEnemySpawnRateMultiplier = 5 // Default value for boss enemy spawn rate multiplier
         };
     }
 

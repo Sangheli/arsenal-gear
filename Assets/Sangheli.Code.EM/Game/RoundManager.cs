@@ -17,6 +17,15 @@ public class RoundManager : MonoBehaviour
     private InputSystem_Actions _inputActions;
     private LevelConfig _currentLevelConfig;
     
+    // Add property to track if boss is active
+    public bool IsBossActive { get; private set; }
+    
+    // Method to set boss active state
+    public void SetBossActive(bool active)
+    {
+        IsBossActive = active;
+    }
+    
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -70,6 +79,10 @@ public class RoundManager : MonoBehaviour
     private void TrySpawnEnemyWithRate(EnemyData enemyData, LevelEnemyInfo info)
     {
         float effectiveSpawnRate = Mathf.Max(info.spawnRate, 0.1f) * GetSpawnRateMultiplier();
+        
+        // Reduce spawn rate by the multiplier from level config when boss is active
+        if (IsBossActive && _currentLevelConfig != null)
+            effectiveSpawnRate /= _currentLevelConfig.bossEnemySpawnRateMultiplier;
 
         if (!_enemySpawnTimers.ContainsKey(enemyData))
             _enemySpawnTimers[enemyData] = Time.time + 60f / effectiveSpawnRate;
@@ -115,6 +128,10 @@ public class RoundManager : MonoBehaviour
             Debug.LogError("LevelData.Levels is empty!");
             _currentLevelConfig = null;
         }
+        
+        // Boss is not active at the start of round
+        IsBossActive = false;
+        
         PreSpawnEnemies();
         IsAlive = true;
         StopAllCoroutines();
@@ -132,6 +149,9 @@ public class RoundManager : MonoBehaviour
         foreach (var x in _enemyList.Where(x => x != null)) 
             G.I.ObjectPool.Return(x);
         _enemyList.Clear();
+        
+        // Reset boss active state when clearing all enemies
+        IsBossActive = false;
     }
 
     private void PreSpawnEnemies()

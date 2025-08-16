@@ -138,11 +138,18 @@ public class PrestigeManager : MonoBehaviour
         float damage = levelConfig?.bossAttack ?? 1;
         _active = false;
         G.I.tutorial.OnEndRound(); // Скрываем туториал при появлении босса
+        
+        // Set boss active flag in RoundManager
+        G.I.roundManager.SetBossActive(true);
+        
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
     }
 
     public void CompletePrestigeAfterBoss()
     {
+        // Reset boss active flag when boss is defeated
+        G.I.roundManager.SetBossActive(false);
+        
         ChangeLevel(1);
         G.I.StopRun(EndRoundFadeEnum.RoundWin);
     }
