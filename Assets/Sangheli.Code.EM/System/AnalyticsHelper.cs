@@ -15,11 +15,15 @@ public static class AnalyticsHelper
         var save = G.I.SaveProvider.Get();
         var customEvent =  new CustomEvent(eventName)
         {
-            { "playtime", (int) save.timeSinceStart },
-            { "level", save.level },
-            { "money", save.totalEnergy },
-            { "loadcount", save.loadTimes },
-            { "winState", fadeType.ToString() },
+            { "c_playtime", (int) save.timeSinceStart },
+            { "c_level", save.level },
+            { "c_money", save.totalEnergy },
+            { "c_loadcount", save.loadTimes },
+            { "c_checkpointWinState", fadeType.ToString() },
+            { "c_winCount", save.wins },
+            { "c_loseCount", save.losses },
+            { "c_shopVisits", save.shopVisits },
+            { "c_restartsFromEndRound", save.restartsFromEndRound },
         };
         
         Send(customEvent, eventName);
@@ -60,10 +64,11 @@ public static class AnalyticsHelper
         var save = G.I.SaveProvider.Get();
         var customEvent =  new CustomEvent(eventName)
         {
-            { "playtime", (int) save.timeSinceStart },
-            { "level", save.level },
-            { "money", save.totalEnergy },
-            { "loadcount", save.loadTimes },
+            { "c_playtime", (int) save.timeSinceStart },
+            { "c_level", save.level },
+            { "c_money", save.totalEnergy },
+            { "c_loadcount", save.loadTimes },
+            { "c_shopVisits", save.shopVisits },
         };
         
         Send(customEvent, eventName);
@@ -109,7 +114,7 @@ public static class AnalyticsHelper
         const string eventName = "ce_adRewardedFinished";
         var customEvent = new CustomEvent(eventName)
         {
-            { "rewarded", rewarded }
+            { "c_rewardedShown", rewarded }
         };
         
         Send(customEvent, eventName);

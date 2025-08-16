@@ -12,6 +12,18 @@ public class SaveSystem
     public static void Save(bool sendAnalytics, EndRoundFadeEnum endRoundType)
     {
         PlayerPrefs.SetString(SaveKeyPrefix + SaveSlot, DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        
+        var save = G.I.SaveProvider.Get();
+        switch (endRoundType)
+        {
+            case EndRoundFadeEnum.RoundWin:
+                save.wins++;
+                break;
+            case EndRoundFadeEnum.RoundFail:
+                save.losses++;
+                break;
+        }
+        
         G.I.SaveProvider.Save(SaveSlot, sendAnalytics, endRoundType);
     }
 

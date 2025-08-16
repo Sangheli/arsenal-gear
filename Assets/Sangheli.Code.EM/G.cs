@@ -339,6 +339,10 @@ public class G : MonoBehaviour
 
     private IEnumerator GoToUpgradesCoroutine()
     {
+        var save = I.SaveProvider.Get();
+        save.shopVisits++;
+        SaveSystem.SaveSilent();
+        
         distortionUI.DoBlock(true);
         bossManager.ResetBoss();
         yield return distortionUI.DoFade(forward: true);
