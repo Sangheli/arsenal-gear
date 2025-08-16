@@ -40,7 +40,7 @@ public class CursorDamageHelper
 
             if (isAI) continue;
             
-            var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
+            var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false, doAnimatedUnfill: false);
             totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
             totalDamage += finalDamage;
         }

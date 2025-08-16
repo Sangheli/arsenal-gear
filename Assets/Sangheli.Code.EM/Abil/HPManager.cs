@@ -13,6 +13,7 @@ public class HPManager
     private float _maxHp;
 
     private bool _doBlink;
+    private bool _doAnimatedUnfill;
 
     private DataSave _save;
     
@@ -30,17 +31,20 @@ public class HPManager
     {
         _save = G.I.SaveProvider.Get();
         RoundHp = _maxHp = Keys.Sum(x => _save.GetParamContainer().GetValue(x));
-        G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false);
+        G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false, false);
         G.I.playerCursor.view.hudView.Toggle(false, 0 , false);
     }
 
-    public float Reduce(float reduceValue, bool doBlink, bool ignoreShield)
+    public float Reduce(float reduceValue, bool doBlink, bool ignoreShield, bool doAnimatedUnfill)
     {
         if (reduceValue <= 0)
             return reduceValue;
 
         if (doBlink)
             _doBlink = true;
+
+        if (doAnimatedUnfill)
+            _doAnimatedUnfill = true;
         
         var actualDamage = ignoreShield
             ? reduceValue
@@ -66,8 +70,9 @@ public class HPManager
             return;
 
         _lastUpdateHp = roundedHp;
-        G.I.uiManager.ShowHp(roundedHp, _maxHp, roundedHp / _maxHp, _doBlink);
+        G.I.uiManager.ShowHp(roundedHp, _maxHp, roundedHp / _maxHp, _doBlink, _doAnimatedUnfill);
         _doBlink = false;
+        _doAnimatedUnfill = false;
 
         var step = _maxHp * MinHpValueToShowPrc;
         step = Mathf.Max(step, MinHpValueToShow);

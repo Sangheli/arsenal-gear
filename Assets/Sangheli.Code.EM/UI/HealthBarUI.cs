@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HealthBarUI : MonoBehaviour
 {
@@ -14,8 +13,10 @@ public class HealthBarUI : MonoBehaviour
     private Coroutine _blinkCoroutine;
     private Coroutine _bounceCoroutine;
     private Vector3 _originalScale;
+    public float unFillTime = 0.5f;
 
     public HalfBarView[] halfBarViewArr;
+    public float threshold = 0.0001f;
 
     private void Awake()
     {
@@ -31,6 +32,8 @@ public class HealthBarUI : MonoBehaviour
             x.BlinkColor = blinkColor;
             x.BlinkTime = blinkTime;
             x.BlinkCurve = blinkCurve;
+            x.UnFillTime = unFillTime;
+            x.Threshold = threshold;
         }
     }
 
@@ -40,12 +43,12 @@ public class HealthBarUI : MonoBehaviour
             x.SetStartColor();
     }
 
-    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
+    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink, bool doAnimatedUnfill)
     {
         if (!gameObject.activeSelf)
             return false;
         
-        foreach (var x in halfBarViewArr) x.ShowHp(fillValue, doBlink);
+        foreach (var x in halfBarViewArr) x.ShowHp(fillValue, doBlink, doAnimatedUnfill);
 
         if (timerText != null)
         {

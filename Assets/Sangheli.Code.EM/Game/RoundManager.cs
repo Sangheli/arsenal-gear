@@ -38,7 +38,7 @@ public class RoundManager : MonoBehaviour
     private void OnDebugMinusHp(InputAction.CallbackContext context)
     {
         if (IsAlive)
-            G.I.HpManager.Reduce(100, doBlink: true, ignoreShield: true);
+            G.I.HpManager.Reduce(100, doBlink: true, ignoreShield: true, doAnimatedUnfill: false);
     }
     
     private void Update()
@@ -48,7 +48,7 @@ public class RoundManager : MonoBehaviour
         var diff = Time.deltaTime * 1;
         diff *= 2/3f;
         if (_currentLevelConfig == null || _currentLevelConfig.loseHpDuringRound)
-            G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
+            G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true, doAnimatedUnfill: false);
 
         if (G.I.HpManager.RoundHp <= 0)
         {
