@@ -26,7 +26,7 @@ public class LevelTargetBar : MonoBehaviour
         {
             case LevelObjectiveType.CoinCount:
             case LevelObjectiveType.EnemyCount:
-                progressText.text = $"{_levelTargetValue.End.CurrentValue}/{_currentLevelConfig.objectiveValue}";
+                progressText.text = $"{NumberFormatter.Format(_levelTargetValue.End.CurrentValue, 0)}/{NumberFormatter.Format(_currentLevelConfig.objectiveValue, 0)}";
                 break;
             case LevelObjectiveType.Boss:
                 var distance = (1 - GetTimePercent()) * _currentLevelConfig.objectiveValue;

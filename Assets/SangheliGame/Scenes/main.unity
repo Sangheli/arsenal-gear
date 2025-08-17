@@ -1789,6 +1789,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 364726221026835896, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 364726221026835896, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364726221026835896, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364726221026835896, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1881,6 +1897,34 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 1035207960}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationScale
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor2.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor2.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780615574006127119, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_GradationColor2.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8623710069257715788, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Name
       value: LevelTargetManager

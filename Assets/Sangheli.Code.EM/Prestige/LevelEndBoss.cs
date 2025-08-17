@@ -5,13 +5,11 @@ public class LevelEndBoss : ILevelTargetEnd
     public string Localization => "win_text";
     public LevelTargetValue Data;
     public float CurrentValue { get; private set; }
-    private LevelConfig _currentLevelConfig;
     private LevelConfig _levelConfig;
     
     public void OnEnd()
     {
         var level = G.I.SaveProvider.Get().level;
-        _levelConfig = G.I.LevelDataConfig.Count() > level ? G.I.LevelDataConfig.Get(level) : null;
         Color bossColor = Data.LevelGradientColor.GetLevelColor(level + 1);
         float bossHp = _levelConfig?.bossHp ?? 1000f;
         float scale = 9f;
@@ -20,6 +18,7 @@ public class LevelEndBoss : ILevelTargetEnd
         G.I.tutorial.OnEndRound(); // Скрываем туториал при появлении босса
         
         // Set boss active flag in RoundManager
+        Data.TargetView.gameObject.SetActive(false);
         G.I.roundManager.SetBossActive(true);
         G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
     }
@@ -44,9 +43,9 @@ public class LevelEndBoss : ILevelTargetEnd
     public void ResetValue(LevelConfig currentLevelConfig)
     {
         CurrentValue = 0;
-        _currentLevelConfig = currentLevelConfig;
+        _levelConfig = currentLevelConfig;
     }
 
-    public bool IsCompleted() => CurrentValue >=  _currentLevelConfig.roundTime;
-    public float GetLevelPercent() =>  _currentLevelConfig.roundTime <= 0f ? 0f : Mathf.Clamp01(CurrentValue /  _currentLevelConfig.roundTime);
+    public bool IsCompleted() => CurrentValue >=  _levelConfig.roundTime;
+    public float GetLevelPercent() =>  _levelConfig.roundTime <= 0f ? 0f : Mathf.Clamp01(CurrentValue /  _levelConfig.roundTime);
 }

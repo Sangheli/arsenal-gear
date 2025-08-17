@@ -7,7 +7,7 @@ public class LevelTargetValue
     public readonly LevelGradientColor LevelGradientColor;
     
     private LevelConfig _currentLevelConfig;
-    private readonly LevelTargetBar _targetView;
+    public readonly LevelTargetBar TargetView;
     public ILevelTargetEnd End;
     private readonly Dictionary<LevelObjectiveType, ILevelTargetEnd> _objectiveEnd;
     
@@ -21,12 +21,13 @@ public class LevelTargetValue
             { LevelObjectiveType.EnemyCount, new LevelEndEnemy()},
         };
         
-        _targetView = targetView;
+        TargetView = targetView;
         LevelGradientColor = levelGradientColor;
     }
 
     public void Init(LevelConfig currentLevelConfig)
     {
+        TargetView.gameObject.SetActive(true);
         Active = true;
         _currentLevelConfig = currentLevelConfig;
         End = GetLevelTargetEnd(currentLevelConfig.objectiveType);
@@ -53,7 +54,7 @@ public class LevelTargetValue
             return;
         
         End.Add(levelObjectiveType, value);
-        _targetView.UpdateView();
+        TargetView.UpdateView();
 
         if (!End.IsCompleted()) 
             return;
