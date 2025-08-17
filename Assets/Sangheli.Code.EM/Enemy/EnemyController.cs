@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 {
     public EnemyView view;
     public DamageReciever damageReciever;
-    public Vector3 rotationSpeed = new(0, 30, 0);
     private float _speed = 2f;
     public float lifeTime = 3f;
     [Header("Speed Change Settings")]
@@ -74,6 +73,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _doHpFill = false;
         IsActive = true;
         ResetView();
+        // Always update colors when initializing
+        _colorMain = null; 
+        _borderColor = null;
         UpdateColors();
     }
 
@@ -133,8 +135,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         var deltaTime = Time.deltaTime;
         
-        view.render.viewRenderer.transform.Rotate(rotationSpeed * deltaTime);
-        view.render.shadowRender.transform.Rotate(rotationSpeed * deltaTime);
+        view.render.viewRenderer.transform.Rotate(CurrentData.rotationSpeed * deltaTime);
+        view.render.shadowRender.transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
         if (_hasChangedSpeed && CurrentData.AttractToCursor)
         {

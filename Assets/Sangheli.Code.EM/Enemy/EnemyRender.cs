@@ -23,7 +23,7 @@ public class EnemyRender : MonoBehaviour
     public MaterialPropertyBlock PropertyBlockBack;
     public MaterialPropertyBlock PropertyBlockRamka;
 
-    public Color OriginalColor { get; private set; }
+    public Color OriginalColor { get; internal set; }
     public Color OriginalRamkaColor { get; private set; }
     
     private Vector3 _originalScale;

@@ -6,36 +6,49 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sangheli/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    public float Health;
-    public float Speed;
-    public float DamagePerHit;
     public EnemyController prefab;
     public string DisplayName = "Basic Enemy";
+    
+    [Space]
+    public bool excludeFromLevelGeneration;
+    public bool superHard;
+    public bool playDeathSound;
+    
+    [Space]
+    public float Health;
+    public float DamagePerHit;
+    public float Speed;
+    public Vector3 rotationSpeed = new(0, 0, 30);
+    
+    [Space,Header("Magnet")]
     public bool AttractToCursor = false;
     public float AttractionSpeed = 1.0f;
     public float MinAttractDistance = 2.0f;
     
+    [Space,Header("Color")]
     public bool useRandomColor;
+    
+    [Space]
     public Color color = Color.white;
     public Color borderColor = Color.white;
-
-    public bool superHard;
-
-    public bool useRandomSelfDestructTime;
-    public bool useSelfDestruct;
-    public float selfDestructTime;
-    public float selfDestructTimeRandomAdd;
-
-    public bool playDeathSound;
-    public bool excludeFromLevelGeneration;
     
+    [Space,Header("Spaw Rate")]
     public bool useCustomSpawnRate;
+    
+    [Space]
     public bool useRandomSpawnRate;
     public int spawnRate1;
     public int spawnRate2;
 
-    public int GetSpawnRate() => useRandomSpawnRate ? Random.Range(spawnRate1, spawnRate2) : spawnRate1;
-
+    [Space,Header("Self Destruct")]
+    public bool useSelfDestruct;
+    
+    [Space]
+    public bool useRandomSelfDestructTime;
+    public float selfDestructTime;
+    public float selfDestructTimeRandomAdd;
+    
+    [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
         new EnemyUpgradeInfo
@@ -58,6 +71,8 @@ public class EnemyData : ScriptableObject
         var upgradeContainer = dataSave.GetEnemyUpgradeContainer();
         CachedEnergyDropLevel = upgradeContainer.GetBoughtLevel(EnemyId, UpgradeType.EnergyDrop);
     }
+    
+    public int GetSpawnRate() => useRandomSpawnRate ? Random.Range(spawnRate1, spawnRate2) : spawnRate1;
 
     public EnemyUpgradeInfo GetUpgradeInfo(UpgradeType upgradeType) => UpgradeInfos.FirstOrDefault(info => info.Type == upgradeType);
     public float GetUpgradeValue(UpgradeType upgradeType, int boughtLevel) => GetUpgradeInfo(upgradeType)?.GetValue(boughtLevel) ?? 0f;

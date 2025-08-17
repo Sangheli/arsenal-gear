@@ -16,7 +16,7 @@ public class EnemyView : MonoBehaviour
     public virtual void DoBounceAnimation(bool isCrit) => render.DoBounceAnimation(isCrit);
     public virtual void SetFillValue(float targetClipValue) => render.SetFillValue(targetClipValue);
     public virtual void FlashEffect(bool isCrit = false) => render.FlashEffect(isCrit);
-    public void CritColorEffect() => render.CritColorEffect();
+    public virtual void CritColorEffect() => render.CritColorEffect();
     public void PlayDeathVfx() => deathVfx.Play();
     
 

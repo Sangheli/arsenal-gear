@@ -26,10 +26,12 @@ public class BossView : EnemyView
         var backColor = color;
         backColor.a = 64 / 255f;
         
+        render.OriginalColor = color; // Store the original color for crit effects
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
         render.ApplyBorderColor(ramkaColor);
         
+        boss2Render.OriginalColor = color; // Store the original color for crit effects
         boss2Render.ApplyPropertyView(color);
         boss2Render.ApplyPropertyBack(backColor);
         
@@ -52,6 +54,12 @@ public class BossView : EnemyView
     {
         boss2Render.FlashEffect(isCrit);
         base.FlashEffect(isCrit);
+    }
+
+    public override void CritColorEffect()
+    {
+        boss2Render.CritColorEffect();
+        base.CritColorEffect();
     }
 
     public override void ResetItem()
