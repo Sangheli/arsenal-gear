@@ -9,6 +9,7 @@ public class DataContainer : ScriptableObject
     public FontContainer fontContainer;
     public UpgradeParamConfig ParamData; // ScriptableObject с параметрами апгрейдов
     public EnemyContainer enemyContainer; // ScriptableObject с врагами
+    public LevelObjectiveVisualConfig objectiveVisualConfig; // Reference to the visual config
     
     public void Init()
     {

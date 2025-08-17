@@ -17,15 +17,9 @@ public class RoundManager : MonoBehaviour
     private InputSystem_Actions _inputActions;
     public LevelConfig _currentLevelConfig { get; private set; }
     
-    // Add property to track if boss is active
-    public bool IsBossActive { get; private set; }
-    
-    // Method to set boss active state
-    public void SetBossActive(bool active)
-    {
-        IsBossActive = active;
-    }
-    
+    private bool IsBossActive { get; set; }
+    public void SetBossActive(bool active) => IsBossActive = active;
+
     private void Awake()
     {
         var enemiesParentGo = new GameObject("Enemies");
@@ -63,7 +57,7 @@ public class RoundManager : MonoBehaviour
         if (G.I.HpManager.RoundHp <= 0)
         {
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
-            G.I.StopRun(EndRoundFadeEnum.RoundFail);
+            G.I.StopRun(null, EndRoundFadeEnum.RoundFail);
         }
         
         if(!IsAlive) return;
@@ -102,9 +96,9 @@ public class RoundManager : MonoBehaviour
     }
 
     private static float GetSpawnRateMultiplier() =>
-        G.I.prestigeManager.IsTimerOver
+        G.I.levelTargetManager.Data.LevelTargetEnd.IsBossTimerOver()
             ? 0.75f
-            : 1.0f + 0.35f * G.I.prestigeManager.GetLevelTimePercent();
+            : 1.0f + 0.35f * G.I.levelTargetManager.Data.LevelTargetEnd.GetLevelTimePercent();
 
     private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
     {
@@ -237,6 +231,6 @@ public class RoundManager : MonoBehaviour
         if (!IsAlive) return;
         
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
-        G.I.StopRun(EndRoundFadeEnum.RoundTerminated);
+        G.I.StopRun(null, EndRoundFadeEnum.RoundTerminated);
     }
 }

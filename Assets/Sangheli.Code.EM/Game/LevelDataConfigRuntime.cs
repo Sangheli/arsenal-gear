@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelDataConfigRuntime
 {
@@ -55,12 +56,31 @@ public class LevelDataConfigRuntime
         int bossReward = Mathf.RoundToInt(progressionReward);
         int bossAttack = Mathf.RoundToInt(progressionAttack);
         
+        // Generate random objective
+        var objectiveType = (LevelObjectiveType)Random.Range(1, Enum.GetValues(typeof(LevelObjectiveType)).Length);
+        int objectiveValue = 0;
+        
+        switch (objectiveType)
+        {
+            case LevelObjectiveType.CoinCount:
+                objectiveValue = Random.Range(20, 100);
+                break;
+            case LevelObjectiveType.EnemyCount:
+                objectiveValue = Random.Range(30, 150);
+                break;
+            case LevelObjectiveType.Boss:
+                objectiveValue = Random.Range(50, 300);
+                break;
+            case LevelObjectiveType.Time:
+                objectiveValue = 0; // For time objective, we use the roundTime property
+                break;
+        }
+        
         return new LevelConfig
         {
             levelId = i,
             enemies = GenerateEnemies(i),
             loseHpDuringRound = true,
-            showBossAfterTimer = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
             showTerminateButton = true,
@@ -71,7 +91,9 @@ public class LevelDataConfigRuntime
             bossAttack = bossAttack,
             bossEnemySpawnRateMultiplier = 5, // Default value for boss enemy spawn rate multiplier
             useWinColorOnFail = false, // By default, use normal fail color on defeat
-            playerAutoAttack = true // By default, player auto-attack is enabled
+            playerAutoAttack = true, // By default, player auto-attack is enabled
+            objectiveType = objectiveType,
+            objectiveValue = objectiveValue
         };
     }
 

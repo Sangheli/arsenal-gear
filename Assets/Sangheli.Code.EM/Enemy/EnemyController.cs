@@ -206,6 +206,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public virtual void Die(bool isCrit)
     {
         if (!IsActive) return;
+        G.I.levelTargetManager.Data.AddValue( LevelObjectiveType.EnemyCount, 1);
         StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
     }

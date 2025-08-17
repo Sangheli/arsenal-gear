@@ -62,6 +62,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: GRADATION_GRADIENT TRANSITION_PATTERN
         passType: 0
+      - keywords: SAMPLING_BLUR_FAST
+        passType: 0
       - keywords: SAMPLING_BLUR_FAST TRANSITION_PATTERN
         passType: 0
       - keywords: SAMPLING_EDGE_LUMINANCE

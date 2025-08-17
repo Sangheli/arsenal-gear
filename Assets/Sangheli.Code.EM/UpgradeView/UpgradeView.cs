@@ -63,8 +63,8 @@ public class UpgradeView : MonoBehaviour
 
     private void ChangeLevel(int delta)
     {
-        G.I.prestigeManager.ChangeLevel(delta);
-        G.I.prestigeManager.ApplyLevelColor();
+        G.ChangeLevel(delta);
+        G.I.levelTargetManager.ApplyLevelColor();
         SaveSystem.SaveSilent();
         RefreshAll();
     }

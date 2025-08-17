@@ -492,7 +492,7 @@ MonoBehaviour:
   endRoundView: {fileID: 1220696834}
   upgradeView: {fileID: 1501636832}
   aiCursorManager: {fileID: 1503166284}
-  prestigeManager: {fileID: 1416533909}
+  levelTargetManager: {fileID: 1416533909}
   tutorial: {fileID: 2956514695925783667}
   bossManager: {fileID: 1503166285}
   Container: {fileID: 1503166280}
@@ -1086,10 +1086,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6444821828969892180, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6605610794187927242, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1194,10 +1190,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8873996404641677064, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1214,10 +1206,6 @@ PrefabInstance:
     - target: {fileID: 1003275361905055205, guid: b79b2a66303d6864a8b3ba2c9a86f5de, type: 3}
       propertyPath: m_Name
       value: DistortionUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 2347005214647206108, guid: b79b2a66303d6864a8b3ba2c9a86f5de, type: 3}
-      propertyPath: starGameWaitTime
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7248551066097045472, guid: b79b2a66303d6864a8b3ba2c9a86f5de, type: 3}
       propertyPath: m_Pivot.x
@@ -1809,14 +1797,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4632465110955066508, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1903,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 1035207960}
     - target: {fileID: 8623710069257715788, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_Name
-      value: PrestigeManager
+      value: LevelTargetManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

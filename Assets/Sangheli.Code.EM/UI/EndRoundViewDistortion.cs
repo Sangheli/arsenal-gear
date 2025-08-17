@@ -40,9 +40,9 @@ public class EndRoundViewDistortion : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public IEnumerator DoFade(EndRoundFadeEnum fadeType)
+    public IEnumerator DoFade(ILevelTargetEnd levelTargetEnd, EndRoundFadeEnum fadeType)
     {
-        var targetColor = GetInfo(fadeType, out var textColor, out var valueText);
+        var targetColor = GetInfo(levelTargetEnd, fadeType, out var textColor, out var valueText);
         _mat.SetColor(ColorKey, targetColor);
         var startValue = MinValue;
         var endValue = MaxValue;
@@ -66,10 +66,11 @@ public class EndRoundViewDistortion : MonoBehaviour
         _mat.SetFloat(FadeAmount, endValue);
     }
 
-    private Color GetInfo(EndRoundFadeEnum fadeType, out Color textColor, out string valueText)
+    private Color GetInfo(ILevelTargetEnd levelTargetEnd, EndRoundFadeEnum fadeType, out Color textColor, out string valueText)
     {
         var save = G.I?.SaveProvider?.Get();
         Color targetColor;
+
         switch (fadeType)
         {
             case EndRoundFadeEnum.RoundFail:
@@ -98,16 +99,7 @@ public class EndRoundViewDistortion : MonoBehaviour
             case EndRoundFadeEnum.RoundWin:
                 targetColor = blueColor;
                 textColor = winTextColor;
-                // Проверка showBossAfterTimer
-                bool showBoss = true;
-                if (save != null  && save.level < G.I.LevelDataConfig.Count())
-                {
-                    var levelId = save.level - 1;
-                    var levelConfig = G.I.LevelDataConfig.Get(levelId);
-                    if (levelConfig != null)
-                        showBoss = levelConfig.showBossAfterTimer;
-                }
-                valueText = showBoss ? G.I.localization.Get("win_text") :  G.I.localization.Get("level_complete") ;
+                valueText = G.I.localization.Get(levelTargetEnd.Localization);
                 break;
             case EndRoundFadeEnum.EndGame:
                 targetColor = demoColor;

@@ -10,6 +10,10 @@ public class LevelConfig
     [Space]
     public string LevelStringEntry;
     
+    [Header("Level Objective")]
+    public LevelObjectiveType objectiveType = LevelObjectiveType.CoinCount;
+    public int objectiveValue = 25;
+    
     [Header("Round Settings")]
     public float roundTime = 30f; // Время раунда в секундах
     
@@ -20,7 +24,6 @@ public class LevelConfig
     
     [Space]
     public bool loseHpDuringRound = true; // Тратить ли жизнь игрока во время раунда
-    public bool showBossAfterTimer = true; // Показывать ли босса после таймера (true) или сразу засчитывать победу (false)
     public bool checkNextRoundFromSave = false; // Показывать ли кнопку перехода на следующий уровень
     public bool showGoToUpgradesButton = true; // Показывать ли кнопку перехода на экран апгрейдов на экране окончания раунда
     public bool showTerminateButton = true; // Показывать ли кнопку прерывания уровня во время игры

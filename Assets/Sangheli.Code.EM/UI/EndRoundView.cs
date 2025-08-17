@@ -122,13 +122,13 @@ public class EndRoundView : MonoBehaviour
         returnToStartButton.gameObject.SetActive(false);
     }
 
-    public void Show(int energy, int totalEnergy, int bossReward, EndRoundFadeEnum fadeType)
+    public void Show(int energy, int totalEnergy, int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
         StopShowCoroutine();
-        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, bossReward, fadeType));
+        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, bossReward, fadeType, levelTargetEnd));
     }
 
-    private IEnumerator ShowCoroutine(int energy, int totalEnergy,int bossReward, EndRoundFadeEnum fadeType)
+    private IEnumerator ShowCoroutine(int energy, int totalEnergy,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
@@ -161,7 +161,7 @@ public class EndRoundView : MonoBehaviour
 
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
-        yield return distortion.DoFade(fadeType);
+        yield return distortion.DoFade(levelTargetEnd, fadeType);
         Toggle(true);
 
         buttonStartNewRoundText.text = G.PlayLevelAgainFader.Contains(fadeType) ? G.I.localization.Get("play_level_again") : $"{G.I.localization.Get("play_next_level")} {save.level + 1}";

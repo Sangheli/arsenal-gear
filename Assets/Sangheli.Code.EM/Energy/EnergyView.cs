@@ -111,6 +111,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     private IEnumerator OnEndScaleAnim()
     {
         G.I.EnergyManager.CollectEnergy();
+        G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.CoinCount, 1);
         IsActive = false;
         PlayerFound = false;
         yield return GameAnimation.OnScaleAnim(transform, _originalScale, t1, 1f, maxScale);

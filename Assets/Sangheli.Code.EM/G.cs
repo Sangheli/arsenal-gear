@@ -9,6 +9,7 @@ using SangheliCore.Adv;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(
     typeof(SceneContainer),
@@ -31,7 +32,7 @@ public class G : MonoBehaviour
     public UpgradeView upgradeView;
     public AICursorManager aiCursorManager;
     
-    public PrestigeManager prestigeManager;
+    [FormerlySerializedAs("prestigeManager")] public LevelTargetManager levelTargetManager;
     public LevelStringManager tutorial;
     public BossManager bossManager;
 
@@ -168,7 +169,7 @@ public class G : MonoBehaviour
         
         LevelDataConfig = new LevelDataConfigRuntime();
         
-        prestigeManager.OnLoadInit();
+        levelTargetManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();
     }
 
@@ -219,13 +220,13 @@ public class G : MonoBehaviour
         aiCursorManager.OnStartRound();
         playerCursor.view.hudView.Toggle(false, 0, false);
         EnergyManager.OnStartRound();
-        prestigeManager.OnStartRound();
+        levelTargetManager.OnStartRound();
         HpManager.OnStartRound();
         uiManager.OnStartRound();
         ShieldManager.OnStartRound();
         energySpawner.OnStartRound();
         
-        prestigeManager.ApplyLevelColor();
+        levelTargetManager.ApplyLevelColor();
         
         playerCursor.Toggle(true);
         uiManager.Toggle(true);
@@ -243,14 +244,14 @@ public class G : MonoBehaviour
         distortionUI.DoBlock(false);
     }
 
-    public void StopRun(EndRoundFadeEnum fadeType)
+    public void StopRun(ILevelTargetEnd levelTargetEnd, EndRoundFadeEnum fadeType)
     {
         var save = SaveProvider.Get();
         var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.RoundWin;
-        StartCoroutine( demoEnd ? ShowEndGame() : StopRunSequence(fadeType));
+        StartCoroutine( demoEnd ? ShowEndGame(levelTargetEnd) : StopRunSequence(fadeType, levelTargetEnd));
     }
     
-    private IEnumerator ShowEndGame()
+    private IEnumerator ShowEndGame(ILevelTargetEnd levelTargetEnd)
     {
         var save = SaveProvider.Get();
         save.level = maxLevel - 1;
@@ -258,28 +259,27 @@ public class G : MonoBehaviour
         
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
-        prestigeManager.ToggleActive(false);
+        levelTargetManager.Data.ToggleActive(false);
         playerCursor.ToggleControl(false, true);
         playerCursor.view.hudView.Toggle(false, 0 , false);
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         endRoundView.distortion.gameObject.SetActive(true);
         endRoundView.distortion.ResetView();
-        yield return endRoundView.distortion.DoFade(EndRoundFadeEnum.EndGame);
+        yield return endRoundView.distortion.DoFade(levelTargetEnd, EndRoundFadeEnum.EndGame);
         uiManager.Toggle(false);
 
         endRoundView.returnToStartButton.gameObject.SetActive(true);
         endRoundView.returnToStartText.text = G.I.localization.Get("return_to_start");
     }
 
-    private IEnumerator StopRunSequence(EndRoundFadeEnum fadeType)
+    private IEnumerator StopRunSequence(EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
-        prestigeManager.ToggleActive(false);
+        levelTargetManager.Data.ToggleActive(false);
         playerCursor.ToggleControl(false, true);
-
-            uiManager.terminateButton.gameObject.SetActive(false);
+        uiManager.terminateButton.gameObject.SetActive(false);
 
         foreach (var x in energySpawner.EnergyList)
         {
@@ -292,11 +292,10 @@ public class G : MonoBehaviour
         var energyOnStart = save.totalEnergy;
         var roundEnergy = EnergyManager.RoundEnergyCount;
 
-        int bossLevel = SaveProvider.Get().level - 1;
-        var bossEnergy =  PlayLevelAgainFader.Contains(fadeType) ? 0 : GetBossEnergy(bossLevel);
+        var levelWinEnergy = levelTargetEnd?.GetEnergy() ?? 0;
         var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
 
-        save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + bossEnergy;
+        save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + levelWinEnergy;
         SaveSystem.Save(sendAnalytics: true, fadeType);
         
         yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
@@ -306,13 +305,7 @@ public class G : MonoBehaviour
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
-        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart, bossEnergy, fadeType);
-    }
-
-    private int GetBossEnergy(int bossLevel)
-    {
-        var levelConfig = LevelDataConfig.Get(bossLevel);
-        return levelConfig.showBossAfterTimer ? prestigeManager.GetBossReward(bossLevel) : 0;
+        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart, levelWinEnergy, fadeType, levelTargetEnd);
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)
@@ -358,7 +351,7 @@ public class G : MonoBehaviour
         endRoundView.distortion.gameObject.SetActive(false);
         roundManager.ClearAll();
         endRoundView.Toggle(false);
-        prestigeManager.StopRound();
+        levelTargetManager.StopRound();
         energySpawner.StopRound();
         upgradeView.Toggle(true);
         upgradeView.Init();
@@ -378,4 +371,11 @@ public class G : MonoBehaviour
     public AnimationCurve progressionHpCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionRewardCurve = AnimationCurve.Linear(0, 1, 1, 2);
     public AnimationCurve progressionAttackCurve = AnimationCurve.Linear(0, 1, 1, 2);
+    
+    public static void ChangeLevel(int delta = 1)
+    {
+        var saveData = G.I.SaveProvider.Get();
+        saveData.level+=delta;
+        saveData.level = Mathf.Max(saveData.level, 0);
+    }
 }
