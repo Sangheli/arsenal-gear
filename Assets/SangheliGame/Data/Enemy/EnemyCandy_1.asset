@@ -12,28 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyCandy_1
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 0
-  Speed: 0
-  DamagePerHit: 0
   prefab: {fileID: 2325995571859240399, guid: b0f70d0911c9d28418375130627f8485, type: 3}
   DisplayName: Candy_1
+  excludeFromLevelGeneration: 1
+  superHard: 0
+  playDeathSound: 1
+  Health: 0
+  DamagePerHit: 0
+  Speed: 0
+  rotationSpeed: {x: 0, y: 0, z: 0}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 1
   color: {r: 0.9524733, g: 0.9622642, b: 0.027233727, a: 1}
   borderColor: {r: 0, g: 0.25239325, b: 1, a: 1}
-  superHard: 0
-  useRandomSelfDestructTime: 1
-  useSelfDestruct: 1
-  selfDestructTime: 1.5
-  selfDestructTimeRandomAdd: 3
-  playDeathSound: 1
-  excludeFromLevelGeneration: 0
   useCustomSpawnRate: 1
   useRandomSpawnRate: 1
   spawnRate1: 4
   spawnRate2: 10
+  useSelfDestruct: 1
+  useRandomSelfDestructTime: 1
+  selfDestructTime: 1.5
+  selfDestructTimeRandomAdd: 3
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 90

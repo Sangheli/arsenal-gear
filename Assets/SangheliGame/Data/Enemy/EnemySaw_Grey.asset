@@ -12,28 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemySaw_Grey
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 60
-  Speed: 0.15
-  DamagePerHit: 10.5
   prefab: {fileID: -4566179502049351345, guid: ddcc5d57f48c0af46b1be1e64ea99c5d, type: 3}
   DisplayName: Saw_Grey
+  excludeFromLevelGeneration: 0
+  superHard: 1
+  playDeathSound: 0
+  Health: 60
+  DamagePerHit: 10.5
+  Speed: 0.15
+  rotationSpeed: {x: 0, y: 0, z: 540}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
   color: {r: 0.5921569, g: 0.5921569, b: 0.5921569, a: 1}
   borderColor: {r: 1, g: 0.14125133, b: 0, a: 1}
-  superHard: 1
-  useRandomSelfDestructTime: 0
-  useSelfDestruct: 0
-  selfDestructTime: 0
-  selfDestructTimeRandomAdd: 0
-  playDeathSound: 0
-  excludeFromLevelGeneration: 0
   useCustomSpawnRate: 1
   useRandomSpawnRate: 0
   spawnRate1: 3
   spawnRate2: 0
+  useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
+  selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 15

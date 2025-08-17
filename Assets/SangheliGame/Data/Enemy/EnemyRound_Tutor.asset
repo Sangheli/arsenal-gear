@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRound_Tutor
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
+  DisplayName: Round_Orange
+  excludeFromLevelGeneration: 1
+  superHard: 0
+  playDeathSound: 0
   Health: 7.5
   Speed: 0.2
   DamagePerHit: 0.05
-  prefab: {fileID: -2922211598481618706, guid: 22810f2fc7bbcd54e9ca5280b917d634, type: 3}
-  DisplayName: Round_Orange
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
   color: {r: 0.8, g: 0.4711636, b: 0, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
-  superHard: 0
-  useRandomSelfDestructTime: 0
+  useCustomSpawnRate: 0
+  useRandomSpawnRate: 0
+  spawnRate1: 0
+  spawnRate2: 0
   useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
-  playDeathSound: 0
-  excludeFromLevelGeneration: 1
   UpgradeInfos:
   - BaseValue: 4
     MaxValue: 16

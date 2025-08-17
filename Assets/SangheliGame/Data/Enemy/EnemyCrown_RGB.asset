@@ -12,21 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyCrown_RGB
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 150
-  Speed: 0.5
-  DamagePerHit: 0
   prefab: {fileID: 4631521289559410727, guid: 336eb39c49fc2874e87b30eff8ef615d, type: 3}
   DisplayName: Crown
+  excludeFromLevelGeneration: 0
+  superHard: 0
+  playDeathSound: 0
+  Health: 150
+  DamagePerHit: 0
+  Speed: 0.5
+  rotationSpeed: {x: 0, y: 0, z: 0}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
-  superHard: 0
-  useRandomSelfDestructTime: 0
+  useCustomSpawnRate: 0
+  useRandomSpawnRate: 0
+  spawnRate1: 0
+  spawnRate2: 0
   useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
   selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
   UpgradeInfos:
   - BaseValue: 50
     MaxValue: 150

@@ -12,21 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyTriangle_Orange
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  Health: 20
-  Speed: 0.4
-  DamagePerHit: 0.53
-  prefab: {fileID: -6333086523383111919, guid: d9923ec2b3994c04d97648270b1aa562, type: 3}
+  prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
   DisplayName: Triangle_Orange
+  excludeFromLevelGeneration: 0
+  superHard: 0
+  playDeathSound: 0
+  Health: 20
+  DamagePerHit: 0.53
+  Speed: 0.4
+  rotationSpeed: {x: 0, y: 0, z: -30}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
   color: {r: 1, g: 0.5254902, b: 0, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
-  superHard: 0
-  useRandomSelfDestructTime: 0
+  useCustomSpawnRate: 0
+  useRandomSpawnRate: 0
+  spawnRate1: 0
+  spawnRate2: 0
   useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
   selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
   UpgradeInfos:
   - BaseValue: 6
     MaxValue: 21
