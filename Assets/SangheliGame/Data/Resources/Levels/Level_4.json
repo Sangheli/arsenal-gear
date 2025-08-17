@@ -4,7 +4,7 @@
     "roundTime": 10.0,
     "bossHp": 35,
     "bossReward": 100,
-    "bossAttack": 0.5,
+    "bossAttack": 0.2,
     "loseHpDuringRound": true,
     "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,

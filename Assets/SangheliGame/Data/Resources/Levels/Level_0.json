@@ -9,6 +9,7 @@
     "preSpawnEnemyCount": 30,
     "showTerminateButton": false,
     "autoCollectAllCoins": true,
+    "playerAutoAttack": false,
     "enemies": [
         {
             "enemyId": 0,

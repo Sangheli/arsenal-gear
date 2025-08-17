@@ -8,11 +8,17 @@
     "showGoToUpgradesButton": true,
     "preSpawnEnemyCount": 10,
     "showTerminateButton": false,
+    "useWinColorOnFail": true,
     "enemies": [
         {
             "enemyId": 2,
             "spawnChance": 100.0,
             "spawnRate": 60.0
+        },
+        {
+            "enemyId": 0,
+            "spawnChance": 100.0,
+            "spawnRate": 55
         }
     ]
 }

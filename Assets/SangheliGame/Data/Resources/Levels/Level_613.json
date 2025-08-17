@@ -11,52 +11,55 @@
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
     "autoCollectAllCoins": false,
+    "useWinColorOnFail": false,
+    "playerAutoAttack": true,
+    "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
     "enemies": [
         {
-            "enemyId": 0,
+            "enemyId": 13,
             "spawnChance": 30,
-            "spawnRate": 8
+            "spawnRate": 10
         },
         {
             "enemyId": 2,
             "spawnChance": 30,
-            "spawnRate": 20
+            "spawnRate": 21
         },
         {
             "enemyId": 3,
-            "spawnChance": 33,
-            "spawnRate": 31
+            "spawnChance": 30,
+            "spawnRate": 30
         },
         {
             "enemyId": 4,
-            "spawnChance": 35,
-            "spawnRate": 31
+            "spawnChance": 31,
+            "spawnRate": 30
         },
         {
             "enemyId": 6,
-            "spawnChance": 32,
-            "spawnRate": 28
+            "spawnChance": 31,
+            "spawnRate": 40
         },
         {
             "enemyId": 7,
-            "spawnChance": 37,
-            "spawnRate": 48
+            "spawnChance": 32,
+            "spawnRate": 31
         },
         {
             "enemyId": 8,
-            "spawnChance": 40,
+            "spawnChance": 32,
             "spawnRate": 5
         },
         {
             "enemyId": 9,
-            "spawnChance": 42,
+            "spawnChance": 33,
             "spawnRate": 5
         },
         {
-            "enemyId": 11,
-            "spawnChance": 37,
-            "spawnRate": 5
+            "enemyId": 10,
+            "spawnChance": 44,
+            "spawnRate": 3
         }
     ]
 }
