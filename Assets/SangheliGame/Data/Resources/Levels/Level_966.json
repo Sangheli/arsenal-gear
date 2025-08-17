@@ -1,16 +1,16 @@
 {
     "levelId": 966,
     "LevelStringEntry": "",
+    "objectiveType": 1,
+    "objectiveValue": 75,
     "roundTime": 23.5,
     "bossHp": 8944,
     "bossReward": 50567,
     "bossAttack": 579.0,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
-    "autoCollectAllCoins": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
@@ -19,42 +19,42 @@
         {
             "enemyId": 13,
             "spawnChance": 7,
-            "spawnRate": 12
+            "spawnRate": 8
         },
         {
             "enemyId": 2,
             "spawnChance": 8,
-            "spawnRate": 20
+            "spawnRate": 19
         },
         {
             "enemyId": 3,
             "spawnChance": 9,
-            "spawnRate": 35
+            "spawnRate": 39
         },
         {
             "enemyId": 4,
             "spawnChance": 12,
-            "spawnRate": 41
+            "spawnRate": 57
         },
         {
             "enemyId": 6,
             "spawnChance": 12,
-            "spawnRate": 59
+            "spawnRate": 51
         },
         {
             "enemyId": 7,
             "spawnChance": 14,
-            "spawnRate": 55
+            "spawnRate": 54
         },
         {
             "enemyId": 8,
             "spawnChance": 17,
-            "spawnRate": 47
+            "spawnRate": 35
         },
         {
             "enemyId": 9,
             "spawnChance": 19,
-            "spawnRate": 43
+            "spawnRate": 50
         },
         {
             "enemyId": 5,
@@ -64,7 +64,7 @@
         {
             "enemyId": 11,
             "spawnChance": 22,
-            "spawnRate": 47
+            "spawnRate": 53
         },
         {
             "enemyId": 10,
@@ -74,7 +74,7 @@
         {
             "enemyId": 12,
             "spawnChance": 37,
-            "spawnRate": 38
+            "spawnRate": 41
         }
     ]
 }

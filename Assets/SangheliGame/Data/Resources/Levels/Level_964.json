@@ -1,16 +1,16 @@
 {
     "levelId": 964,
     "LevelStringEntry": "",
+    "objectiveType": 2,
+    "objectiveValue": 113,
     "roundTime": 23.5,
     "bossHp": 8932,
     "bossReward": 50492,
     "bossAttack": 578.0,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
-    "autoCollectAllCoins": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
@@ -19,42 +19,42 @@
         {
             "enemyId": 13,
             "spawnChance": 7,
-            "spawnRate": 13
+            "spawnRate": 7
         },
         {
             "enemyId": 2,
             "spawnChance": 8,
-            "spawnRate": 18
+            "spawnRate": 19
         },
         {
             "enemyId": 3,
             "spawnChance": 10,
-            "spawnRate": 38
+            "spawnRate": 56
         },
         {
             "enemyId": 4,
             "spawnChance": 12,
-            "spawnRate": 44
+            "spawnRate": 35
         },
         {
             "enemyId": 6,
             "spawnChance": 12,
-            "spawnRate": 59
+            "spawnRate": 56
         },
         {
             "enemyId": 7,
             "spawnChance": 14,
-            "spawnRate": 45
+            "spawnRate": 49
         },
         {
             "enemyId": 8,
             "spawnChance": 17,
-            "spawnRate": 46
+            "spawnRate": 48
         },
         {
             "enemyId": 9,
             "spawnChance": 19,
-            "spawnRate": 45
+            "spawnRate": 44
         },
         {
             "enemyId": 5,
@@ -64,7 +64,7 @@
         {
             "enemyId": 11,
             "spawnChance": 22,
-            "spawnRate": 56
+            "spawnRate": 53
         },
         {
             "enemyId": 10,
@@ -74,7 +74,7 @@
         {
             "enemyId": 12,
             "spawnChance": 37,
-            "spawnRate": 35
+            "spawnRate": 41
         }
     ]
 }

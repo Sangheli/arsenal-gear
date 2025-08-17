@@ -1,16 +1,16 @@
 {
     "levelId": 974,
     "LevelStringEntry": "",
+    "objectiveType": 4,
+    "objectiveValue": 0,
     "roundTime": 23.5,
     "bossHp": 8992,
     "bossReward": 50862,
     "bossAttack": 583.0,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
-    "autoCollectAllCoins": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
@@ -19,42 +19,42 @@
         {
             "enemyId": 13,
             "spawnChance": 6,
-            "spawnRate": 14
+            "spawnRate": 8
         },
         {
             "enemyId": 2,
             "spawnChance": 7,
-            "spawnRate": 20
+            "spawnRate": 17
         },
         {
             "enemyId": 3,
             "spawnChance": 9,
-            "spawnRate": 50
+            "spawnRate": 39
         },
         {
             "enemyId": 4,
             "spawnChance": 11,
-            "spawnRate": 30
+            "spawnRate": 51
         },
         {
             "enemyId": 6,
             "spawnChance": 11,
-            "spawnRate": 55
+            "spawnRate": 34
         },
         {
             "enemyId": 7,
             "spawnChance": 14,
-            "spawnRate": 53
+            "spawnRate": 40
         },
         {
             "enemyId": 8,
             "spawnChance": 16,
-            "spawnRate": 46
+            "spawnRate": 40
         },
         {
             "enemyId": 9,
             "spawnChance": 19,
-            "spawnRate": 52
+            "spawnRate": 36
         },
         {
             "enemyId": 5,
@@ -64,7 +64,7 @@
         {
             "enemyId": 11,
             "spawnChance": 22,
-            "spawnRate": 53
+            "spawnRate": 48
         },
         {
             "enemyId": 10,
@@ -74,7 +74,7 @@
         {
             "enemyId": 12,
             "spawnChance": 37,
-            "spawnRate": 48
+            "spawnRate": 31
         }
     ]
 }

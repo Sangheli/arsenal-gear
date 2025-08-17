@@ -1,16 +1,16 @@
 {
     "levelId": 154,
     "LevelStringEntry": "",
+    "objectiveType": 3,
+    "objectiveValue": 53,
     "roundTime": 23.5,
     "bossHp": 1619,
     "bossReward": 8865,
     "bossAttack": 104.0,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
-    "autoCollectAllCoins": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
@@ -19,22 +19,22 @@
         {
             "enemyId": 13,
             "spawnChance": 59,
-            "spawnRate": 11
+            "spawnRate": 6
         },
         {
             "enemyId": 2,
             "spawnChance": 57,
-            "spawnRate": 20
+            "spawnRate": 19
         },
         {
             "enemyId": 3,
             "spawnChance": 45,
-            "spawnRate": 29
+            "spawnRate": 23
         },
         {
             "enemyId": 4,
             "spawnChance": 35,
-            "spawnRate": 33
+            "spawnRate": 25
         },
         {
             "enemyId": 8,

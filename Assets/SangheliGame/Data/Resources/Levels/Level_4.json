@@ -6,11 +6,15 @@
     "bossReward": 100,
     "bossAttack": 0.2,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "preSpawnEnemyCount": 10,
     "showTerminateButton": false,
+    "objectiveType": 3,
+    "objectiveValue": 35,
+    "useWinColorOnFail": false,
+    "playerAutoAttack": true,
+    "bossEnemySpawnRateMultiplier": 5.0,
     "enemies": [
     ]
 }

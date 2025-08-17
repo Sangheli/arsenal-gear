@@ -1,16 +1,16 @@
 {
     "levelId": 784,
     "LevelStringEntry": "",
+    "objectiveType": 1,
+    "objectiveValue": 33,
     "roundTime": 23.5,
     "bossHp": 7615,
     "bossReward": 42908,
     "bossAttack": 493.0,
     "loseHpDuringRound": true,
-    "showBossAfterTimer": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
-    "autoCollectAllCoins": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
@@ -19,36 +19,36 @@
         {
             "enemyId": 13,
             "spawnChance": 18,
-            "spawnRate": 11
+            "spawnRate": 9
         },
         {
             "enemyId": 2,
             "spawnChance": 19,
-            "spawnRate": 19
+            "spawnRate": 18
         },
         {
             "enemyId": 3,
             "spawnChance": 20,
-            "spawnRate": 37
+            "spawnRate": 53
         },
         {
             "enemyId": 4,
             "spawnChance": 22,
-            "spawnRate": 36
+            "spawnRate": 52
         },
         {
             "enemyId": 6,
             "spawnChance": 22,
-            "spawnRate": 32
+            "spawnRate": 51
         },
         {
             "enemyId": 7,
-            "spawnChance": 24,
-            "spawnRate": 30
+            "spawnChance": 23,
+            "spawnRate": 28
         },
         {
             "enemyId": 8,
-            "spawnChance": 26,
+            "spawnChance": 25,
             "spawnRate": 5
         },
         {
@@ -58,18 +58,18 @@
         },
         {
             "enemyId": 5,
-            "spawnChance": 41,
+            "spawnChance": 44,
             "spawnRate": 3
         },
         {
             "enemyId": 11,
-            "spawnChance": 30,
+            "spawnChance": 28,
             "spawnRate": 5
         },
         {
-            "enemyId": 10,
-            "spawnChance": 56,
-            "spawnRate": 3
+            "enemyId": 12,
+            "spawnChance": 37,
+            "spawnRate": 5
         }
     ]
 }
