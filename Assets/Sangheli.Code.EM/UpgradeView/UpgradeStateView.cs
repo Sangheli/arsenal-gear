@@ -3,10 +3,12 @@
 public class UpgradeStateView : BaseUpgradeStateView
 {
     private string _paramKey;
+    private bool _ignoreHardcoreHide;
 
     public void Init(string paramKey, Action refreshMoneyCallback = null)
     {
         _paramKey = paramKey;
+        _ignoreHardcoreHide = G.I.Data.ParamData.GetParamInfo(_paramKey).ignoreHardcoreHide;
         RefreshMoneyCallback = refreshMoneyCallback;
         _upgradeButton.onClick.AddListener(OnUpgradeClicked);
     }
@@ -32,18 +34,21 @@ public class UpgradeStateView : BaseUpgradeStateView
         G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
     }
 
-    protected override void UpdateButtonState(bool isMax, float price)
+    protected override void UpdateButtonState(bool isMax, float price, bool hardcodeHide)
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.paramContainer;
         var isAvailable = paramContainer.IsUpgradeAvailable(_paramKey);
+
+        if (_ignoreHardcoreHide)
+            hardcodeHide = false;
         
-        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price) && isAvailable);
+        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price) && isAvailable) || hardcodeHide;
         _upgradeButton.image.color = GetColor(isMax, IsDisabled);
         _upgradeButton.enabled = GetButtonState(isMax, IsDisabled);
     }
 
-    public override void Refresh()
+    public override void Refresh(bool hardcodeHide)
     {
         var save = G.I.SaveProvider.Get();
         var paramContainer = save.paramContainer;
@@ -57,6 +62,6 @@ public class UpgradeStateView : BaseUpgradeStateView
         float? nextValue = isMax ? null : paramContainer.GetNextLevelValue(_paramKey);
         save.UpdateUpgradesBoughtNum();
         var price = paramContainer.GetPrice(_paramKey, save.upgradesBoughtNum);
-        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue,baseValue);
+        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue,baseValue, hardcodeHide);
     }
 }

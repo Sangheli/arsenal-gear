@@ -56,6 +56,9 @@ public class G : MonoBehaviour
     public int maxLevel;
     public int delim = 25;
     
+    // Current level version - increment this when new levels are added
+    public const int CURRENT_LEVEL_VERSION = 1;
+    
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
 
@@ -208,6 +211,7 @@ public class G : MonoBehaviour
         if(playFader)
             yield return distortionUI.DoFade(forward: true);
         
+        roundManager.OnStartRound();
         bossManager.ResetBoss();
         endRoundView.OnStartRound();
         tutorial.OnStartRound();
@@ -229,7 +233,6 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
         aiCursorManager.ToggleAllHud(true);
-        roundManager.OnStartRound();
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
         CanPlay = true;

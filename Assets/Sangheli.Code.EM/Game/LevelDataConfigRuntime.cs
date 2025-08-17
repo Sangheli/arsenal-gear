@@ -69,7 +69,9 @@ public class LevelDataConfigRuntime
             bossHp = bossHp,
             bossReward = bossReward,
             bossAttack = bossAttack,
-            bossEnemySpawnRateMultiplier = 5 // Default value for boss enemy spawn rate multiplier
+            bossEnemySpawnRateMultiplier = 5, // Default value for boss enemy spawn rate multiplier
+            useWinColorOnFail = false, // By default, use normal fail color on defeat
+            playerAutoAttack = true // By default, player auto-attack is enabled
         };
     }
 

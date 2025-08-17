@@ -29,6 +29,12 @@ public class LevelConfig
     public bool autoCollectAllCoins = false; // Автоматически собирать все монеты в конце раунда
     
     [Space]
+    public bool useWinColorOnFail = false; // Использовать цвет победы даже при поражение
+    
+    [Space]
+    public bool playerAutoAttack = true; // Отключить автоатаку игрока
+    
+    [Space]
     public float bossEnemySpawnRateMultiplier = 5; // Множитель уменьшения скорости спавна врагов при появлении босса
     
     [Space]

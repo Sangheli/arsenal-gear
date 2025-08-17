@@ -176,6 +176,8 @@ public class UpgradeView : MonoBehaviour
 
     private void RefreshAll()
     {
+        var save = G.I.SaveProvider.Get();
+        
         if (moneyText != null)
             moneyText.text = $"{G.I.localization.Get("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
 
@@ -190,7 +192,6 @@ public class UpgradeView : MonoBehaviour
         // Обновляем HP
         if (hpText != null)
         {
-            var save = G.I.SaveProvider.Get();
             var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
             hpText.text = $"{G.I.localization.Get("hp")}: {NumberFormatter.Format(totalHp, 1)}";
         }
@@ -198,7 +199,14 @@ public class UpgradeView : MonoBehaviour
         if (prestigeText != null)
             prestigeText.text = $"{G.I.localization.Get("level")}: {G.I.SaveProvider.Get().level + 1}";
 
+        var hardcodeHide = IsFistUpgradeTutorial(save);
+        
+        startButton.gameObject.SetActive(!hardcodeHide);
+        
         foreach (var x in _spawned)
-            x.Refresh();
+            x.Refresh(hardcodeHide);
     }
+
+    private static bool IsFistUpgradeTutorial(DataSave save) => 
+        save.saveV2 && save.paramContainer.GetBoughtLevel("hp1") < 1;
 }

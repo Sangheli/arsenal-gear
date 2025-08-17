@@ -9,6 +9,7 @@ public class ParamInfo : BaseUpgradeInfo
     public bool UseRandom;
     public float RandomCoef = 1;
     public int boughtActual { get; set; }
+    public bool ignoreHardcoreHide = false;
     
     /// <summary>
     /// List of keys that must be fully purchased before this upgrade becomes available

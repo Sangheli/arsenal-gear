@@ -59,15 +59,4 @@ public class UpgradeRowView : MonoBehaviour
             Debug.LogError("UpgradeRowView: enemyUpgradeViewPrefab doesn't have EnemyUpgradeStateView component!");
         }
     }
-    
-    public void RefreshAllUpgrades()
-    {
-        foreach (var view in views) view.Refresh();
-    }
-    
-    public void ClearUpgrades()
-    {
-        foreach (var view in views.Where(view => view != null)) DestroyImmediate(view.gameObject);
-        views.Clear();
-    }
 }

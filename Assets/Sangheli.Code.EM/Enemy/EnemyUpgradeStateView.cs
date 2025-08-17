@@ -36,7 +36,7 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         G.I.Container.pooledAudioPlayer.PlayWithPitch(G.I.Data.soundContainer.buttonClick, pitch);
     }
 
-    public override void Refresh()
+    public override void Refresh(bool hardcodeHide)
     {
         var save = G.I.SaveProvider.Get();
         var upgradeContainer = save.GetEnemyUpgradeContainer();
@@ -53,6 +53,6 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
         float? nextValue = isMax ? null : upgradeContainer.GetNextLevelValue(_enemyId, _upgradeType);
         save.UpdateUpgradesBoughtNum();
         var price = upgradeContainer.GetPrice(_enemyId, _upgradeType, save.upgradesBoughtNum);
-        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue, baseValue);
+        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue, baseValue, hardcodeHide);
     }
 } 

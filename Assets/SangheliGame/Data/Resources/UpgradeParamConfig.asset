@@ -24,6 +24,7 @@ MonoBehaviour:
     Key: hp
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0
@@ -37,6 +38,7 @@ MonoBehaviour:
     Key: hp1
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 1
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0
@@ -50,6 +52,7 @@ MonoBehaviour:
     Key: hp2
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList:
     - hp1
     anyDepnetList: []
@@ -64,6 +67,7 @@ MonoBehaviour:
     Key: hp3
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList:
     - hp1
     - hp2
@@ -79,6 +83,7 @@ MonoBehaviour:
     Key: hp4
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList:
     - hp1
     - hp2
@@ -95,6 +100,7 @@ MonoBehaviour:
     Key: hp5
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList:
     - hp1
     - hp2
@@ -112,6 +118,7 @@ MonoBehaviour:
     Key: playerDamageMin
     UseRandom: 1
     RandomCoef: 1.3
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0
@@ -125,6 +132,7 @@ MonoBehaviour:
     Key: playerDamageMin2
     UseRandom: 0
     RandomCoef: 1.5
+    ignoreHardcoreHide: 0
     fullDepentList:
     - playerDamageMin
     anyDepnetList: []
@@ -139,6 +147,7 @@ MonoBehaviour:
     Key: playerDamageMin3
     UseRandom: 0
     RandomCoef: 1.5
+    ignoreHardcoreHide: 0
     fullDepentList:
     - playerDamageMin
     - playerDamageMin2
@@ -154,6 +163,7 @@ MonoBehaviour:
     Key: playerDamageMin4
     UseRandom: 0
     RandomCoef: 1.5
+    ignoreHardcoreHide: 0
     fullDepentList:
     - playerDamageMin
     - playerDamageMin2
@@ -170,6 +180,7 @@ MonoBehaviour:
     Key: playerDamageMin5
     UseRandom: 0
     RandomCoef: 1.5
+    ignoreHardcoreHide: 0
     fullDepentList:
     - playerDamageMin
     - playerDamageMin2
@@ -187,6 +198,7 @@ MonoBehaviour:
     Key: playerFireRate
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 1
@@ -200,6 +212,7 @@ MonoBehaviour:
     Key: damageDiameter
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0.25
@@ -213,6 +226,7 @@ MonoBehaviour:
     Key: collectDiameter
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0
@@ -226,6 +240,7 @@ MonoBehaviour:
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
   - BaseValue: 0
@@ -239,33 +254,36 @@ MonoBehaviour:
     Key: shieldRegenRate
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - shieldCapacity
   - BaseValue: 0
-    MaxValue: 50
+    MaxValue: 100
     Step: 2.5
     DisplayName: Crit_Chance
-    BasePrice: 350
+    BasePrice: 500
     PriceMult: 1.15
     ShowUpgrade: 1
     row: 4
     Key: critChance
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
-  - BaseValue: 1
+  - BaseValue: 1.1
     MaxValue: 2.5
     Step: 0.1
     DisplayName: Crit_Multiplier
-    BasePrice: 360
+    BasePrice: 400
     PriceMult: 1.15
     ShowUpgrade: 1
     row: 4
     Key: critMultiplier
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - critChance
@@ -280,6 +298,7 @@ MonoBehaviour:
     Key: autoCollectCoinsPercent
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - shieldCapacity
@@ -295,6 +314,7 @@ MonoBehaviour:
     Key: aiCursorCount
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - autoCollectCoinsPercent
@@ -309,6 +329,7 @@ MonoBehaviour:
     Key: aiCursorDamagePercent
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - aiCursorCount
@@ -323,6 +344,7 @@ MonoBehaviour:
     Key: aiCursorRadiusPercent
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - aiCursorCount
@@ -337,6 +359,7 @@ MonoBehaviour:
     Key: aiCursorFireRatePercent
     UseRandom: 0
     RandomCoef: 0
+    ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
     - aiCursorCount

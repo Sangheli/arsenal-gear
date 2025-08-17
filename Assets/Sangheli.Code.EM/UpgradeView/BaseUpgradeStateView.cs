@@ -21,11 +21,11 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     protected virtual void Awake() => _normalColor = _upgradeButton.image.color;
 
     public abstract void OnUpgradeClicked();
-    public abstract void Refresh();
+    public abstract void Refresh(bool hardcodeHide);
 
-    protected virtual void UpdateButtonState(bool isMax, float price)
+    protected virtual void UpdateButtonState(bool isMax, float price, bool  hardcodeHide)
     {
-        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price));
+        IsDisabled = !(!isMax && G.I.EnergyManager.CanBuyUpgrade(price)) || hardcodeHide;
         _upgradeButton.image.color = GetColor(isMax, IsDisabled);
         _upgradeButton.enabled = GetButtonState(isMax, IsDisabled);
     }
@@ -36,7 +36,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     private void UpdatePriceText(bool isMax, int price) => 
         _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.Format(price, 2)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, int price, float maxValue, float baseValue)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, int price, float maxValue, float baseValue, bool  hardcodeHide)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)
@@ -44,7 +44,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
         else
             _valueText.text = $"{NumberFormatter.Format(value)} => {NumberFormatter.Format(nextValue.Value)}";
         _progressFill.fillAmount = (value-baseValue)/(maxValue-baseValue);
-        UpdateButtonState(isMax, price);
+        UpdateButtonState(isMax, price, hardcodeHide);
         UpdatePriceText(isMax, price);
     }
 } 
