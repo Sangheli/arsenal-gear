@@ -29,9 +29,6 @@ public class LevelConfig
     public bool showTerminateButton = true; // Показывать ли кнопку прерывания уровня во время игры
     
     [Space]
-    public bool autoCollectAllCoins = false; // Автоматически собирать все монеты в конце раунда
-    
-    [Space]
     public bool useWinColorOnFail = false; // Использовать цвет победы даже при поражение
     
     [Space]

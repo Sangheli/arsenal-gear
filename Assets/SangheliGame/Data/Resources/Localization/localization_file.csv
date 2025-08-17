@@ -38,8 +38,8 @@ load_checkpoint,Continue,Продолжить,Yükle,Weitermachen,Continuer,Cont
 checkpoint,Checkpoint,Чекпоинт,Checkpoint,Kontrollpunkt,Point de contrôle,Control,Ponto de verificação,Punkt kontrolny,检查点,검문소,Posto di controllo,チェックポイント
 play_time,Play time,Время игры,Oynama Süresi,Spielzeit,Temps de jeu,Tiempo de juego,Hora de brincar,Czas na zabawę,游戏时间,놀이 시간,Tempo di gioco,プレイ時間
 go_to_upgrades,Upgrades,Улучшения,Yükseltmeler,Verbesserungen,Mises à niveau,Actualizaciones,Atualizações,Ulepszenia,升级,업그레이드,Aggiornamenti,アップグレード
-round_reward,Round reward:,Награда раунд:,Raunt ödülü:,Rundenbelohnung:,Récompense du tour :,Recompensa redonda:,Recompensa da rodada:,Nagroda za rundę:,回合奖励：,라운드 보상:,Ricompensa rotonda:,ラウンド報酬:
-boss_reward,Boss reward:,Награда босс:,Boss ödülü:,Boss-Belohnung:,Récompense du boss :,Recompensa del jefe:,Recompensa do chefe:,Nagroda dla szefa:,BOSS奖励：,보스 보상:,Ricompensa del boss:,ボス報酬:
+round_reward,Collected coins:,Собранные монеты:,Toplanan paralar:,Gesammelte Münzen:,Pièces collectées :,Monedas coleccionadas:,Moedas coletadas:,Zebrane monety:,收集到的金币：,수집된 동전:,Monete raccolte:,集めたコイン:
+boss_reward,Round reward:,Награда за раунд:,Tur ödülü:,Rundenbelohnung:,Récompense du tour :,Recompensa redonda:,Recompensa da rodada:,Nagroda za rundę:,回合奖励：,라운드 보상:,Ricompensa rotonda:,ラウンド報酬:
 total,Total:,Всего:,Toplam:,Gesamt:,Total:,Total:,Total:,Całkowity:,全部的：,총:,Totale:,合計：
 play_level_again,Play Level Again,Играть снова,Tekrar Oyna,Level erneut spielen,Jouez à nouveau à niveau,Juega el nivel otra vez,Jogue o nível novamente,Zagraj ponownie na tym samym poziomie,再次玩关卡,레벨 다시 플레이,Gioca di nuovo al livello,レベルをもう一度プレイ
 play_next_level,Play next level:,Следующий уровень:,Sonraki:,Nächstes Level spielen:,Jouez au niveau suivant :,Juega al siguiente nivel:,Jogue o próximo nível:,Zagraj na następnym poziomie:,进入下一关：,다음 레벨로 플레이하세요:,Gioca al livello successivo:,次のレベルでプレイ:

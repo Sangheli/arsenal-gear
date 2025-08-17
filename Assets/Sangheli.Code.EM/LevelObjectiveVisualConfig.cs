@@ -7,6 +7,7 @@ public class LevelObjectiveVisualConfig : ScriptableObject
     [System.Serializable]
     public class ObjectiveVisualData
     {
+        public Color color = Color.white;
         public LevelObjectiveType objectiveType;
         public Sprite sprite;
     }

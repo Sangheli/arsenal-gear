@@ -19,6 +19,7 @@ public class LevelTargetBar : MonoBehaviour
     public void UpdateView()
     {
         objectiveIcon.sprite = _visualData?.sprite;
+        objectiveIcon.color = _visualData.color;
         objectiveIcon.gameObject.SetActive(_visualData != null);
 
         switch (_currentLevelConfig.objectiveType)
