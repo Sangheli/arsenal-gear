@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LevelTargetManager : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class LevelTargetManager : MonoBehaviour
     
     private MaterialPropertyBlock _propertyBlock;
     private static readonly int ColorProperty = Shader.PropertyToID("_OverlayColor");
-    [FormerlySerializedAs("LevelGradientColor")] public LevelGradientColor levelGradientColor;
+    public LevelGradientColor levelGradientColor;
     
     private DataSave _save;
     private LevelConfig _currentLevelConfig;
@@ -42,7 +41,7 @@ public class LevelTargetManager : MonoBehaviour
         Toggle(true);
         _save = G.I.SaveProvider.Get();
         _currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
-        Data.Init(_currentLevelConfig, GetTime());
+        Data.Init(_currentLevelConfig);
         levelTargetBar.Init(_currentLevelConfig, Data);
         levelTargetBar.UpdateView();
     }
@@ -62,12 +61,6 @@ public class LevelTargetManager : MonoBehaviour
         return levelGradientColor.GetLevelColor(level);
     }
 
-    private float GetTime()
-    {
-        var level = _save.level;
-        return G.I.LevelDataConfig.Get(level).roundTime;
-    }
-    
     public void StopRound()
     {
         Toggle(false);

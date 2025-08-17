@@ -5,7 +5,7 @@ public class LevelEndEnemy : ILevelTargetEnd
     public string Localization => "level_complete";
     public int GetEnergy() => 0;
     private int _value;
-    public float Value => _value;
+    public float CurrentValue => _value;
     private LevelConfig _currentLevelConfig;
     
     public void OnEnd()
@@ -14,7 +14,7 @@ public class LevelEndEnemy : ILevelTargetEnd
         G.I.StopRun(this, EndRoundFadeEnum.RoundWin);
     }
 
-    public void ResetValue(LevelConfig currentLevelConfig, float getTime)
+    public void ResetValue(LevelConfig currentLevelConfig)
     {
         _currentLevelConfig = currentLevelConfig;
         _value = 0;
@@ -29,8 +29,5 @@ public class LevelEndEnemy : ILevelTargetEnd
     }
 
     public bool IsCompleted() => _value >= _currentLevelConfig.objectiveValue;
-    public bool IsBossTimerOver() => false;
-    public float GetLevelTimePercent() => Mathf.Clamp01(_value / (float) _currentLevelConfig.objectiveValue);
-    public float GetPrestigeTime() => throw new System.NotImplementedException();
-    public float GetBossDistance() => throw new System.NotImplementedException();
+    public float GetLevelPercent() => Mathf.Clamp01(_value / (float) _currentLevelConfig.objectiveValue);
 }

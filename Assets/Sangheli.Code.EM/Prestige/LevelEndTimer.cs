@@ -4,19 +4,19 @@ public class LevelEndTimer : ILevelTargetEnd
 {
     public string Localization => "level_complete";
     public int GetEnergy() => 0;
-    public float Value { get; private set; }
-    private float _prestigeTime;
     
+    public float CurrentValue { get; private set; }
+    private LevelConfig _currentLevelConfig;
     public void OnEnd()
     {
         G.ChangeLevel(1);
         G.I.StopRun(this, EndRoundFadeEnum.RoundWin);
     }
 
-    public void  ResetValue(LevelConfig currentLevelConfig, float getTime)
+    public void  ResetValue(LevelConfig currentLevelConfig)
     {
-        Value = 0;
-        _prestigeTime = getTime;
+        CurrentValue = 0;
+        _currentLevelConfig = currentLevelConfig;
     }
 
     public void Add(LevelObjectiveType levelObjectiveType, float value)
@@ -24,12 +24,9 @@ public class LevelEndTimer : ILevelTargetEnd
         if(levelObjectiveType != LevelObjectiveType.Time)
             return;
         
-        Value += value;
+        CurrentValue += value;
     }
 
-    public bool IsCompleted() => Value >= _prestigeTime;
-    public bool IsBossTimerOver() => false;
-    public float GetLevelTimePercent() => _prestigeTime <= 0f ? 0f : Mathf.Clamp01(Value / _prestigeTime);
-    public float GetPrestigeTime() => _prestigeTime;
-    public float GetBossDistance() => throw new System.NotImplementedException();
+    public bool IsCompleted() => CurrentValue >=  _currentLevelConfig.roundTime;
+    public float GetLevelPercent() =>  _currentLevelConfig.roundTime <= 0f ? 0f : Mathf.Clamp01(CurrentValue /  _currentLevelConfig.roundTime);
 }

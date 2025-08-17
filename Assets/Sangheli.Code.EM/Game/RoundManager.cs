@@ -95,10 +95,7 @@ public class RoundManager : MonoBehaviour
         SpawnEnemy(enemyData, isPreSpawned: true);
     }
 
-    private static float GetSpawnRateMultiplier() =>
-        G.I.levelTargetManager.Data.LevelTargetEnd.IsBossTimerOver()
-            ? 0.75f
-            : 1.0f + 0.35f * G.I.levelTargetManager.Data.LevelTargetEnd.GetLevelTimePercent();
+    private static float GetSpawnRateMultiplier() => 1.0f + 0.35f * G.I.levelTargetManager.Data.End.GetLevelPercent();
 
     private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
     {

@@ -1,14 +1,11 @@
 ﻿public interface ILevelTargetEnd
 {
-    float Value { get; }
+    float CurrentValue { get; }
     string Localization { get; }
     int GetEnergy();
     void Add(LevelObjectiveType levelObjectiveType, float value);
     void OnEnd();
-    void ResetValue(LevelConfig currentLevelConfig, float getTime);
+    void ResetValue(LevelConfig currentLevelConfig);
     bool IsCompleted();
-    public bool IsBossTimerOver();
-    public float GetLevelTimePercent();
-    float GetPrestigeTime();
-    float GetBossDistance();
+    public float GetLevelPercent();
 }

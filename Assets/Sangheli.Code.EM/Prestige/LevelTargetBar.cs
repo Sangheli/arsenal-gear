@@ -25,18 +25,19 @@ public class LevelTargetBar : MonoBehaviour
         switch (_currentLevelConfig.objectiveType)
         {
             case LevelObjectiveType.CoinCount:
-                progressText.text = $"{_levelTargetValue.LevelTargetEnd.Value}/{_currentLevelConfig.objectiveValue}";
+            case LevelObjectiveType.EnemyCount:
+                progressText.text = $"{_levelTargetValue.End.CurrentValue}/{_currentLevelConfig.objectiveValue}";
                 break;
             case LevelObjectiveType.Boss:
-                // Calculate remaining distance as (1 - timeProgress) * bossDistance
-                float timeProgress = _levelTargetValue.LevelTargetEnd.GetPrestigeTime() > 0 ? _levelTargetValue.LevelTargetEnd.Value / _levelTargetValue.LevelTargetEnd.GetPrestigeTime() : 0;
-                float remainingDistance = (1 - timeProgress) * _levelTargetValue.LevelTargetEnd.GetBossDistance();
-                progressText.text = $"{Mathf.CeilToInt(remainingDistance)}";
+                var distance = (1 - GetTimePercent()) * _currentLevelConfig.objectiveValue;
+                progressText.text = $"{Mathf.CeilToInt(distance)}";
                 break;
             case LevelObjectiveType.Time:
-                float percent = _levelTargetValue.LevelTargetEnd.GetPrestigeTime() > 0 ? _levelTargetValue.LevelTargetEnd.Value / _levelTargetValue.LevelTargetEnd.GetPrestigeTime() : 0;
-                progressText.text = $"{Mathf.RoundToInt(percent * 100)}%";
+                progressText.text = $"{Mathf.RoundToInt(GetTimePercent() * 100)}%";
                 break;
         }
     }
+
+    private float GetTimePercent() => 
+        _currentLevelConfig.roundTime > 0 ? _levelTargetValue.End.CurrentValue /  _currentLevelConfig.roundTime : 0;
 }

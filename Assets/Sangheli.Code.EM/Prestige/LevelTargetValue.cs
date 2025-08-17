@@ -8,7 +8,7 @@ public class LevelTargetValue
     
     private LevelConfig _currentLevelConfig;
     private readonly LevelTargetBar _targetView;
-    public ILevelTargetEnd LevelTargetEnd;
+    public ILevelTargetEnd End;
     private readonly Dictionary<LevelObjectiveType, ILevelTargetEnd> _objectiveEnd;
     
     public LevelTargetValue(LevelTargetBar targetView,LevelGradientColor levelGradientColor)
@@ -25,12 +25,12 @@ public class LevelTargetValue
         LevelGradientColor = levelGradientColor;
     }
 
-    public void Init(LevelConfig currentLevelConfig, float getTime)
+    public void Init(LevelConfig currentLevelConfig)
     {
         Active = true;
         _currentLevelConfig = currentLevelConfig;
-        LevelTargetEnd = GetLevelTargetEnd(currentLevelConfig.objectiveType);
-        LevelTargetEnd.ResetValue(currentLevelConfig, getTime);
+        End = GetLevelTargetEnd(currentLevelConfig.objectiveType);
+        End.ResetValue(currentLevelConfig);
     }
 
     private ILevelTargetEnd GetLevelTargetEnd(LevelObjectiveType type)
@@ -49,17 +49,17 @@ public class LevelTargetValue
 
     public void AddValue(LevelObjectiveType levelObjectiveType, float value)
     {
-        if (LevelTargetEnd.IsCompleted()) 
+        if (End.IsCompleted()) 
             return;
         
-        LevelTargetEnd.Add(levelObjectiveType, value);
+        End.Add(levelObjectiveType, value);
         _targetView.UpdateView();
 
-        if (!LevelTargetEnd.IsCompleted()) 
+        if (!End.IsCompleted()) 
             return;
         
         Active = false;
-        LevelTargetEnd.OnEnd();
+        End.OnEnd();
     }
 
     public void ToggleActive(bool state) => Active = state;

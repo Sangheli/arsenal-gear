@@ -4,9 +4,7 @@ public class LevelEndBoss : ILevelTargetEnd
 {
     public string Localization => "win_text";
     public LevelTargetValue Data;
-    public float Value { get; private set; }
-    public float PrestigeTime;
-    public float BossDistance;
+    public float CurrentValue { get; private set; }
     private LevelConfig _currentLevelConfig;
     private LevelConfig _levelConfig;
     
@@ -40,20 +38,15 @@ public class LevelEndBoss : ILevelTargetEnd
         if(levelObjectiveType != LevelObjectiveType.Boss)
             return;
         
-        Value += value;
+        CurrentValue += value;
     }
     
-    public void ResetValue(LevelConfig currentLevelConfig, float getTime)
+    public void ResetValue(LevelConfig currentLevelConfig)
     {
+        CurrentValue = 0;
         _currentLevelConfig = currentLevelConfig;
-        Value = 0;
-        PrestigeTime = getTime;
-        BossDistance = currentLevelConfig.objectiveValue;
     }
 
-    public bool IsCompleted() => Value >= PrestigeTime;
-    public bool IsBossTimerOver() => _currentLevelConfig.objectiveType == LevelObjectiveType.Boss && Value >= PrestigeTime;
-    public float GetLevelTimePercent() => PrestigeTime <= 0f ? 0f : Mathf.Clamp01(Value / PrestigeTime);
-    public float GetPrestigeTime() => PrestigeTime;
-    public float GetBossDistance() => BossDistance;
+    public bool IsCompleted() => CurrentValue >=  _currentLevelConfig.roundTime;
+    public float GetLevelPercent() =>  _currentLevelConfig.roundTime <= 0f ? 0f : Mathf.Clamp01(CurrentValue /  _currentLevelConfig.roundTime);
 }
