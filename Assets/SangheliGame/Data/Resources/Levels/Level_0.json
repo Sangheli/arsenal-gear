@@ -5,13 +5,13 @@
     "loseHpDuringRound": false,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": false,
-    "preSpawnEnemyCount": 30,
+    "preSpawnEnemyCount": 5,
     "showTerminateButton": false,
     "playerAutoAttack": false,
     "useWinColorOnFail": false,
     "bossEnemySpawnRateMultiplier": 5.0,
     "objectiveType": 1,
-    "objectiveValue": 25,
+    "objectiveValue": 50,
     "bossHp": 10,
     "bossReward": 57,
     "bossAttack": 1.0,
@@ -19,7 +19,7 @@
         {
             "enemyId": 0,
             "spawnChance": 100.0,
-            "spawnRate": 0.0
+            "spawnRate": 120
         }
     ]
 }

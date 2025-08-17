@@ -34,7 +34,7 @@ MonoBehaviour:
   useSelfDestruct: 1
   useRandomSelfDestructTime: 1
   selfDestructTime: 1.5
-  selfDestructTimeRandomAdd: 3
+  selfDestructTimeRandomAdd: 0.5
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 90
