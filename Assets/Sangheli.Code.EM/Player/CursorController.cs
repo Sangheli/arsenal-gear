@@ -41,6 +41,7 @@ public class CursorController : MonoBehaviour
     private InputSystem_Actions _actions;
     
     private float _damageValueSum;
+    private bool _autoAttack = true;
     
     private void Awake()
     {
@@ -57,9 +58,7 @@ public class CursorController : MonoBehaviour
     public void Toggle(bool state)
     {
         view.Toggle(state);
-#if !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
-        //Cursor.visible = !state;
-#endif
+        CursorController.ToggleSystemCursor(!state);
         if (state)
         {
             _save = G.I.SaveProvider.Get();
@@ -67,6 +66,13 @@ public class CursorController : MonoBehaviour
             if(!_isAI) InitParams();
             CursorInput.OnInit(transform);
         }
+    }
+
+    public static void ToggleSystemCursor(bool state)
+    {
+#if !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
+        Cursor.visible = state;
+#endif        
     }
     
     private void InitParams(float damagePercent = 1f, float radiusPercent = 1f, float fireRatePercent = 1f)
@@ -92,8 +98,13 @@ public class CursorController : MonoBehaviour
         view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, _baseInnerCurrent);
         view.viewRender.SetPropertyBlock(view.PropertyBlock);
         
-        UpdateNextTime();
-        ShowPulseAnimation();
+        _autoAttack = G.I.roundManager._currentLevelConfig.playerAutoAttack;
+
+        if (_autoAttack)
+        {
+            UpdateNextTime();
+            ShowPulseAnimation();
+        }
     }
     
     public void SetAIMode(float damagePercent, float radiusPercent, float fireRatePercent)
@@ -120,6 +131,9 @@ public class CursorController : MonoBehaviour
     }
     private void TryDoDamage()
     {
+        if(!_autoAttack)
+            return;
+        
         if (Time.time <= _nextTime)
             return;
         

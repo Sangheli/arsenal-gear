@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Coffee.UIEffects;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class StartGameView : MonoBehaviour
@@ -17,6 +18,12 @@ public class StartGameView : MonoBehaviour
     public SaveInfo saveInfo;
     public bool useMediaButtons = false;
     public bool useAutoSaveInfo = false;
+    
+    // New levels notification UI element
+    public GameObject newLevelsNotification;
+    public Text newLevelsNotificationText;
+
+    public UIEffect startButtonUiEffect;
     
     private void Start()
     {
@@ -42,6 +49,8 @@ public class StartGameView : MonoBehaviour
     private void OnStartButtonClick()
     {
         G.I.SaveProvider.CreateNew();
+        G.I.SaveProvider.Get().saveV2 = true; // Set the new save flag to true for new games
+        G.I.SaveProvider.Get().levelVersion = G.CURRENT_LEVEL_VERSION; // Set the current level version for new games
         SaveSystem.SaveSilent();
         G.I.StartRunFirstTime(true);
     }
@@ -61,9 +70,6 @@ public class StartGameView : MonoBehaviour
 
     private void UpdateLoadButtonVisibility()
     {
-        if (loadCheckpointButton == null) 
-            return;
-        
         var datetime = PlayerPrefs.GetString(SaveSystem.GetKey(), null);
         bool hasSave = !string.IsNullOrEmpty(datetime);
         
@@ -75,6 +81,8 @@ public class StartGameView : MonoBehaviour
         startButtonText.text = hasSave 
             ? G.I.localization.Get("start_new") 
             : G.I.localization.Get("start_game");
+
+        startButtonUiEffect.enabled = !hasSave;
         
         upgradeButtonText.text = G.I.localization.Get("go_to_upgrades");
         
@@ -87,6 +95,11 @@ public class StartGameView : MonoBehaviour
             loadCheckpointText.text = G.I.localization.Get("load_checkpoint");
             UpdateSaveStats();
         }
+        
+        ToggleNewLevelNotifications(hasSave);
+        
+        var saveData = G.I.SaveProvider.Get();
+        saveData.levelVersion = G.CURRENT_LEVEL_VERSION;
     }
 
     private void UpdateSaveStats()
@@ -155,5 +168,22 @@ public class StartGameView : MonoBehaviour
     {
         if(useAutoSaveInfo)
             saveInfo.FadeOut(duration, delay);
+    }
+
+    private void ToggleNewLevelNotifications(bool hasSave)
+    {
+        var showNew = CanShowNewLevelsNotify(hasSave);
+        
+        newLevelsNotification.SetActive(showNew);
+        
+        if (!showNew) return;
+        newLevelsNotificationText.text = G.I.localization.Get("new_levels_available");
+    }
+    
+    private static bool CanShowNewLevelsNotify(bool hasSave)
+    {
+        if (!hasSave) return false;
+        var saveData = G.I.SaveProvider.Get();
+        return saveData.levelVersion < G.CURRENT_LEVEL_VERSION;
     }
 }

@@ -68,6 +68,7 @@ public class EndRoundViewDistortion : MonoBehaviour
 
     private Color GetInfo(EndRoundFadeEnum fadeType, out Color textColor, out string valueText)
     {
+        var save = G.I?.SaveProvider?.Get();
         Color targetColor;
         switch (fadeType)
         {
@@ -75,12 +76,29 @@ public class EndRoundViewDistortion : MonoBehaviour
                 targetColor = failColor;
                 textColor = failTextColor;
                 valueText = G.I.localization.Get("fail_text");
+                
+                // Check if we should use win color instead of fail color
+                
+                bool useWinColor = false;
+                if (save != null && save.level < G.I.LevelDataConfig.Count())
+                {
+                    var levelId = save.level;
+                    var levelConfig = G.I.LevelDataConfig.Get(levelId);
+                    if (levelConfig != null)
+                        useWinColor = levelConfig.useWinColorOnFail;
+                }
+                
+                // Override with win color if needed
+                if (useWinColor)
+                {
+                    targetColor = blueColor;
+                    textColor = winTextColor;
+                }
                 break;
             case EndRoundFadeEnum.RoundWin:
                 targetColor = blueColor;
                 textColor = winTextColor;
                 // Проверка showBossAfterTimer
-                var save = G.I?.SaveProvider?.Get();
                 bool showBoss = true;
                 if (save != null  && save.level < G.I.LevelDataConfig.Count())
                 {

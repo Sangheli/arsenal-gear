@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class RoundManager : MonoBehaviour
 {
     private readonly List<EnemyController> _enemyList = new();
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
-    private Camera _mainCamera;
     private readonly List<EnemyData> _availableEnemies = new();
     public bool IsAlive { get; set; }
     public bool IsAliveForPlay { get; set; }
@@ -15,7 +15,7 @@ public class RoundManager : MonoBehaviour
     private Transform _enemiesParent;
     private SortingOrderData _sortingOrderData;
     private InputSystem_Actions _inputActions;
-    private LevelConfig _currentLevelConfig;
+    public LevelConfig _currentLevelConfig { get; private set; }
     
     // Add property to track if boss is active
     public bool IsBossActive { get; private set; }
@@ -28,7 +28,6 @@ public class RoundManager : MonoBehaviour
     
     private void Awake()
     {
-        _mainCamera = Camera.main;
         var enemiesParentGo = new GameObject("Enemies");
         _enemiesParent = enemiesParentGo.transform;
         
@@ -53,6 +52,8 @@ public class RoundManager : MonoBehaviour
     private void Update()
     {
         if (!IsAlive) return;
+
+        HandleCursorVisibility();
         
         var diff = Time.deltaTime * 1;
         diff *= 2/3f;
@@ -74,6 +75,12 @@ public class RoundManager : MonoBehaviour
             if (enemy != null)
                 TrySpawnEnemyWithRate(enemy, info);
         }
+    }
+    
+    private static void HandleCursorVisibility()
+    {
+        if (EventSystem.current != null)
+            CursorController.ToggleSystemCursor(EventSystem.current.IsPointerOverGameObject());
     }
 
     private void TrySpawnEnemyWithRate(EnemyData enemyData, LevelEnemyInfo info)
