@@ -92,3 +92,5 @@ Assets/Plugins/IngameDebugConsole.meta
 webgl_build*.zip
 .vscode/
 global.json
+linux_build/
+linux_build.*
