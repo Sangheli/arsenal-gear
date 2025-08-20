@@ -3,7 +3,7 @@
 public class LevelEndTimer : ILevelTargetEnd
 {
     public string Localization => "level_complete";
-    public int GetEnergy() => 0;
+    public int GetEnergy() => _currentLevelConfig.levelReward;
     
     public float CurrentValue { get; private set; }
     private LevelConfig _currentLevelConfig;

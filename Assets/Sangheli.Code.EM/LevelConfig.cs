@@ -19,8 +19,10 @@ public class LevelConfig
     
     [Header("Boss Settings")]
     public int bossHp = 60;
-    public int bossReward = 100;
     public float bossAttack = 5;
+    
+    [Header("Reward")]
+    public int levelReward = 100;
     
     [Space]
     public bool loseHpDuringRound = true; // Тратить ли жизнь игрока во время раунда

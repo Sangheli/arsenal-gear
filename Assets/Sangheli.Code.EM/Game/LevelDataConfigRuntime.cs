@@ -53,7 +53,7 @@ public class LevelDataConfigRuntime
         float progressionAttack = prevAttack + BossAttackBase * G.I.progressionAttackCurve.Evaluate(t);
         
         int bossHp = Mathf.RoundToInt(progressionHp);
-        int bossReward = Mathf.RoundToInt(progressionReward);
+        int levelReward = Mathf.RoundToInt(progressionReward);
         int bossAttack = Mathf.RoundToInt(progressionAttack);
         
         // Generate random objective
@@ -87,7 +87,7 @@ public class LevelDataConfigRuntime
             preSpawnEnemyCount = 10,
             roundTime = 23.5f,
             bossHp = bossHp,
-            bossReward = bossReward,
+            levelReward = levelReward,
             bossAttack = bossAttack,
             bossEnemySpawnRateMultiplier = 5, // Default value for boss enemy spawn rate multiplier
             useWinColorOnFail = false, // By default, use normal fail color on defeat

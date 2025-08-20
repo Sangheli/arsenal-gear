@@ -3,7 +3,7 @@
 public class LevelEndEnemy : ILevelTargetEnd
 {
     public string Localization => "level_complete";
-    public int GetEnergy() => 0;
+    public int GetEnergy() => _currentLevelConfig.levelReward;
     private int _value;
     public float CurrentValue => _value;
     private LevelConfig _currentLevelConfig;

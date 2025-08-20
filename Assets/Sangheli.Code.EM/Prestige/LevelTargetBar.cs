@@ -38,6 +38,12 @@ public class LevelTargetBar : MonoBehaviour
         }
     }
 
-    private float GetTimePercent() => 
-        _currentLevelConfig.roundTime > 0 ? _levelTargetValue.End.CurrentValue /  _currentLevelConfig.roundTime : 0;
+    private float GetTimePercent()
+    {
+        const float threshold = 0.000001f;
+        if (_currentLevelConfig.roundTime <= threshold)
+            return 0;
+        
+        return _levelTargetValue.End.CurrentValue / _currentLevelConfig.roundTime;
+    }
 }

@@ -30,7 +30,7 @@ public class LevelEndBoss : ILevelTargetEnd
         G.I.StopRun(this, EndRoundFadeEnum.RoundWin);
     }
     
-    public int GetEnergy() => _levelConfig?.bossReward ?? 100;
+    public int GetEnergy() => _levelConfig?.levelReward ?? 100;
 
     public void Add(LevelObjectiveType levelObjectiveType, float value)
     {
