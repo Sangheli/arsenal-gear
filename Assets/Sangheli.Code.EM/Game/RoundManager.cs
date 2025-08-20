@@ -9,6 +9,9 @@ public class RoundManager : MonoBehaviour
     private readonly List<EnemyController> _enemyList = new();
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
     private readonly List<EnemyData> _availableEnemies = new();
+    private readonly List<IRoundModification> _roundModifications = new();
+    private readonly List<IRoundModification> _activeRoundModifications = new();
+    
     public bool IsAlive { get; set; }
     public bool IsAliveForPlay { get; set; }
     private DataSave _save;
@@ -49,10 +52,8 @@ public class RoundManager : MonoBehaviour
 
         HandleCursorVisibility();
         
-        var diff = Time.deltaTime * 1;
-        diff *= 2/3f;
-        if (_currentLevelConfig == null || _currentLevelConfig.loseHpDuringRound)
-            G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true, doAnimatedUnfill: false);
+        foreach (var modification in _activeRoundModifications)
+            modification.OnRoundUpdate(this);
 
         if (G.I.HpManager.RoundHp <= 0)
         {
@@ -125,6 +126,20 @@ public class RoundManager : MonoBehaviour
         {
             Debug.LogError("LevelData.Levels is empty!");
             _currentLevelConfig = null;
+        }
+        
+        _activeRoundModifications.Clear();
+        if (_currentLevelConfig != null)
+        {
+            foreach (var modifierType in _currentLevelConfig.levelModifiers)
+            {
+                var modifier = _roundModifications.FirstOrDefault(m => m.ModifierType == modifierType);
+                if (modifier != null)
+                {
+                    _activeRoundModifications.Add(modifier);
+                    modifier.OnRoundStart(this);
+                }
+            }
         }
         
         // Boss is not active at the start of round
@@ -226,6 +241,10 @@ public class RoundManager : MonoBehaviour
     public void TerminateRound()
     {
         if (!IsAlive) return;
+        
+        // Notify modifiers about round end
+        foreach (var modification in _activeRoundModifications)
+            modification.OnRoundEnd(this);
         
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
         G.I.StopRun(null, EndRoundFadeEnum.RoundTerminated);

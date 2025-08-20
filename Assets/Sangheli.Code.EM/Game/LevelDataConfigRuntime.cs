@@ -93,7 +93,8 @@ public class LevelDataConfigRuntime
             useWinColorOnFail = false, // By default, use normal fail color on defeat
             playerAutoAttack = true, // By default, player auto-attack is enabled
             objectiveType = objectiveType,
-            objectiveValue = objectiveValue
+            objectiveValue = objectiveValue,
+            levelModifiers = GenerateRandomModifiers(i) // Generate random modifiers for the level
         };
     }
 
@@ -170,6 +171,59 @@ public class LevelDataConfigRuntime
         int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnRate, maxSpawnRate, tSpawn));
         int dynamicMinSpawnRate = Mathf.RoundToInt(Mathf.Lerp(22, 30, tSpawn)); // Нижняя граница теперь зависит от уровня
         return UnityEngine.Random.Range(dynamicMinSpawnRate, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
+    }
+
+    private static List<LevelModifierType> GenerateRandomModifiers(int levelIndex)
+    {
+        var modifiers = new List<LevelModifierType>();
+        
+        // At earlier levels, chance of having modifiers is lower
+        float levelProgress = levelIndex / (float)(G.I.maxLevel - 1);
+        
+        // Base chance starts at 10% and increases to 80% at higher levels
+        float modifierChance = Mathf.Lerp(0.1f, 0.8f, levelProgress);
+        
+        // Check if we should add any modifiers at all
+        if (Random.value > modifierChance)
+        {
+            return modifiers; // Return empty list - no modifiers
+        }
+        
+        // Determine how many modifiers to add (0-3, with weighted probabilities)
+        int modifierCount = 0;
+        float countRoll = Random.value;
+        if (countRoll < 0.7f) // 70% chance for 1 modifier
+        {
+            modifierCount = 1;
+        }
+        else if (countRoll < 0.9f) // 20% chance for 2 modifiers
+        {
+            modifierCount = 2;
+        }
+        else // 10% chance for 3 modifiers
+        {
+            modifierCount = 3;
+        }
+        
+        // Available modifier types (excluding None)
+        var availableModifiers = new List<LevelModifierType>();
+        foreach (LevelModifierType modifierType in Enum.GetValues(typeof(LevelModifierType)))
+        {
+            if (modifierType != LevelModifierType.None)
+            {
+                availableModifiers.Add(modifierType);
+            }
+        }
+        
+        // Select random modifiers without duplicates
+        for (int i = 0; i < modifierCount && availableModifiers.Count > 0; i++)
+        {
+            int randomIndex = Random.Range(0, availableModifiers.Count);
+            modifiers.Add(availableModifiers[randomIndex]);
+            availableModifiers.RemoveAt(randomIndex);
+        }
+        
+        return modifiers;
     }
 
     public LevelConfig Get(int levelId)

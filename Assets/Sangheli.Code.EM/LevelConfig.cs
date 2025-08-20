@@ -41,5 +41,8 @@ public class LevelConfig
     public int preSpawnEnemyCount = 10; // Количество врагов для предспавна в начале раунда
 
     [Space]
+    public List<LevelModifierType> levelModifiers = new();
+
+    [Space]
     public List<LevelEnemyInfo> enemies = new();
 }
