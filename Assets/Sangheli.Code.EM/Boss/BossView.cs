@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class BossView : EnemyView
@@ -26,40 +25,20 @@ public class BossView : EnemyView
         var backColor = color;
         backColor.a = 64 / 255f;
         
-        render.OriginalColor = color; // Store the original color for crit effects
+        render.OriginalColor = color;
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
         render.ApplyBorderColor(ramkaColor);
-        
-        boss2Render.OriginalColor = color; // Store the original color for crit effects
-        boss2Render.ApplyPropertyView(color);
-        boss2Render.ApplyPropertyBack(backColor);
-        
         deathVfx.SetColor(color);
-    }
-
-    public override void SetHitValue(float value)
-    {
-        boss2Render.SetHitValue(value);
-        base.SetHitValue(value);
-    }
-    
-    public override void SetFillValue(float targetClipValue)
-    {
-        boss2Render.SetFillValue(targetClipValue);
-        base.SetFillValue(targetClipValue);
+        
+        render.SetOriginalScale(Vector3.one);
+        deathVfx.SetScale(Vector3.one/2f);
     }
 
     public override void FlashEffect(bool isCrit = false)
     {
         boss2Render.FlashEffect(isCrit);
         base.FlashEffect(isCrit);
-    }
-
-    public override void CritColorEffect()
-    {
-        boss2Render.CritColorEffect();
-        base.CritColorEffect();
     }
 
     public override void ResetItem()

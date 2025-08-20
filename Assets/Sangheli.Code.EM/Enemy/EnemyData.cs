@@ -20,6 +20,16 @@ public class EnemyData : ScriptableObject
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
     
+    [Space, Header("View scale")]
+    public Vector3 viewScale = Vector3.one;
+    public Vector3 deathVfxScale = Vector3.one;
+
+    [Space, Header("View tx")] 
+    public Sprite spriteView;
+    public Sprite spriteBack;
+    public Sprite spriteShadow;
+    public Sprite spriteBorder;
+    
     [Space,Header("Magnet")]
     public bool AttractToCursor = false;
     public float AttractionSpeed = 1.0f;

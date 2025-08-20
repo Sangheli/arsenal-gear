@@ -1,23 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyRender : MonoBehaviour
 {
     private readonly int _clipUvUp = Shader.PropertyToID("_ClipUvUp");
     private readonly int _hitEffectBlend = Shader.PropertyToID("_HitEffectBlend");
-    public readonly int ColorProperty = Shader.PropertyToID("_Color");
-
-    public string borderColorProp = "_Color";
-    private int _borderColor = 0;
-    
+    private readonly int _colorProperty = Shader.PropertyToID("_Color");
     
     [Space]
-    public Renderer viewRenderer;
-    [FormerlySerializedAs("ramkaRender")] public Renderer borderRender;
-    public Renderer[] borderRenderArr;
-    public Renderer backRender;
-    public Renderer shadowRender;
+    public SpriteRenderer[] viewRenderArr;
+    public SpriteRenderer[] borderRenderArr;
+    public SpriteRenderer[] backRenderArr;
+    public SpriteRenderer shadowRender;
 
     public MaterialPropertyBlock PropertyBlock;
     public MaterialPropertyBlock PropertyBlockBack;
@@ -43,50 +37,50 @@ public class EnemyRender : MonoBehaviour
     
     private void Awake()
     {
-        _borderColor = Shader.PropertyToID(borderColorProp);
-        
-        _originalScale = viewRenderer.transform.localScale;
-        _originalScaleShadow = shadowRender.transform.localScale;
-
         PropertyBlock = new MaterialPropertyBlock();
-        viewRenderer.GetPropertyBlock(PropertyBlock);
+        viewRenderArr[0].GetPropertyBlock(PropertyBlock);
         
         PropertyBlockRamka = new MaterialPropertyBlock();
-        borderRender.GetPropertyBlock(PropertyBlockRamka);
+        borderRenderArr[0].GetPropertyBlock(PropertyBlockRamka);
         
         PropertyBlockBack = new MaterialPropertyBlock();
-        backRender.GetPropertyBlock(PropertyBlockBack);
-        
-        OriginalColor = viewRenderer.material.color;
-        
+        backRenderArr[0].GetPropertyBlock(PropertyBlockBack);
+    }
+
+    public void SetOriginalScale(Vector3 viewScale)
+    {
+        _originalScale = viewScale;
+        _originalScaleShadow = viewScale;
+        viewRenderArr[0].transform.localScale = _originalScale*scale;
+        shadowRender.transform.localScale = _originalScaleShadow*scale;
     }
     
     public void ApplyPropertyBack(Color bossColor)
     {
-        PropertyBlockBack.SetColor(ColorProperty, bossColor);
+        PropertyBlockBack.SetColor(_colorProperty, bossColor);
         ApplyPropertyBack();
     }
 
     public virtual void ApplyPropertyBack()
     {
-        backRender.SetPropertyBlock(PropertyBlockBack);
+        foreach (var x in backRenderArr) x.SetPropertyBlock(PropertyBlockBack);
     }
     
     public void ApplyPropertyView(Color backColor)
     {
-        PropertyBlock.SetColor(ColorProperty, backColor);
+        PropertyBlock.SetColor(_colorProperty, backColor);
         ApplyPropertyView();
     }
 
     public virtual void ApplyPropertyView()
     {
-        viewRenderer.SetPropertyBlock(PropertyBlock);
+        foreach (var x in viewRenderArr) x.SetPropertyBlock(PropertyBlock);
     }
 
     public void SetScale(float scale)
     {
         this.scale = scale;
-        viewRenderer.transform.localScale = _originalScale*scale;
+        viewRenderArr[0].transform.localScale = _originalScale*scale;
         shadowRender.transform.localScale = _originalScaleShadow*scale;
     }
 
@@ -115,7 +109,7 @@ public class EnemyRender : MonoBehaviour
         addonScale /= scale;
         
         // Запуск и кеширование новых корутин
-        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(viewRenderer.transform, _originalScale*scale, 1+addonScale, duration));
+        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(viewRenderArr[0].transform, _originalScale*scale, 1+addonScale, duration));
         _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(shadowRender.transform, _originalScaleShadow*scale, 1+addonScale, duration));
     }
 
@@ -127,7 +121,7 @@ public class EnemyRender : MonoBehaviour
         _flashRoutine = StartCoroutine(GameAnimation.FlashEffect(SetHitValue, isCrit, maxFlashValue, duration));
     }
 
-    public void ResetItem()
+    public void ResetCoroutines()
     {
         if (_flashRoutine != null)
             StopCoroutine(_flashRoutine);
@@ -138,7 +132,19 @@ public class EnemyRender : MonoBehaviour
         if (_critColorRoutine != null)
             StopCoroutine(_critColorRoutine);
         
-        var transform2 = viewRenderer.transform;
+        var transform2 = viewRenderArr[0].transform;
+        var transform3 = shadowRender.transform;
+        transform2.localScale = _originalScale;
+        transform3.localScale = _originalScaleShadow;
+        
+        // Сброс вращения
+        transform2.localRotation = Quaternion.identity;
+        transform3.localRotation = Quaternion.identity;
+    }
+    
+    public void ResetItem()
+    {
+        var transform2 = viewRenderArr[0].transform;
         var transform3 = shadowRender.transform;
         transform2.localScale = _originalScale;
         transform3.localScale = _originalScaleShadow;
@@ -156,25 +162,24 @@ public class EnemyRender : MonoBehaviour
     
     public IEnumerator CritColorCoroutine()
     {
-        PropertyBlock.SetColor(ColorProperty, Color.red);
+        PropertyBlock.SetColor(_colorProperty, Color.red);
         ApplyPropertyView();
         yield return new WaitForSeconds(duration);
-        PropertyBlock.SetColor(ColorProperty, OriginalColor);
+        PropertyBlock.SetColor(_colorProperty, OriginalColor);
         ApplyPropertyView();
     }
 
     public void SetSortingOrder(SortingOrderData data)
     {
-        borderRender.sortingOrder = data.ramka;
         foreach (var x in borderRenderArr) x.sortingOrder = data.ramka;
-        viewRenderer.sortingOrder = data.view;
+        foreach (var x in viewRenderArr) x.sortingOrder = data.view;
         shadowRender.sortingOrder = data.shadow;
-        backRender.sortingOrder = data.back;
+        foreach (var x in backRenderArr) x.sortingOrder = data.back;
     }
 
     public IEnumerator DeathAnimation()
     {
-        var transform1 = viewRenderer.transform;
+        var transform1 = viewRenderArr[0].transform;
         var transform2 = shadowRender.transform;
         
         StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
@@ -202,8 +207,7 @@ public class EnemyRender : MonoBehaviour
 
     public void ApplyBorderColor()
     {
-        PropertyBlockRamka.SetColor(_borderColor, OriginalRamkaColor);
-        borderRender.SetPropertyBlock(PropertyBlockRamka);
+        PropertyBlockRamka.SetColor(_colorProperty, OriginalRamkaColor);
         foreach (var x in borderRenderArr) x.SetPropertyBlock(PropertyBlockRamka);
     }
 
@@ -211,5 +215,13 @@ public class EnemyRender : MonoBehaviour
     {
         OriginalRamkaColor = black;
         ApplyBorderColor();
+    }
+    
+    public virtual void SetSprites(EnemyData enemyData)
+    {
+        viewRenderArr[0].sprite = enemyData.spriteView;
+        borderRenderArr[0].sprite = enemyData.spriteBorder;
+        backRenderArr[0].sprite = enemyData.spriteBack;
+        shadowRender.sprite = enemyData.spriteShadow;
     }
 }

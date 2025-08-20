@@ -23,6 +23,7 @@ public class EnemyView : MonoBehaviour
     public virtual void ResetItem()
     {
         render.ResetItem();
+        render.ResetCoroutines();
 
         SetHitValue(0);
         SetFillValue(0);

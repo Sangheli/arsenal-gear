@@ -35,4 +35,9 @@ public class DeathVfx : MonoBehaviour
         var main = ps.main;
         main.startColor = new ParticleSystem.MinMaxGradient(color,colorMax);
     }
+
+    public void SetScale(Vector3 scale)
+    {
+        transform.localScale = scale;
+    }
 }

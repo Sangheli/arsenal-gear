@@ -55,6 +55,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         IsDead = false;
         SetData(data);
+        ResetView2();
         _selfDestructTime = CurrentData.GetSelfDestructTime();
         damageReciever.EnemyData = CurrentData;
         CurrentHealth = CurrentData.Health;
@@ -135,7 +136,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         var deltaTime = Time.deltaTime;
         
-        view.render.viewRenderer.transform.Rotate(CurrentData.rotationSpeed * deltaTime);
+        view.render.viewRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         view.render.shadowRender.transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
         if (_hasChangedSpeed && CurrentData.AttractToCursor)
@@ -190,7 +191,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         {
             CurrentHealth = 0;
             IsDead = true;
-            Die(isCrit);
+            Die(isCrit, true);
         }
         else
         {
@@ -203,10 +204,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _targetClipValue = 1 - CurrentHealth / CurrentData.Health;
     }
 
-    public virtual void Die(bool isCrit)
+    public virtual void Die(bool isCrit, bool killedByPlayer)
     {
         if (!IsActive) return;
-        G.I.levelTargetManager.Data.AddValue( LevelObjectiveType.EnemyCount, 1);
+        if (killedByPlayer) G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.EnemyCount, 1);
+
         StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
     }
@@ -227,8 +229,16 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         G.I.ObjectPool.Return(this);
     }
 
+    private void ResetView2()
+    {
+        view.render.SetOriginalScale(CurrentData.viewScale);
+        view.deathVfx.SetScale(CurrentData.deathVfxScale);
+        view.render.SetSprites(CurrentData);
+    }
+
     public void ResetItem()
     {
+        ResetView2();
         IsActive = false;
         CurrentHealth = 0f;
         _moveDirection = Vector2.zero;
@@ -265,7 +275,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         yield return new WaitForSeconds(_selfDestructTime);
         if (!IsActive || IsDead) yield break;
         IsDead = true;
-        Die(false);
+        Die(false, false);
     }
 
     private void StopSelfDestruct()

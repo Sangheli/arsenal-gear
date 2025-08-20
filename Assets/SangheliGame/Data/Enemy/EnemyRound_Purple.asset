@@ -18,8 +18,15 @@ MonoBehaviour:
   superHard: 0
   playDeathSound: 0
   Health: 10
-  Speed: 0.4
   DamagePerHit: 0.35
+  Speed: 0.4
+  rotationSpeed: {x: 0, y: 0, z: 30}
+  viewScale: {x: 1.1, y: 1.1, z: 1.1}
+  deathVfxScale: {x: 0.55, y: 0.55, z: 0.55}
+  spriteView: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
+  spriteBack: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
+  spriteShadow: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2

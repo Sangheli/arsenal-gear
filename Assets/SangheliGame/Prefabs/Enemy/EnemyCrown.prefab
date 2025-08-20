@@ -310,7 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   view: {fileID: 6269158921195688788}
   damageReciever: {fileID: 8780209497533360958}
-  rotationSpeed: {x: 0, y: 0, z: 0}
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
@@ -329,11 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  borderColorProp: _Color
-  viewRenderer: {fileID: 6168234484293521608}
-  borderRender: {fileID: 3921777000171173304}
-  borderRenderArr: []
-  backRender: {fileID: 8560448842156563371}
+  viewRenderArr:
+  - {fileID: 6168234484293521608}
+  borderRenderArr:
+  - {fileID: 3921777000171173304}
+  backRenderArr:
+  - {fileID: 8560448842156563371}
   shadowRender: {fileID: 4245914269587504957}
   punchScale: 1.2
   punchScaleCrit: 1.44

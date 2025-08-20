@@ -86,11 +86,11 @@ public class BossController : EnemyController
     }
 
     // Переопределяем смерть
-    public override void Die(bool isCrit = false)
+    public override void Die(bool isCrit, bool killedByPlayer)
     {
         if (!IsActive) return;
         _onBossDeath?.Invoke();
-        base.Die(isCrit);
+        base.Die(isCrit, killedByPlayer);
     }
 
     public void RewindAnim()

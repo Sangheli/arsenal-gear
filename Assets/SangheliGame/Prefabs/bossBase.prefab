@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  borderColorProp: _Color
-  viewRenderer: {fileID: 6127105749793152546}
-  borderRender: {fileID: 358007954849645678}
-  borderRenderArr: []
-  backRender: {fileID: 1294318770649464827}
+  viewRenderArr:
+  - {fileID: 6127105749793152546}
+  borderRenderArr:
+  - {fileID: 358007954849645678}
+  backRenderArr:
+  - {fileID: 1294318770649464827}
   shadowRender: {fileID: 779189242470408236}
   punchScale: 1.2
   punchScaleCrit: 1.44
@@ -59,6 +60,7 @@ MonoBehaviour:
   duration: 0.2
   maxFlashValue: 1
   deathAnimDuration: 0.3
+  ignoreAwake: 0
 --- !u!114 &2954480633441605223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,7 +631,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossController
   view: {fileID: 5411510531200860626}
   damageReciever: {fileID: 2987255811624996102}
-  rotationSpeed: {x: 0, y: 0, z: 30}
   lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
@@ -671,12 +672,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  borderColorProp: _Color
-  viewRenderer: {fileID: 5621766057088278709}
-  borderRender: {fileID: 9185902343706225897}
+  viewRenderArr:
+  - {fileID: 5621766057088278709}
+  - {fileID: 6127105749793152546}
   borderRenderArr:
+  - {fileID: 9185902343706225897}
   - {fileID: 358007954849645678}
-  backRender: {fileID: 3364157572222779180}
+  backRenderArr:
+  - {fileID: 3364157572222779180}
+  - {fileID: 1294318770649464827}
   shadowRender: {fileID: 3984409825930138585}
   punchScale: 1.7
   punchScaleCrit: 2
@@ -684,6 +688,7 @@ MonoBehaviour:
   duration: 0.2
   maxFlashValue: 1
   deathAnimDuration: 1
+  ignoreAwake: 0
 --- !u!1 &7355152215114640481
 GameObject:
   m_ObjectHideFlags: 0
