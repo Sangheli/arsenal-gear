@@ -208,5 +208,5 @@ public class UpgradeView : MonoBehaviour
     }
 
     private static bool IsFistUpgradeTutorial(DataSave save) => 
-        save.saveV2 && save.paramContainer.GetBoughtLevel("hp1") < 1;
+        save.saveVersion > 0 && save.paramContainer.GetBoughtLevel("hp1") < 1;
 }

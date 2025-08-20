@@ -57,8 +57,7 @@ public class G : MonoBehaviour
     public int maxLevel;
     public int delim = 25;
     
-    // Current level version - increment this when new levels are added
-    public const int CURRENT_LEVEL_VERSION = 1;
+    public int RestartsFromEndRound { get; set; }
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
@@ -360,6 +359,7 @@ public class G : MonoBehaviour
     
     public static void ChangeLevel(int delta = 1)
     {
+        G.I.RestartsFromEndRound = 0;
         var saveData = G.I.SaveProvider.Get();
         saveData.level+=delta;
         saveData.level = Mathf.Max(saveData.level, 0);

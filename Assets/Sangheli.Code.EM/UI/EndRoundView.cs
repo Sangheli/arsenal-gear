@@ -71,8 +71,7 @@ public class EndRoundView : MonoBehaviour
 
     private void OnStartNewRound()
     {
-        var save = G.I.SaveProvider.Get();
-        save.restartsFromEndRound++; // Increment restarts from end round counter
+        G.I.RestartsFromEndRound++;
         
         G.I.Advertisement.ShowInterstitial();
         StopShowCoroutine();

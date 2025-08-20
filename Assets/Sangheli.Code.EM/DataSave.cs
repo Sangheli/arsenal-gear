@@ -11,14 +11,14 @@ public class DataSave
     public int level;
     public int loadTimes;
     
+    //big update 1 - versioning
+    public int saveVersion = 0;
+    
     //big update 1
-    public bool saveV2 = false; // New flag for save version 2
     public int wins;
     public int losses;
     public int upgradesBoughtNum;
     public int shopVisits;
-    public int restartsFromEndRound;
-    public int levelVersion = 0;
 
     //release
     public ParamContainer paramContainer;
@@ -51,6 +51,6 @@ public class DataSave
 
     public override string ToString()
     {
-        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(level)}: {level}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}, {nameof(wins)}: {wins}, {nameof(losses)}: {losses}, {nameof(shopVisits)}: {shopVisits}, {nameof(restartsFromEndRound)}: {restartsFromEndRound}, {nameof(saveV2)}: {saveV2}, {nameof(levelVersion)}: {levelVersion}";
+        return $"{nameof(totalEnergy)}: {totalEnergy}, {nameof(timeSinceStart)}: {timeSinceStart}, {nameof(hasVisitedUpgradeMenu)}: {hasVisitedUpgradeMenu}, {nameof(level)}: {level}, {nameof(upgradesBoughtNum)}: {upgradesBoughtNum}, {nameof(wins)}: {wins}, {nameof(losses)}: {losses}, {nameof(shopVisits)}: {shopVisits}, {nameof(saveVersion)}: {saveVersion}";
     }
 }

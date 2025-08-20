@@ -23,7 +23,7 @@ public static class AnalyticsHelper
             { "c_winCount", save.wins },
             { "c_loseCount", save.losses },
             { "c_shopVisits", save.shopVisits },
-            { "c_restartsFromEndRound", save.restartsFromEndRound },
+            { "c_restartsFromEndRound", G.I.RestartsFromEndRound },
         };
         
         Send(customEvent, eventName);

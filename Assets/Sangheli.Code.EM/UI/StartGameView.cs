@@ -49,8 +49,7 @@ public class StartGameView : MonoBehaviour
     private void OnStartButtonClick()
     {
         G.I.SaveProvider.CreateNew();
-        G.I.SaveProvider.Get().saveV2 = true; // Set the new save flag to true for new games
-        G.I.SaveProvider.Get().levelVersion = G.CURRENT_LEVEL_VERSION; // Set the current level version for new games
+        G.I.SaveProvider.Get().saveVersion = GameVersionConstants.CURRENT_GAME_VERSION; // Set the current level version for new games
         SaveSystem.SaveSilent();
         G.I.StartRunFirstTime(true);
     }
@@ -99,7 +98,7 @@ public class StartGameView : MonoBehaviour
         ToggleNewLevelNotifications(hasSave);
         
         var saveData = G.I.SaveProvider.Get();
-        saveData.levelVersion = G.CURRENT_LEVEL_VERSION;
+        saveData.saveVersion = GameVersionConstants.CURRENT_GAME_VERSION;
     }
 
     private void UpdateSaveStats()
@@ -184,6 +183,6 @@ public class StartGameView : MonoBehaviour
     {
         if (!hasSave) return false;
         var saveData = G.I.SaveProvider.Get();
-        return saveData.levelVersion < G.CURRENT_LEVEL_VERSION;
+        return saveData.saveVersion < GameVersionConstants.VERSION_NEW_MAPS_1;
     }
 }
