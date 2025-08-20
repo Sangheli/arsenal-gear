@@ -535,6 +535,7 @@ MonoBehaviour:
   predefinedLang: en
   useOrientationChecker: 0
   layoutPlaceHolder: {fileID: 0}
+  startGameWithoutMenu: 1
   progressionHpCurve:
     serializedVersion: 2
     m_Curve:
