@@ -36,7 +36,7 @@ public class CursorDamageHelper
             var enemy = _enemyHits[i].GetComponent<DamageReciever>();
             if (enemy == null) continue;
             var critResult = CritHelper.RollCrit(damageParam.GetValueRandomFromValue(damageValue) * damagePercent, critChance, critMultiplier);
-            enemy.TakeDamage(critResult.IsCrit ? -critResult.Damage : critResult.Damage);
+            enemy.TakeDamage(critResult);
 
             if (isAI) continue;
             
