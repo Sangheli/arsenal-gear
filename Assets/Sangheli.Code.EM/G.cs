@@ -81,6 +81,9 @@ public class G : MonoBehaviour
     public bool useOrientationChecker = false;
     public LayoutPlaceHolder layoutPlaceHolder;
     
+    [Space]
+    public bool startGameWithoutMenu = true;
+    
     private void OnValidate()
     {
         orientationChecker ??= GetComponent<OrientationChecker>();
@@ -159,16 +162,15 @@ public class G : MonoBehaviour
         energySpawner.OnLoadInit();
         playerCursor.Toggle(false);
         uiManager.Toggle(false);
-        startGameView.Toggle(true);
-        startGameView.DoSaveInfoFadeOut(2.0f,1);
         upgradeView.Toggle(false);
-        endRoundView.distortion.OnLoadInit();
         
         SaveProvider.Get();
         
         LevelDataConfig = new LevelDataConfigRuntime();
         
         levelTargetManager.OnLoadInit();
+        if (startGameWithoutMenu) OnStartGameWithoutMenu();
+        else OnStartGameWithMenu();
         bossManager = GetComponent<BossManager>();
     }
 
@@ -183,7 +185,8 @@ public class G : MonoBehaviour
         if (newGame)
         {
             AnalyticsHelper.OnFirstGameLaunch();
-            arcMoveAnimator.Play();
+            if (!startGameWithoutMenu) arcMoveAnimator.Play();
+            else OnStartRunInstant();
         }
         else
         {
@@ -363,5 +366,38 @@ public class G : MonoBehaviour
         var saveData = G.I.SaveProvider.Get();
         saveData.level+=delta;
         saveData.level = Mathf.Max(saveData.level, 0);
+    }
+    
+    private void OnStartRunInstant()
+    {
+        SaveProvider.CreateNew();
+        SaveProvider.Get().saveVersion = GameVersionConstants.CURRENT_GAME_VERSION;
+        SaveSystem.SaveSilent();
+        StartRun(false);
+    }
+    
+    private void OnStartGameWithMenu()
+    {
+        startGameView.Toggle(true);
+        startGameView.DoSaveInfoFadeOut(2.0f,1);
+        endRoundView.distortion.OnLoadInit();
+    }
+
+    private void OnStartGameWithoutMenu()
+    {
+        var datetime = PlayerPrefs.GetString(SaveSystem.GetKey(), null);
+        bool hasSave = !string.IsNullOrEmpty(datetime);
+
+        if (hasSave)
+        {
+            startGameView.Toggle(true);
+            startGameView.DoSaveInfoFadeOut(2.0f, 1);
+        }
+        else
+        {
+            StartRunFirstTime(true);
+        }
+        
+        endRoundView.distortion.OnLoadInit();
     }
 }
