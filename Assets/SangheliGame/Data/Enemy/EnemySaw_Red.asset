@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemySaw_Red
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
+  prefab: {fileID: -4566179502049351345, guid: ddcc5d57f48c0af46b1be1e64ea99c5d, type: 3}
   DisplayName: Saw_Red
   excludeFromLevelGeneration: 0
   superHard: 1

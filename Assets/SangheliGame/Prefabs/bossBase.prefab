@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3023219896470539844}
-  - component: {fileID: 5051980881560045711}
   - component: {fileID: 2954480633441605223}
   m_Layer: 6
   m_Name: boss2
@@ -35,32 +34,6 @@ Transform:
   - {fileID: 5526514786007183392}
   m_Father: {fileID: 5758662598566813580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5051980881560045711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965645296573083121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
-  viewRenderArr:
-  - {fileID: 6127105749793152546}
-  borderRenderArr:
-  - {fileID: 358007954849645678}
-  backRenderArr:
-  - {fileID: 1294318770649464827}
-  shadowRender: {fileID: 779189242470408236}
-  punchScale: 1.2
-  punchScaleCrit: 1.44
-  scale: 1
-  duration: 0.2
-  maxFlashValue: 1
-  deathAnimDuration: 0.3
-  ignoreAwake: 0
 --- !u!114 &2954480633441605223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,7 +631,6 @@ MonoBehaviour:
   deathVfx: {fileID: 5971301684280928737}
   render: {fileID: 247238818932793025}
   colorMult: 1.07
-  boss2Render: {fileID: 5051980881560045711}
   ramkaColor: {r: 0.106918216, g: 0.106918216, b: 0.106918216, a: 1}
 --- !u!114 &247238818932793025
 MonoBehaviour:
@@ -672,6 +644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
+  borderColorPropName: _Color
+  borderColorProp: 0
   viewRenderArr:
   - {fileID: 5621766057088278709}
   - {fileID: 6127105749793152546}
@@ -681,14 +655,15 @@ MonoBehaviour:
   backRenderArr:
   - {fileID: 3364157572222779180}
   - {fileID: 1294318770649464827}
-  shadowRender: {fileID: 3984409825930138585}
+  shadowRenderArr:
+  - {fileID: 3984409825930138585}
+  - {fileID: 779189242470408236}
   punchScale: 1.7
   punchScaleCrit: 2
   scale: 1
   duration: 0.2
   maxFlashValue: 1
   deathAnimDuration: 1
-  ignoreAwake: 0
 --- !u!1 &7355152215114640481
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,16 +5,21 @@ public class BossView : EnemyView
     [Space]
     public float colorMult = 0.8f;
 
-    public EnemyRender boss2Render;
     private Coroutine _bounceRoutineBoss2;
     private Coroutine _bounceShadowRoutineBoss;
     public Color ramkaColor = Color.black;
-
+    private bool shadowUpdated = false;
+    
     public void SetScale(float viewScale)
     {
         render.SetScale(viewScale);
-        boss2Render.shadowRender.transform.localPosition /= viewScale;
         deathVfx.SetScale(viewScale);
+        
+        if(shadowUpdated)
+            return;
+
+        shadowUpdated = true;
+        render.shadowRenderArr[1].transform.localPosition /= viewScale;
     }
 
     public void SetColor(Color color)
@@ -31,19 +36,7 @@ public class BossView : EnemyView
         render.ApplyBorderColor(ramkaColor);
         deathVfx.SetColor(color);
         
-        render.SetOriginalScale(Vector3.one);
+        render.SetOriginalScale(Vector3.one, true);
         deathVfx.SetScale(Vector3.one/2f);
-    }
-
-    public override void FlashEffect(bool isCrit = false)
-    {
-        boss2Render.FlashEffect(isCrit);
-        base.FlashEffect(isCrit);
-    }
-
-    public override void ResetItem()
-    {
-        boss2Render.ResetItem();
-        base.ResetItem();
     }
 }

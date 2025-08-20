@@ -20,6 +20,7 @@ public class BossController : EnemyController
     // Новый Init для босса
     public void Init(float hp, Color color, float scale, float bossDamage, System.Action onBossDeath)
     {
+        view.render.blockSpriteReplace = true;
         _filter ??= GetFilter();
 
         CurrentData = new EnemyData();

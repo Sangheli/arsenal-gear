@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyStar_Aqua
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
+  prefab: {fileID: 4631521289559410727, guid: 41ccfde013d4a17469cbb33a3ecd0caf, type: 3}
   DisplayName: Star_Aqua
   excludeFromLevelGeneration: 0
   superHard: 0

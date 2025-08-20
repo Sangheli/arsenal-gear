@@ -137,7 +137,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         var deltaTime = Time.deltaTime;
         
         view.render.viewRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
-        view.render.shadowRender.transform.Rotate(CurrentData.rotationSpeed * deltaTime);
+        view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
         if (_hasChangedSpeed && CurrentData.AttractToCursor)
         {
@@ -231,7 +231,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 
     private void ResetView2()
     {
-        view.render.SetOriginalScale(CurrentData.viewScale);
+        view.render.SetOriginalScale(CurrentData.viewScale, false);
         view.deathVfx.SetScale(CurrentData.deathVfxScale);
         view.render.SetSprites(CurrentData);
     }

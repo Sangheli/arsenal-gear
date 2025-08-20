@@ -315,13 +315,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf90288c66f4ad08ae5059dd2bec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRender
+  borderColorPropName: _RingColor
+  borderColorProp: 0
   viewRenderArr:
   - {fileID: 6168234484293521608}
   borderRenderArr:
   - {fileID: 3921777000171173304}
   backRenderArr:
   - {fileID: 8519318489331022110}
-  shadowRender: {fileID: 4245914269587504957}
+  shadowRenderArr:
+  - {fileID: 4245914269587504957}
   punchScale: 1.2
   punchScaleCrit: 1.44
   scale: 1

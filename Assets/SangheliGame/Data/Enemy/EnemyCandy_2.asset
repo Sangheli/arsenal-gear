@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyCandy_2
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: 828f8ded3a13f5f47a650d0c8a44dd23, type: 3}
+  prefab: {fileID: 2325995571859240399, guid: b0f70d0911c9d28418375130627f8485, type: 3}
   DisplayName: Candy_2
   excludeFromLevelGeneration: 0
   superHard: 0
