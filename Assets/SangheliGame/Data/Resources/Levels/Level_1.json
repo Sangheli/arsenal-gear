@@ -8,7 +8,7 @@
     "preSpawnEnemyCount": 10,
     "showTerminateButton": false,
     "objectiveType": 2,
-    "objectiveValue": 20,
+    "objectiveValue": 25,
     "bossHp": 21,
     "bossReward": 114,
     "bossAttack": 1.0,
