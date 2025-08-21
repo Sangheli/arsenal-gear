@@ -1,113 +1,77 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HalfBarView : MonoBehaviour
 {
-    public Image hpImage;
-    public Image hpImageWhiteBack;
-    public Image hpImageBack;
-    
-    private Color _startColor;
-    private Coroutine _blinkCoroutine;
-    private Coroutine _bounceCoroutine;
+    public ARunningBar runningBarImage;
+    public string lowerBorder = "_ClipUvLeft";
+    public string upperBorder = "_ClipUvRight";
+
+    private RunningBarValue _runningBarValue;
+    private float _oldFillValue;
     
     public float UnFillTime { get; set; }
 
-    private const float ClipplingLeftFill = 0;
-    private float _clipplingRightFill;
+    // Animation variables
+    private bool _isAnimating;
     
-    private float _clipplingLeftWhite;
-    private float _clipplingRightWhite;
-    
-    private float _clipplingLeftBack;
-    private readonly float _clipplingRightBack = 0;
-
-    private float _oldFillValue;
-    
-    private Material _hpImageMat;
-    private Material _hpImageWhiteBackMat;
-    private Material _hpImageBackMat;
-
-    private static readonly int ClipUvLeft = Shader.PropertyToID("_ClipUvLeft");
-    private static readonly int ClipUvRight = Shader.PropertyToID("_ClipUvRight");
+    private float _animationStartTime;
+    private float _animationStartValue;
+    private float _animationTargetValue;
 
     private void Awake()
     {
-        _hpImageMat = GetMat(hpImage);
-        _hpImageWhiteBackMat = GetMat(hpImageWhiteBack);
-        _hpImageBackMat = GetMat(hpImageBack);
+        var clipUvLeft = Shader.PropertyToID(lowerBorder);
+        var clipUvRight = Shader.PropertyToID(upperBorder);
+        
+        _runningBarValue = new RunningBarValue(clipUvLeft, clipUvRight);
+        runningBarImage.Set(_runningBarValue);
     }
-    
-    private static Material GetMat(Image img)
-    {
-        if (img.material != null)
-            img.material = Instantiate(img.material);
 
-        return img.material;
-    }
-    
-    public void Show(float fillValue, bool doBlink)
+    public void Show(float fillValue, bool doBlink, bool useStartValue)
     {
+        if (useStartValue)
+            _oldFillValue = fillValue;
+
         if (!gameObject.activeSelf)
             return;
 
-        if (doBlink)
+        if (doBlink && fillValue < _oldFillValue)
         {
-            Recalc(fillValue, _oldFillValue);
-            UpdateView();
+            _runningBarValue.Recalc(fillValue, _oldFillValue);
+            runningBarImage.UpdateView();
             
-            if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
-            _blinkCoroutine = StartCoroutine(AnimateFill(fillValue, _oldFillValue, UnFillTime));
+            _isAnimating = true;
+            _animationStartTime = Time.time;
+            _animationStartValue = _oldFillValue;
+            _animationTargetValue = fillValue;
         }
         else
         {
-            Recalc(fillValue, fillValue);
-            UpdateView();
+            _runningBarValue.Recalc(fillValue, _oldFillValue);
+            runningBarImage.UpdateView();
             
             _oldFillValue = fillValue;
+            _animationTargetValue = fillValue;
         }
     }
 
-    private void Recalc(float fillValue, float oldFillValue)
+    private void Update()
     {
-        _clipplingRightFill = 1 - fillValue;
+        if (!_isAnimating) 
+            return;
         
-        _clipplingLeftWhite = fillValue;
-        _clipplingRightWhite = 1 - oldFillValue;
-        
-        _clipplingLeftBack = oldFillValue;
-    }
+        var elapsed = Time.time - _animationStartTime;
+        var progress = Mathf.Clamp01(elapsed / UnFillTime);
+        var newValue = Mathf.Lerp(_animationStartValue, _animationTargetValue, progress);
 
-    private void UpdateView()
-    {
-        _hpImageMat.SetFloat(ClipUvLeft, ClipplingLeftFill);
-        _hpImageMat.SetFloat(ClipUvRight, _clipplingRightFill);
-        
-        _hpImageWhiteBackMat.SetFloat(ClipUvLeft, _clipplingLeftWhite);
-        _hpImageWhiteBackMat.SetFloat(ClipUvRight, _clipplingRightWhite);
-        
-        _hpImageBackMat.SetFloat(ClipUvLeft, _clipplingLeftBack);
-        _hpImageBackMat.SetFloat(ClipUvRight, _clipplingRightBack);
-    }
+        var finished = progress >= 1.0f;
+        runningBarImage.SetCurrentValue(finished? _animationTargetValue:  newValue);
+        _oldFillValue = newValue;
 
-    private IEnumerator AnimateFill(float fillValue, float oldValue, float blinkTime)
-    {
-        float elapsed = 0f;
-        while (elapsed < blinkTime)
-        {
-            elapsed += Time.deltaTime;
-            float progress = Mathf.Clamp01(elapsed / blinkTime);
-            
-            var newValue = Mathf.Lerp(oldValue, fillValue, progress);
-            _hpImageWhiteBackMat.SetFloat(ClipUvRight, 1-newValue);
-            _hpImageBackMat.SetFloat(ClipUvLeft, newValue);
-            
-            yield return null;
-        }
+        if (!finished) 
+            return;
         
-        _hpImageWhiteBackMat.SetFloat(ClipUvRight, 1-fillValue);
-        _hpImageBackMat.SetFloat(ClipUvLeft, fillValue);
-        _oldFillValue = fillValue;
+        _isAnimating = false;
+        _oldFillValue = _animationTargetValue;
     }
 }

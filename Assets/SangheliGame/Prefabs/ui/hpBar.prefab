@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
   timerText: {fileID: 1628396432744779404}
   punchScale: 1.5
-  duration: 0.15
+  duration: 0.2
   unFillTime: 0.5
   halfBarViewArr:
   - {fileID: 6163299046638372688}

@@ -83,7 +83,7 @@ public class ShieldManager
             return;
         
         _lastValue = rounded;
-        if (!G.I.uiManager.shieldBarUI.Show(rounded, MaxShieldEnergy, rounded / MaxShieldEnergy, _doBlink)) 
+        if (!G.I.uiManager.shieldBarUI.Show(rounded, MaxShieldEnergy, rounded / MaxShieldEnergy, _doBlink,startValue: false)) 
             _lastValue = -1;
 
         _doBlink = false;
