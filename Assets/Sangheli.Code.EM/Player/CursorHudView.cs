@@ -28,7 +28,7 @@ public class CursorHudView : MonoBehaviour
         if (_lowShowen == null || !_lowShowen.Value)
             return;
         
-        hpGo.ShowHp(hp, maxHp, fillValue, doBlink);
+        hpGo.Show(hp, maxHp, fillValue, doBlink);
     }
 
     public void AddDamage(DamageResult damageResult, float currentDamageScale) => damageTextManager.AddDamage(damageResult, currentDamageScale);

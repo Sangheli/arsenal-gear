@@ -43,7 +43,7 @@ public class RoundManager : MonoBehaviour
     private void OnDebugMinusHp(InputAction.CallbackContext context)
     {
         if (IsAlive)
-            G.I.HpManager.Reduce(100, doBlink: true, ignoreShield: true, doAnimatedUnfill: false);
+            G.I.HpManager.Reduce(100, doBlink: true, ignoreShield: true);
     }
     
     private void Update()

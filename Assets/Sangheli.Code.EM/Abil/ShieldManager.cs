@@ -59,8 +59,6 @@ public class ShieldManager
         return incomingDamage - absorbed; // Возвращаем остаток урона, если щит не смог поглотить всё
     }
 
-    public bool IsShieldAvailable() => _isShieldAvailable;
-
     public void LateUpdate()
     {
         if (_isShieldAvailable) UpdateShieldRegeneration();
@@ -76,13 +74,16 @@ public class ShieldManager
     
     private void Show()
     {
+        if(!_isShieldAvailable)
+            return;
+        
         // Округляем roundHp до 1 знака после запятой
         var rounded = Mathf.Round(CurrentShieldEnergy * 1000f) / 1000f;
         if (Math.Abs(_lastValue - rounded) < Tolerance)
             return;
         
         _lastValue = rounded;
-        if (!G.I.uiManager.ShowShield(rounded, MaxShieldEnergy, rounded / MaxShieldEnergy, _doBlink)) 
+        if (!G.I.uiManager.shieldBarUI.Show(rounded, MaxShieldEnergy, rounded / MaxShieldEnergy, _doBlink)) 
             _lastValue = -1;
 
         _doBlink = false;

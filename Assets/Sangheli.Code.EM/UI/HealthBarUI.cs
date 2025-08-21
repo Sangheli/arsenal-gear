@@ -25,7 +25,7 @@ public class HealthBarUI : MonoBehaviour
         foreach (var x in halfBarViewArr) x.UnFillTime = unFillTime;
     }
 
-    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
+    public bool Show(float hp, float fullValue, float fillValue, bool doBlink)
     {
         if (!gameObject.activeSelf)
             return false;

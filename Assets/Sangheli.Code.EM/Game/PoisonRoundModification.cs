@@ -10,7 +10,7 @@ public class PoisonRoundModification : IRoundModification
     {
         var diff = UnityEngine.Time.deltaTime * 1;
         diff *= 2/3f;
-        G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true, doAnimatedUnfill: false);
+        G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
     }
 
     public void OnRoundEnd(RoundManager roundManager)
