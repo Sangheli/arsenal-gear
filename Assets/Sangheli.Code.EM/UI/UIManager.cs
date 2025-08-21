@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
         }
         if (healthBarUI != null)
             healthBarUI.gameObject.SetActive(true);
-        return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink,doAnimatedUnfill);
+        return healthBarUI != null && healthBarUI.ShowHp(hp, fullValue, fillValue, doBlink);
     }
 
     public bool ShowShield(float hp, float fullValue, float fillValue, bool doBlink) => 

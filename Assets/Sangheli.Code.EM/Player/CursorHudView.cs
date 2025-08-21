@@ -17,7 +17,6 @@ public class CursorHudView : MonoBehaviour
         if(doShift) transform.localPosition = GetShift(scale);
         _lowShowen = state;
         hpGo.gameObject.SetActive(state);
-        hpGo.SetStartColor();
         hpLowText.gameObject.SetActive(state);
         ToggleAIView(false);
     }
@@ -29,7 +28,7 @@ public class CursorHudView : MonoBehaviour
         if (_lowShowen == null || !_lowShowen.Value)
             return;
         
-        hpGo.ShowHp(hp, maxHp, fillValue, doBlink, false);
+        hpGo.ShowHp(hp, maxHp, fillValue, doBlink);
     }
 
     public void AddDamage(DamageResult damageResult, float currentDamageScale) => damageTextManager.AddDamage(damageResult, currentDamageScale);

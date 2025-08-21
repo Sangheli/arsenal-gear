@@ -4,9 +4,6 @@ using UnityEngine.UI;
 public class HealthBarUI : MonoBehaviour
 {
     public Text timerText;
-    public Color blinkColor;
-    public float blinkTime = 0.05f;
-    public AnimationCurve blinkCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public float punchScale = 1.2f;
     public float duration = 0.2f;
     private Color _startColor;
@@ -16,7 +13,6 @@ public class HealthBarUI : MonoBehaviour
     public float unFillTime = 0.5f;
 
     public HalfBarView[] halfBarViewArr;
-    public float threshold = 0.0001f;
 
     private void Awake()
     {
@@ -26,39 +22,25 @@ public class HealthBarUI : MonoBehaviour
 
     public void Init()
     {
-        foreach (var x in halfBarViewArr)
-        {
-            x.Init();
-            x.BlinkColor = blinkColor;
-            x.BlinkTime = blinkTime;
-            x.BlinkCurve = blinkCurve;
-            x.UnFillTime = unFillTime;
-            x.Threshold = threshold;
-        }
+        foreach (var x in halfBarViewArr) x.UnFillTime = unFillTime;
     }
 
-    public void SetStartColor()
-    {
-        foreach (var x in halfBarViewArr)
-            x.SetStartColor();
-    }
-
-    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink, bool doAnimatedUnfill)
+    public bool ShowHp(float hp, float fullValue, float fillValue, bool doBlink)
     {
         if (!gameObject.activeSelf)
             return false;
         
-        foreach (var x in halfBarViewArr) x.ShowHp(fillValue, doBlink, doAnimatedUnfill);
+        foreach (var x in halfBarViewArr) x.Show(fillValue, doBlink);
 
-        if (timerText != null)
-        {
-            timerText.text = $"{NumberFormatter.Format(hp, 1)}/{NumberFormatter.Format(fullValue, 1)}";
-            if (doBlink)
-            {
-                if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
-                _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration));
-            }
-        }
+        if (timerText == null) 
+            return true;
+        
+        timerText.text = $"{NumberFormatter.Format(hp, 1)}/{NumberFormatter.Format(fullValue, 1)}";
+        if (!doBlink) 
+            return true;
+        
+        if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
+        _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration));
 
         return true;
     }

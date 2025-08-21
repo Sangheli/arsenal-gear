@@ -8,81 +8,106 @@ public class HalfBarView : MonoBehaviour
     public Image hpImageWhiteBack;
     public Image hpImageBack;
     
-    public Color BlinkColor { get; set; }
-    public float BlinkTime  { get; set; }
-    public AnimationCurve BlinkCurve { get; set; }
-    
     private Color _startColor;
     private Coroutine _blinkCoroutine;
     private Coroutine _bounceCoroutine;
-    public float Threshold { get; set; }
     
     public float UnFillTime { get; set; }
+
+    private const float ClipplingLeftFill = 0;
+    private float _clipplingRightFill;
     
+    private float _clipplingLeftWhite;
+    private float _clipplingRightWhite;
+    
+    private float _clipplingLeftBack;
+    private readonly float _clipplingRightBack = 0;
+
+    private float _oldFillValue;
+    
+    private Material _hpImageMat;
+    private Material _hpImageWhiteBackMat;
+    private Material _hpImageBackMat;
+
+    private static readonly int ClipUvLeft = Shader.PropertyToID("_ClipUvLeft");
+    private static readonly int ClipUvRight = Shader.PropertyToID("_ClipUvRight");
+
     private void Awake()
     {
-        _startColor = hpImage.color;
+        _hpImageMat = GetMat(hpImage);
+        _hpImageWhiteBackMat = GetMat(hpImageWhiteBack);
+        _hpImageBackMat = GetMat(hpImageBack);
     }
+    
+    private static Material GetMat(Image img)
+    {
+        if (img.material != null)
+            img.material = Instantiate(img.material);
 
-    public void Init()
-    {
-        hpImage.color = _startColor;
+        return img.material;
     }
     
-    public void SetStartColor()
-    {
-        hpImage.color = _startColor;
-    }
-    
-    public bool ShowHp(float fillValue, bool doBlink, bool doAnimatedUnfill)
+    public void Show(float fillValue, bool doBlink)
     {
         if (!gameObject.activeSelf)
-            return false;
+            return;
 
-        if(doAnimatedUnfill)
-            StartCoroutine(AnimateFill(fillValue, UnFillTime));
+        if (doBlink)
+        {
+            Recalc(fillValue, _oldFillValue);
+            UpdateView();
+            
+            if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
+            _blinkCoroutine = StartCoroutine(AnimateFill(fillValue, _oldFillValue, UnFillTime));
+        }
         else
         {
-            float targetValueWhite = fillValue;
-            float targetValueBack = 1 - fillValue;
-            hpImageWhiteBack.fillAmount = targetValueWhite;
-            hpImageBack.fillAmount = targetValueBack;
+            Recalc(fillValue, fillValue);
+            UpdateView();
+            
+            _oldFillValue = fillValue;
         }
-
-        hpImage.fillAmount = fillValue;
-        
-        if (doBlink && hpImage != null)
-        {
-            if (_blinkCoroutine != null)
-                StopCoroutine(_blinkCoroutine);
-            _blinkCoroutine =
-                StartCoroutine(GameAnimation.BlinkColor(BlinkColor, _startColor, hpImage, BlinkTime, BlinkCurve));
-        }
-
-        return true;
     }
 
-    //через апдейт проверять
-    public IEnumerator AnimateFill(float newValue, float blinkTime)
+    private void Recalc(float fillValue, float oldFillValue)
     {
-        float startValueWhite = hpImageWhiteBack.fillAmount;
-        float startValueBack = hpImageBack.fillAmount;
-        float targetValueWhite = newValue;
-        float targetValueBack = 1 - newValue;
+        _clipplingRightFill = 1 - fillValue;
         
+        _clipplingLeftWhite = fillValue;
+        _clipplingRightWhite = 1 - oldFillValue;
+        
+        _clipplingLeftBack = oldFillValue;
+    }
+
+    private void UpdateView()
+    {
+        _hpImageMat.SetFloat(ClipUvLeft, ClipplingLeftFill);
+        _hpImageMat.SetFloat(ClipUvRight, _clipplingRightFill);
+        
+        _hpImageWhiteBackMat.SetFloat(ClipUvLeft, _clipplingLeftWhite);
+        _hpImageWhiteBackMat.SetFloat(ClipUvRight, _clipplingRightWhite);
+        
+        _hpImageBackMat.SetFloat(ClipUvLeft, _clipplingLeftBack);
+        _hpImageBackMat.SetFloat(ClipUvRight, _clipplingRightBack);
+    }
+
+    private IEnumerator AnimateFill(float fillValue, float oldValue, float blinkTime)
+    {
         float elapsed = 0f;
         while (elapsed < blinkTime)
         {
             elapsed += Time.deltaTime;
             float progress = Mathf.Clamp01(elapsed / blinkTime);
             
-            hpImageWhiteBack.fillAmount = Mathf.Lerp(startValueWhite, targetValueWhite, progress);
-            hpImageBack.fillAmount = Mathf.Lerp(startValueBack, targetValueBack, progress);
+            var newValue = Mathf.Lerp(oldValue, fillValue, progress);
+            _hpImageWhiteBackMat.SetFloat(ClipUvRight, 1-newValue);
+            _hpImageBackMat.SetFloat(ClipUvLeft, newValue);
             
             yield return null;
         }
         
-        hpImageWhiteBack.fillAmount = targetValueWhite;
-        hpImageBack.fillAmount = targetValueBack;
+        _hpImageWhiteBackMat.SetFloat(ClipUvRight, 1-fillValue);
+        _hpImageBackMat.SetFloat(ClipUvLeft, fillValue);
+        _oldFillValue = fillValue;
     }
 }
