@@ -312,7 +312,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -734,7 +734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349161809516375969, guid: 7a017d6ea899ccb46858288bfe8934e6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 37.5
       objectReference: {fileID: 0}
     - target: {fileID: 5349161809516375969, guid: 7a017d6ea899ccb46858288bfe8934e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -770,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349161809516375969, guid: 7a017d6ea899ccb46858288bfe8934e6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -107.5
+      value: -102
       objectReference: {fileID: 0}
     - target: {fileID: 5349161809516375969, guid: 7a017d6ea899ccb46858288bfe8934e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
