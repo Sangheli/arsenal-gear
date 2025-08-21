@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_AnchorMax.y
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_AnchorMin.y
@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -600
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 7983277045573095368, guid: 6a0da4f8c7879ee4d9aeb78129021a27, type: 3}
       propertyPath: m_SizeDelta.y
@@ -180,8 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldBarUI
   timerText: {fileID: 3634263691196706533}
-  punchScale: 1.2
-  duration: 0.2
+  punchScale: 1.5
+  duration: 0.15
   unFillTime: 0.5
   halfBarViewArr:
   - {fileID: 8178019791756814137}

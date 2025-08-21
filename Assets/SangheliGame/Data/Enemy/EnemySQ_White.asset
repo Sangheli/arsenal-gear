@@ -23,7 +23,7 @@ MonoBehaviour:
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
-  spriteView: {fileID: 21300000, guid: 889823f6ee6dfe64da250b5cd51a0da4, type: 3}
+  spriteView: {fileID: 21300000, guid: 8564a000b1cadc148b847f42d3463c80, type: 3}
   spriteBack: {fileID: 21300000, guid: 8564a000b1cadc148b847f42d3463c80, type: 3}
   spriteShadow: {fileID: 21300000, guid: 8564a000b1cadc148b847f42d3463c80, type: 3}
   spriteBorder: {fileID: 21300000, guid: 2e5c951b96b2e414a91afa2a19dc980a, type: 3}

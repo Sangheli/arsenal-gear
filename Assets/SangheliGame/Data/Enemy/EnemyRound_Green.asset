@@ -31,7 +31,7 @@ MonoBehaviour:
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
-  color: {r: 0, g: 0.8, b: 0.15294118, a: 1}
+  color: {r: 0.089726925, g: 1, b: 0, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0

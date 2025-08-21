@@ -234,7 +234,7 @@ public class EnemyRender : MonoBehaviour
         
         viewRenderArr[0].sprite = enemyData.spriteView;
         borderRenderArr[0].sprite = enemyData.spriteBorder;
-        backRenderArr[0].sprite = enemyData.spriteBack;
-        shadowRenderArr[0].sprite = enemyData.spriteShadow;
+        backRenderArr[0].sprite = enemyData.spriteView;
+        shadowRenderArr[0].sprite = enemyData.spriteView;
     }
 }

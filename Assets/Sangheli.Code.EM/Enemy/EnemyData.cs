@@ -26,8 +26,6 @@ public class EnemyData : ScriptableObject
 
     [Space, Header("View tx")] 
     public Sprite spriteView;
-    public Sprite spriteBack;
-    public Sprite spriteShadow;
     public Sprite spriteBorder;
     
     [Space,Header("Magnet")]

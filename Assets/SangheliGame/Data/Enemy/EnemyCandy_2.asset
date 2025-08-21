@@ -21,12 +21,12 @@ MonoBehaviour:
   DamagePerHit: 0
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
-  viewScale: {x: 1.2, y: 1.2, z: 1.2}
-  deathVfxScale: {x: 0.6, y: 0.6, z: 0.6}
-  spriteView: {fileID: 21300000, guid: f1e86ee21cd4b7e41872701d4deb98ab, type: 3}
-  spriteBack: {fileID: 21300000, guid: f1e86ee21cd4b7e41872701d4deb98ab, type: 3}
-  spriteShadow: {fileID: 21300000, guid: f1e86ee21cd4b7e41872701d4deb98ab, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 364a753cc70130a4e96f713a464fcfd4, type: 3}
+  viewScale: {x: 1, y: 1, z: 1}
+  deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
+  spriteView: {fileID: 21300000, guid: 3c48d46e946959d42819ba216ad44a48, type: 3}
+  spriteBack: {fileID: 21300000, guid: 3c48d46e946959d42819ba216ad44a48, type: 3}
+  spriteShadow: {fileID: 21300000, guid: 3c48d46e946959d42819ba216ad44a48, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 577732a34980ead4c94362e9908c1192, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
