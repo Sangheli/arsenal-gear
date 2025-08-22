@@ -15,6 +15,7 @@
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
+    "poisonDamageSpeed": 0.66,
     "levelModifiers": [
         1
     ],

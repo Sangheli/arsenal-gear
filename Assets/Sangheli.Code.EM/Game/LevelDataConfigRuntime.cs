@@ -177,7 +177,7 @@ public class LevelDataConfigRuntime
     {
         return new List<LevelModifierType>()
         {
-            LevelModifierType.Poison,
+            // LevelModifierType.Poison,
         };
         
         var modifiers = new List<LevelModifierType>();

@@ -42,6 +42,9 @@ public class LevelConfig
     [Space]
     public int preSpawnEnemyCount = 10; // Количество врагов для предспавна в начале раунда
 
+    [Space] 
+    public float poisonDamageSpeed = 0f; // Скорость уменьшения жизни в секунду при ядовом модификаторе
+
     [Space]
     public List<LevelModifierType> levelModifiers = new();
 
