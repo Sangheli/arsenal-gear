@@ -21,62 +21,62 @@
         {
             "enemyId": 8,
             "spawnChance": 38,
-            "spawnRate": 41
-        },
-        {
-            "enemyId": 15,
-            "spawnChance": 38,
             "spawnRate": 39
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 38,
-            "spawnRate": 42
         },
         {
             "enemyId": 17,
             "spawnChance": 38,
-            "spawnRate": 33
+            "spawnRate": 44
         },
         {
-            "enemyId": 4,
+            "enemyId": 5,
             "spawnChance": 38,
-            "spawnRate": 42
+            "spawnRate": 53
         },
         {
-            "enemyId": 16,
+            "enemyId": 15,
             "spawnChance": 38,
-            "spawnRate": 34
-        },
-        {
-            "enemyId": 13,
-            "spawnChance": 37,
-            "spawnRate": 55
+            "spawnRate": 46
         },
         {
             "enemyId": 14,
             "spawnChance": 38,
-            "spawnRate": 9
+            "spawnRate": 7
         },
         {
-            "enemyId": 6,
-            "spawnChance": 37,
+            "enemyId": 11,
+            "spawnChance": 36,
             "spawnRate": 3
         },
         {
-            "enemyId": 4,
+            "enemyId": 7,
             "spawnChance": 38,
-            "spawnRate": 47
+            "spawnRate": 50
         },
         {
-            "enemyId": 2,
-            "spawnChance": 38,
-            "spawnRate": 21
+            "enemyId": 11,
+            "spawnChance": 36,
+            "spawnRate": 3
         },
         {
             "enemyId": 16,
             "spawnChance": 38,
-            "spawnRate": 36
+            "spawnRate": 42
+        },
+        {
+            "enemyId": 11,
+            "spawnChance": 36,
+            "spawnRate": 3
+        },
+        {
+            "enemyId": 13,
+            "spawnChance": 37,
+            "spawnRate": 46
+        },
+        {
+            "enemyId": 14,
+            "spawnChance": 38,
+            "spawnRate": 6
         }
     ]
 }
