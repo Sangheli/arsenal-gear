@@ -1,13 +1,13 @@
 {
     "levelId": 50,
     "LevelStringEntry": "",
-    "objectiveType": 2,
-    "objectiveValue": 33,
+    "objectiveType": 4,
+    "objectiveValue": 0,
     "roundTime": 23.5,
-    "bossHp": 534,
-    "bossAttack": 34.0,
-    "levelReward": 2917,
-    "loseHpDuringRound": true,
+    "bossHp": 1322,
+    "bossAttack": 11.0,
+    "levelReward": 0,
+    "showHpBar": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
@@ -15,28 +15,57 @@
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
-    "levelModifiers": [
-        1
-    ],
+    "poisonDamageSpeed": 0.0,
+    "levelModifiers": [],
     "enemies": [
         {
             "enemyId": 14,
-            "spawnChance": 66,
-            "spawnRate": 9
+            "spawnChance": 49,
+            "spawnRate": 8
         },
         {
             "enemyId": 2,
-            "spawnChance": 65,
+            "spawnChance": 49,
             "spawnRate": 17
         },
         {
             "enemyId": 3,
-            "spawnChance": 65,
-            "spawnRate": 28
+            "spawnChance": 49,
+            "spawnRate": 58
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 47,
+            "spawnRate": 75
+        },
+        {
+            "enemyId": 16,
+            "spawnChance": 47,
+            "spawnRate": 99
+        },
+        {
+            "enemyId": 12,
+            "spawnChance": 43,
+            "spawnRate": 36
+        },
+        {
+            "enemyId": 13,
+            "spawnChance": 37,
+            "spawnRate": 66
+        },
+        {
+            "enemyId": 4,
+            "spawnChance": 48,
+            "spawnRate": 57
+        },
+        {
+            "enemyId": 8,
+            "spawnChance": 46,
+            "spawnRate": 51
         },
         {
             "enemyId": 11,
-            "spawnChance": 8,
+            "spawnChance": 27,
             "spawnRate": 3
         }
     ]

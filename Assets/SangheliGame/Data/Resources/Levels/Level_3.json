@@ -7,7 +7,7 @@
     "bossHp": 35,
     "bossAttack": 0.2,
     "levelReward": 0,
-    "loseHpDuringRound": true,
+    "showHpBar": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": false,

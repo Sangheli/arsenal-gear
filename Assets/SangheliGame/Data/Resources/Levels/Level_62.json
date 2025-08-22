@@ -1,13 +1,13 @@
 {
     "levelId": 62,
     "LevelStringEntry": "",
-    "objectiveType": 2,
-    "objectiveValue": 33,
+    "objectiveType": 4,
+    "objectiveValue": 0,
     "roundTime": 23.5,
-    "bossHp": 659,
-    "bossAttack": 42.0,
-    "levelReward": 3603,
-    "loseHpDuringRound": true,
+    "bossHp": 1678,
+    "bossAttack": 13.0,
+    "levelReward": 0,
+    "showHpBar": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
     "showTerminateButton": true,
@@ -15,29 +15,58 @@
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
-    "levelModifiers": [
-        1
-    ],
+    "poisonDamageSpeed": 0.0,
+    "levelModifiers": [],
     "enemies": [
         {
             "enemyId": 14,
-            "spawnChance": 65,
-            "spawnRate": 6
+            "spawnChance": 44,
+            "spawnRate": 7
         },
         {
             "enemyId": 2,
-            "spawnChance": 63,
-            "spawnRate": 19
+            "spawnChance": 44,
+            "spawnRate": 20
         },
         {
             "enemyId": 3,
-            "spawnChance": 63,
-            "spawnRate": 26
+            "spawnChance": 44,
+            "spawnRate": 75
         },
         {
-            "enemyId": 10,
-            "spawnChance": 9,
+            "enemyId": 7,
+            "spawnChance": 43,
+            "spawnRate": 88
+        },
+        {
+            "enemyId": 16,
+            "spawnChance": 43,
+            "spawnRate": 48
+        },
+        {
+            "enemyId": 12,
+            "spawnChance": 40,
+            "spawnRate": 78
+        },
+        {
+            "enemyId": 13,
+            "spawnChance": 37,
+            "spawnRate": 53
+        },
+        {
+            "enemyId": 4,
+            "spawnChance": 41,
+            "spawnRate": 95
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 39,
             "spawnRate": 5
+        },
+        {
+            "enemyId": 15,
+            "spawnChance": 35,
+            "spawnRate": 84
         }
     ]
 }

@@ -7,7 +7,7 @@
     "bossHp": 42,
     "bossAttack": 3.0,
     "levelReward": 0,
-    "loseHpDuringRound": true,
+    "showHpBar": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": false,
     "showTerminateButton": false,
@@ -15,8 +15,8 @@
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
-    "levelModifiers": [
-    ],
+    "poisonDamageSpeed": 0.0,
+    "levelModifiers": [],
     "enemies": [
         {
             "enemyId": 1,
