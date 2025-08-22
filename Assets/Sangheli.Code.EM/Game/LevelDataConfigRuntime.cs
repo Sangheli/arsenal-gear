@@ -175,6 +175,11 @@ public class LevelDataConfigRuntime
 
     private static List<LevelModifierType> GenerateRandomModifiers(int levelIndex)
     {
+        return new List<LevelModifierType>()
+        {
+            LevelModifierType.Poison,
+        };
+        
         var modifiers = new List<LevelModifierType>();
         
         // At earlier levels, chance of having modifiers is lower

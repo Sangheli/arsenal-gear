@@ -9,7 +9,12 @@ public class RoundManager : MonoBehaviour
     private readonly List<EnemyController> _enemyList = new();
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
     private readonly List<EnemyData> _availableEnemies = new();
-    private readonly List<IRoundModification> _roundModifications = new();
+
+    private readonly List<IRoundModification> _roundModifications = new()
+    {
+        new PoisonRoundModification(),
+    };
+        
     private readonly List<IRoundModification> _activeRoundModifications = new();
     
     public bool IsAlive { get; set; }
