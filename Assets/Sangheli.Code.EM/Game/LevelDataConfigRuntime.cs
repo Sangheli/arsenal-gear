@@ -77,29 +77,11 @@ public class LevelDataConfigRuntime
         return (int) Mathf.Clamp(chance, baseChance, maxChance);
     }
 
-    private static int GetSpawnRate(float scale, EnemyData enemy, int allowedCount, int maxEnemies, List<EnemyData> sortedEnemies,
-        int strongStart)
+    private static int GetSpawnRate(float scale, EnemyData enemy)
     {
         if (enemy.useCustomSpawnRate) return enemy.GetSpawnRate();
-        if (allowedCount < maxEnemies && sortedEnemies.IndexOf(enemy) >= strongStart) return 5; // средний спавнрейт
-
-        // Динамические границы в зависимости от scale
-        int minSpawnLow = 30;
-        int minSpawnHigh = 60;
-        int maxSpawnLow = 60;
-        int maxSpawnHigh = 120;
-
-        // Интерполируем диапазоны по scale
-        int dynamicMinSpawnRate = Mathf.RoundToInt(Mathf.Lerp(minSpawnLow, minSpawnHigh, scale));
-        int dynamicMaxSpawnRate = Mathf.RoundToInt(Mathf.Lerp(maxSpawnLow, maxSpawnHigh, scale));
-
-        // Случайное смещение внутри динамического диапазона
-        dynamicMinSpawnRate = UnityEngine.Random.Range(minSpawnLow, dynamicMinSpawnRate + 1);
-        dynamicMaxSpawnRate = UnityEngine.Random.Range(dynamicMaxSpawnRate, maxSpawnHigh + 1);
-
-        // Гарантируем, что min < max
-        if (dynamicMaxSpawnRate <= dynamicMinSpawnRate) dynamicMaxSpawnRate = dynamicMinSpawnRate + 1;
-        return UnityEngine.Random.Range(dynamicMinSpawnRate, dynamicMaxSpawnRate + 1); // +1, т.к. верхняя граница не включается
+        var rate = GetDynamicSpawnRate(scale);
+        return enemy.superHard ? (int)Mathf.Lerp(5, rate, scale) : rate;
     }
 
     private static List<LevelModifierType> GenerateRandomModifiers(float scale)
@@ -287,148 +269,11 @@ public class LevelDataConfigRuntime
     
     private static List<LevelEnemyInfo> GenerateEnemies(float scale)
     {
-        var allEnemies = G.I.Data.enemyContainer.List
-            .Where(x => !x.excludeFromLevelGeneration)
-            .ToList();
-
-        if (allEnemies.Count == 0)
-            return new List<LevelEnemyInfo>();
-
-        var sortedEnemies = GetSortedEnemies(allEnemies);
-        int strongStart = sortedEnemies.Count / 2;
-        var strongSet = new HashSet<EnemyData>(sortedEnemies.Skip(strongStart));
-
-        // На ранних уровнях доступно меньше врагов, на поздних — все
-        int minEnemies = Math.Min(4, sortedEnemies.Count);
-        int maxEnemies = sortedEnemies.Count;
-        int allowedCount = Mathf.RoundToInt(Mathf.Lerp(minEnemies, maxEnemies, scale));
-        allowedCount = Mathf.Clamp(allowedCount, minEnemies, maxEnemies);
-
-        var allowedEnemies = sortedEnemies.Take(allowedCount).ToList();
-
-        // Добавляем сильных врагов, если нужно
-        AddStrongEnemies(allowedEnemies, sortedEnemies, strongSet, strongStart);
-
-        // Убедимся, что у нас минимум 4 врага
-        EnsureMinEnemies(allowedEnemies, sortedEnemies, strongStart);
-
-        // Нормализация значений для рассчёта шансов
-        float minHp = allowedEnemies.Min(e => e.Health);
-        float maxHp = allowedEnemies.Max(e => e.Health);
-        float hpRange = Mathf.Max(maxHp - minHp, Mathf.Epsilon);
-
-        float minDmg = allowedEnemies.Min(e => e.DamagePerHit);
-        float maxDmg = allowedEnemies.Max(e => e.DamagePerHit);
-        float dmgRange = Mathf.Max(maxDmg - minDmg, Mathf.Epsilon);
-
-        float baseChance = 5f;
-        float maxChance = 70f;
-
-        return allowedEnemies.Select(enemy => new LevelEnemyInfo
-        {
-            enemyId = enemy.EnemyId,
-            spawnChance = GetChance(enemy, minHp, hpRange, minDmg, dmgRange, scale, baseChance, maxChance),
-            spawnRate = GetSpawnRate(scale, enemy, allowedCount, maxEnemies, sortedEnemies, strongStart)
-        }).ToList();
-    }
-
-    private static List<EnemyData> GetSortedEnemies(List<EnemyData> allEnemies)
-    {
-        // === Улучшенная оценка "силы" врага ===
-        // 1) лог-масштабирование для устойчивости к выбросам
-        float minHpLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
-        float maxHpLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
-        float minDmgLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
-        float maxDmgLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
-
-        float hpLogRange = Mathf.Max(maxHpLog - minHpLog, Mathf.Epsilon);
-        float dmgLogRange = Mathf.Max(maxDmgLog - minDmgLog, Mathf.Epsilon);
-
-        // 2) веса компонентов (можешь подстроить под баланс)
-        const float wHp = 0.55f; // выживаемость
-        const float wDmg = 0.45f; // летальность
-        const float eps = 1e-6f;
-
-        // 3) итоговый скор: взвешенная геометрическая средняя нормализованных лог-оценок
-        float Strength(EnemyData e)
-        {
-            float hpNorm = (Mathf.Log(1f + Mathf.Max(0f, e.Health)) - minHpLog) / hpLogRange;
-            float dmgNorm = (Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)) - minDmgLog) / dmgLogRange;
-            hpNorm = Mathf.Clamp01(hpNorm);
-            dmgNorm = Mathf.Clamp01(dmgNorm);
-            return Mathf.Pow(hpNorm + eps, wHp) * Mathf.Pow(dmgNorm + eps, wDmg);
-        }
-
-        // Сортируем врагов по улучшенному "strength" (от слабых к сильным)
-        return allEnemies.OrderBy(Strength).ToList();
-    }
-
-    private static void AddStrongEnemies(
-        List<EnemyData> allowedEnemies,
-        List<EnemyData> sortedEnemies,
-        HashSet<EnemyData> strongSet,
-        int strongStart)
-    {
-        // Сколько сильных врагов уже есть
-        int existingStrong = allowedEnemies.Count(e => strongSet.Contains(e));
-        int strongEnemiesToAdd = Mathf.Max(0, 2 - existingStrong);
-
-        if (strongEnemiesToAdd > 0)
-        {
-            var strongCandidates = sortedEnemies.Skip(strongStart).Except(allowedEnemies).ToList();
-
-            for (int i = 0; i < strongEnemiesToAdd && strongCandidates.Count > 0; i++)
-            {
-                var strongEnemy = strongCandidates[UnityEngine.Random.Range(0, strongCandidates.Count)];
-                allowedEnemies.Add(strongEnemy);
-                sortedEnemies.Remove(strongEnemy); // <--- удаляем из пула
-                strongCandidates.Remove(strongEnemy);
-                existingStrong++;
-            }
-        }
-
-        // Если всё ещё меньше 2 сильных (например, всего один сильный в базе) —
-        // добираем fallback-вариантами
-        while (existingStrong < 2 && sortedEnemies.Count > strongStart)
-        {
-            var fallbackStrong = sortedEnemies[UnityEngine.Random.Range(strongStart, sortedEnemies.Count)];
-            if (!allowedEnemies.Contains(fallbackStrong))
-            {
-                allowedEnemies.Add(fallbackStrong);
-                sortedEnemies.Remove(fallbackStrong); // <--- тоже удаляем
-            }
-
-            existingStrong++;
-        }
-    }
-
-    private static void EnsureMinEnemies(List<EnemyData> allowedEnemies, List<EnemyData> sortedEnemies, int strongStart)
-    {
-        while (allowedEnemies.Count < 4 && sortedEnemies.Count > 0)
-        {
-            // кандидаты из "слабой" половины
-            var weakCandidates = sortedEnemies.Take(strongStart).Except(allowedEnemies).ToList();
-            if (weakCandidates.Count > 0)
-            {
-                var weakEnemy = weakCandidates[UnityEngine.Random.Range(0, weakCandidates.Count)];
-                allowedEnemies.Add(weakEnemy);
-                sortedEnemies.Remove(weakEnemy); // <--- удаляем из пула
-            }
-            else
-            {
-                // если слабых не осталось, добираем любых оставшихся
-                var randomEnemy = sortedEnemies.Except(allowedEnemies).ToList();
-                if (randomEnemy.Count > 0)
-                {
-                    var enemy = randomEnemy[UnityEngine.Random.Range(0, randomEnemy.Count)];
-                    allowedEnemies.Add(enemy);
-                    sortedEnemies.Remove(enemy); // <--- удаляем из пула
-                }
-                else
-                {
-                    break; // врагов вообще не осталось
-                }
-            }
-        }
+        var sorted = GetSortedEnemies();
+        var hardEnemyList = GetStrongEnemies(sorted.Skip(sorted.Count / 2).ToList(), scale);
+        var sortedWithoutHard = GetWithoutStrong(hardEnemyList, sorted);
+        var lowEnemyList = GetLowList(scale, sortedWithoutHard);
+        var finalEnemyList = hardEnemyList.Concat(lowEnemyList).ToList();
+        return GetLevelEnemyInfos(scale, finalEnemyList);
     }
 }
