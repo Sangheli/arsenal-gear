@@ -395,7 +395,7 @@ RectTransform:
   m_GameObject: {fileID: 5684567925306866362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7569788313808438309}
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_GradationMode: 5
   m_GradationIntensity: 1
   m_GradationColorFilter: 1
-  m_GradationColor1: {r: 1, g: 1, b: 1, a: 1}
+  m_GradationColor1: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
   m_GradationColor2: {r: 0, g: 0, b: 0, a: 1}
   m_GradationColor3: {r: 1, g: 1, b: 1, a: 1}
   m_GradationColor4: {r: 1, g: 1, b: 1, a: 1}

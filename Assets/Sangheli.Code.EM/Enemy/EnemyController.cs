@@ -105,7 +105,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
             return;
         
         view.render.SetFullColor(_colorMain.Value, _borderColor.Value);
-        view.deathVfx.SetColor(view.render.OriginalColor);
+        view.deathVfx.SetColor(view.render.OriginalColor, CurrentData.borderColor);
     }
 
     public void ResetView()

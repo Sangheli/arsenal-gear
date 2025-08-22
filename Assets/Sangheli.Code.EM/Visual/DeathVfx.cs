@@ -30,7 +30,7 @@ public class DeathVfx : MonoBehaviour
         emission.rateOverTime = _origEmissionRate * scale;
     }
 
-    public void SetColor(Color color)
+    public void SetColor(Color color, Color colorMax)
     {
         var main = ps.main;
         main.startColor = new ParticleSystem.MinMaxGradient(color,colorMax);

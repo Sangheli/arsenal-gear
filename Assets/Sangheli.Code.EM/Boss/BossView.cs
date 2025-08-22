@@ -34,7 +34,7 @@ public class BossView : EnemyView
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
         render.ApplyBorderColor(ramkaColor);
-        deathVfx.SetColor(color);
+        deathVfx.SetColor(color, Color.clear);
         
         render.SetOriginalScale(Vector3.one, true);
         deathVfx.SetScale(Vector3.one/2f);
