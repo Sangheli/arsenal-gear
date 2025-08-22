@@ -2,7 +2,7 @@
     "levelId": 104,
     "LevelStringEntry": "",
     "objectiveType": 3,
-    "objectiveValue": 2561,
+    "objectiveValue": 525,
     "roundTime": 23.5,
     "bossHp": 3012,
     "bossAttack": 21.0,
@@ -19,79 +19,79 @@
     "levelModifiers": [],
     "enemies": [
         {
+            "enemyId": 15,
+            "spawnChance": 29,
+            "spawnRate": 47
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 30,
+            "spawnRate": 40
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 39,
+            "spawnRate": 3
+        },
+        {
+            "enemyId": 5,
+            "spawnChance": 27,
+            "spawnRate": 30
+        },
+        {
             "enemyId": 9,
             "spawnChance": 29,
-            "spawnRate": 56
+            "spawnRate": 51
         },
         {
             "enemyId": 17,
+            "spawnChance": 27,
+            "spawnRate": 46
+        },
+        {
+            "enemyId": 14,
+            "spawnChance": 25,
+            "spawnRate": 7
+        },
+        {
+            "enemyId": 4,
             "spawnChance": 26,
-            "spawnRate": 42
+            "spawnRate": 56
         },
         {
             "enemyId": 8,
             "spawnChance": 28,
-            "spawnRate": 45
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 26,
-            "spawnRate": 60
-        },
-        {
-            "enemyId": 15,
-            "spawnChance": 29,
-            "spawnRate": 48
-        },
-        {
-            "enemyId": 11,
-            "spawnChance": 49,
-            "spawnRate": 3
-        },
-        {
-            "enemyId": 7,
-            "spawnChance": 26,
             "spawnRate": 42
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 30,
-            "spawnRate": 45
-        },
-        {
-            "enemyId": 6,
-            "spawnChance": 39,
-            "spawnRate": 3
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 30,
-            "spawnRate": 42
-        },
-        {
-            "enemyId": 16,
-            "spawnChance": 26,
-            "spawnRate": 38
         },
         {
             "enemyId": 12,
-            "spawnChance": 32,
-            "spawnRate": 46
+            "spawnChance": 31,
+            "spawnRate": 56
+        },
+        {
+            "enemyId": 14,
+            "spawnChance": 25,
+            "spawnRate": 9
+        },
+        {
+            "enemyId": 13,
+            "spawnChance": 37,
+            "spawnRate": 66
         },
         {
             "enemyId": 7,
-            "spawnChance": 26,
-            "spawnRate": 49
+            "spawnChance": 27,
+            "spawnRate": 46
         },
         {
-            "enemyId": 6,
-            "spawnChance": 39,
+            "enemyId": 12,
+            "spawnChance": 31,
+            "spawnRate": 50
+        },
+        {
+            "enemyId": 11,
+            "spawnChance": 47,
             "spawnRate": 3
-        },
-        {
-            "enemyId": 4,
-            "spawnChance": 25,
-            "spawnRate": 51
         }
     ]
 }
