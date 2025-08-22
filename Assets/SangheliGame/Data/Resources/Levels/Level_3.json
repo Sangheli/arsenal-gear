@@ -1,20 +1,38 @@
 {
     "levelId": 3,
-    "LevelStringEntry": "tutor3",
-    "roundTime": 7.0,
+    "LevelStringEntry": "tutor1",
+    "objectiveType": 4,
+    "objectiveValue": 35,
+    "roundTime": 15.0,
     "bossHp": 35,
-    "bossReward": 100,
     "bossAttack": 0.2,
+    "levelReward": 100,
     "loseHpDuringRound": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
-    "preSpawnEnemyCount": 10,
     "showTerminateButton": false,
-    "objectiveType": 3,
-    "objectiveValue": 35,
-    "useWinColorOnFail": false,
+    "useWinColorOnFail": true,
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
+    "preSpawnEnemyCount": 10,
+    "levelModifiers": [
+        1
+    ],
     "enemies": [
+        {
+            "enemyId": 0,
+            "spawnChance": 100.0,
+            "spawnRate": 15.0
+        },
+        {
+            "enemyId": 2,
+            "spawnChance": 100.0,
+            "spawnRate": 25.0
+        },
+        {
+            "enemyId": 3,
+            "spawnChance": 100.0,
+            "spawnRate": 20.0
+        }
     ]
 }

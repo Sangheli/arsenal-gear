@@ -1,12 +1,12 @@
 {
     "levelId": 711,
     "LevelStringEntry": "",
-    "objectiveType": 2,
-    "objectiveValue": 104,
+    "objectiveType": 4,
+    "objectiveValue": 0,
     "roundTime": 23.5,
     "bossHp": 7007,
-    "bossReward": 39408,
     "bossAttack": 454.0,
+    "levelReward": 39408,
     "loseHpDuringRound": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": true,
@@ -15,51 +15,69 @@
     "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
+    "levelModifiers": [
+        1
+    ],
     "enemies": [
         {
-            "enemyId": 13,
+            "enemyId": 14,
             "spawnChance": 23,
             "spawnRate": 7
         },
         {
             "enemyId": 2,
             "spawnChance": 24,
-            "spawnRate": 21
+            "spawnRate": 17
         },
         {
             "enemyId": 3,
-            "spawnChance": 25,
-            "spawnRate": 32
+            "spawnChance": 24,
+            "spawnRate": 34
         },
         {
             "enemyId": 4,
-            "spawnChance": 26,
-            "spawnRate": 46
+            "spawnChance": 30,
+            "spawnRate": 33
         },
         {
-            "enemyId": 6,
-            "spawnChance": 26,
-            "spawnRate": 32
+            "enemyId": 5,
+            "spawnChance": 34,
+            "spawnRate": 44
+        },
+        {
+            "enemyId": 17,
+            "spawnChance": 34,
+            "spawnRate": 47
         },
         {
             "enemyId": 7,
-            "spawnChance": 27,
-            "spawnRate": 28
+            "spawnChance": 28,
+            "spawnRate": 35
+        },
+        {
+            "enemyId": 16,
+            "spawnChance": 28,
+            "spawnRate": 33
         },
         {
             "enemyId": 8,
-            "spawnChance": 28,
+            "spawnChance": 38,
             "spawnRate": 5
         },
         {
             "enemyId": 9,
-            "spawnChance": 29,
+            "spawnChance": 42,
             "spawnRate": 5
         },
         {
-            "enemyId": 5,
-            "spawnChance": 43,
-            "spawnRate": 3
+            "enemyId": 15,
+            "spawnChance": 42,
+            "spawnRate": 5
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 46,
+            "spawnRate": 5
         },
         {
             "enemyId": 12,
