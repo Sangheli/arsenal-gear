@@ -285,27 +285,17 @@ public class LevelDataConfigRuntime
         
         // === Улучшенная оценка "силы" врага ===
         // 1) лог-масштабирование для устойчивости к выбросам
-        float minHpLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
-        float maxHpLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
         float minDmgLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
         float maxDmgLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
 
-        float hpLogRange = Mathf.Max(maxHpLog - minHpLog, Mathf.Epsilon);
         float dmgLogRange = Mathf.Max(maxDmgLog - minDmgLog, Mathf.Epsilon);
-
-        // 2) веса компонентов (можешь подстроить под баланс)
-        const float wHp = 0.55f; // выживаемость
-        const float wDmg = 0.45f; // летальность
-        const float eps = 1e-6f;
 
         // 3) итоговый скор: взвешенная геометрическая средняя нормализованных лог-оценок
         float Strength(EnemyData e)
         {
-            float hpNorm = (Mathf.Log(1f + Mathf.Max(0f, e.Health)) - minHpLog) / hpLogRange;
             float dmgNorm = (Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)) - minDmgLog) / dmgLogRange;
-            hpNorm = Mathf.Clamp01(hpNorm);
             dmgNorm = Mathf.Clamp01(dmgNorm);
-            return Mathf.Pow(hpNorm + eps, wHp) * Mathf.Pow(dmgNorm + eps, wDmg);
+            return dmgNorm;
         }
 
         // Сортируем врагов по улучшенному "strength" (от слабых к сильным)
