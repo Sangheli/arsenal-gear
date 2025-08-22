@@ -6,7 +6,7 @@
     "roundTime": 15.0,
     "bossHp": 42,
     "bossAttack": 3.0,
-    "levelReward": 229,
+    "levelReward": 0,
     "loseHpDuringRound": true,
     "checkNextRoundFromSave": false,
     "showGoToUpgradesButton": false,
