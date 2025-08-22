@@ -525,7 +525,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     delim: 10
-  maxLevel: 1000
+  maxLevel: 150
   delim: 25
   arcMoveAnimator: {fileID: 308878766}
   orthoHor: 5
@@ -536,39 +536,6 @@ MonoBehaviour:
   useOrientationChecker: 0
   layoutPlaceHolder: {fileID: 0}
   startGameWithoutMenu: 1
-  progressionHpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0059051514
-      value: 0.69799805
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.80608094
-      value: 0.5311351
-      inSlope: -0.4241679
-      outSlope: -0.4241679
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.20046352
-      outWeight: 0.782961
-    - serializedVersion: 3
-      time: 1.0046113
-      value: 0.34664744
-      inSlope: -1.6031
-      outSlope: -1.6031
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.26480767
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   progressionRewardCurve:
     serializedVersion: 2
     m_Curve:
@@ -598,39 +565,6 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.2779602
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  progressionAttackCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.002418518
-      value: 0.17911911
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7094681
-      value: 0.14652073
-      inSlope: -0.12065621
-      outSlope: -0.12065621
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.08687433
-      outWeight: 0.29606107
-    - serializedVersion: 3
-      time: 1.011905
-      value: 0.1034376
-      inSlope: -0.22337277
-      outSlope: -0.22337277
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.5016456
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1199,6 +1133,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8873996404641677064, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1399,6 +1337,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1765,6 +1707,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1019461828067151636, guid: 9d0ad7fdc0d1c204a85621c2b3d4ba64, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1188489475113039796, guid: 9d0ad7fdc0d1c204a85621c2b3d4ba64, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1960,6 +1906,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 798165782142075449, guid: e1e695094b1184c459605f0ee1591711, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4632465110955066508, guid: e1e695094b1184c459605f0ee1591711, type: 3}

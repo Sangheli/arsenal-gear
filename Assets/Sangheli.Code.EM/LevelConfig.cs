@@ -25,7 +25,7 @@ public class LevelConfig
     public int levelReward = 100;
     
     [Space]
-    public bool loseHpDuringRound = true; // Показывать или нет шкалу жизни
+    public bool showHpBar = true; // Показывать или нет шкалу жизни
     public bool checkNextRoundFromSave = false; // Показывать ли кнопку перехода на следующий уровень
     public bool showGoToUpgradesButton = true; // Показывать ли кнопку перехода на экран апгрейдов на экране окончания раунда
     public bool showTerminateButton = true; // Показывать ли кнопку прерывания уровня во время игры

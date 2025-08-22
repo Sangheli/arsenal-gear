@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         if (save != null && save.level < G.I.LevelDataConfig.Count())
         {
             var levelConfig = G.I.LevelDataConfig.Get(save.level);
-            if (levelConfig is { loseHpDuringRound: false })
+            if (levelConfig is { showHpBar: false })
                 showHp = false;
         }
         G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue, doBlink);
