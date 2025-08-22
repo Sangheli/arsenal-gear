@@ -6,6 +6,7 @@ public class HPManager
 {
     public float RoundHp;
     
+    private const float DelimSpeed = 250f;
     private const float Tolerance = 0.001f;
     private const float MinHpValueToShow = 5;
     private const float MinHpValueToShowPrc = 0.3f;
@@ -60,7 +61,7 @@ public class HPManager
     public void UpdateHp()
     {
         // Округляем roundHp до 1 знака после запятой
-        var roundedHp = Mathf.Round(RoundHp * 10f) / 10f;
+        var roundedHp = Mathf.Round(RoundHp * DelimSpeed) / DelimSpeed;
 
         if (Math.Abs(_lastUpdateHp - roundedHp) < Tolerance)
             return;
