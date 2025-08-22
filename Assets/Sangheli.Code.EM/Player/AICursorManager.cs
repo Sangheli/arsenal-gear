@@ -52,7 +52,16 @@ public class AICursorManager : MonoBehaviour
     private void SetAICursorColor(CursorController cursor, int index)
     {
         var view = cursor.view;
-        if (view != null && view.viewRender != null) view.color = colors[Mathf.Clamp(index, 0, colors.Length - 1)];
+        if (view != null && view.viewRender != null)
+        {
+            var color = colors[Mathf.Clamp(index, 0, colors.Length - 1)];
+            view.color = color;
+
+            var color2 = color;
+            color2.a = 0.8f;
+
+            view.color2 = color2;
+        }
     }
 
     public void ToggleAll(bool state)

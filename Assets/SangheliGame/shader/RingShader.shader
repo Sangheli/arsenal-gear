@@ -4,6 +4,7 @@ Shader "Custom/RingShader"
     {
         [Header(Inner Circle)]
         _InnerColor ("Inner Color", Color) = (1,1,1,1)
+        _InnerColor2 ("Inner Color", Color) = (1,1,1,1)
         _InnerRadius ("Inner Radius (0-1)", Range(0,1)) = 0.5
         
         [Header(Outer Ring)]
@@ -28,6 +29,7 @@ Shader "Custom/RingShader"
 
             fixed4 _InnerColor;
             fixed4 _RingColor;
+            fixed4 _InnerColor2;
             float _InnerRadius; // 0–1 normalized
             float _RingOuter;
             float _RingThickness;
@@ -72,6 +74,11 @@ Shader "Custom/RingShader"
                 // Масштабируем нормализованный радиус
                 float realInnerRadius = _InnerRadius * ringInner;
                 
+                // Интерполируем цвет внутреннего круга от _InnerColor до _InnerColor2 в зависимости от радиуса
+                // Изменяем кривую перехода: первые 80% будет преобладать _InnerColor, затем быстро перейдет к _InnerColor2
+                float t = saturate((_InnerRadius - 0.8) * 5); // Преобразуем 0.8-1.0 в 0-1
+                fixed4 currentInnerColor = lerp(_InnerColor, _InnerColor2, t);
+                
                 // Рисуем внутренний круг
                 float circle = step(dist, realInnerRadius);
                 
@@ -79,10 +86,10 @@ Shader "Custom/RingShader"
                 float ring = step(ringInner, dist) * step(dist, _RingOuter);
                 
                 // Комбинируем результат с разными цветами
-                fixed4 col = _InnerColor * circle + _RingColor * ring;
+                fixed4 col = currentInnerColor * circle + _RingColor * ring;
                 
                 // Устанавливаем альфу (0 в прозрачных областях)
-                col.a = circle * _InnerColor.a + ring * _RingColor.a;
+                col.a = circle * currentInnerColor.a + ring * _RingColor.a;
                 
                 return col;
             }

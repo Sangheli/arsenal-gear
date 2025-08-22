@@ -13,10 +13,12 @@ public class CursorView : MonoBehaviour
     private Vector3 _originalScaleVfx;
     private static readonly int RingThickness = Shader.PropertyToID("_RingThickness");
     private static readonly int InnerColor = Shader.PropertyToID("_InnerColor");
+    private static readonly int InnerColor2 = Shader.PropertyToID("_InnerColor2");
     private static readonly int RingColor = Shader.PropertyToID("_RingColor");
     public MaterialPropertyBlock PropertyBlock;
     public float baseRingThickness = 0.25f;
     public Color color;
+    public Color color2 = new Color(0,0,0,122f/256f);
     public CursorHudView hudView;
     public Color originalInnerColorRingOuter = Color.white;
     private Coroutine _pulseCoroutine;
@@ -118,8 +120,11 @@ public class CursorView : MonoBehaviour
     public void ApplyVisual()
     {
         PropertyBlock.SetFloat(RingThickness, baseRingThickness / _currentScale);
-        PropertyBlock.SetColor(InnerColor, color);
         PropertyBlock.SetColor(RingColor, isPulsing ? _pulseColor : originalInnerColorRingOuter);
+        
+        PropertyBlock.SetColor(InnerColor, color);
+        PropertyBlock.SetColor(InnerColor2, color2);
+        
         viewRender.SetPropertyBlock(PropertyBlock);
     }
 
