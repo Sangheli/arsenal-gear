@@ -276,4 +276,110 @@ public class LevelDataConfigRuntime
         var finalEnemyList = hardEnemyList.Concat(lowEnemyList).ToList();
         return GetLevelEnemyInfos(scale, finalEnemyList);
     }
+    
+    private static List<EnemyData> GetSortedEnemies()
+    {
+        var allEnemies = G.I.Data.enemyContainer.List
+            .Where(x => !x.excludeFromLevelGeneration)
+            .ToList();
+        
+        // === Улучшенная оценка "силы" врага ===
+        // 1) лог-масштабирование для устойчивости к выбросам
+        float minHpLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
+        float maxHpLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.Health)));
+        float minDmgLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
+        float maxDmgLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
+
+        float hpLogRange = Mathf.Max(maxHpLog - minHpLog, Mathf.Epsilon);
+        float dmgLogRange = Mathf.Max(maxDmgLog - minDmgLog, Mathf.Epsilon);
+
+        // 2) веса компонентов (можешь подстроить под баланс)
+        const float wHp = 0.55f; // выживаемость
+        const float wDmg = 0.45f; // летальность
+        const float eps = 1e-6f;
+
+        // 3) итоговый скор: взвешенная геометрическая средняя нормализованных лог-оценок
+        float Strength(EnemyData e)
+        {
+            float hpNorm = (Mathf.Log(1f + Mathf.Max(0f, e.Health)) - minHpLog) / hpLogRange;
+            float dmgNorm = (Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)) - minDmgLog) / dmgLogRange;
+            hpNorm = Mathf.Clamp01(hpNorm);
+            dmgNorm = Mathf.Clamp01(dmgNorm);
+            return Mathf.Pow(hpNorm + eps, wHp) * Mathf.Pow(dmgNorm + eps, wDmg);
+        }
+
+        // Сортируем врагов по улучшенному "strength" (от слабых к сильным)
+        return allEnemies.OrderBy(Strength).ToList();
+    }
+
+    private static List<LevelEnemyInfo> GetLevelEnemyInfos(float scale, List<EnemyData> finalEnemyList)
+    {
+        // Нормализация значений для рассчёта шансов
+        float minHp = finalEnemyList.Min(e => e.Health);
+        float maxHp = finalEnemyList.Max(e => e.Health);
+        float hpRange = Mathf.Max(maxHp - minHp, Mathf.Epsilon);
+
+        float minDmg = finalEnemyList.Min(e => e.DamagePerHit);
+        float maxDmg = finalEnemyList.Max(e => e.DamagePerHit);
+        float dmgRange = Mathf.Max(maxDmg - minDmg, Mathf.Epsilon);
+
+        float baseChance = 5f;
+        float maxChance = 70f;
+
+        return finalEnemyList.Select(enemy => new LevelEnemyInfo
+        {
+            enemyId = enemy.EnemyId,
+            spawnChance = GetChance(enemy, minHp, hpRange, minDmg, dmgRange, scale, baseChance, maxChance),
+            spawnRate = GetSpawnRate(scale, enemy)
+        }).ToList();
+    }
+
+    private static List<EnemyData> GetWithoutStrong(List<EnemyData> hardList, List<EnemyData> sorted) => sorted.Where(x => !hardList.Contains(x)).ToList();
+
+    private static List<EnemyData> GetLowList(float scale, List<EnemyData> list)
+    {
+        var r = new System.Random();
+        var count = GetAllowedCount(scale, list);
+        return Enumerable.Range(0, count).Select(_ => list[r.Next(list.Count)]).ToList();
+    }
+
+    private static int GetAllowedCount(float scale, List<EnemyData> allList)
+    {
+        int minEnemies = Math.Min(3, allList.Count);
+        int maxEnemies = allList.Count;
+        int allowed = Mathf.RoundToInt(Mathf.Lerp(minEnemies, maxEnemies, scale));
+        return (int)Mathf.Clamp(allowed * 1.2f, allowed, maxEnemies);
+    }
+
+    private static List<EnemyData> GetStrongEnemies(List<EnemyData> candidates, float scale)
+    {
+        var result = new List<EnemyData>();
+        var maxAvailable = candidates.Count;
+        int countToAdd = Mathf.Clamp(Mathf.RoundToInt(1 + scale * (maxAvailable - 1)), 1, maxAvailable);
+
+        for (int i = 0; i < countToAdd && candidates.Count > 0; i++)
+        {
+            int index = Random.Range(0, candidates.Count);
+            result.Add(candidates[index]);
+            candidates.RemoveAt(index);
+        }
+
+        return result;
+    }
+    
+    private static int GetDynamicSpawnRate(float scale)
+    {
+        var min = GetDynamicScaledSpawnRate(scale, 30, 60);
+        var max = GetDynamicScaledSpawnRate(scale, 40, 80);
+
+        max = Mathf.Max(max, min + 1);
+        var final = Random.Range(min, max + 1);
+        return final;
+    }
+
+    private static int GetDynamicScaledSpawnRate(float scale, int min, int max)
+    {
+        var spawnRate = Mathf.RoundToInt(Mathf.Lerp(min, max, scale));
+        return Random.Range(min, spawnRate + 1);
+    }
 }
