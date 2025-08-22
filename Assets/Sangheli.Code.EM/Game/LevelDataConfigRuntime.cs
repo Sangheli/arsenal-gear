@@ -274,7 +274,8 @@ public class LevelDataConfigRuntime
         var sortedWithoutHard = GetWithoutStrong(hardEnemyList, sorted);
         var lowEnemyList = GetLowList(scale, sortedWithoutHard);
         var finalEnemyList = hardEnemyList.Concat(lowEnemyList).ToList();
-        return GetLevelEnemyInfos(scale, finalEnemyList);
+        var final = GetLevelEnemyInfos(scale, finalEnemyList);
+        return final;
     }
     
     private static List<EnemyData> GetSortedEnemies() => 
@@ -302,7 +303,8 @@ public class LevelDataConfigRuntime
         }).ToList();
     }
 
-    private static List<EnemyData> GetWithoutStrong(List<EnemyData> hardList, List<EnemyData> sorted) => sorted.Where(x => !hardList.Contains(x)).ToList();
+    private static List<EnemyData> GetWithoutStrong(List<EnemyData> hardList, List<EnemyData> sorted) => 
+        sorted.Where(x => !hardList.Contains(x)).ToList();
 
     private static List<EnemyData> GetLowList(float scale, List<EnemyData> list)
     {
