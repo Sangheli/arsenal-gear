@@ -277,30 +277,8 @@ public class LevelDataConfigRuntime
         return GetLevelEnemyInfos(scale, finalEnemyList);
     }
     
-    private static List<EnemyData> GetSortedEnemies()
-    {
-        var allEnemies = G.I.Data.enemyContainer.List
-            .Where(x => !x.excludeFromLevelGeneration)
-            .ToList();
-        
-        // === Улучшенная оценка "силы" врага ===
-        // 1) лог-масштабирование для устойчивости к выбросам
-        float minDmgLog = allEnemies.Min(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
-        float maxDmgLog = allEnemies.Max(e => Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)));
-
-        float dmgLogRange = Mathf.Max(maxDmgLog - minDmgLog, Mathf.Epsilon);
-
-        // 3) итоговый скор: взвешенная геометрическая средняя нормализованных лог-оценок
-        float Strength(EnemyData e)
-        {
-            float dmgNorm = (Mathf.Log(1f + Mathf.Max(0f, e.DamagePerHit)) - minDmgLog) / dmgLogRange;
-            dmgNorm = Mathf.Clamp01(dmgNorm);
-            return dmgNorm;
-        }
-
-        // Сортируем врагов по улучшенному "strength" (от слабых к сильным)
-        return allEnemies.OrderBy(Strength).ToList();
-    }
+    private static List<EnemyData> GetSortedEnemies() => 
+        G.I.Data.enemyContainer.List.Where(x => !x.excludeFromLevelGeneration).OrderBy(e => e.DamagePerHit).ToList();
 
     private static List<LevelEnemyInfo> GetLevelEnemyInfos(float scale, List<EnemyData> finalEnemyList)
     {
