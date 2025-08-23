@@ -1,8 +1,8 @@
 {
     "levelId": 75,
     "LevelStringEntry": "",
-    "objectiveType": 4,
-    "objectiveValue": 0,
+    "objectiveType": 1,
+    "objectiveValue": 1324,
     "roundTime": 23.5,
     "bossHp": 2077,
     "bossAttack": 16.0,
@@ -19,44 +19,44 @@
     "levelModifiers": [],
     "enemies": [
         {
-            "enemyId": 4,
+            "enemyId": 12,
+            "spawnChance": 37,
+            "spawnRate": 39
+        },
+        {
+            "enemyId": 14,
             "spawnChance": 38,
-            "spawnRate": 45
+            "spawnRate": 7
         },
         {
             "enemyId": 16,
             "spawnChance": 38,
-            "spawnRate": 53
+            "spawnRate": 40
         },
         {
-            "enemyId": 12,
+            "enemyId": 3,
+            "spawnChance": 38,
+            "spawnRate": 48
+        },
+        {
+            "enemyId": 7,
+            "spawnChance": 38,
+            "spawnRate": 41
+        },
+        {
+            "enemyId": 13,
             "spawnChance": 37,
             "spawnRate": 41
         },
         {
             "enemyId": 8,
-            "spawnChance": 37,
-            "spawnRate": 42
-        },
-        {
-            "enemyId": 14,
             "spawnChance": 38,
-            "spawnRate": 6
+            "spawnRate": 44
         },
         {
-            "enemyId": 2,
-            "spawnChance": 38,
-            "spawnRate": 20
-        },
-        {
-            "enemyId": 6,
+            "enemyId": 11,
             "spawnChance": 36,
             "spawnRate": 3
-        },
-        {
-            "enemyId": 17,
-            "spawnChance": 38,
-            "spawnRate": 41
         }
     ]
 }
