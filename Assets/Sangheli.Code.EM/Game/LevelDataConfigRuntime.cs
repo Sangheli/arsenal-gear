@@ -284,7 +284,10 @@ public class LevelDataConfigRuntime
         var weakLookup = weakList.Take(maxWeak).ToList();
         
         var currentWeakNum = (int)Mathf.Lerp(3, weakLookup.Count, scale);
-        var weakFinal = weakLookup.PickRandom(currentWeakNum);
+
+        var maxWeakToLookup = (int)( currentWeakNum * 1.2f);
+        
+        var weakFinal = weakLookup.Take(maxWeakToLookup).PickRandom(currentWeakNum);
         
         var finalEnemyList = weakFinal.Concat(strongList).ToList();
         
