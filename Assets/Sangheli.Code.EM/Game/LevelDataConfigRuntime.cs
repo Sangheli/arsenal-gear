@@ -267,19 +267,30 @@ public class LevelDataConfigRuntime
         return Mathf.RoundToInt(progressionReward);
     }
     
-    private static List<LevelEnemyInfo> GenerateEnemies(float scale)
+    private List<LevelEnemyInfo> GenerateEnemies(float scale)
     {
-        var sorted = GetSortedEnemies();
-        var hardEnemyList = GetStrongEnemies(sorted.Skip(sorted.Count / 2).ToList(), scale);
-        var sortedWithoutHard = GetWithoutStrong(hardEnemyList, sorted);
-        var lowEnemyList = GetLowList(scale, sortedWithoutHard);
-        var finalEnemyList = hardEnemyList.Concat(lowEnemyList).ToList();
+        var sorted =  G.I.Data.enemyContainer
+            .List
+            .Where(x => !x.excludeFromLevelGeneration)
+            .OrderBy(e => e.DamagePerHit)
+            .ToList();
+
+        var maxStrong = (int)Mathf.Lerp(1, 4, scale);
+        var strongList = sorted.Skip(sorted.Count / 2).PickRandom(maxStrong);
+
+        var weakList = sorted.Except(strongList).ToList();
+        var maxWeak = (int)Mathf.Lerp(sorted.Count/2f, weakList.Count, scale);
+
+        var weakLookup = weakList.Take(maxWeak).ToList();
+        
+        var currentWeakNum = (int)Mathf.Lerp(3, weakLookup.Count, scale);
+        var weakFinal = weakLookup.PickRandom(currentWeakNum);
+        
+        var finalEnemyList = weakFinal.Concat(strongList).ToList();
+        
         var final = GetLevelEnemyInfos(scale, finalEnemyList);
         return final;
     }
-    
-    private static List<EnemyData> GetSortedEnemies() => 
-        G.I.Data.enemyContainer.List.Where(x => !x.excludeFromLevelGeneration).OrderBy(e => e.DamagePerHit).ToList();
 
     private static List<LevelEnemyInfo> GetLevelEnemyInfos(float scale, List<EnemyData> finalEnemyList)
     {
@@ -303,40 +314,6 @@ public class LevelDataConfigRuntime
         }).ToList();
     }
 
-    private static List<EnemyData> GetWithoutStrong(List<EnemyData> hardList, List<EnemyData> sorted) => 
-        sorted.Where(x => !hardList.Contains(x)).ToList();
-
-    private static List<EnemyData> GetLowList(float scale, List<EnemyData> list)
-    {
-        var r = new System.Random();
-        var count = GetAllowedCount(scale, list);
-        return Enumerable.Range(0, count).Select(_ => list[r.Next(list.Count)]).ToList();
-    }
-
-    private static int GetAllowedCount(float scale, List<EnemyData> allList)
-    {
-        int minEnemies = Math.Min(3, allList.Count);
-        int maxEnemies = allList.Count;
-        int allowed = Mathf.RoundToInt(Mathf.Lerp(minEnemies, maxEnemies, scale));
-        return (int)Mathf.Clamp(allowed * 1.2f, allowed, maxEnemies);
-    }
-
-    private static List<EnemyData> GetStrongEnemies(List<EnemyData> candidates, float scale)
-    {
-        var result = new List<EnemyData>();
-        var maxAvailable = candidates.Count;
-        int countToAdd = Mathf.Clamp(Mathf.RoundToInt(1 + scale * (maxAvailable - 1)), 1, maxAvailable);
-
-        for (int i = 0; i < countToAdd && candidates.Count > 0; i++)
-        {
-            int index = Random.Range(0, candidates.Count);
-            result.Add(candidates[index]);
-            candidates.RemoveAt(index);
-        }
-
-        return result;
-    }
-    
     private static int GetDynamicSpawnRate(float scale)
     {
         var min = GetDynamicScaledSpawnRate(scale, 30, 60);
