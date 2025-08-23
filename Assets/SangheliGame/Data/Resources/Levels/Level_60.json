@@ -2,7 +2,7 @@
     "levelId": 60,
     "LevelStringEntry": "",
     "objectiveType": 2,
-    "objectiveValue": 142,
+    "objectiveValue": 140,
     "roundTime": 23.5,
     "bossHp": 1618,
     "bossAttack": 13.0,
@@ -19,59 +19,39 @@
     "levelModifiers": [],
     "enemies": [
         {
-            "enemyId": 11,
-            "spawnChance": 31,
-            "spawnRate": 3
-        },
-        {
-            "enemyId": 8,
-            "spawnChance": 43,
-            "spawnRate": 38
-        },
-        {
-            "enemyId": 5,
-            "spawnChance": 43,
-            "spawnRate": 38
-        },
-        {
-            "enemyId": 17,
-            "spawnChance": 43,
-            "spawnRate": 42
-        },
-        {
-            "enemyId": 14,
-            "spawnChance": 45,
-            "spawnRate": 8
-        },
-        {
-            "enemyId": 15,
+            "enemyId": 7,
             "spawnChance": 42,
-            "spawnRate": 50
-        },
-        {
-            "enemyId": 13,
-            "spawnChance": 37,
-            "spawnRate": 38
-        },
-        {
-            "enemyId": 10,
-            "spawnChance": 42,
-            "spawnRate": 44
+            "spawnRate": 52
         },
         {
             "enemyId": 12,
-            "spawnChance": 41,
-            "spawnRate": 40
+            "spawnChance": 37,
+            "spawnRate": 39
         },
         {
             "enemyId": 2,
-            "spawnChance": 44,
-            "spawnRate": 20
+            "spawnChance": 45,
+            "spawnRate": 17
         },
         {
-            "enemyId": 13,
-            "spawnChance": 37,
-            "spawnRate": 38
+            "enemyId": 3,
+            "spawnChance": 45,
+            "spawnRate": 40
+        },
+        {
+            "enemyId": 16,
+            "spawnChance": 42,
+            "spawnRate": 40
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 39,
+            "spawnRate": 35
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 31,
+            "spawnRate": 3
         }
     ]
 }
