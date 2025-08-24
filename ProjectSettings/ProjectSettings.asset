@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Sangheli Games
-  productName: Geometric Fighter
+  productName: Arsenal Gear
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -273,6 +273,9 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
+  androidAppCategory: 3
+  useAndroidAppCategory: 1
+  androidAppCategoryOther: 
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
@@ -821,10 +824,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6a31e8d5-e1de-4a3c-b7ab-24c3532abd9b
+  cloudProjectId: 6afdcf8d-fda4-4468-9346-305a6cc9c998
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: energiminer
+  projectName: Arsenal Gear
   organizationId: andrewsavelyev
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
