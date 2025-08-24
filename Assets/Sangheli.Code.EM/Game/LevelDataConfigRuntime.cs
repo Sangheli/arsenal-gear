@@ -31,6 +31,8 @@ public class LevelDataConfigRuntime
     
     private bool TryLoadLevel(int i)
     {
+        // if(i>4)
+        //     return false;
         var loadedLevel = LoadLevelFromJson(i);
         if (loadedLevel == null) return false;
         _levels[i] = loadedLevel;
@@ -272,7 +274,7 @@ public class LevelDataConfigRuntime
         var sorted =  G.I.Data.enemyContainer
             .List
             .Where(x => !x.excludeFromLevelGeneration)
-            .OrderBy(e => e.DamagePerHit)
+            // .OrderBy(e => e.DamagePerHit)
             .ToList();
 
         var maxStrong = (int)Mathf.Lerp(1, 4, scale);

@@ -96,9 +96,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 73e94081b127a3146af81ee28dd271a3, type: 3}
-        m_Scale: {x: -1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 4318d3b5e241059409055d2a962c6ba6, type: 3}
+        m_Scale: {x: 0.867, y: 1}
+        m_Offset: {x: 0.33, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -126,7 +126,7 @@ Material:
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
-    - _ClipUvUp: 0.485
+    - _ClipUvUp: 0
     - _ColorChangeLuminosity: 0
     - _ColorChangeTolerance: 0.25
     - _ColorChangeTolerance2: 0.25
@@ -218,8 +218,8 @@ Material:
     - _OutlineTexXSpeed: 10
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.2
-    - _OverlayBlend: 0.49
-    - _OverlayGlow: 0.8
+    - _OverlayBlend: 1
+    - _OverlayGlow: 1
     - _OverlayTextureScrollXSpeed: 0
     - _OverlayTextureScrollYSpeed: 0
     - _Parallax: 0.02
