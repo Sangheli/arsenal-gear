@@ -19,24 +19,24 @@
     "levelModifiers": [],
     "enemies": [
         {
+            "enemyId": 1,
+            "spawnChance": 65,
+            "spawnRate": 42
+        },
+        {
             "enemyId": 2,
-            "spawnChance": 69,
-            "spawnRate": 19
-        },
-        {
-            "enemyId": 3,
-            "spawnChance": 69,
-            "spawnRate": 37
-        },
-        {
-            "enemyId": 7,
             "spawnChance": 55,
-            "spawnRate": 36
+            "spawnRate": 38
         },
         {
-            "enemyId": 10,
-            "spawnChance": 5,
-            "spawnRate": 32
+            "enemyId": 15,
+            "spawnChance": 45,
+            "spawnRate": 53
+        },
+        {
+            "enemyId": 14,
+            "spawnChance": 76,
+            "spawnRate": 48
         }
     ]
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemyRound_Purple
+  m_Name: 10_0.35_4_100_EnemyRound_Purple
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: -2922211598481618706, guid: 691932785ddc6954788e35d4b7bde4f2, type: 3}
-  DisplayName: Round_Purple
+  DisplayName: Round Purple
   excludeFromLevelGeneration: 0
   superHard: 0
   playDeathSound: 0
@@ -24,8 +24,6 @@ MonoBehaviour:
   viewScale: {x: 1.1, y: 1.1, z: 1.1}
   deathVfxScale: {x: 0.55, y: 0.55, z: 0.55}
   spriteView: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
-  spriteBack: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
-  spriteShadow: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
   spriteBorder: {fileID: 21300000, guid: 94f77409487abc447a594ec071e3e521, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
@@ -41,12 +39,13 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
+  Tier: 0
   UpgradeInfos:
   - BaseValue: 4
     MaxValue: 16
     Step: 2
     DisplayName: Energy_Drop
-    BasePrice: 100
+    BasePrice: 30
     PriceMult: 1.2
     ShowUpgrade: 1
     row: 0

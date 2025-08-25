@@ -26,12 +26,12 @@
             "spawnRate": 15.0
         },
         {
-            "enemyId": 2,
+            "enemyId": 1,
             "spawnChance": 100.0,
             "spawnRate": 25.0
         },
         {
-            "enemyId": 3,
+            "enemyId": 13,
             "spawnChance": 100.0,
             "spawnRate": 20.0
         }

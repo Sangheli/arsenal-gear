@@ -2,7 +2,7 @@
     "levelId": 93,
     "LevelStringEntry": "",
     "objectiveType": 1,
-    "objectiveValue": 1627,
+    "objectiveValue": 1570,
     "roundTime": 23.5,
     "bossHp": 2649,
     "bossAttack": 19.0,
@@ -19,49 +19,49 @@
     "levelModifiers": [],
     "enemies": [
         {
-            "enemyId": 4,
-            "spawnChance": 34,
-            "spawnRate": 45
-        },
-        {
-            "enemyId": 12,
-            "spawnChance": 33,
-            "spawnRate": 42
+            "enemyId": 5,
+            "spawnChance": 45,
+            "spawnRate": 39
         },
         {
             "enemyId": 7,
-            "spawnChance": 31,
-            "spawnRate": 34
+            "spawnChance": 47,
+            "spawnRate": 24
         },
         {
-            "enemyId": 16,
-            "spawnChance": 31,
-            "spawnRate": 47
-        },
-        {
-            "enemyId": 13,
-            "spawnChance": 37,
-            "spawnRate": 44
+            "enemyId": 1,
+            "spawnChance": 59,
+            "spawnRate": 24
         },
         {
             "enemyId": 14,
-            "spawnChance": 30,
-            "spawnRate": 6
+            "spawnChance": 61,
+            "spawnRate": 23
         },
         {
-            "enemyId": 2,
-            "spawnChance": 30,
+            "enemyId": 16,
+            "spawnChance": 53,
             "spawnRate": 21
         },
         {
-            "enemyId": 17,
-            "spawnChance": 36,
-            "spawnRate": 36
+            "enemyId": 15,
+            "spawnChance": 55,
+            "spawnRate": 24
         },
         {
-            "enemyId": 8,
-            "spawnChance": 38,
-            "spawnRate": 35
+            "enemyId": 2,
+            "spawnChance": 57,
+            "spawnRate": 31
+        },
+        {
+            "enemyId": 6,
+            "spawnChance": 49,
+            "spawnRate": 40
+        },
+        {
+            "enemyId": 10,
+            "spawnChance": 36,
+            "spawnRate": 26
         }
     ]
 }

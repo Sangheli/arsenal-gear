@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: EnemyContainer
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContainer
   List:
-  - {fileID: 11400000, guid: 68bb422c0928e034f940ffb2cad75976, type: 2}
   - {fileID: 11400000, guid: d8f65a5612614f344adb26891d840942, type: 2}
   - {fileID: 11400000, guid: af790d8f76a8ff74c99d33ec1b9e3a7a, type: 2}
-  - {fileID: 11400000, guid: f66e01dac93b1d54b9c6650951f4fd3d, type: 2}
   - {fileID: 11400000, guid: 2c266752eb133e44ba4e282e9b604a3d, type: 2}
   - {fileID: 11400000, guid: 9463a4606b4348a4ab59a82da1b19716, type: 2}
   - {fileID: 11400000, guid: 390b19329a4c08f4d8dfb260f9e9f1b5, type: 2}
@@ -27,7 +25,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f365accc6203a4f40aad7c6dd77d04ce, type: 2}
   - {fileID: 11400000, guid: b34740869b0660b4d898d43b3aad5b5b, type: 2}
   - {fileID: 11400000, guid: ae7aa92ecf1bfb24c8da8625b5ebf720, type: 2}
+  - {fileID: 11400000, guid: 68bb422c0928e034f940ffb2cad75976, type: 2}
+  - {fileID: 11400000, guid: f66e01dac93b1d54b9c6650951f4fd3d, type: 2}
   - {fileID: 11400000, guid: 371b9ddfcc35f1540a445f01892120a3, type: 2}
-  - {fileID: 11400000, guid: 3b1857159fdc1b94aa636a4d52ed79b9, type: 2}
   - {fileID: 11400000, guid: e4d48fa276a50f74d869169d45df0782, type: 2}
+  - {fileID: 11400000, guid: 3b1857159fdc1b94aa636a4d52ed79b9, type: 2}
+  - {fileID: 11400000, guid: 8111272810fd9874992fa86eec8f0d2a, type: 2}
+  - {fileID: 11400000, guid: 7914f7097636fe348a549d2f42ffd8a2, type: 2}
+  - {fileID: 11400000, guid: 8edaa84bb1439a54a81a7fb9bdddbef8, type: 2}
+  - {fileID: 11400000, guid: ec87c0e2f7363f644bfd1c3c35e44108, type: 2}
   - {fileID: 11400000, guid: a09c34a545546b241902c65617ae56b4, type: 2}
+  - {fileID: 11400000, guid: 01c2f18dcbd84104f92b143b0d30e3a4, type: 2}

@@ -55,6 +55,9 @@ public class EnemyData : ScriptableObject
     public bool useRandomSelfDestructTime;
     public float selfDestructTime;
     public float selfDestructTimeRandomAdd;
+
+    [Space] 
+    public int Tier;
     
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()

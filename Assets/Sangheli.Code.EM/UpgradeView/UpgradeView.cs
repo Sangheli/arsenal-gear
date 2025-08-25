@@ -112,7 +112,8 @@ public class UpgradeView : MonoBehaviour
                 lastPlayerUpgradeRow = paramInfo.row;
         }
         
-        // Assign row numbers for enemy upgrades starting after the last player upgrade row
+        // Collect all enemy upgrades
+        var enemyUpgrades = new List<(int enemyId, UpgradeType upgradeType)>();
         foreach (var enemyId in upgradeContainer.GetAllEnemyIds())
         {
             var enemyData = G.I.Data.enemyContainer.List.Find(e => e.EnemyId == G.I.Data.enemyContainer.List[enemyId].EnemyId);
@@ -122,14 +123,23 @@ public class UpgradeView : MonoBehaviour
             {
                 var upgradeInfo = enemyData.UpgradeInfos.Find(x => x.Type == upgradeType);
                 if (upgradeInfo == null) continue;
-                // Use automatic row numbering for enemy upgrades
-                // Start after the last player upgrade row
-                var row = GetOrCreateUpgradeRow(lastPlayerUpgradeRow + 1 + enemyId);
-                row.SpawnEnemyUpgradeView(enemyId, upgradeType, RefreshAll);
-                    
-                // Add the spawned view to our tracking list
-                if (row.views.Count > 0) _spawned.Add(row.views[^1]);
+                enemyUpgrades.Add((enemyId, upgradeType));
             }
+        }
+        
+        // Assign enemy upgrades to rows with 5 items per row
+        int enemyUpgradeRowIndex = lastPlayerUpgradeRow + 1;
+        for (int i = 0; i < enemyUpgrades.Count; i++)
+        {
+            // Calculate which row this upgrade should go to
+            int rowIndex = enemyUpgradeRowIndex + (i / 5);
+            var row = GetOrCreateUpgradeRow(rowIndex);
+            
+            var (enemyId, upgradeType) = enemyUpgrades[i];
+            row.SpawnEnemyUpgradeView(enemyId, upgradeType, RefreshAll);
+                
+            // Add the spawned view to our tracking list
+            if (row.views.Count > 0) _spawned.Add(row.views[^1]);
         }
     }
     

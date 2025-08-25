@@ -10,28 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemyTriangle_Orange
+  m_Name: 25_0_6_0_EnemyHeart_Purple
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
-  DisplayName: Triangle_Orange
+  prefab: {fileID: -2504494526363040726, guid: 33555eab23d9408469f0c04e8c2c5a01, type: 3}
+  DisplayName: Heart Purple
   excludeFromLevelGeneration: 0
   superHard: 0
   playDeathSound: 0
-  Health: 20
-  DamagePerHit: 0.53
+  Health: 15
+  DamagePerHit: 0
   Speed: 0.4
   rotationSpeed: {x: 0, y: 0, z: -30}
-  viewScale: {x: 1.1, y: 1.1, z: 1.1}
-  deathVfxScale: {x: 0.55, y: 0.55, z: 0.55}
-  spriteView: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteBack: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteShadow: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 6f3e9ace24048ac45a7072e8cd9db99c, type: 3}
+  viewScale: {x: 1.2, y: 1.2, z: 1.2}
+  deathVfxScale: {x: 0.6, y: 0.6, z: 0.6}
+  spriteView: {fileID: 21300000, guid: 3280d00a29fffda4ea09174c1afc2574, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 024aac6b420a21e4587f75a024c7958d, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
   useRandomColor: 0
-  color: {r: 1, g: 0.30219674, b: 0, a: 1}
+  color: {r: 0.8516711, g: 0.11764705, b: 1, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0
@@ -41,12 +39,13 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
+  Tier: 1
   UpgradeInfos:
-  - BaseValue: 6
-    MaxValue: 21
+  - BaseValue: 8
+    MaxValue: 32
     Step: 3
     DisplayName: Energy_Drop
-    BasePrice: 120
+    BasePrice: 100
     PriceMult: 1.2
     ShowUpgrade: 1
     row: 0

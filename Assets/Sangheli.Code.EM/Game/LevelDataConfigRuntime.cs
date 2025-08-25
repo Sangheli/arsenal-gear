@@ -9,23 +9,22 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    private const int BossRewardBase = 100;
     private const int SkipTutorialLevels = 5;
+    
+    private const double MinRewardBoss = 100;
+    private const double MaxRewardBoss = 2000000;
+    private const  double Exponent = 0.3f;
 
     public LevelDataConfigRuntime()
     {
-        float prevReward = 0;
-        
         for (var i = 0; i < G.I.maxLevel; i++)
         {
             if (_levels.ContainsKey(i)) continue;
             if (TryLoadLevel(i)) continue;
             
-            var level = GenerateRandomLevel(i, prevReward);
+            var level = GenerateRandomLevel(i);
             _levels[i] = level;
             SaveLevelToJson(i, level);
-
-            prevReward += BossRewardBase * G.I.progressionRewardCurve.Evaluate(GetScaleValue(i));
         }
     }
     
@@ -39,7 +38,7 @@ public class LevelDataConfigRuntime
         return true;
     }
 
-    private LevelConfig GenerateRandomLevel(int i, float prevReward)
+    private LevelConfig GenerateRandomLevel(int i)
     {
         var scale = GetScaleValue(i);
         var objectiveType = GetObjectiveType(i);
@@ -49,7 +48,7 @@ public class LevelDataConfigRuntime
         return new LevelConfig
         {
             levelId = i,
-            enemies = GenerateEnemies(scale),
+            enemies = GenerateEnemies(scale, i),
             showHpBar = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
@@ -57,7 +56,7 @@ public class LevelDataConfigRuntime
             preSpawnEnemyCount = 10,
             roundTime = 23.5f,
             bossHp = bossHp,
-            levelReward =  GetLevelReward(objectiveType, prevReward, scale),
+            levelReward =  GetLevelReward(objectiveType, scale, i),
             bossAttack = CalculateBossAttack(scale, playerDps , bossHp),
             bossEnemySpawnRateMultiplier = 5, // Default value for boss enemy spawn rate multiplier
             useWinColorOnFail = false, // By default, use normal fail color on defeat
@@ -66,24 +65,6 @@ public class LevelDataConfigRuntime
             objectiveValue = GetObjectiveValue(objectiveType, scale),
             levelModifiers = GenerateRandomModifiers(scale) // Generate random modifiers for the level
         };
-    }
-
-    private static int GetChance(EnemyData enemy, float minHp, float hpRange, float minDmg, float dmgRange, float scale,
-        float baseChance, float maxChance)
-    {
-        float normalizedHp = (enemy.Health - minHp) / hpRange;
-        float normalizedDmg = (enemy.DamagePerHit - minDmg) / dmgRange;
-        float combined = (normalizedHp + normalizedDmg) / 2f;
-        float chance01 = Mathf.Lerp(1f - combined, combined, scale);
-        float chance = baseChance + (maxChance - baseChance) * chance01;
-        return (int) Mathf.Clamp(chance, baseChance, maxChance);
-    }
-
-    private static int GetSpawnRate(float scale, EnemyData enemy)
-    {
-        if (enemy.useCustomSpawnRate) return enemy.GetSpawnRate();
-        var rate = GetDynamicSpawnRate(scale);
-        return enemy.superHard ? (int)Mathf.Lerp(5, rate, scale) : rate;
     }
 
     private static List<LevelModifierType> GenerateRandomModifiers(float scale)
@@ -259,79 +240,107 @@ public class LevelDataConfigRuntime
         var scaleIndex = Mathf.Max(0, i - SkipTutorialLevels);
         return scaleIndex / (float)(G.I.maxLevel - SkipTutorialLevels - 1);
     }
-    
-    private static int GetLevelReward(LevelObjectiveType objectiveType, float prevReward, float t)
+
+    private static int GetLevelReward(LevelObjectiveType objectiveType, float t, int i)
     {
-        if (objectiveType != LevelObjectiveType.Boss)
-            return 0;
-        
-        float progressionReward = prevReward + BossRewardBase * G.I.progressionRewardCurve.Evaluate(t);
-        return Mathf.RoundToInt(progressionReward);
+        if (objectiveType == LevelObjectiveType.Boss)
+        {
+            var reward = (int)CalculateReward(t, MinRewardBoss, MaxRewardBoss, Exponent);
+            return reward;
+        }
+        else
+        {
+            return 0;   
+        }
     }
     
-    private List<LevelEnemyInfo> GenerateEnemies(float scale)
+    static double CalculateReward(double scale, double minReward, double maxReward, double exponent)
+    {
+        // экспоненциальная прогрессия с контролем кривизны
+        double adjustedScale = Math.Pow(scale, exponent);
+        return minReward * Math.Pow(maxReward / minReward, adjustedScale);
+    }
+    
+    private List<LevelEnemyInfo> GenerateEnemies(float scale, int i)
     {
         var sorted =  G.I.Data.enemyContainer
             .List
             .Where(x => !x.excludeFromLevelGeneration)
-            // .OrderBy(e => e.DamagePerHit)
             .ToList();
 
-        var maxStrong = (int)Mathf.Lerp(1, 4, scale);
-        var strongList = sorted.Skip(sorted.Count / 2).PickRandom(maxStrong);
+        var selectedEnemies = GetSelectedEnemies(scale, sorted, i);
+        
+        // Найдем минимальное и максимальное количество здоровья среди выбранных врагов
+        var minHealth = selectedEnemies.Min(e => e.Health);
+        var maxHealth = selectedEnemies.Max(e => e.Health);
+        var healthRange = maxHealth - minHealth;
+        
+        // Чем больше врагов, тем меньше шанс появления каждого из них
+        // Используем коэффициент от 0.5 до 1.0 в зависимости от количества врагов (от 1 до 15)
+        var countFactor = Mathf.Lerp(1.0f, 0.5f, (float) (selectedEnemies.Count - 1) / 14);
+        countFactor = Mathf.Clamp01(countFactor);
 
-        var weakList = sorted.Except(strongList).ToList();
-        var maxWeak = (int)Mathf.Lerp(sorted.Count/2f, weakList.Count, scale);
-
-        var weakLookup = weakList.Take(maxWeak).ToList();
-        
-        var currentWeakNum = (int)Mathf.Lerp(3, weakLookup.Count, scale);
-
-        var maxWeakToLookup = (int)( currentWeakNum * 1.2f);
-        
-        var weakFinal = weakLookup.Take(maxWeakToLookup).PickRandom(currentWeakNum);
-        
-        var finalEnemyList = weakFinal.Concat(strongList).ToList();
-        
-        var final = GetLevelEnemyInfos(scale, finalEnemyList);
-        return final;
+        // Generate LevelEnemyInfo for each selected enemy
+        return selectedEnemies.Select(enemy => new LevelEnemyInfo
+            {
+                enemyId = enemy.EnemyId,
+                // Чем ниже здоровье, тем выше шанс появления
+                spawnChance = healthRange > 0 
+                    ? Mathf.RoundToInt((85 - 35 * ((enemy.Health - minHealth) / healthRange)) * countFactor) // От 25 до 85
+                    : Mathf.RoundToInt(67 * countFactor), // Среднее значение, если все враги имеют одинаковое здоровье
+                // Чем больше врагов, тем ниже частота появления каждого из них
+                spawnRate = Mathf.RoundToInt(Random.Range(30, 61) * countFactor) // От 15 до 60
+            }).ToList();
     }
 
-    private static List<LevelEnemyInfo> GetLevelEnemyInfos(float scale, List<EnemyData> finalEnemyList)
+    private List<EnemyData> GetSelectedEnemies(float scale, List<EnemyData> sorted, int i)
     {
-        // Нормализация значений для рассчёта шансов
-        float minHp = finalEnemyList.Min(e => e.Health);
-        float maxHp = finalEnemyList.Max(e => e.Health);
-        float hpRange = Mathf.Max(maxHp - minHp, Mathf.Epsilon);
+        var tiers = sorted.Select(e => e.Tier).Distinct().OrderBy(x=>x).ToList();
+        var numTiers = tiers.Count;
+        var currentTierGroupID = GetCurrentTierGroupID(i*1f/(G.I.maxLevel), numTiers);
+        var currentTierGroup = tiers[currentTierGroupID];
+        var availableEnemies = sorted.Where(e => e.Tier <= currentTierGroup).ToList();
+        var enemiesToSelect = GetEnemiesToSelect(availableEnemies, scale);
+        return availableEnemies.PickRandom(enemiesToSelect);
+    }
 
-        float minDmg = finalEnemyList.Min(e => e.DamagePerHit);
-        float maxDmg = finalEnemyList.Max(e => e.DamagePerHit);
-        float dmgRange = Mathf.Max(maxDmg - minDmg, Mathf.Epsilon);
+    //fix this
+    private static int GetCurrentTierGroupID(float scale, int numTiers)
+    {
+        // Calculate current tier group based on scale (0 to numTiers-1)
+        int currentTierGroup = Mathf.FloorToInt(scale * numTiers);
+        return Mathf.Clamp(currentTierGroup, 0, numTiers - 1);
+    }
 
-        float baseChance = 5f;
-        float maxChance = 70f;
-
-        return finalEnemyList.Select(enemy => new LevelEnemyInfo
-        {
-            enemyId = enemy.EnemyId,
-            spawnChance = GetChance(enemy, minHp, hpRange, minDmg, dmgRange, scale, baseChance, maxChance),
-            spawnRate = GetSpawnRate(scale, enemy)
-        }).ToList();
+    private int GetEnemiesToSelect
+    (
+        List<EnemyData> availableEnemies,
+        float scale
+    )
+    {
+        var min = GetDynamicScale(scale, 4, 8);
+        var maxEnemies = (int)(availableEnemies.Count * 0.85f);
+        
+        var max = GetDynamicScale(scale, availableEnemies.Count/2f, maxEnemies);
+        max = Mathf.Max(max, min + 1);
+        var final = Random.Range(min, max + 1);
+        
+        return Mathf.Min(final, maxEnemies);
     }
 
     private static int GetDynamicSpawnRate(float scale)
     {
-        var min = GetDynamicScaledSpawnRate(scale, 30, 60);
-        var max = GetDynamicScaledSpawnRate(scale, 40, 80);
+        var min = GetDynamicScale(scale, 30, 60);
+        var max = GetDynamicScale(scale, 40, 80);
 
         max = Mathf.Max(max, min + 1);
         var final = Random.Range(min, max + 1);
         return final;
     }
 
-    private static int GetDynamicScaledSpawnRate(float scale, int min, int max)
+    private static int GetDynamicScale(float scale, float min, float max)
     {
         var spawnRate = Mathf.RoundToInt(Mathf.Lerp(min, max, scale));
-        return Random.Range(min, spawnRate + 1);
+        return (int)Random.Range(min, spawnRate + 1);
     }
 }

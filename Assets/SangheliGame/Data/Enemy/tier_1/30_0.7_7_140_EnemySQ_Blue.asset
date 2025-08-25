@@ -10,28 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemyTriangle_Blue
+  m_Name: 30_0.7_7_140_EnemySQ_Blue
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -6333086523383111919, guid: 03a1cd65251eea044aca5adc504fd3f7, type: 3}
-  DisplayName: Triangle_Blue
+  prefab: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+  DisplayName: Square Blue
   excludeFromLevelGeneration: 0
   superHard: 0
   playDeathSound: 0
-  Health: 50
-  DamagePerHit: 1.05
+  Health: 30
+  DamagePerHit: 0.7
   Speed: 0.4
   rotationSpeed: {x: 0, y: 0, z: 30}
-  viewScale: {x: 1.1, y: 1.1, z: 1.1}
-  deathVfxScale: {x: 0.55, y: 0.55, z: 0.55}
-  spriteView: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteBack: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteShadow: {fileID: 21300000, guid: d3b8cca6f3d2a7846920edf96107f0ab, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 6f3e9ace24048ac45a7072e8cd9db99c, type: 3}
+  viewScale: {x: 1, y: 1, z: 1}
+  deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
+  spriteView: {fileID: 21300000, guid: 8564a000b1cadc148b847f42d3463c80, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 2e5c951b96b2e414a91afa2a19dc980a, type: 3}
   AttractToCursor: 0
-  AttractionSpeed: 1
-  MinAttractDistance: 2
+  AttractionSpeed: 2
+  MinAttractDistance: 5
   useRandomColor: 0
-  color: {r: 0, g: 0.87798667, b: 1, a: 1}
+  color: {r: 0.10116281, g: 0.6097485, b: 0.9748427, a: 1}
   borderColor: {r: 1, g: 0.95686275, b: 0, a: 1}
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0
@@ -41,12 +39,13 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
+  Tier: 1
   UpgradeInfos:
-  - BaseValue: 11
-    MaxValue: 35
-    Step: 3
+  - BaseValue: 7
+    MaxValue: 25
+    Step: 2
     DisplayName: Energy_Drop
-    BasePrice: 180
+    BasePrice: 50
     PriceMult: 1.2
     ShowUpgrade: 1
     row: 0

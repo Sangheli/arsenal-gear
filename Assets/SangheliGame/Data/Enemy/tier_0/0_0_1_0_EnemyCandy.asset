@@ -10,42 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemySQ_White
+  m_Name: 0_0_1_0_EnemyCandy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
-  DisplayName: Square_White
+  prefab: {fileID: 2325995571859240399, guid: b0f70d0911c9d28418375130627f8485, type: 3}
+  DisplayName: Candy
   excludeFromLevelGeneration: 0
   superHard: 0
-  playDeathSound: 0
-  Health: 5
+  playDeathSound: 1
+  Health: 0
   DamagePerHit: 0
-  Speed: 0.05
+  Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
-  spriteView: {fileID: 21300000, guid: 8564a000b1cadc148b847f42d3463c80, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 2e5c951b96b2e414a91afa2a19dc980a, type: 3}
+  spriteView: {fileID: 21300000, guid: 3c48d46e946959d42819ba216ad44a48, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 577732a34980ead4c94362e9908c1192, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
-  useRandomColor: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
-  borderColor: {r: 0, g: 0.6792453, b: 0.6605993, a: 1}
+  useRandomColor: 1
+  color: {r: 0.9524733, g: 0.9622642, b: 0.027233727, a: 1}
+  borderColor: {r: 0, g: 0.25239325, b: 1, a: 1}
   useCustomSpawnRate: 1
   useRandomSpawnRate: 1
-  spawnRate1: 17
-  spawnRate2: 22
-  useSelfDestruct: 0
-  useRandomSelfDestructTime: 0
-  selfDestructTime: 0
-  selfDestructTimeRandomAdd: 0
+  spawnRate1: 6
+  spawnRate2: 10
+  useSelfDestruct: 1
+  useRandomSelfDestructTime: 1
+  selfDestructTime: 0.5
+  selfDestructTimeRandomAdd: 0.25
+  Tier: 0
   UpgradeInfos:
   - BaseValue: 1
-    MaxValue: 5
-    Step: 1
+    MaxValue: 90
+    Step: 5
     DisplayName: Energy_Drop
-    BasePrice: 100
-    PriceMult: 1.4
-    ShowUpgrade: 1
+    BasePrice: 300
+    PriceMult: 1.2
+    ShowUpgrade: 0
     row: 0
     Type: 1
