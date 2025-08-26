@@ -50,7 +50,11 @@ public static class ScreenSpawnHelper
     {
         Vector2 min = new Vector2(-G.I.MaxX, -G.I.MaxY);
         Vector2 max = new Vector2(G.I.MaxX, G.I.MaxY);
-        return GetPos(spawnPosition, min, max);
+        var result = GetPos(spawnPosition, min, max);
+
+        result.y = 0;
+        
+        return result;
     }
 
     public static Vector2 GetMovementDirection(Camera camera, Vector2 spawnPosition)
