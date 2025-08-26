@@ -20,7 +20,7 @@ MonoBehaviour:
   Health: 100
   DamagePerHit: 14
   Speed: 0.15
-  rotationSpeed: {x: 0, y: 0, z: -540}
+  rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.75, y: 0.75, z: 0.75}
   spriteView: {fileID: 21300000, guid: 3c1bb875e6c193e4884edf7dc8d4c3c6, type: 3}
@@ -47,6 +47,6 @@ MonoBehaviour:
     DisplayName: Energy_Drop
     BasePrice: 100
     PriceMult: 1.5
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 0
     Type: 1

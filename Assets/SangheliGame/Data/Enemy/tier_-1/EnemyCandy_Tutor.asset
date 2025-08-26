@@ -23,14 +23,14 @@ MonoBehaviour:
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
-  spriteView: {fileID: 21300000, guid: 3c48d46e946959d42819ba216ad44a48, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 577732a34980ead4c94362e9908c1192, type: 3}
+  spriteView: {fileID: -1615771939188749659, guid: e8ebd7cf3582dfa4e875ac2c38963e02, type: 3}
+  spriteBorder: {fileID: -1615771939188749659, guid: e8ebd7cf3582dfa4e875ac2c38963e02, type: 3}
   AttractToCursor: 0
   AttractionSpeed: 1
   MinAttractDistance: 2
-  useRandomColor: 1
-  color: {r: 0.9524733, g: 0.9622642, b: 0.027233727, a: 1}
-  borderColor: {r: 0, g: 0.25239325, b: 1, a: 1}
+  useRandomColor: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  borderColor: {r: 1, g: 1, b: 1, a: 1}
   useCustomSpawnRate: 1
   useRandomSpawnRate: 1
   spawnRate1: 4

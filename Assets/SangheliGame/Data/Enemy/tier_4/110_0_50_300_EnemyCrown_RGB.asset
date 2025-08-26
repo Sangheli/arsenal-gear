@@ -47,6 +47,6 @@ MonoBehaviour:
     DisplayName: Energy_Drop
     BasePrice: 300
     PriceMult: 1.15
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 0
     Type: 1
