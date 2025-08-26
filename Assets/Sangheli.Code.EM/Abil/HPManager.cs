@@ -32,7 +32,6 @@ public class HPManager
         _save = G.I.SaveProvider.Get();
         RoundHp = _maxHp = Keys.Sum(x => _save.GetParamContainer().GetValue(x));
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false, startValue: true );
-        G.I.playerCursor.view.hudView.Toggle(false, 0 , false);
     }
 
     public float Reduce(float reduceValue, bool doBlink, bool ignoreShield)

@@ -26,8 +26,6 @@ public class AICursorManager : MonoBehaviour
             aiCursor.CursorInput = new RandomCursorInput();
             aiCursor.gameObject.SetActive(true);
             aiCursor.Toggle(true);
-            aiCursor.view.hudView.Toggle(false,0, false);
-            aiCursor.view.hudView.ToggleAIView(true);
             SetAICursorColor(aiCursor, _aiCursors.Count);
             _aiCursors.Add(aiCursor);
         }
@@ -67,13 +65,5 @@ public class AICursorManager : MonoBehaviour
     public void ToggleAll(bool state)
     {
         foreach (var aiCursor in _aiCursors) aiCursor.Toggle(state);
-    }
-
-    public void ToggleAllHud(bool b)
-    {
-        foreach (var x in _aiCursors)
-        {
-            x.view.hudView.ToggleAIView(b);
-        }
     }
 } 

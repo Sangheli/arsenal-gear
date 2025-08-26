@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
             if (levelConfig is { showHpBar: false })
                 showHp = false;
         }
-        G.I.playerCursor.view.hudView.ShowHpValue(hp,fullValue,fillValue, doBlink);
+
         if (!showHp && healthBarUI != null)
         {
             healthBarUI.gameObject.SetActive(false);

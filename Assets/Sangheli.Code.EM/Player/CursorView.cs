@@ -19,7 +19,6 @@ public class CursorView : MonoBehaviour
     public float baseRingThickness = 0.25f;
     public Color color;
     public Color color2 = new Color(0,0,0,122f/256f);
-    public CursorHudView hudView;
     public Color originalInnerColorRingOuter = Color.white;
     private Coroutine _pulseCoroutine;
     private float _currentScale = 1f;

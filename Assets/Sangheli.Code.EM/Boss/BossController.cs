@@ -154,8 +154,5 @@ public class BossController : EnemyController
         
         if (damageResult.HasRecivedDamage)
             G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
-
-        if (damageResult.HasAnyDamage)
-            G.I.playerCursor.view.hudView.AddDamage(damageResult, G.I.playerCursor.CurrentDamageScale);
     }
 } 

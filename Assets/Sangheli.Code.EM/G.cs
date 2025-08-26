@@ -156,7 +156,6 @@ public class G : MonoBehaviour
     {
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
-        playerCursor.view.hudView.Toggle(false, 0, false);
         ObjectPool = new SangheliObjectPool();
         SaveProvider.OnSaveAnalyticsCallback = AnalyticsHelper.Checkpoint;
         energySpawner.OnLoadInit();
@@ -218,9 +217,7 @@ public class G : MonoBehaviour
         bossManager.ResetBoss();
         endRoundView.OnStartRound();
         tutorial.OnStartRound();
-        playerCursor.view.hudView.damageTextManager.StartRound();
         aiCursorManager.OnStartRound();
-        playerCursor.view.hudView.Toggle(false, 0, false);
         EnergyManager.OnStartRound();
         levelTargetManager.OnStartRound();
         HpManager.OnStartRound();
@@ -235,7 +232,6 @@ public class G : MonoBehaviour
         startGameView.Toggle(false);
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
-        aiCursorManager.ToggleAllHud(true);
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
         CanPlay = true;
@@ -263,7 +259,6 @@ public class G : MonoBehaviour
         roundManager.IsAliveForPlay = false;
         levelTargetManager.Data.ToggleActive(false);
         playerCursor.ToggleControl(false, true);
-        playerCursor.view.hudView.Toggle(false, 0 , false);
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         endRoundView.distortion.gameObject.SetActive(true);
@@ -303,7 +298,6 @@ public class G : MonoBehaviour
         yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
         yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
         
-        playerCursor.view.hudView.Toggle(false, 0 , false);
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
@@ -344,8 +338,6 @@ public class G : MonoBehaviour
         upgradeView.Toggle(true);
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
-        aiCursorManager.ToggleAllHud(false);
-        playerCursor.view.hudView.Toggle(false, 0, false);
         
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
         yield return distortionUI.DoFade(forward: false);

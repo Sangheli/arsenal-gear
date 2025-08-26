@@ -160,9 +160,6 @@ public class CursorController : MonoBehaviour
         
         if (damageResult.HasRecivedDamage) 
             G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
-
-        if (damageResult.HasAnyDamage) 
-            G.I.playerCursor.view.hudView.AddDamage(damageResult, CurrentDamageScale);
     }
 
     private void ShowPulseAnimation()
