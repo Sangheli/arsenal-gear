@@ -107,8 +107,8 @@ MonoBehaviour:
     - hp3
     - hp4
     anyDepnetList: []
-  - BaseValue: 5
-    MaxValue: 10
+  - BaseValue: 1
+    MaxValue: 5
     Step: 1
     DisplayName: Damage_Level_1
     BasePrice: 40
@@ -187,8 +187,8 @@ MonoBehaviour:
     - playerDamageMin3
     - playerDamageMin4
     anyDepnetList: []
-  - BaseValue: 60
-    MaxValue: 180
+  - BaseValue: 180
+    MaxValue: 360
     Step: 5
     DisplayName: Attacks_minute
     BasePrice: 35
@@ -309,7 +309,7 @@ MonoBehaviour:
     DisplayName: AI_Cursor_Count
     BasePrice: 10000
     PriceMult: 1.4
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 6
     Key: aiCursorCount
     UseRandom: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
     DisplayName: AI_Cursor_Damage_Player
     BasePrice: 1100
     PriceMult: 1.15
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 6
     Key: aiCursorDamagePercent
     UseRandom: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
     DisplayName: AI_Cursor_Radius_Player
     BasePrice: 1100
     PriceMult: 1.15
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 6
     Key: aiCursorRadiusPercent
     UseRandom: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
     DisplayName: AI_Cursor_Fire_Rate_Player
     BasePrice: 1100
     PriceMult: 1.15
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 6
     Key: aiCursorFireRatePercent
     UseRandom: 0
