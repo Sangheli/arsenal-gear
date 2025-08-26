@@ -18,7 +18,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 02dab3a1e6c908c4987af49820910412, type: 3}
   - color: {r: 1, g: 1, b: 1, a: 1}
     objectiveType: 2
-    sprite: {fileID: 21300000, guid: a8d9779f129775b4aac066bbe1e3d51b, type: 3}
+    sprite: {fileID: 9048603163218632696, guid: cbc5f58e3fc5ddc4ab5b8dc5f923f2a5, type: 3}
   - color: {r: 1, g: 0, b: 0, a: 1}
     objectiveType: 3
     sprite: {fileID: 21300000, guid: 69d7e45266c45af4991d36e8553c303f, type: 3}

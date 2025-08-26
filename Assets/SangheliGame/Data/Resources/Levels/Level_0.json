@@ -2,7 +2,7 @@
     "levelId": 0,
     "LevelStringEntry": "tutorMinusOne",
     "objectiveType": 1,
-    "objectiveValue": 35,
+    "objectiveValue": 60,
     "roundTime": 30.0,
     "bossHp": 10,
     "bossAttack": 1.0,
@@ -21,7 +21,7 @@
         {
             "enemyId": 12,
             "spawnChance": 100.0,
-            "spawnRate": 120
+            "spawnRate": 240
         }
     ]
 }
