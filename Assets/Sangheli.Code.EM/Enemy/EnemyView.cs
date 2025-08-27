@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public class EnemyView : MonoBehaviour
 {
+    public HalfBarView hpBarView;
     public DeathVfx deathVfx;
     [FormerlySerializedAs("enemyRender")] public EnemyRender render;
 
@@ -36,6 +37,7 @@ public class EnemyView : MonoBehaviour
     {
         render.SetSortingOrder(data);
         deathVfx.SetOrder(data.ramka);
+        hpBarView.runningBarImage.SetSortingOrder(data.back);
     }
 
     public virtual IEnumerator DeathAnimation()

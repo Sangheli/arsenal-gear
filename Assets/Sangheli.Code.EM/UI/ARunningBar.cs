@@ -11,4 +11,5 @@ public abstract class ARunningBar : MonoBehaviour
     
     public abstract void UpdateView();
     public abstract void SetCurrentValue(float value);
+    public abstract void SetSortingOrder(int order);
 }

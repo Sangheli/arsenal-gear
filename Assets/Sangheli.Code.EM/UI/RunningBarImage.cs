@@ -44,4 +44,8 @@ public class RunningBarImage : ARunningBar
         _hpImageWhiteBackMat.SetFloat(RunningBarValue.ClipUvRight, 1 - newValue);
         _hpImageBackMat.SetFloat(RunningBarValue.ClipUvLeft, newValue);
     }
+
+    public override void SetSortingOrder(int order)
+    {
+    }
 }

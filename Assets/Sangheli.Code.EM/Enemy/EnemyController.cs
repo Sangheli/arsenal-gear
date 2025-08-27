@@ -4,7 +4,9 @@ using Debug = System.Diagnostics.Debug;
 
 public class EnemyController : MonoBehaviour, IReturnable, IResetable
 {
+    public float unfillTime = 0.1f;
     public EnemyView view;
+    public HalfBarView hpBarView;
     public DamageReciever damageReciever;
     private float _speed = 2f;
     public float lifeTime = 3f;
@@ -14,6 +16,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     private Coroutine _selfDestructCoroutine;
 
     protected float CurrentHealth;
+    private float _fullHp;
     private Vector2 _moveDirection;
     private float _originalSpeed;
     private Vector3 _startPosition;
@@ -55,10 +58,13 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         IsDead = false;
         SetData(data);
+        hpBarView.UnFillTime = unfillTime;
+        hpBarView.gameObject.SetActive(CurrentData.showHPbar);
+        bounceMove.Toggle(CurrentData.useBounceAnimation);
         ResetView2();
         _selfDestructTime = CurrentData.GetSelfDestructTime();
         damageReciever.EnemyData = CurrentData;
-        CurrentHealth = CurrentData.Health;
+        CurrentHealth = _fullHp = CurrentData.GetHP(1);
         _moveDirection = moveDirection.normalized;
         _originalSpeed = CurrentData.Speed;
         _speed = _originalSpeed;
@@ -78,6 +84,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _colorMain = null; 
         _borderColor = null;
         UpdateColors();
+        hpBarView.Show(1,false,true);
     }
 
     public void SetData(EnemyData data)
@@ -105,7 +112,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
             return;
         
         view.render.SetFullColor(_colorMain.Value, _borderColor.Value);
-        view.deathVfx.SetColor(view.render.OriginalColor, CurrentData.borderColor);
+        view.deathVfx.SetColor(view.render.OriginalColor, CurrentData.GetBorderColor());
     }
 
     public void ResetView()
@@ -195,13 +202,16 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         }
         else
         {
+            view.PlayDeathVfx();
             view.DoBounceAnimation(isCrit);
             view.FlashEffect(isCrit);
             if (isCrit) view.CritColorEffect();
         }
         _doHpFill = true;
         _fillStartTime = Time.time;
-        _targetClipValue = 1 - CurrentHealth / CurrentData.Health;
+        _targetClipValue = 1 - CurrentHealth / _fullHp;
+        if(hpBarView!=null)
+            hpBarView.Show(CurrentHealth/_fullHp,true,false);
     }
 
     public virtual void Die(bool isCrit, bool killedByPlayer)

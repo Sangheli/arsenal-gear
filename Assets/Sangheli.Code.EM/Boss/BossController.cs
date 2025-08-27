@@ -24,9 +24,10 @@ public class BossController : EnemyController
         _filter ??= GetFilter();
 
         CurrentData = new EnemyData();
-        CurrentData.Health = hp;
+        CurrentData.SetBaseHP(hp);
+        CurrentData.showHPbar = false;
         damageValue = bossDamage;
-        CurrentData.DamagePerHit = 0;
+        CurrentData.SetBaseDamage(0);
         damageReciever.EnemyData = CurrentData;
         
         _onBossDeath = onBossDeath;
@@ -42,6 +43,10 @@ public class BossController : EnemyController
         // Инициализация направления и камеры
         _direction = Random.insideUnitCircle.normalized;
         _mainCamera = Camera.main;
+        
+        hpBarView.UnFillTime = unfillTime;
+        hpBarView.Show(1,false,true);
+        hpBarView.gameObject.SetActive(CurrentData.showHPbar);
     }
 
     private static ContactFilter2D GetFilter()

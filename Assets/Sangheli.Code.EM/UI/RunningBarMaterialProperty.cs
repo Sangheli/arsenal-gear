@@ -45,4 +45,11 @@ public class RunningBarMaterialProperty : ARunningBar
         _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvLeft, newValue);
         hpImageBack.SetPropertyBlock(_hpImageBackBlock);
     }
+
+    public override void SetSortingOrder(int order)
+    {
+        hpImage.sortingOrder = order;
+        hpImageWhiteBack.sortingOrder = order;
+        hpImageBack.sortingOrder = order;
+    }
 }
