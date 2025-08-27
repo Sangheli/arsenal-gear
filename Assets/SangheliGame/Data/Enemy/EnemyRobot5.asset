@@ -15,7 +15,8 @@ MonoBehaviour:
   prefab: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
   DisplayName: Round_Orange
   playDeathSound: 0
-  BaseHealth: 0
+  showHPbar: 1
+  BaseHealth: 30
   BaseDamage: 0
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
@@ -35,7 +36,7 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
-  Tier: -1
+  Tier: 1
   UpgradeInfos:
   - BaseValue: 4
     MaxValue: 16
