@@ -21,7 +21,7 @@
     ],
     "enemies": [
         {
-            "enemyId": 0,
+            "enemyId": 3,
             "spawnChance": 100.0,
             "spawnRate": 15.0
         },
@@ -31,7 +31,7 @@
             "spawnRate": 25.0
         },
         {
-            "enemyId": 13,
+            "enemyId": 2,
             "spawnChance": 100.0,
             "spawnRate": 20.0
         }
