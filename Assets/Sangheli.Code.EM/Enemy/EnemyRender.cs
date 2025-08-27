@@ -237,4 +237,13 @@ public class EnemyRender : MonoBehaviour
         backRenderArr[0].sprite = enemyData.spriteView;
         shadowRenderArr[0].sprite = enemyData.spriteView;
     }
+
+    public void SetDirection(Vector2 moveDirection)
+    {
+        _originalScale.x *=moveDirection.x < 0 ? -1 : 1;
+        _originalScaleShadow.x *= moveDirection.x < 0 ? -1 : 1;
+
+        viewRenderArr[0].transform.localScale = _originalScale;
+        shadowRenderArr[0].transform.localScale = _originalScaleShadow;
+    }
 }

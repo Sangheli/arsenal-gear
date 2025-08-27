@@ -4,6 +4,7 @@ using Debug = System.Diagnostics.Debug;
 
 public class EnemyController : MonoBehaviour, IReturnable, IResetable
 {
+    public SineBounceY bounceMove;
     public float unfillTime = 0.1f;
     public EnemyView view;
     public HalfBarView hpBarView;
@@ -66,6 +67,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         damageReciever.EnemyData = CurrentData;
         CurrentHealth = _fullHp = CurrentData.GetHP(1);
         _moveDirection = moveDirection.normalized;
+        view.render.SetDirection(_moveDirection);
         _originalSpeed = CurrentData.Speed;
         _speed = _originalSpeed;
         _isPreSpawned = isPreSpawned;
@@ -146,29 +148,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         view.render.viewRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
-        if (_hasChangedSpeed && CurrentData.AttractToCursor)
-        {
-            DoMagnetMove(deltaTime);
-        }
-        else
-        {
-            transform.Translate(_moveDirection * (deltaTime * _speed));
-        }
-    }
-
-    private void DoMagnetMove(float deltaTime)
-    {
-        // Attraction to cursor logic
-        Vector3 cursorPos = G.I.playerCursor.transform.position;
-        // Притяжение только в 2D (XY)
-        cursorPos.z = transform.position.z;
-        Vector3 toCursor = cursorPos - transform.position;
-        float dist = toCursor.magnitude;
-        if (!(dist > CurrentData.MinAttractDistance))
-            return;
-
-        Vector3 moveDir = toCursor.normalized;
-        transform.position += moveDir * (CurrentData.AttractionSpeed * deltaTime);
+        transform.Translate(_moveDirection * (deltaTime * _speed));
     }
 
     private void CheckAndChangeSpeed()
