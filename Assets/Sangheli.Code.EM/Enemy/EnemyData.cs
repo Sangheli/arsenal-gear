@@ -11,12 +11,14 @@ public class EnemyData : ScriptableObject
     
     [Space]
     public bool excludeFromLevelGeneration;
-    public bool superHard;
     public bool playDeathSound;
+
+    public bool showHPbar = true;
+    public bool useBounceAnimation = true;
     
     [Space]
-    public float Health;
-    public float DamagePerHit;
+    public float BaseHealth;
+    public float BaseDamage;
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
     
@@ -28,17 +30,13 @@ public class EnemyData : ScriptableObject
     public Sprite spriteView;
     public Sprite spriteBorder;
     
-    [Space,Header("Magnet")]
-    public bool AttractToCursor = false;
-    public float AttractionSpeed = 1.0f;
-    public float MinAttractDistance = 2.0f;
-    
     [Space,Header("Color")]
     public bool useRandomColor;
     
     [Space]
     public Color color = Color.white;
-    public Color borderColor = Color.white;
+    public BorderColorPalette borderColorPalette;
+    public int borderColorIndex = 0;
     
     [Space,Header("Spaw Rate")]
     public bool useCustomSpawnRate;
@@ -94,7 +92,19 @@ public class EnemyData : ScriptableObject
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 
     public Color GetColor() => useRandomColor ? GetRandomColor() : color;
-    public Color GetBorderColor() => useRandomColor ? GetRandomColor() : borderColor;
+
+    public Color GetBorderColor()
+    {
+        if (useRandomColor)
+            return GetRandomColor();
+
+        if (borderColorPalette != null && borderColorPalette.borderColors.Length > 0)
+            return borderColorPalette.borderColors[
+                Mathf.Clamp(borderColorIndex, 0, borderColorPalette.borderColors.Length - 1)];
+
+        return Color.white; // Default fallback
+    }
+
     private Color GetRandomColor()
     {
         // Generate vibrant colors that fit the neon aesthetic of the game
@@ -109,4 +119,9 @@ public class EnemyData : ScriptableObject
     }
 
     public float GetSelfDestructTime() => useRandomSelfDestructTime ? selfDestructTime + UnityEngine.Random.value * selfDestructTimeRandomAdd : selfDestructTime;
+
+    public void SetBaseHP(float hp) => BaseHealth = hp;
+    public void SetBaseDamage(int i) => BaseDamage = i;
+    public float GetHP(int tier) => BaseHealth * tier;
+    public float GetDamage(int tier) => BaseDamage * tier;
 }
