@@ -14,6 +14,8 @@ public class LevelDataConfigRuntime
     private const double MinRewardBoss = 100;
     private const double MaxRewardBoss = 2000000;
     private const  double Exponent = 0.3f;
+    
+    private const int tierStep = 10;
 
     public LevelDataConfigRuntime()
     {
@@ -78,7 +80,7 @@ public class LevelDataConfigRuntime
     public LevelConfig Get(int levelId)
     {
         _levels.TryGetValue(levelId, out var config);
-        return config;
+        return config ?? GenerateRandomLevel(levelId);
     }
 
     private static string GetLevelJsonPath(int levelIndex)
@@ -269,8 +271,8 @@ public class LevelDataConfigRuntime
         var selectedEnemies = GetSelectedEnemies(scale, sorted, i);
         
         // Найдем минимальное и максимальное количество здоровья среди выбранных врагов
-        var minHealth = selectedEnemies.Min(e => e.Health);
-        var maxHealth = selectedEnemies.Max(e => e.Health);
+        var minHealth = selectedEnemies.Min(e => e.GetHP(0));
+        var maxHealth = selectedEnemies.Max(e => e.GetHP(0));
         var healthRange = maxHealth - minHealth;
         
         // Чем больше врагов, тем меньше шанс появления каждого из них
@@ -284,7 +286,7 @@ public class LevelDataConfigRuntime
                 enemyId = enemy.EnemyId,
                 // Чем ниже здоровье, тем выше шанс появления
                 spawnChance = healthRange > 0 
-                    ? Mathf.RoundToInt((85 - 35 * ((enemy.Health - minHealth) / healthRange)) * countFactor) // От 25 до 85
+                    ? Mathf.RoundToInt((85 - 35 * ((enemy.GetHP(0) - minHealth) / healthRange)) * countFactor) // От 25 до 85
                     : Mathf.RoundToInt(67 * countFactor), // Среднее значение, если все враги имеют одинаковое здоровье
                 // Чем больше врагов, тем ниже частота появления каждого из них
                 spawnRate = Mathf.RoundToInt(Random.Range(30, 61) * countFactor) // От 15 до 60
@@ -293,21 +295,12 @@ public class LevelDataConfigRuntime
 
     private List<EnemyData> GetSelectedEnemies(float scale, List<EnemyData> sorted, int i)
     {
-        var tiers = sorted.Select(e => e.Tier).Distinct().OrderBy(x=>x).ToList();
-        var numTiers = tiers.Count;
-        var currentTierGroupID = GetCurrentTierGroupID(i*1f/(G.I.maxLevel), numTiers);
-        var currentTierGroup = tiers[currentTierGroupID];
-        var availableEnemies = sorted.Where(e => e.Tier <= currentTierGroup).ToList();
+        var maxTier = sorted.Max(x => x.Tier);
+        var tier = Mathf.Min(i / tierStep, maxTier);
+        
+        var availableEnemies = sorted.Where(e => e.Tier <= tier).ToList();
         var enemiesToSelect = GetEnemiesToSelect(availableEnemies, scale);
         return availableEnemies.PickRandom(enemiesToSelect);
-    }
-
-    //fix this
-    private static int GetCurrentTierGroupID(float scale, int numTiers)
-    {
-        // Calculate current tier group based on scale (0 to numTiers-1)
-        int currentTierGroup = Mathf.FloorToInt(scale * numTiers);
-        return Mathf.Clamp(currentTierGroup, 0, numTiers - 1);
     }
 
     private int GetEnemiesToSelect
