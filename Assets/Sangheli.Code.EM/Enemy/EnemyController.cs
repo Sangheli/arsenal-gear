@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public SineBounceY bounceMove;
     public float unfillTime = 0.1f;
     public EnemyView view;
-    public HalfBarView hpBarView;
+    public EnemyHPManager HpManager;
     public DamageReciever damageReciever;
     private float _speed = 2f;
     public float lifeTime = 3f;
@@ -16,8 +16,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     public float distanceToChangeSpeed = 2000f;
     private Coroutine _selfDestructCoroutine;
 
-    protected float CurrentHealth;
-    private float _fullHp;
     private Vector2 _moveDirection;
     private float _originalSpeed;
     private Vector3 _startPosition;
@@ -27,8 +25,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     private Coroutine _lifeTimeCoroutine;
     protected bool IsActive;
     protected bool IsDead;
-    private float _targetClipValue;
-    private float _currentClipValue;
     private bool _doHpFill;
     private float _fillStartTime;
     public bool manipulateColor = true;
@@ -59,13 +55,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         IsDead = false;
         SetData(data);
-        hpBarView.UnFillTime = unfillTime;
-        hpBarView.gameObject.SetActive(CurrentData.showHPbar);
+        HpManager.Init(1,unfillTime, CurrentData.showHPbar,CurrentData.GetHP(1));
         bounceMove.Toggle(CurrentData.useBounceAnimation);
         ResetView2();
         _selfDestructTime = CurrentData.GetSelfDestructTime();
         damageReciever.EnemyData = CurrentData;
-        CurrentHealth = _fullHp = CurrentData.GetHP(1);
         _moveDirection = moveDirection.normalized;
         view.render.SetDirection(_moveDirection);
         _originalSpeed = CurrentData.Speed;
@@ -86,7 +80,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _colorMain = null; 
         _borderColor = null;
         UpdateColors();
-        hpBarView.Show(1,false,true);
     }
 
     public void SetData(EnemyData data)
@@ -119,8 +112,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 
     public void ResetView()
     {
-        _currentClipValue = 0f;
-        _targetClipValue = 0f;
         view.SetHitValue(0);
         view.SetFillValue(0);
     }
@@ -134,7 +125,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
 
     private void Update()
     {
-        DoFillAction();
         if (!IsActive) return;
         if (_isPreSpawned && !_hasChangedSpeed) CheckAndChangeSpeed();
 
@@ -159,24 +149,14 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _hasChangedSpeed = true;
     }
 
-    private void DoFillAction()
-    {
-        if (!_doHpFill) return;
-        float elapsedTime = Time.time - _fillStartTime;
-        _currentClipValue = Mathf.Lerp(_currentClipValue, _targetClipValue, elapsedTime / duration);
-        view.SetFillValue(_currentClipValue);
-        if (Mathf.Abs(_currentClipValue - _targetClipValue) < 0.001f)
-            _doHpFill = false;
-    }
-
     private void TakeDamage(float amount, bool isCrit)
     {
         if (IsDead) return;
         if (!IsActive) return;
-        CurrentHealth -= amount;
-        if (CurrentHealth <= 0)
+        HpManager.TakeDamage(amount);
+        
+        if (HpManager.GetHp() <= 0)
         {
-            CurrentHealth = 0;
             IsDead = true;
             Die(isCrit, true);
         }
@@ -189,9 +169,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         }
         _doHpFill = true;
         _fillStartTime = Time.time;
-        _targetClipValue = 1 - CurrentHealth / _fullHp;
-        if(hpBarView!=null)
-            hpBarView.Show(CurrentHealth/_fullHp,true,false);
     }
 
     public virtual void Die(bool isCrit, bool killedByPlayer)
@@ -230,7 +207,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     {
         ResetView2();
         IsActive = false;
-        CurrentHealth = 0f;
         _moveDirection = Vector2.zero;
         _doHpFill = false;
         CurrentData = null;
@@ -239,7 +215,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         _startPosition = Vector3.zero;
         _originalSpeed = 0f;
         _doHpFill = false;
-        _currentClipValue = _targetClipValue = 0f;
         _fillStartTime = 0f;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         _lifeTimeCoroutine = null;

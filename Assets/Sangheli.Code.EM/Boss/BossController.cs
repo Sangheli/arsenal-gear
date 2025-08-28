@@ -44,9 +44,6 @@ public class BossController : EnemyController
         _direction = Random.insideUnitCircle.normalized;
         _mainCamera = Camera.main;
         
-        hpBarView.UnFillTime = unfillTime;
-        hpBarView.Show(1,false,true);
-        hpBarView.gameObject.SetActive(CurrentData.showHPbar);
     }
 
     private static ContactFilter2D GetFilter()
@@ -62,7 +59,7 @@ public class BossController : EnemyController
     private void SetBossHealth(float hp)
     {
         // Используем приватные поля базового класса через рефлексию или делаем protected
-        CurrentHealth = hp;
+        HpManager.Init(0,unfillTime,false,hp);
         IsDead = false;
         IsActive = true;
         view.SetHitValue(0);
