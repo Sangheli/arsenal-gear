@@ -603,10 +603,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fde58cc1044314194e6ce3d4a98083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
+  HpManager: {fileID: 6943658416436367053}
   bounceMove: {fileID: 0}
   unfillTime: 0.5
   view: {fileID: 5411510531200860626}
-  hpBarView: {fileID: 3189742901271006445}
   damageReciever: {fileID: 2987255811624996102}
   lifeTime: 30
   speedSuper: 40
@@ -1018,6 +1018,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6877319403120869278, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
   m_PrefabInstance: {fileID: 290622042491955021}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6943658416436367053 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7229592140273609088, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+  m_PrefabInstance: {fileID: 290622042491955021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748bf25af8374f25ab9aa43716d60e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHPManager
 --- !u!1001 &4719400951432751820
 PrefabInstance:
   m_ObjectHideFlags: 0
