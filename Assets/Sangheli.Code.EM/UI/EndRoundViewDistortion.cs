@@ -81,7 +81,7 @@ public class EndRoundViewDistortion : MonoBehaviour
                 // Check if we should use win color instead of fail color
                 
                 bool useWinColor = false;
-                if (save != null && save.level < G.I.LevelDataConfig.Count())
+                if (save != null)
                 {
                     var levelId = save.level;
                     var levelConfig = G.I.LevelDataConfig.Get(levelId);

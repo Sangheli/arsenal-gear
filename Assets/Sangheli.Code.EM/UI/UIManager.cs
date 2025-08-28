@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
         bool showButton = true; // Default value
         
         var save = G.I.SaveProvider?.Get();
-        if (save != null && save.level < G.I.LevelDataConfig.Count())
+        if (save != null)
         {
             var levelConfig = G.I.LevelDataConfig.Get(save.level);
             if (levelConfig != null)
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
         // Проверка флага loseHpDuringRound
         var showHp = true;
         var save = G.I.SaveProvider?.Get();
-        if (save != null && save.level < G.I.LevelDataConfig.Count())
+        if (save != null)
         {
             var levelConfig = G.I.LevelDataConfig.Get(save.level);
             if (levelConfig is { showHpBar: false })

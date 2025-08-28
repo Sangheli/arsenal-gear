@@ -20,16 +20,11 @@ public class LevelStringManager : MonoBehaviour
         back.gameObject.SetActive(!string.IsNullOrWhiteSpace(zz));
     }
 
-    private string GetStringForLevel(int level)
-    {
-        if (G.I.LevelDataConfig.Count() == 0 )
-            return string.Empty;
-        
-        return G.I.localization
+    private string GetStringForLevel(int level) =>
+        G.I.localization
             .Get
                 (G.I.LevelDataConfig.Get(level)?.LevelStringEntry ?? string.Empty)
             .ReplaceEscapedNewlines();
-    }
 
     public void OnEndRound()
     {

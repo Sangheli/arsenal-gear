@@ -121,17 +121,7 @@ public class RoundManager : MonoBehaviour
         ClearAll();
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
-        // Получить конфиг уровня
-        if (G.I.LevelDataConfig.Count() > 0 )
-        {
-            var level = Mathf.Clamp(_save.level, 0, G.I.LevelDataConfig.Count() - 1);
-            _currentLevelConfig = G.I.LevelDataConfig.Get(level);
-        }
-        else
-        {
-            Debug.LogError("LevelData.Levels is empty!");
-            _currentLevelConfig = null;
-        }
+        _currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
         
         _activeRoundModifications.Clear();
         if (_currentLevelConfig != null)

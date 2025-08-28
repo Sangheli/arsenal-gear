@@ -81,8 +81,6 @@ public class LevelDataConfigRuntime
         return config;
     }
 
-    public int Count() => _levels.Count;
-
     private static string GetLevelJsonPath(int levelIndex)
     {
 #if UNITY_EDITOR
