@@ -52,4 +52,8 @@ public class RunningBarMaterialProperty : ARunningBar
         hpImageWhiteBack.sortingOrder = order;
         hpImageBack.sortingOrder = order;
     }
+
+    public override void SetColor(Color fill, Color back)
+    {
+    }
 }

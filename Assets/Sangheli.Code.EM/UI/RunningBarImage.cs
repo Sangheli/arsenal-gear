@@ -48,4 +48,8 @@ public class RunningBarImage : ARunningBar
     public override void SetSortingOrder(int order)
     {
     }
+
+    public override void SetColor(Color fill, Color back)
+    {
+    }
 }
