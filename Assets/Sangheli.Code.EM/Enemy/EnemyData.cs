@@ -35,7 +35,7 @@ public class EnemyData : ScriptableObject
     
     [Space]
     public Color color = Color.white;
-    public BorderColorPalette borderColorPalette;
+    public ColorContainer  borderColorPalette;
     public int borderColorIndex = 0;
     
     [Space,Header("Spaw Rate")]
@@ -92,18 +92,7 @@ public class EnemyData : ScriptableObject
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 
     public Color GetColor() => useRandomColor ? GetRandomColor() : color;
-
-    public Color GetBorderColor()
-    {
-        if (useRandomColor)
-            return GetRandomColor();
-
-        if (borderColorPalette != null && borderColorPalette.borderColors.Length > 0)
-            return borderColorPalette.borderColors[
-                Mathf.Clamp(borderColorIndex, 0, borderColorPalette.borderColors.Length - 1)];
-
-        return Color.white; // Default fallback
-    }
+    public Color GetBorderColor() => useRandomColor ? GetRandomColor() : borderColorPalette.GetColor(borderColorIndex);
 
     private Color GetRandomColor()
     {
