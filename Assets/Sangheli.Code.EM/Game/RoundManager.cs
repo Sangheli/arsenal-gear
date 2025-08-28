@@ -28,6 +28,8 @@ public class RoundManager : MonoBehaviour
     private bool IsBossActive { get; set; }
     public void SetBossActive(bool active) => IsBossActive = active;
 
+    private SpawnPositionManager _spawnPositionManager = new();
+
     private void Awake()
     {
         var enemiesParentGo = new GameObject("Enemies");
@@ -105,7 +107,8 @@ public class RoundManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
     {
-        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition();
+        if(!_spawnPositionManager.GetPosition(out var spawnPosition, out var zPosition)) return;
+        
         var moveDirection = ScreenSpawnHelper.GetMovementDirection(spawnPosition);
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
@@ -113,6 +116,10 @@ public class RoundManager : MonoBehaviour
         enemy.Init(enemyData, moveDirection, isPreSpawned: isPreSpawned);
         _sortingOrderData.Iterrate();
         enemy.view.SetSortingOrder(_sortingOrderData);
+        
+        var zPosHandler = (IZPosHandler)enemy;
+        zPosHandler.ZPos = zPosition;
+        _spawnPositionManager.AddCallback(enemy);
     }
 
     public void OnStartRound()
@@ -156,7 +163,9 @@ public class RoundManager : MonoBehaviour
     {
         foreach (var x in _enemyList.Where(x => x != null)) 
             G.I.ObjectPool.Return(x);
+
         _enemyList.Clear();
+        _spawnPositionManager.Clear();
         
         // Reset boss active state when clearing all enemies
         IsBossActive = false;
@@ -182,7 +191,6 @@ public class RoundManager : MonoBehaviour
     private List<LevelEnemyInfo> GetFilteredEnemiesForPreSpawn() =>
         _currentLevelConfig.enemies
             .Select(info => (info, enemy: G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId)))
-            .Where(x => x.enemy != null && !x.enemy.superHard)
             .Select(x => x.info).ToList();
 
     private EnemyData GetRandomEnemyByChance()

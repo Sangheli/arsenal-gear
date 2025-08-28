@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 
-public class EnemyController : MonoBehaviour, IReturnable, IResetable
+public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandler
 {
     public SineBounceY bounceMove;
     public float unfillTime = 0.1f;
@@ -25,10 +26,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
     private Coroutine _lifeTimeCoroutine;
     protected bool IsActive;
     protected bool IsDead;
-    private bool _doHpFill;
-    private float _fillStartTime;
     public bool manipulateColor = true;
     public bool manipulateBorderColor = false;
+    public int ZPos { get; set; }
+    public Action OnDeathZPosHolder { get; set; }
 
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
@@ -73,7 +74,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         
         ActivateSelfDestruct();
 
-        _doHpFill = false;
         IsActive = true;
         ResetView();
         // Always update colors when initializing
@@ -167,14 +167,15 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
             view.FlashEffect(isCrit);
             if (isCrit) view.CritColorEffect();
         }
-        _doHpFill = true;
-        _fillStartTime = Time.time;
     }
 
     public virtual void Die(bool isCrit, bool killedByPlayer)
     {
         if (!IsActive) return;
         if (killedByPlayer) G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.EnemyCount, 1);
+
+        // Notify that this enemy is dying
+        OnDeathZPosHolder?.Invoke();
 
         StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
@@ -208,14 +209,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable
         ResetView2();
         IsActive = false;
         _moveDirection = Vector2.zero;
-        _doHpFill = false;
         CurrentData = null;
         _isPreSpawned = false;
         _hasChangedSpeed = false;
         _startPosition = Vector3.zero;
         _originalSpeed = 0f;
-        _doHpFill = false;
-        _fillStartTime = 0f;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         _lifeTimeCoroutine = null;
         
