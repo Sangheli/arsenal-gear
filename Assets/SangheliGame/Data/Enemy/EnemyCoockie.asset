@@ -28,7 +28,7 @@ MonoBehaviour:
   spriteBorder: {fileID: 21300000, guid: e90f3c27022ea7a4aa8dc86758307679, type: 3}
   useRandomColor: 1
   color: {r: 0.85098046, g: 0.6313726, b: 0.39607847, a: 1}
-  borderColorPalette: {fileID: 11400000, guid: 411a9f608ae6e35408035f842e15ba1a, type: 2}
+  borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   borderColorIndex: 0
   useCustomSpawnRate: 1
   useRandomSpawnRate: 1

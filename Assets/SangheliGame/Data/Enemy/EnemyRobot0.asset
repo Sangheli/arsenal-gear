@@ -14,19 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
   DisplayName: Round_Orange
+  excludeFromLevelGeneration: 0
   playDeathSound: 0
   showHPbar: 1
+  useBounceAnimation: 1
   BaseHealth: 5
   BaseDamage: 0
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
-  viewScale: {x: 1.1, y: 1.1, z: 1.1}
-  deathVfxScale: {x: 0.55, y: 0.55, z: 0.55}
-  spriteView: {fileID: -2185472608353246101, guid: cbc5f58e3fc5ddc4ab5b8dc5f923f2a5, type: 3}
+  viewScale: {x: 3, y: 3, z: 3}
+  deathVfxScale: {x: 1.5, y: 1.5, z: 1.5}
+  spriteView: {fileID: 21300000, guid: 1c4e64734ad3607449c35617eec6b569, type: 3}
   spriteBorder: {fileID: 21300000, guid: e7250df38a8d0f248bd97647b89916fb, type: 3}
   useRandomColor: 0
   color: {r: 0.46274513, g: 0.023529414, b: 0.18431373, a: 1}
-  borderColorPalette: {fileID: 11400000, guid: 411a9f608ae6e35408035f842e15ba1a, type: 2}
+  borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   borderColorIndex: 0
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0

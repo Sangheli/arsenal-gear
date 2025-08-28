@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3f3df49fc94d6b9f39bdf163b118b6, type: 3}
-  m_Name: Border Color Palette
-  m_EditorClassIdentifier: Assembly-CSharp::BorderColorPalette
-  borderColors:
+  m_Script: {fileID: 11500000, guid: 82d184aea3dbc3b418910d5ee87a5a3d, type: 3}
+  m_Name: BorderColorContainer
+  m_EditorClassIdentifier: Assembly-CSharp::ColorContainer
+  colors:
   - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.12451458, a: 1}
+  - {r: 0, g: 0.28835678, b: 1, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
