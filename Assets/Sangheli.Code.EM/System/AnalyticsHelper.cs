@@ -142,6 +142,7 @@ public static class AnalyticsHelper
                 sb.Append("\n");
             sb.Append(enemyBought);
         }
+        customEvent.Add("c_level", save.level);
         customEvent.Add("c_upgradesBought", sb.ToString());
 
         Send(customEvent, eventName);
