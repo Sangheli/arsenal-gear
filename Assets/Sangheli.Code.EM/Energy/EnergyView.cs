@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public class EnergyView : MonoBehaviour,IReturnable,IResetable
 {
+    public CoinFloorHandler coinFloorHandler;
     private const float Treshold = 0.1f;
     
     public float flySpeed = 5f;
@@ -124,6 +125,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         if (!IsActive) return;
         if (PlayerFound) return;
         
+        coinFloorHandler.Toggle(false);
         _maxFlyDistance = maxFlyDistance;
         CanCollect = false;
         PlayerFound = true;
