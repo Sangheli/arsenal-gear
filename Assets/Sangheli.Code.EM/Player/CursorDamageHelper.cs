@@ -37,12 +37,12 @@ public class CursorDamageHelper
             if (enemy == null) continue;
             var critResult = CritHelper.RollCrit(damageParam.GetValueRandomFromValue(damageValue) * damagePercent, critChance, critMultiplier);
             enemy.TakeDamage(critResult);
-
+            continue;
             if (isAI) continue;
             
-            var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
-            totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
-            totalDamage += finalDamage;
+            // var finalDamage = G.I.HpManager.Reduce(enemy.EnemyData.DamagePerHit, doBlink: true, ignoreShield: false);
+            // totalShield += enemy.EnemyData.DamagePerHit - finalDamage;
+            // totalDamage += finalDamage;
         }
         
         return new DamageResult { PlayerDoDamage = count > 0, TotalDamage = totalDamage, TotalShieldDamage = totalShield };

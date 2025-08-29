@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    public Camera _Camera;
+    public Transform coinCollectorTf;
     public float inputMoveSpeed = 1000f;
     public Vector2 shift = new(-100, 100);
     public CursorView view;
@@ -28,8 +28,8 @@ public class CursorController : MonoBehaviour
 
     private float _currentHarvestScale;
     
-    private readonly CursorDamageHelper _damageHelper = new();
-    private readonly CursorCollectorHelper _collectorHelper = new();
+    private readonly CursorDamageHelper3D _damageHelper = new();
+    private readonly CursorCollectorHelper3D _collectorHelper = new();
 
     public Collider2D collider2D;
     
@@ -42,10 +42,11 @@ public class CursorController : MonoBehaviour
     
     private float _damageValueSum;
     private bool _autoAttack = true;
+    public float radiusGizmos = 1f;
+    public Color colorGizmos = Color.green;
     
     private void Awake()
     {
-        _Camera = Camera.main;
         _damageHelper.Init();
         _collectorHelper.Init();
         _isMobile = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer;
@@ -124,9 +125,9 @@ public class CursorController : MonoBehaviour
         if (G.I.roundManager.IsAliveForPlay)
         {
             TryDoDamage();
-            _collectorHelper.CollectEnergy(transform, CollectRadius, CurrentDamageScaleHalf);
+            _collectorHelper.CollectEnergy(coinCollectorTf, CollectRadius, CurrentDamageScaleHalf);
         }
-        if (CursorInput.GetCursorState(out var worldPos, _Camera, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
+        if (CursorInput.GetCursorState(out var worldPos, G.I.cameraMain, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
         transform.position = worldPos;
     }
     private void TryDoDamage()
@@ -144,12 +145,22 @@ public class CursorController : MonoBehaviour
         ShowPulseAnimation();
         view.DoBounceAnimation(CurrentDamageScale);
 
-        var damageResult = _damageHelper.DoDamage
-        (
-            transform, _isAI, 
-            _damageParam, _damageValueSum, _damagePercent,
-            _critChance, _critMultiplier,
-            CurrentDamageScaleHalf
+        // var damageResult = _damageHelper.DoDamage
+        // (
+        //     transform, _isAI, 
+        //     _damageParam, _damageValueSum, _damagePercent,
+        //     _critChance, _critMultiplier,
+        //     CurrentDamageScaleHalf
+        // );
+        var damageResult = _damageHelper.DoDamage(
+            G.I.cameraMain,
+            isAI: false,
+            damageParam: _damageParam,
+            damageValue: _damageValueSum,
+            damagePercent: _damagePercent,
+            critChance: _critChance,
+            critMultiplier: _critMultiplier,
+            currentDamageScaleHalf: CurrentDamageScaleHalf
         );
         
         if(_isAI) return;
@@ -187,5 +198,16 @@ public class CursorController : MonoBehaviour
         
         _actions.Disable();
         _actions.Dispose();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = colorGizmos;
+        var position = transform.position;
+        
+        Gizmos.DrawWireSphere(position, radiusGizmos/100f); // каркас сферы
+        Gizmos.DrawSphere(position, radiusGizmos /100f); // маленькая заливка в центре
+
+        _damageHelper?.DrawGizmos();
     }
 } 
