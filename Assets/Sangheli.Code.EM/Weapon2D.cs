@@ -30,7 +30,6 @@ public class Weapon2D : MonoBehaviour
 
     public void Shoot()
     {
-        PlaySound();
         BounceView();
     }
 
@@ -69,20 +68,5 @@ public class Weapon2D : MonoBehaviour
         view.localScale = startScale;
 
         bounceRoutine = null;
-    }
-
-    private void PlaySound()
-    {
-        switch (Type)
-        {
-            case EWeaponType.None:
-                break;
-            case EWeaponType.MachineGun:
-                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
-                break;
-            case EWeaponType.Laser:
-                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.laserShoot);
-                break;
-        }
     }
 }

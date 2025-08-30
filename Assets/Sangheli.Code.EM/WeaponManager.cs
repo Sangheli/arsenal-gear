@@ -1,43 +1,83 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
     public Weapon2D[] weapons;
-    public Weapon2D currentWeapon;
+    public List<Weapon2D> currentWeapons = new(); // теперь список
 
-    public EWeaponType startWeapon = EWeaponType.Laser;
-    
+    public List<EWeaponType> startWeaponList = new()
+    {
+        EWeaponType.MachineGun,
+    };
+
+    public List<int> startCount = new()
+    {
+        2
+    };
+
     public void Init()
     {
-        Select(startWeapon);
+        Select(startWeaponList, startCount);
     }
     
-    public void Select(EWeaponType type)
+    public void Select(List<EWeaponType> typeList, List<int> count)
     {
-        foreach (var x in weapons) x.gameObject.SetActive(false);
-        var weapon = weapons.FirstOrDefault(x => x.Type == type);
-        
-        if(weapon==null)
-            return;
+        foreach (var x in weapons) 
+            x.gameObject.SetActive(false);
 
-        currentWeapon = weapon;
-        weapon.gameObject.SetActive(true);
+        currentWeapons.Clear();
+
+        for (int i = 0; i < typeList.Count; i++)
+        {
+            var type = typeList[i];
+            var needCount = count[i];
+
+            var sameTypeWeapons = weapons.Where(x => x.Type == type).Take(needCount);
+
+            foreach (var w in sameTypeWeapons)
+            {
+                w.gameObject.SetActive(true);
+                currentWeapons.Add(w);
+            }
+        }
     }
 
     private void LateUpdate()
     {
-        if(currentWeapon == null)
+        if (currentWeapons.Count == 0)
             return;
         
-        currentWeapon.SetPos(G.I.playerCursor.transform.position);
+        foreach (var w in currentWeapons)
+            w.SetPos(G.I.playerCursor.transform.position);
     }
 
     public void Shoot()
     {
-        if(currentWeapon == null)
+        if (currentWeapons.Count == 0)
             return;
         
-        currentWeapon.Shoot();
+        var uniqueTypes = currentWeapons.Select(w => w.Type).Distinct();
+        foreach (var type in uniqueTypes)
+            PlaySound(type);
+
+        foreach (var w in currentWeapons)
+            w.Shoot();
+    }
+    
+    private void PlaySound(EWeaponType Type)
+    {
+        switch (Type)
+        {
+            case EWeaponType.None:
+                break;
+            case EWeaponType.MachineGun:
+                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
+                break;
+            case EWeaponType.Laser:
+                G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.laserShoot);
+                break;
+        }
     }
 }
