@@ -27,6 +27,9 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     private Vector3 _originalScale;
     private float _currentFlySpeed; // текущая скорость полёта
     
+    private float _collectDelayTimer; // таймер на сбор
+    public float maxDelayCollect = 1;
+    
     public GameObject GameObject => gameObject;
     public GameObject Prefab { get; set; }
     
@@ -40,6 +43,13 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
     private void Update()
     {
+        if (_collectDelayTimer > 0f)
+        {
+            _collectDelayTimer -= Time.deltaTime;
+            if (_collectDelayTimer <= 0f)
+                CanCollect = true;
+        }
+
         if (!PlayerFound) 
             return;
         
@@ -124,6 +134,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     {
         if (!IsActive) return;
         if (PlayerFound) return;
+        if (!CanCollect) return;
         
         coinFloorHandler.Toggle(false);
         _maxFlyDistance = maxFlyDistance;
@@ -136,11 +147,12 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
 
     public void Init()
     {
-        CanCollect = true;
+        CanCollect = false;
         IsActive = true;
         PlayerFound = false;
         ScaleDownAnimated = false;
         _target = null;
+        _collectDelayTimer = maxDelayCollect;
     }
 
     public void ResetItem()
@@ -150,6 +162,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
         var transform1 = transform;
         transform1.SetParent(null);
         transform1.localScale = _originalScale;
+        _collectDelayTimer = 0f;
     }
 
     public void SetSortingOrder(EnergySortingOrderData sortingOrderData)
