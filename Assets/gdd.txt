@@ -1,8 +1,6 @@
 https://discord.gg/UKkDDCyV97
 https://www.youtube.com/@xboxseriousgamer
 
-https://bdragon1727.itch.io/
-
 - картинки на апгрейды
 - задавать силу врагов от ранга игрока
 - спавнить врага только на свободную z позицию
@@ -13,15 +11,14 @@ https://bdragon1727.itch.io/
 - трассеры от выстрела
 - добавить санту
 - сделать пушки в первую очередь
-- потряхивание камеры при выстреле
-	- потряхивание экрана при каждом ударе врага по игроку
-- увеличить награды за врагов
-- звук смерти на роботов
+- сделать добавление количества пушек
+- сделать вспышки от пушек
 - настройка скорострельности
 	- прокачивать урон а не скорострельность
-- растянуть пол
 - искажение щита при попадании по игроку
 	- при ударе по игроку эффект пикселизации
+	- звуки при попадании по игроку
+
 -----------------------------------------------------
 
 - теги
@@ -80,3 +77,24 @@ https://bdragon1727.itch.io/
 -весь мир в отдельный трансформ
 - нужно спасать печеньки из плена
 - нужно ломать имущество злого санты чтобы вызвать его на бой(как в мафия 3), заполнять шкалу ярости
+
+-----------------------------------------------------
+
+https://screamingbrainstudios.itch.io/seamless-space-backgrounds
+https://moxica.itch.io/devices-computer
+https://styloo.itch.io/desert-parallax-background
+https://wenrexa.itch.io/christmas-balls
+https://foozlecc.itch.io/sci-fi-lab-droids
+https://szadiart.itch.io/background-desert-mountains
+https://free-game-assets.itch.io/free-city-backgrounds-pixel-art
+https://vnitti.itch.io/glacial-mountains-parallax-background
+https://free-game-assets.itch.io/free-futuristic-city-pixel-art-backgrounds
+https://oldninjacat.itch.io/skyscraper-buildings-asset
+https://warstellar.itch.io/fictional-military-ranks-icons-set
+https://free-game-assets.itch.io/free-city-ruin-backgrounds-pixel-art
+https://under-score-lab.itch.io/brutalist-tileset
+https://styloo.itch.io/guns-asset-pack
+https://helleworld.itch.io/industrialscifi-top-down-tileset
+https://a1mercet.itch.io/sci-fi-weapon-hitpoints
+https://a1mercet.itch.io/sci-fi-weapon-codreanu
+https://bdragon1727.itch.io/
