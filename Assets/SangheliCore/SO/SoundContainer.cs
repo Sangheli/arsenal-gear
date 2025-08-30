@@ -10,7 +10,16 @@ public class SoundContainer : ScriptableObject
     
     [Space]
     public AudioSettingsSangheli hit;
+    public AudioSettingsSangheli laserShoot;
     [FormerlySerializedAs("hit2")] public AudioSettingsSangheli emptyHit;
+    
+    [Space]
+    [FormerlySerializedAs("death")]
+    public AudioSettingsSangheli enemyDeathSound;
+    public AudioSettingsSangheli enemyDeathSoundRobot;
+    
+    [Space,Header("Hit")]
+    public AudioSettingsSangheli enemyMetalHit;
     
     [Space]
     [FormerlySerializedAs("collect")] public AudioSettingsSangheli collectCoin;
@@ -26,11 +35,34 @@ public class SoundContainer : ScriptableObject
     [Space]
     public AudioSettingsSangheli gameOver;
     
+    [Space]
+    public AudioSettingsSangheli shell;
+
     [Serializable]
     public class AudioSettingsSangheli
     {
         public List<AudioClip> ClipList;
         public float PitchRange = 0.25f;
         public float Volume = 0.2f;
+        public bool useCustomPitch;
+        public bool useCustomStartPitch;
+        public float customStartPitch = 1;
+        
+        public float GetPitch()
+        {
+            if (useCustomPitch)
+            {
+                return PitchRange;
+            }
+            else if (useCustomStartPitch)
+            {
+                return customStartPitch + UnityEngine.Random.Range(-PitchRange, PitchRange);
+
+            }
+            else
+            {
+                return 1f + UnityEngine.Random.Range(-PitchRange, PitchRange);
+            }
+        }
     }
 }

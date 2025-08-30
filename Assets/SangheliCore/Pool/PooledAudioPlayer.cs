@@ -38,17 +38,11 @@ public class PooledAudioPlayer : MonoBehaviour
         return source;
     }
 
-    public void PlayWithRandomPitch(SoundContainer.AudioSettingsSangheli clip)
-    {
-        var pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
-        PlayWithPitch(clip, pitch);
-    }
-    
-    public void PlayWithRandomPitchWithVolumeMod(SoundContainer.AudioSettingsSangheli clip,float volumeMode)
-    {
-        var pitch = 1f + Random.Range(-clip.PitchRange, clip.PitchRange);
-        PlayWithPitchWithVolume(clip, pitch, volumeMode);
-    }
+    public void PlayWithRandomPitch(SoundContainer.AudioSettingsSangheli clip) => 
+        PlayWithPitch(clip, clip.GetPitch());
+
+    public void PlayWithRandomPitchWithVolumeMod(SoundContainer.AudioSettingsSangheli clip,float volumeMode) => 
+        PlayWithPitchWithVolume(clip,  clip.GetPitch(), volumeMode);
 
     public void PlayWithPitch(SoundContainer.AudioSettingsSangheli clip, float pitch)
     {
@@ -60,7 +54,6 @@ public class PooledAudioPlayer : MonoBehaviour
         PlaySound(clip, pitch, subClip.length / pitch, index);
     }
 
-    
     public void PlayWithPitchWithVolume(SoundContainer.AudioSettingsSangheli clip, float pitch, float volumeMod)
     {
         var index = Random.Range(0, clip.ClipList.Count);
