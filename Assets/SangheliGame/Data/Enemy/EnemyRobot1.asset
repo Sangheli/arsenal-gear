@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
   playDeathSound: 0
+  playDeathSound2: 1
   showHPbar: 1
   useBounceAnimation: 1
   BaseHealth: 10
@@ -23,13 +24,13 @@ MonoBehaviour:
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 3, y: 3, z: 3}
-  deathVfxScale: {x: 1.5, y: 1.5, z: 1.5}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
   spriteView: {fileID: 21300000, guid: 55f7be0ab8584be478b1dcfa10892a7f, type: 3}
   spriteBorder: {fileID: 21300000, guid: 8d860ea16b37d8c4cac38008de4954d0, type: 3}
   useRandomColor: 0
   color: {r: 0.69803923, g: 0.14117648, b: 0.13725491, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  borderColorIndex: 0
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0
   spawnRate1: 0
@@ -39,6 +40,14 @@ MonoBehaviour:
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
   Tier: 0
+  PosConfig:
+    useCustomZPos: 0
+    customZPos: 0
+    ignoreSpawnPositionManager: 0
+    useRanomYPos: 0
+    minY: 0
+    maxY: 0
+  SpawnCoinShift: {x: 0, y: 2.5, z: 0}
   UpgradeInfos:
   - BaseValue: 4
     MaxValue: 16

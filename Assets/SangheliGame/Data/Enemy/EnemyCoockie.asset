@@ -16,20 +16,23 @@ MonoBehaviour:
   DisplayName: Candy_1
   excludeFromLevelGeneration: 1
   playDeathSound: 1
+  playDeathSound2: 0
   showHPbar: 0
   useBounceAnimation: 0
+  cantDie: 0
+  spawnAtStart: 0
   BaseHealth: 0
   BaseDamage: 0
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 30}
-  viewScale: {x: 1, y: 1, z: 1}
-  deathVfxScale: {x: 0.5, y: 0.5, z: 0.5}
+  viewScale: {x: 3, y: 3, z: 3}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.75, y: 0.75, z: 0.75}
   spriteView: {fileID: -1615771939188749659, guid: e8ebd7cf3582dfa4e875ac2c38963e02, type: 3}
   spriteBorder: {fileID: 21300000, guid: e90f3c27022ea7a4aa8dc86758307679, type: 3}
   useRandomColor: 1
   color: {r: 0.85098046, g: 0.6313726, b: 0.39607847, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  borderColorIndex: 0
   useCustomSpawnRate: 1
   useRandomSpawnRate: 1
   spawnRate1: 4
@@ -39,6 +42,14 @@ MonoBehaviour:
   selfDestructTime: 1.5
   selfDestructTimeRandomAdd: 0.5
   Tier: -1
+  PosConfig:
+    useCustomZPos: 0
+    customZPos: 0.1
+    ignoreSpawnPositionManager: 1
+    useRanomYPos: 1
+    minY: -4
+    maxY: 4
+  SpawnCoinShift: {x: 0, y: 0, z: 0}
   UpgradeInfos:
   - BaseValue: 1
     MaxValue: 90

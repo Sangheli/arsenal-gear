@@ -19,3 +19,4 @@ MonoBehaviour:
   enemyContainer: {fileID: 11400000, guid: d6e268d7d6ddd244f8baf37169540afc, type: 2}
   objectiveVisualConfig: {fileID: 11400000, guid: 6376d1a463c8350428093675700987b7, type: 2}
   hpBaColorContainer: {fileID: 11400000, guid: 75cb3bb8de0dcc542b8cb7be1c0bce66, type: 2}
+  enemyDifficultContainer: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}

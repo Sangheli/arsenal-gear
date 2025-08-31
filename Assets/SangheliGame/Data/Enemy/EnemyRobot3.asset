@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
   playDeathSound: 0
+  playDeathSound2: 1
   showHPbar: 1
   useBounceAnimation: 1
   BaseHealth: 20
@@ -23,13 +24,13 @@ MonoBehaviour:
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 3, y: 3, z: 3}
-  deathVfxScale: {x: 1.5, y: 1.5, z: 1.5}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
   spriteView: {fileID: 21300000, guid: 441354dcf97fa204180ad507469e17ba, type: 3}
   spriteBorder: {fileID: 21300000, guid: 24810c13bd6a7354499036b29a7a7f6e, type: 3}
   useRandomColor: 0
   color: {r: 0, g: 0.47058827, b: 0.6039216, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  borderColorIndex: 0
   useCustomSpawnRate: 0
   useRandomSpawnRate: 0
   spawnRate1: 0
@@ -39,8 +40,16 @@ MonoBehaviour:
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
   Tier: 1
+  PosConfig:
+    useCustomZPos: 0
+    customZPos: 0
+    ignoreSpawnPositionManager: 0
+    useRanomYPos: 0
+    minY: 0
+    maxY: 0
+  SpawnCoinShift: {x: 0, y: 3, z: 0}
   UpgradeInfos:
-  - BaseValue: 4
+  - BaseValue: 10
     MaxValue: 16
     Step: 2
     DisplayName: Energy_Drop
