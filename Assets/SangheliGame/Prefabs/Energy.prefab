@@ -118,6 +118,7 @@ MonoBehaviour:
   t1: 0.2
   t2: 0.3
   maxScale: 1.5
+  maxDelayCollect: 0.1
   viewRenderer: {fileID: 2315365853651909906}
   shadowRenderer: {fileID: 3546975680916664839}
 --- !u!114 &7549904994192324564
@@ -262,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4661049818534028634
 Transform:
   m_ObjectHideFlags: 0
