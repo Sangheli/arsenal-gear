@@ -3,43 +3,67 @@ using UnityEngine;
 
 public class SpawnPositionManager
 {
-    // Track occupied Z positions
-    private readonly HashSet<int> _occupiedZPositions = new();
+    private const int MaxSize = 256;
+    private readonly bool[] _occupied = new bool[MaxSize];
 
-    public bool GetPosition(out Vector3 spawnPosition, out int zPosition)
+    public bool GetPosition(UnitPosConfig posConfig, out Vector3 spawnPosition, out int zPosition)
     {
-        int maxAttempts = 50; // Limit attempts to prevent infinite loop
-        int attempts = 0;
         zPosition = 0;
-        bool positionFound = false;
+        spawnPosition = Vector3.zero;
+
+        int minZ = Mathf.RoundToInt(G.I.minZ);
+        int maxZ = Mathf.RoundToInt(G.I.maxZ);
+        minZ = Mathf.Clamp(minZ, 0, MaxSize - 1);
+        maxZ = Mathf.Clamp(maxZ, 0, MaxSize - 1);
+
+        var overrideZ = posConfig.GetZPos() ?? Mathf.Round(Random.Range(G.I.minZ, G.I.maxZ));
+        var overrideY = posConfig.GetYPos() ?? G.I.posY;
         
-        do
+        if (posConfig.ignoreSpawnPositionManager)
         {
-            spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition();
-            zPosition = Mathf.RoundToInt(spawnPosition.z);
-            
-            // Check if this Z position is available
-            if (!_occupiedZPositions.Contains(zPosition))
+            zPosition = Mathf.RoundToInt(overrideZ);
+            spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(overrideY, overrideZ);
+            return true;
+        }
+
+        // Если задан overrideZ – пробуем именно эту позицию
+        if (posConfig.GetZPos() != null)
+        {
+            zPosition = Mathf.RoundToInt(overrideZ);
+            if (zPosition >= minZ && zPosition <= maxZ && !_occupied[zPosition])
             {
-                positionFound = true;
-                break;
+                spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(overrideY ,overrideZ);
+                _occupied[zPosition] = true;
+                return true;
             }
-            
-            attempts++;
-        } while (attempts < maxAttempts);
-        
-        // If we couldn't find a free position, don't spawn an enemy
-        if (!positionFound)
+            return false; // overrideZ занят или вне диапазона
+        }
+
+        // Поиск первой свободной позиции
+        for (int z = minZ; z <= maxZ; z++)
         {
-            // All Z positions are occupied, skip spawning
-            return false;
+            if (!_occupied[z])
+            {
+                zPosition = z;
+                spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(overrideY, z);
+                _occupied[z] = true;
+                return true;
+            }
         }
         
-        // Mark this Z position as occupied
-        _occupiedZPositions.Add(zPosition);
-        return true;
+        // Все занято
+        return false;
     }
 
-    public void AddCallback(IZPosHandler enemy) => enemy.OnDeathZPosHolder += () => _occupiedZPositions.Remove(enemy.ZPos);
-    public void Clear() => _occupiedZPositions.Clear();
+    public void Release(IZPosHandler enemy)
+    {
+        if (enemy.ZPos is >= 0 and < MaxSize)
+            _occupied[enemy.ZPos] = false;
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < MaxSize; i++)
+            _occupied[i] = false;
+    }
 }

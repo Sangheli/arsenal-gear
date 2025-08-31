@@ -72,6 +72,8 @@ public class CursorDamageHelper3D
             var enemy = _enemyHits[i].collider.GetComponent<DamageReciever>();
             if (enemy == null) continue;
 
+            if(enemy.EnemyData.cantDie) continue;
+            
             var critResult = CritHelper.RollCrit(
                 damageParam.GetValueRandomFromValue(damageValue) * damagePercent,
                 critChance, critMultiplier

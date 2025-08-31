@@ -52,6 +52,9 @@ public class EnemyRender : MonoBehaviour
         
         borderColorProp = Shader.PropertyToID(borderColorPropName);
         OriginalColor = viewRenderArr[0].material.color;
+
+        foreach (var x in backRenderArr) x.gameObject.SetActive(false);
+        foreach (var x in shadowRenderArr) x.gameObject.SetActive(false);
     }
 
     public void SetOriginalScale(Vector3 viewScale, bool overrideSet)
@@ -78,6 +81,7 @@ public class EnemyRender : MonoBehaviour
     
     public void ApplyPropertyView(Color backColor)
     {
+        return;
         PropertyBlock.SetColor(_colorProperty, backColor);
         ApplyPropertyView();
     }
@@ -96,6 +100,7 @@ public class EnemyRender : MonoBehaviour
 
     public void SetFillValue(float targetClipValue)
     {
+        return;
         PropertyBlock.SetFloat(_clipUvUp, targetClipValue);
         ApplyPropertyView();
     }
@@ -162,10 +167,18 @@ public class EnemyRender : MonoBehaviour
         // Сброс вращения
         transform2.localRotation = Quaternion.identity;
         transform3.localRotation = Quaternion.identity;
+        
+        // Ensure color is reset to original
+        PropertyBlock.SetColor(_colorProperty, OriginalColor);
+        ApplyPropertyView();
     }
 
     public void CritColorEffect()
     {
+        // Reset color to original before starting the crit effect
+        PropertyBlock.SetColor(_colorProperty, OriginalColor);
+        ApplyPropertyView();
+        
         if (_critColorRoutine != null) StopCoroutine(_critColorRoutine);
         _critColorRoutine = StartCoroutine(CritColorCoroutine());
     }
@@ -198,7 +211,7 @@ public class EnemyRender : MonoBehaviour
 
     public void SetFullColor(Color color, Color borderColor)
     {
-        OriginalColor = color;
+        // OriginalColor = color;
         OriginalRamkaColor = borderColor;
 
         var colorBack = color;

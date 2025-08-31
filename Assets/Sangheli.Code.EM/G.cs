@@ -20,6 +20,8 @@ public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
+    public WeaponManager weaponManager;
+    public Camera cameraMain;
     public OrientationChecker orientationChecker;
     public LocalizationBridge localization;
     public RoundManager roundManager;
@@ -39,6 +41,8 @@ public class G : MonoBehaviour
     public SceneContainer Container;
     public DataContainer Data;
 
+    public RectTransformMover cockpitMover;
+    
     //-----------------------------------------------------------
     
     public static G I;
@@ -69,6 +73,11 @@ public class G : MonoBehaviour
     public int maxXBase = 10;
     public int MaxY { get; private set; }
     public int MaxX { get; private set; }
+
+    public float minZ = 0f;
+    public float maxZ = 10;
+    public float posY = 0f;
+    
     public readonly IAdvertisement Advertisement = new MockAdvertisement();
 
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
@@ -154,6 +163,7 @@ public class G : MonoBehaviour
 
     public void OnFirstLoad()
     {
+        weaponManager.Init();
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
         ObjectPool = new SangheliObjectPool();

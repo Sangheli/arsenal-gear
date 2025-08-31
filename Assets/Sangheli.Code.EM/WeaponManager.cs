@@ -62,7 +62,21 @@ public class WeaponManager : MonoBehaviour
         foreach (var type in uniqueTypes)
             PlaySound(type);
 
-        foreach (var w in currentWeapons)
+        
+        if (currentWeapons.Count < 2 + 1)
+        {
+            ShootAll(currentWeapons);
+        }
+        else
+        {
+            var randomBounce = currentWeapons.PickRandom(Random.Range(2, currentWeapons.Count + 1));
+            ShootAll(randomBounce);    
+        }
+    }
+
+    private static void ShootAll(List<Weapon2D> randomBounce)
+    {
+        foreach (var w in randomBounce)
             w.Shoot();
     }
     

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,7 +28,7 @@ public class RoundManager : MonoBehaviour
     private bool IsBossActive { get; set; }
     public void SetBossActive(bool active) => IsBossActive = active;
 
-    private SpawnPositionManager _spawnPositionManager = new();
+    public SpawnPositionManager _spawnPositionManager = new();
 
     private void Awake()
     {
@@ -74,7 +74,8 @@ public class RoundManager : MonoBehaviour
         foreach (var info in _currentLevelConfig.enemies)
         {
             var enemy = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
-            if (enemy != null)
+            // Skip enemies with spawnAtStart flag - they should only be spawned at the start
+            if (enemy != null && !enemy.spawnAtStart)
                 TrySpawnEnemyWithRate(enemy, info);
         }
     }
@@ -100,26 +101,28 @@ public class RoundManager : MonoBehaviour
             return;
 
         _enemySpawnTimers[enemyData] = Time.time + 60f / effectiveSpawnRate;
-        SpawnEnemy(enemyData, isPreSpawned: true);
+        SpawnEnemy(enemyData,info.difficult, isPreSpawned: true);
     }
 
     private static float GetSpawnRateMultiplier() => 1.0f + 0.35f * G.I.levelTargetManager.Data.End.GetLevelPercent();
 
-    private void SpawnEnemy(EnemyData enemyData, bool isPreSpawned = false)
+    private void SpawnEnemy(EnemyData enemyData,int difficult, bool isPreSpawned = false)
     {
-        if(!_spawnPositionManager.GetPosition(out var spawnPosition, out var zPosition)) return;
+        if(!_spawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition)) return;
         
         var moveDirection = ScreenSpawnHelper.GetMovementDirection(spawnPosition);
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
-        enemy.Init(enemyData, moveDirection, isPreSpawned: isPreSpawned);
+        enemy.Init(enemyData, moveDirection,difficult: difficult, isPreSpawned: isPreSpawned);
         _sortingOrderData.Iterrate();
         enemy.view.SetSortingOrder(_sortingOrderData);
         
-        var zPosHandler = (IZPosHandler)enemy;
-        zPosHandler.ZPos = zPosition;
-        _spawnPositionManager.AddCallback(enemy);
+        if (!enemyData.PosConfig.ignoreSpawnPositionManager)
+        {
+            var zPosHandler = (IZPosHandler)enemy;
+            zPosHandler.ZPos = zPosition;
+        }
     }
 
     public void OnStartRound()
@@ -179,12 +182,18 @@ public class RoundManager : MonoBehaviour
 		    return;
         var filteredEnemiesForPreSpawn = GetFilteredEnemiesForPreSpawn();
 
+        // Spawn enemies with spawnAtStart flag
+        foreach (var enemyData in _availableEnemies.Where(e => e.spawnAtStart))
+        {
+            SpawnEnemy(enemyData, difficult: 0, isPreSpawned: true);
+        }
+
         for (var i = 0; i < _currentLevelConfig.preSpawnEnemyCount; i++)
         {
             if (filteredEnemiesForPreSpawn.Count == 0) break;
             var enemyData = GetRandomEnemyByChanceForPreSpawn(filteredEnemiesForPreSpawn);
             if (enemyData != null)
-                SpawnEnemy(enemyData, isPreSpawned: true);
+                SpawnEnemy(enemyData, difficult:0, isPreSpawned: true);
         }
     }
     

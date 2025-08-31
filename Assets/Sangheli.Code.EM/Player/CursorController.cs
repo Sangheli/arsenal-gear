@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -143,8 +144,7 @@ public class CursorController : MonoBehaviour
         
         UpdateNextTime();
         ShowPulseAnimation();
-        view.DoBounceAnimation(CurrentDamageScale);
-
+        
         // var damageResult = _damageHelper.DoDamage
         // (
         //     transform, _isAI, 
@@ -165,12 +165,24 @@ public class CursorController : MonoBehaviour
         
         if(_isAI) return;
         
+        if (damageResult.HasRecivedDamage) 
+            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
+
+        if (damageResult.PlayerDoDamage)
+        {
+            G.I.weaponManager.Shoot();
+            view.DoBounceAnimation(CurrentDamageScale);
+        }
+        
+        // PlaySound(damageResult);
+    }
+
+    private void PlaySound(DamageResult damageResult)
+    {
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(damageResult.PlayerDoDamage
             ? G.I.Data.soundContainer.hit
             : G.I.Data.soundContainer.emptyHit);
         
-        if (damageResult.HasRecivedDamage) 
-            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
     }
 
     private void ShowPulseAnimation()

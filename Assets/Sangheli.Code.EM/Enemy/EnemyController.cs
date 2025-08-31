@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     public EnemyHPManager HpManager;
     public DamageReciever damageReciever;
     private float _speed = 2f;
-    public float lifeTime = 3f;
+    // public float lifeTime = 3f;
     [Header("Speed Change Settings")]
     public float speedSuper = 20f;
     public float distanceToChangeSpeed = 2000f;
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private Vector3 _startPosition;
     private bool _isPreSpawned;
     private bool _hasChangedSpeed;
-    protected EnemyData CurrentData;
+    public EnemyData CurrentData;
     private Coroutine _lifeTimeCoroutine;
     protected bool IsActive;
     protected bool IsDead;
@@ -40,6 +40,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private Color? _borderColor;
     private float _selfDestructTime;
 
+    private int _difficult;
+
     private void OnValidate()
     {
         damageReciever ??= GetComponentInChildren<DamageReciever>();
@@ -52,11 +54,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         damageReciever.Callback = TakeDamage;
     }
 
-    public void Init(EnemyData data, Vector2 moveDirection, bool isPreSpawned = false)
+    public void Init(EnemyData data, Vector2 moveDirection, int difficult, bool isPreSpawned = false)
     {
         IsDead = false;
         SetData(data);
-        HpManager.Init(1,unfillTime, CurrentData.showHPbar,CurrentData.GetHP(1));
+        _difficult = difficult;
+        HpManager.Init(unfillTime, CurrentData.showHPbar,CurrentData.GetHP(difficult));
         bounceMove.Toggle(CurrentData.useBounceAnimation);
         ResetView2();
         _selfDestructTime = CurrentData.GetSelfDestructTime();
@@ -70,7 +73,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _startPosition = transform.position;
         if (_isPreSpawned) _speed = speedSuper;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
-        _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
+        // _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
         
         ActivateSelfDestruct();
 
@@ -92,7 +95,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (_colorMain == null)
         {
             _colorMain = CurrentData.GetColor();
-            _borderColor = CurrentData.GetBorderColor();
+            _borderColor = CurrentData.GetBorderColor(_difficult);
         }
 
         Debug.Assert(_borderColor != null, nameof(_borderColor) + " != null");
@@ -107,7 +110,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             return;
         
         view.render.SetFullColor(_colorMain.Value, _borderColor.Value);
-        view.deathVfx.SetColor(view.render.OriginalColor, CurrentData.GetBorderColor());
+        view.hitVfx.SetColor(view.render.OriginalColor, CurrentData.GetBorderColor(_difficult));
     }
 
     public void ResetView()
@@ -116,12 +119,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         view.SetFillValue(0);
     }
 
-    private IEnumerator LifeTimeCoroutine()
-    {
-        yield return new WaitForSeconds(lifeTime);
-        if (IsActive)
-            G.I.ObjectPool.Return(this);
-    }
+    // private IEnumerator LifeTimeCoroutine()
+    // {
+    //     yield return new WaitForSeconds(lifeTime);
+    //     if (IsActive)
+    //         G.I.ObjectPool.Return(this);
+    // }
 
     private void Update()
     {
@@ -162,7 +165,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         }
         else
         {
-            view.PlayDeathVfx();
+            view.PlayHitVfx();
             view.DoBounceAnimation(isCrit);
             view.FlashEffect(isCrit);
             if (isCrit) view.CritColorEffect();
@@ -176,6 +179,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
 
         // Notify that this enemy is dying
         OnDeathZPosHolder?.Invoke();
+        G.I.roundManager._spawnPositionManager.Release(this);
 
         StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
@@ -189,7 +193,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         view.FlashEffect(isCrit);
         
         if(CurrentData.playDeathSound)
-            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.enemyDeathSound);
+
+        if(CurrentData.playDeathSound2)
+            G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.enemyDeathSoundRobot);
         
         IsActive = false;
         yield return new WaitForSeconds(duration);
@@ -200,6 +207,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private void ResetView2()
     {
         view.render.SetOriginalScale(CurrentData.viewScale, false);
+        view.hitVfx.SetScale(CurrentData.hitVfx);
         view.deathVfx.SetScale(CurrentData.deathVfxScale);
         view.render.SetSprites(CurrentData);
     }

@@ -13,13 +13,12 @@ public class BossView : EnemyView
     public void SetScale(float viewScale)
     {
         render.SetScale(viewScale);
-        deathVfx.SetScale(viewScale);
         
         if(shadowUpdated)
             return;
 
         shadowUpdated = true;
-        render.shadowRenderArr[1].transform.localPosition /= viewScale;
+        // render.shadowRenderArr[1].transform.localPosition /= viewScale;
     }
 
     public void SetColor(Color color)
@@ -34,9 +33,6 @@ public class BossView : EnemyView
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
         render.ApplyBorderColor(ramkaColor);
-        deathVfx.SetColor(color, Color.clear);
-        
         render.SetOriginalScale(Vector3.one, true);
-        deathVfx.SetScale(Vector3.one/2f);
     }
 }

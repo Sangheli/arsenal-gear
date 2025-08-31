@@ -31,6 +31,7 @@ public class EndRoundView : MonoBehaviour
     public Text returnToStartText;
     
     private Color _buttonStartNewRoundOriginalColor;
+    private Color _buttonStartNewRoundOriginalColor2;
     private Color _buttonStartNewRoundTextOriginalColor;
     
     private const string PrefixRound = "round_reward";
@@ -40,6 +41,8 @@ public class EndRoundView : MonoBehaviour
     private Coroutine _showCoroutine;
 
     public SaveInfo saveInfo;
+
+    public Image startChild;
     
     private void OnValidate()
     {
@@ -49,6 +52,7 @@ public class EndRoundView : MonoBehaviour
     private void Awake()
     {
         _buttonStartNewRoundOriginalColor = buttonStartNewRound.image.color;
+        _buttonStartNewRoundOriginalColor2 = startChild.color;
         _buttonStartNewRoundTextOriginalColor = buttonStartNewRoundText.color;
         buttonEndRound.onClick.AddListener(OnExitFromRound);
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
@@ -97,7 +101,6 @@ public class EndRoundView : MonoBehaviour
         
         // Show start screen
         G.I.startGameView.Toggle(true);
-        G.I.startGameView.saveInfo.gameObject.SetActive(false);
         
         // Hide end round view
         Toggle(false);
@@ -131,6 +134,7 @@ public class EndRoundView : MonoBehaviour
     {
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
+        startChild.color = Color.clear;
         
         rewardText.text = $"{G.I.localization.Get(PrefixRound)}{NumberFormatter.Format(energy)}";
         rewardBossText.text = $"{G.I.localization.Get(PrefixBoss)}{NumberFormatter.Format(bossReward)}";
@@ -153,6 +157,7 @@ public class EndRoundView : MonoBehaviour
         if (showNextRound)
         {
             buttonStartNewRound.image.color = _buttonStartNewRoundOriginalColor;
+            startChild.color = _buttonStartNewRoundOriginalColor2;
             buttonStartNewRoundText.color = _buttonStartNewRoundTextOriginalColor;
         }
 

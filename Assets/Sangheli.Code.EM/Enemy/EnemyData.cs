@@ -12,9 +12,13 @@ public class EnemyData : ScriptableObject
     [Space]
     public bool excludeFromLevelGeneration;
     public bool playDeathSound;
+    public bool playDeathSound2;
 
     public bool showHPbar = true;
     public bool useBounceAnimation = true;
+
+    public bool cantDie;
+    public bool spawnAtStart;
     
     [Space]
     public float BaseHealth;
@@ -24,6 +28,7 @@ public class EnemyData : ScriptableObject
     
     [Space, Header("View scale")]
     public Vector3 viewScale = Vector3.one;
+    public Vector3 hitVfx = Vector3.one;
     public Vector3 deathVfxScale = Vector3.one;
 
     [Space, Header("View tx")] 
@@ -36,7 +41,6 @@ public class EnemyData : ScriptableObject
     [Space]
     public Color color = Color.white;
     public ColorContainer  borderColorPalette;
-    public int borderColorIndex = 0;
     
     [Space,Header("Spaw Rate")]
     public bool useCustomSpawnRate;
@@ -56,6 +60,12 @@ public class EnemyData : ScriptableObject
 
     [Space] 
     public int Tier;
+
+    [Space] 
+    public UnitPosConfig PosConfig;
+
+    [Space] 
+    public Vector3 SpawnCoinShift;
     
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
@@ -92,7 +102,7 @@ public class EnemyData : ScriptableObject
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 
     public Color GetColor() => useRandomColor ? GetRandomColor() : color;
-    public Color GetBorderColor() => useRandomColor ? GetRandomColor() : borderColorPalette.GetColor(borderColorIndex);
+    public Color GetBorderColor(int difficult) => useRandomColor ? GetRandomColor() : borderColorPalette.GetColor(difficult);
 
     private Color GetRandomColor()
     {
@@ -111,6 +121,7 @@ public class EnemyData : ScriptableObject
 
     public void SetBaseHP(float hp) => BaseHealth = hp;
     public void SetBaseDamage(int i) => BaseDamage = i;
-    public float GetHP(int tier) => BaseHealth * tier;
-    public float GetDamage(int tier) => BaseDamage * tier;
+    
+    public float GetHP(int difficult) => BaseHealth * (difficult+1);
+    public float GetDamage(int difficult) => BaseDamage * (difficult+1);
 }

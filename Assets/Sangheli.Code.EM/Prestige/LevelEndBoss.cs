@@ -12,7 +12,6 @@ public class LevelEndBoss : ILevelTargetEnd
         var level = G.I.SaveProvider.Get().level;
         Color bossColor = Data.LevelGradientColor.GetLevelColor(level + 1);
         float bossHp = _levelConfig?.bossHp ?? 1000f;
-        float scale = 9f;
         float damage = _levelConfig?.bossAttack ?? 1;
         Data.Active = false;
         G.I.tutorial.OnEndRound(); // Скрываем туториал при появлении босса
@@ -20,7 +19,7 @@ public class LevelEndBoss : ILevelTargetEnd
         // Set boss active flag in RoundManager
         Data.TargetView.gameObject.SetActive(false);
         G.I.roundManager.SetBossActive(true);
-        G.I.bossManager.SpawnBoss(bossHp, bossColor, scale,damage, CompletePrestigeAfterBoss);
+        G.I.bossManager.SpawnBoss(bossHp, bossColor,damage, CompletePrestigeAfterBoss);
     }
 
     private void CompletePrestigeAfterBoss()

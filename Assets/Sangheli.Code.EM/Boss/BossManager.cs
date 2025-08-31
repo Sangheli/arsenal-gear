@@ -6,32 +6,25 @@ public class BossManager : MonoBehaviour
     public BossController bossPrefab;
     private BossController _currentBoss;
     private System.Action _onBossDefeated;
-    private Camera _mainCamera;
 
-    private void Awake()
-    {
-        _mainCamera = Camera.main;
-    }
-
-    public void SpawnBoss(float hp, Color color, float scale, float bossDamage, System.Action onBossDefeated)
+    public void SpawnBoss(float hp, Color color, float bossDamage, System.Action onBossDefeated)
     {
         _currentBoss = G.I.ObjectPool.Get(bossPrefab);
         _currentBoss.CanAttack = false;
-        _currentBoss.RewindAnim();
         _onBossDefeated = onBossDefeated;
-        var spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition();
+        G.I.roundManager._spawnPositionManager.GetPosition(G.I.Data.enemyContainer.List[5].PosConfig, out var spawnPosition, out var zPosition);
         _currentBoss.transform.position = spawnPosition;
         _currentBoss.gameObject.SetActive(true);
-        _currentBoss.Init(hp, color, scale, bossDamage, OnBossDeath);
+        _currentBoss.Init(hp, color, bossDamage, OnBossDeath);
         _currentBoss.StopAllCoroutines();
         _currentBoss.StartCoroutine(SpawnAndAttack());
     }
 
     private IEnumerator SpawnAndAttack()
     {
-        yield return SpawnUtils.MoveToCenter(_currentBoss.transform, _mainCamera);
+        var centerPos = new Vector3(0, _currentBoss.CurrentData.PosConfig.maxY, _currentBoss.CurrentData.PosConfig.customZPos);
+        yield return SpawnUtils.MoveToCenter(_currentBoss.transform, centerPos);
         yield return new WaitForSeconds(1);
-        _currentBoss.StartRotAnim();
         _currentBoss.CanAttack = true;
     }
 

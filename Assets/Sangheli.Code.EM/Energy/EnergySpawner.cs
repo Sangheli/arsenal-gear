@@ -40,6 +40,7 @@ public class EnergySpawner : MonoBehaviour
     {
         pos = G.I.cameraMain.WorldToScreenPoint(pos+enemyData.SpawnCoinShift);
         pos = ScreenToWorldOnPlane(pos);
+        if(enemyData.GetEnergy() < 1) return;
         StartCoroutine(SpawnCoins(pos, enemyData));
     }
 
@@ -80,9 +81,17 @@ public class EnergySpawner : MonoBehaviour
     private System.Collections.IEnumerator SpawnCoins(Vector3 pos, EnemyData enemyData)
     {
         var energyCount =  enemyData.GetEnergy();
-        for (int i = 0; i < energyCount; i++)
+        int intervals = (int)Mathf.Min(energyCount, 10);
+        int coinsPerInterval = (int)(energyCount / intervals);
+        int extraCoins = (int) energyCount % intervals;
+        
+        for (int i = 0; i < intervals; i++)
         {
-            SpawnCoin(pos);
+            int coinsToSpawn = coinsPerInterval + (i < extraCoins ? 1 : 0);
+            for (int j = 0; j < coinsToSpawn; j++)
+            {
+                SpawnCoin(pos);
+            }
             yield return new WaitForSeconds(spawnInterval);
         }
     }

@@ -11,6 +11,7 @@ public class DataContainer : ScriptableObject
     public EnemyContainer enemyContainer; // ScriptableObject с врагами
     public LevelObjectiveVisualConfig objectiveVisualConfig; // Reference to the visual config
     public ColorContainer hpBaColorContainer;
+    public ColorContainer enemyDifficultContainer;
     
     public void Init()
     {

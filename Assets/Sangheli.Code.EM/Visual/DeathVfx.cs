@@ -63,5 +63,6 @@ public class DeathVfx : MonoBehaviour
     public void SetScale(Vector3 scale)
     {
         transform.localScale = scale;
+        for (var i = 0; i < transform.childCount; i++) transform.GetChild(i).localScale = scale;
     }
 }

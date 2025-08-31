@@ -12,7 +12,7 @@ public class PlayerInputCursor : ICursorInput
     
     public CursorState GetCursorState(out Vector3 worldPos, Camera camera, Transform currentTransform, float inputMoveSpeed, Vector2 shift, ref bool lastUsedInput, ref Vector2 lastMousePosition, bool isMobile)
     {
-        var screenPos = Vector2.zero;
+        var screenPos = Vector3.zero;
         var state = CursorState.None;
         var move = _inputSystemActions.Player.Move.ReadValue<Vector2>();
         var currentMousePosition = Mouse.current != null ? Mouse.current.position.ReadValue() : Vector2.zero;
@@ -44,6 +44,7 @@ public class PlayerInputCursor : ICursorInput
         }
         screenPos.x = Mathf.Clamp(screenPos.x, 0f, Screen.width);
         screenPos.y = Mathf.Clamp(screenPos.y, 0f, Screen.height);
+        screenPos.z =  Mathf.Abs(camera.transform.position.z);
         worldPos = state != CursorState.None ? camera.ScreenToWorldPoint(screenPos) : Vector3.zero;
         worldPos.z = -10f;
         if (state == CursorState.Touch)

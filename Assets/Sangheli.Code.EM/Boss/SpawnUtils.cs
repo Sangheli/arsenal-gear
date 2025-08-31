@@ -10,14 +10,14 @@ public static class SpawnUtils
         return center;
     }
 
-    public static IEnumerator MoveToCenter(Transform obj, Camera cam, float speed = 10f)
+    public static IEnumerator MoveToCenter(Transform obj, Vector3 centerPos, float speed = 10f)
     {
-        while (Vector3.Distance(obj.position, GetScreenCenterWorld(cam)) > 0.1f)
+        while (Vector3.Distance(obj.position, centerPos) > 0.1f)
         {
-            var direction = (GetScreenCenterWorld(cam) - obj.position).normalized;
+            var direction = (centerPos - obj.position).normalized;
             obj.position += direction * speed * Time.deltaTime;
             yield return null;
         }
-        obj.position = GetScreenCenterWorld(cam);
+        obj.position = centerPos;
     }
 } 
