@@ -17,6 +17,8 @@ public class DPSManager
         var paramContainer = saveData.GetParamContainer();
         
         var damage = keys.Sum(x => paramContainer.GetValue(x));
+        var superMult = GetSuperMult();
+        damage *= superMult;
         var playerFireRate = paramContainer.GetValue("playerFireRate");
         var critMultiplier = paramContainer.GetValue("critMultiplier");
 
@@ -24,5 +26,15 @@ public class DPSManager
         var averageDamageCrit = damage * critMultiplier;
         var attacksPerSecond = playerFireRate / 60f;
         return (averageDamage * attacksPerSecond, averageDamageCrit * attacksPerSecond);
+    }
+    
+    
+    private static int GetSuperMult()
+    {
+        var saveData = G.I.SaveProvider.Get();
+        var paramContainer = saveData.GetParamContainer();
+        var mCount = (int) paramContainer.GetValue("u_machineGunCount");
+        var lCount = (int) paramContainer.GetValue("u_LaserCount");
+        return mCount + lCount;
     }
 } 

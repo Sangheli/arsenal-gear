@@ -88,7 +88,8 @@ public class CursorController : MonoBehaviour
         _critMultiplier = paramContainer.GetValue("critMultiplier");
         _damagePercent = damagePercent;
         _damageParam = paramContainer.GetCachedParamInfo("playerDamageMin");
-        _damageValueSum = DPSManager.keys.Sum(x => paramContainer.GetValue(x));
+        var superMult = GetSuperMult();
+        _damageValueSum = DPSManager.keys.Sum(x => paramContainer.GetValue(x))*superMult;
         CollectRadius = (_currentHarvestScale) / 2;
         CollectRadius = CurrentDamageScaleHalf;
         view.isPulsing = false;
@@ -107,6 +108,14 @@ public class CursorController : MonoBehaviour
             UpdateNextTime();
             ShowPulseAnimation();
         }
+    }
+
+    private int GetSuperMult()
+    {
+        var paramContainer = _save.GetParamContainer();
+        var mCount = (int) paramContainer.GetValue("u_machineGunCount");
+        var lCount = (int) paramContainer.GetValue("u_LaserCount");
+        return mCount + lCount;
     }
     
     public void SetAIMode(float damagePercent, float radiusPercent, float fireRatePercent)
