@@ -19,6 +19,11 @@
     "levelModifiers": [],
     "enemies": [
         {
+            "enemyId": 4,
+            "spawnChance": 0.0,
+            "spawnRate": 0
+        },
+        {
             "enemyId": 0,
             "spawnChance": 100.0,
             "spawnRate": 240
