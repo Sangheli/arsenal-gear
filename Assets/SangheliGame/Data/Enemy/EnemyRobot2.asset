@@ -22,9 +22,12 @@ MonoBehaviour:
   cantDie: 0
   spawnAtStart: 0
   BaseHealth: 15
-  BaseDamage: 0
+  BaseDamage: 0.3
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
+  skipFirstLevelDamage: 0
+  overrideFirstLevel: 1
+  overrideFirstLevelValue: 0.03
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}

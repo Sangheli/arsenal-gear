@@ -25,6 +25,11 @@ public class EnemyData : ScriptableObject
     public float BaseDamage;
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
+
+    public bool skipFirstLevelDamage = false;
+
+    public bool overrideFirstLevel = false;
+    public float overrideFirstLevelValue;
     
     [Space, Header("View scale")]
     public Vector3 viewScale = Vector3.one;
@@ -123,5 +128,15 @@ public class EnemyData : ScriptableObject
     public void SetBaseDamage(int i) => BaseDamage = i;
     
     public float GetHP(int difficult) => BaseHealth * (difficult+1);
-    public float GetDamage(int difficult) => BaseDamage * (difficult+1);
+    
+    public float GetDamage(int difficult)
+    {
+        if (overrideFirstLevel)
+            return overrideFirstLevelValue;
+        
+        if (skipFirstLevelDamage && difficult == 0)
+            return 0;
+        
+        return BaseDamage * (difficult + 1);
+    }
 }
