@@ -187,8 +187,8 @@ MonoBehaviour:
     - playerDamageMin3
     - playerDamageMin4
     anyDepnetList: []
-  - BaseValue: 600
-    MaxValue: 10000
+  - BaseValue: 200
+    MaxValue: 600
     Step: 5
     DisplayName: Attacks_minute
     BasePrice: 35
@@ -236,7 +236,7 @@ MonoBehaviour:
     BasePrice: 300
     PriceMult: 1.1165
     ShowUpgrade: 1
-    row: 3
+    row: 4
     Key: shieldCapacity
     UseRandom: 0
     RandomCoef: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
     BasePrice: 500
     PriceMult: 1.12
     ShowUpgrade: 1
-    row: 3
+    row: 4
     Key: shieldRegenRate
     UseRandom: 0
     RandomCoef: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
     BasePrice: 350
     PriceMult: 1.1
     ShowUpgrade: 1
-    row: 5
+    row: 6
     Key: autoCollectCoinsPercent
     UseRandom: 0
     RandomCoef: 0
@@ -363,3 +363,31 @@ MonoBehaviour:
     fullDepentList: []
     anyDepnetList:
     - aiCursorCount
+  - BaseValue: 1
+    MaxValue: 2
+    Step: 1
+    DisplayName: u_machineGunCount
+    BasePrice: 12000
+    PriceMult: 1.15
+    ShowUpgrade: 1
+    row: 2
+    Key: u_machineGunCount
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList: []
+    anyDepnetList: []
+  - BaseValue: 0
+    MaxValue: 2
+    Step: 1
+    DisplayName: u_LaserCount
+    BasePrice: 30000
+    PriceMult: 2
+    ShowUpgrade: 1
+    row: 2
+    Key: u_LaserCount
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList: []
+    anyDepnetList: []

@@ -223,6 +223,7 @@ public class G : MonoBehaviour
         if(playFader)
             yield return distortionUI.DoFade(forward: true);
         
+        weaponManager.OnStartRound();
         roundManager.OnStartRound();
         bossManager.ResetBoss();
         endRoundView.OnStartRound();

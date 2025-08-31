@@ -21,6 +21,27 @@ public class WeaponManager : MonoBehaviour
     {
         Select(startWeaponList, startCount);
     }
+
+    public void OnStartRound()
+    {
+        var _save = G.I.SaveProvider.Get();
+        var paramContainer = _save.GetParamContainer();
+        var mCount = (int) paramContainer.GetValue("u_machineGunCount");
+        var lCount = (int) paramContainer.GetValue("u_LaserCount");
+        
+        Select(
+                    new List<EWeaponType>
+                    {
+                    EWeaponType.MachineGun,
+                    EWeaponType.Laser
+                }, 
+                    new List<int>
+                    {
+                    mCount,
+                    lCount
+                }
+            );
+    }
     
     public void Select(List<EWeaponType> typeList, List<int> count)
     {
