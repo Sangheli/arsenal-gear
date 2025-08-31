@@ -187,8 +187,8 @@ MonoBehaviour:
     - playerDamageMin3
     - playerDamageMin4
     anyDepnetList: []
-  - BaseValue: 180
-    MaxValue: 360
+  - BaseValue: 600
+    MaxValue: 10000
     Step: 5
     DisplayName: Attacks_minute
     BasePrice: 35
@@ -207,7 +207,7 @@ MonoBehaviour:
     DisplayName: Attack_Diameter
     BasePrice: 40
     PriceMult: 1.5
-    ShowUpgrade: 1
+    ShowUpgrade: 0
     row: 2
     Key: damageDiameter
     UseRandom: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
     BasePrice: 500
     PriceMult: 1.15
     ShowUpgrade: 1
-    row: 4
+    row: 2
     Key: critChance
     UseRandom: 0
     RandomCoef: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
     BasePrice: 400
     PriceMult: 1.15
     ShowUpgrade: 1
-    row: 4
+    row: 2
     Key: critMultiplier
     UseRandom: 0
     RandomCoef: 0
