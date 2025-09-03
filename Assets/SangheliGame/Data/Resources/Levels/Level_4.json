@@ -5,7 +5,7 @@
     "objectiveValue": 35,
     "roundTime": 7.0,
     "bossHp": 75,
-    "bossAttack": 1,
+    "bossAttack": 0.25,
     "levelReward": 100,
     "showHpBar": true,
     "checkNextRoundFromSave": false,
