@@ -38,6 +38,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_ADDITIVE TRANSITION_PATTERN
         passType: 0
+      - keywords: DETAIL_MASKING
+        passType: 0
       - keywords: DETAIL_SUBTRACTIVE TRANSITION_PATTERN
         passType: 0
       - keywords: EDGE_PLAIN
@@ -73,6 +75,8 @@ ShaderVariantCollection:
       - keywords: TARGET_HUE TRANSITION_PATTERN
         passType: 0
       - keywords: TONE_GRAYSCALE
+        passType: 0
+      - keywords: TONE_RETRO
         passType: 0
       - keywords: TRANSITION_BLAZE
         passType: 0
