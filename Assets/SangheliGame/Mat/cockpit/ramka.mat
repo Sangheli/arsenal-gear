@@ -219,7 +219,7 @@ Material:
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.004
     - _OverlayBlend: 1
-    - _OverlayGlow: 0.5
+    - _OverlayGlow: 20.6
     - _OverlayTextureScrollXSpeed: 0
     - _OverlayTextureScrollYSpeed: 0
     - _Parallax: 0.02
@@ -291,7 +291,7 @@ Material:
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OverlayColor: {r: 0.49632135, g: 0.5994363, b: 0.6603774, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
