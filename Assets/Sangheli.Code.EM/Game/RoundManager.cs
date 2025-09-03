@@ -10,6 +10,10 @@ public class RoundManager : MonoBehaviour
     private readonly Dictionary<EnemyData, float> _enemySpawnTimers = new();
     private readonly List<EnemyData> _availableEnemies = new();
 
+    // List to track enemies that are currently allowed to attack
+    private readonly List<EnemyController> _attackingEnemies = new();
+    private const int MaxAttackingEnemies = 3;
+
     private readonly List<IRoundModification> _roundModifications = new()
     {
         new PoisonRoundModification(),
@@ -78,6 +82,9 @@ public class RoundManager : MonoBehaviour
             if (enemy != null && !enemy.spawnAtStart)
                 TrySpawnEnemyWithRate(enemy, info);
         }
+        
+        // Update attacking enemies list
+        UpdateAttackingEnemies();
     }
     
     private static void HandleCursorVisibility()
@@ -123,6 +130,9 @@ public class RoundManager : MonoBehaviour
             var zPosHandler = (IZPosHandler)enemy;
             zPosHandler.ZPos = zPosition;
         }
+        
+        // Initially disable attack for all enemies
+        enemy.CanAttack = false;
     }
 
     public void OnStartRound()
@@ -168,6 +178,7 @@ public class RoundManager : MonoBehaviour
             G.I.ObjectPool.Return(x);
 
         _enemyList.Clear();
+        _attackingEnemies.Clear();
         _spawnPositionManager.Clear();
         
         // Reset boss active state when clearing all enemies
@@ -260,5 +271,64 @@ public class RoundManager : MonoBehaviour
         
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.gameOver);
         G.I.StopRun(null, EndRoundFadeEnum.RoundTerminated);
+    }
+    
+    // Called when an enemy is destroyed to potentially allow another enemy to attack
+    public void OnEnemyDestroyed(EnemyController enemy)
+    {
+        if (_attackingEnemies.Contains(enemy))
+        {
+            _attackingEnemies.Remove(enemy);
+            AssignNewAttackingEnemy();
+        }
+    }
+    
+    // Update the list of attacking enemies
+    private void UpdateAttackingEnemies()
+    {
+        // Remove any null or destroyed enemies
+        _attackingEnemies.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy);
+        
+        // If we have less than the max attacking enemies, try to assign more
+        while (_attackingEnemies.Count < MaxAttackingEnemies && AssignNewAttackingEnemy())
+        {
+            // Keep assigning until we reach the limit or run out of candidates
+        }
+    }
+    
+    // Assign a new enemy to be an attacker
+    private bool AssignNewAttackingEnemy()
+    {
+        // Find all active enemies that are not currently attacking
+        var nonAttackingEnemies = _enemyList
+            .Where(e => e != null && e.gameObject.activeInHierarchy && !_attackingEnemies.Contains(e) && e.CanAttack != true)
+            .ToList();
+        
+        if (nonAttackingEnemies.Count == 0)
+            return false;
+        
+        // Find the closest enemy to the player
+        EnemyController closestEnemy = null;
+        float closestDistance = float.MaxValue;
+        Vector3 playerPosition = G.I.playerCursor.transform.position;
+        
+        foreach (var enemy in nonAttackingEnemies)
+        {
+            float distance = Vector3.Distance(enemy.transform.position, playerPosition);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+        
+        if (closestEnemy != null)
+        {
+            closestEnemy.CanAttack = true;
+            _attackingEnemies.Add(closestEnemy);
+            return true;
+        }
+        
+        return false;
     }
 }

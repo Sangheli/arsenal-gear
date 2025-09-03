@@ -26,6 +26,7 @@ public class EnemyData : ScriptableObject
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
 
+    public float FireRateMin = 10;
     public bool skipFirstLevelDamage = false;
 
     public bool overrideFirstLevel = false;

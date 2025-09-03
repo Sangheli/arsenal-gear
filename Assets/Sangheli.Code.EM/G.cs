@@ -80,6 +80,8 @@ public class G : MonoBehaviour
     
     public readonly IAdvertisement Advertisement = new MockAdvertisement();
 
+    public RayFXManager rayFXManager;
+
     public static readonly List<EndRoundFadeEnum> PlayLevelAgainFader = new()
     {
         EndRoundFadeEnum.RoundTerminated,

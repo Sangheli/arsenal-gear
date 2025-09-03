@@ -9,8 +9,6 @@ public class BossController : EnemyController
     public float paddingMove = 35;
     private Coroutine _rotAnimCoroutine;
     private Sequence _rotAnimSequence;
-    private float damageValue = 8.2f;
-    public bool CanAttack { get; set; }
     
     // Новый Init для босса
     public void Init(float hp, Color color, float bossDamage, System.Action onBossDeath)
@@ -19,7 +17,8 @@ public class BossController : EnemyController
         CurrentData = G.I.Data.enemyContainer.List[5];
         CurrentData.SetBaseHP(hp);
         CurrentData.SetBaseDamage(0);
-        damageValue = bossDamage;
+        DamageValue = bossDamage;
+        fireRateMin = CurrentData.FireRateMin;
         damageReciever.EnemyData = CurrentData;
         
         _onBossDeath = onBossDeath;
@@ -80,16 +79,5 @@ public class BossController : EnemyController
         if (!IsActive) return;
         _onBossDeath?.Invoke();
         base.Die(isCrit, killedByPlayer);
-    }
-    
-    private void DoDamageBoss()
-    {
-        var finalDamage = G.I.HpManager.Reduce(damageValue, doBlink: true, ignoreShield: false);
-        float totalShield = damageValue - finalDamage;
-        float totalDamage = finalDamage;
-        var damageResult = new DamageResult { PlayerDoDamage = true, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
-        
-        if (damageResult.HasRecivedDamage)
-            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
     }
 } 

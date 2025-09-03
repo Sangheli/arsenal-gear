@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandler
 {
@@ -41,7 +42,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private float _selfDestructTime;
 
     private int _difficult;
+    protected float DamageValue;
+    protected float fireRateMin;
+    public bool CanAttack { get; set; }
 
+    private float NextTimeAttack;
+    
     private void OnValidate()
     {
         damageReciever ??= GetComponentInChildren<DamageReciever>();
@@ -59,6 +65,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         IsDead = false;
         SetData(data);
         _difficult = difficult;
+        DamageValue = CurrentData.GetDamage(_difficult);
+        fireRateMin = CurrentData.FireRateMin;
         HpManager.Init(unfillTime, CurrentData.showHPbar,CurrentData.GetHP(difficult));
         bounceMove.Toggle(CurrentData.useBounceAnimation);
         ResetView2();
@@ -74,6 +82,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (_isPreSpawned) _speed = speedSuper;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         // _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
+        
+        // Initialize fire rate - enemies can't attack by default, RoundManager will enable it
+        CanAttack = false;
+        if (ZPos > 7)
+            CanAttack = false;
+        NextTimeAttack = Time.time + 1 + Random.Range(0,10f) + 60f / fireRateMin;
         
         ActivateSelfDestruct();
 
@@ -131,6 +145,16 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (!IsActive) return;
         if (_isPreSpawned && !_hasChangedSpeed) CheckAndChangeSpeed();
 
+        // Handle fire rate timing
+        if (CanAttack)
+        {
+            if (Time.time > NextTimeAttack)
+            {
+                DoDamage();
+                NextTimeAttack = Time.time + 60f / fireRateMin;
+            }
+        }
+
         DoMove();
     }
 
@@ -180,6 +204,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         // Notify that this enemy is dying
         OnDeathZPosHolder?.Invoke();
         G.I.roundManager._spawnPositionManager.Release(this);
+
+        // Notify RoundManager that this enemy is destroyed
+        G.I.roundManager.OnEnemyDestroyed(this);
 
         StopSelfDestruct();
         StartCoroutine(DeathAndReturnToPool(isCrit));
@@ -254,5 +281,17 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (_selfDestructCoroutine == null) return;
         StopCoroutine(_selfDestructCoroutine);
         _selfDestructCoroutine = null;
+    }
+    
+    private void DoDamage()
+    {
+        if(DamageValue<0.001f)
+            return;
+        
+        var finalDamage = G.I.HpManager.Reduce(DamageValue, doBlink: true, ignoreShield: false);
+        float totalShield = DamageValue - finalDamage;
+        float totalDamage = finalDamage;
+        G.I.rayFXManager.ShootTrail(transform.position);
+        var damageResult = new DamageResult { PlayerDoDamage = true, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
     }
 } 
