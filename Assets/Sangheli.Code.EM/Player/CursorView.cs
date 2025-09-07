@@ -131,6 +131,6 @@ public class CursorView : MonoBehaviour
     {
         G.I.Container.cameraShake.DeathShake();
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.emptyHit);
-        deathVfx.Play();
+        // deathVfx.Play();
     }
 } 

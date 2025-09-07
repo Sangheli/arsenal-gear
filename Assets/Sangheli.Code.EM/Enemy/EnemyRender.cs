@@ -12,8 +12,8 @@ public class EnemyRender : MonoBehaviour
     [Space]
     public SpriteRenderer[] viewRenderArr;
     public SpriteRenderer[] borderRenderArr;
-    public SpriteRenderer[] backRenderArr;
-    public SpriteRenderer[] shadowRenderArr;
+    // public SpriteRenderer[] backRenderArr;
+    // public SpriteRenderer[] shadowRenderArr;
 
     public MaterialPropertyBlock PropertyBlock;
     public MaterialPropertyBlock PropertyBlockBack;
@@ -48,13 +48,13 @@ public class EnemyRender : MonoBehaviour
         borderRenderArr[0].GetPropertyBlock(PropertyBlockRamka);
         
         PropertyBlockBack = new MaterialPropertyBlock();
-        backRenderArr[0].GetPropertyBlock(PropertyBlockBack);
+        // backRenderArr[0].GetPropertyBlock(PropertyBlockBack);
         
         borderColorProp = Shader.PropertyToID(borderColorPropName);
         OriginalColor = viewRenderArr[0].material.color;
 
-        foreach (var x in backRenderArr) x.gameObject.SetActive(false);
-        foreach (var x in shadowRenderArr) x.gameObject.SetActive(false);
+        // foreach (var x in backRenderArr) x.gameObject.SetActive(false);
+        // foreach (var x in shadowRenderArr) x.gameObject.SetActive(false);
     }
 
     public void SetOriginalScale(Vector3 viewScale, bool overrideSet)
@@ -65,7 +65,7 @@ public class EnemyRender : MonoBehaviour
         _originalScale = viewScale;
         _originalScaleShadow = viewScale;
         viewRenderArr[0].transform.localScale = _originalScale*scale;
-        shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
+        // shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
     }
     
     public void ApplyPropertyBack(Color bossColor)
@@ -76,7 +76,7 @@ public class EnemyRender : MonoBehaviour
 
     public virtual void ApplyPropertyBack()
     {
-        foreach (var x in backRenderArr) x.SetPropertyBlock(PropertyBlockBack);
+        // foreach (var x in backRenderArr) x.SetPropertyBlock(PropertyBlockBack);
     }
     
     public void ApplyPropertyView(Color backColor)
@@ -95,7 +95,7 @@ public class EnemyRender : MonoBehaviour
     {
         this.scale = scale;
         viewRenderArr[0].transform.localScale = _originalScale*scale;
-        shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
+        // shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
     }
 
     public void SetFillValue(float targetClipValue)
@@ -125,7 +125,7 @@ public class EnemyRender : MonoBehaviour
         
         // Запуск и кеширование новых корутин
         _bounceRoutine = StartCoroutine(GameAnimation.Bounce(viewRenderArr[0].transform, _originalScale*scale, 1+addonScale, duration));
-        _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(shadowRenderArr[0].transform, _originalScaleShadow*scale, 1+addonScale, duration));
+        // _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(shadowRenderArr[0].transform, _originalScaleShadow*scale, 1+addonScale, duration));
     }
 
     public void FlashEffect(bool isCrit)
@@ -148,25 +148,25 @@ public class EnemyRender : MonoBehaviour
             StopCoroutine(_critColorRoutine);
         
         var transform2 = viewRenderArr[0].transform;
-        var transform3 = shadowRenderArr[0].transform;
+        // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
-        transform3.localScale = _originalScaleShadow;
+        // transform3.localScale = _originalScaleShadow;
         
         // Сброс вращения
         transform2.localRotation = Quaternion.identity;
-        transform3.localRotation = Quaternion.identity;
+        // transform3.localRotation = Quaternion.identity;
     }
     
     public void ResetItem()
     {
         var transform2 = viewRenderArr[0].transform;
-        var transform3 = shadowRenderArr[0].transform;
+        // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
-        transform3.localScale = _originalScaleShadow;
+        // transform3.localScale = _originalScaleShadow;
         
         // Сброс вращения
         transform2.localRotation = Quaternion.identity;
-        transform3.localRotation = Quaternion.identity;
+        // transform3.localRotation = Quaternion.identity;
         
         // Ensure color is reset to original
         PropertyBlock.SetColor(_colorProperty, OriginalColor);
@@ -196,17 +196,17 @@ public class EnemyRender : MonoBehaviour
     {
         foreach (var x in borderRenderArr) x.sortingOrder = data.ramka;
         foreach (var x in viewRenderArr) x.sortingOrder = data.view;
-        foreach (var x in shadowRenderArr) x.sortingOrder = data.shadow;
-        foreach (var x in backRenderArr) x.sortingOrder = data.back;
+        // foreach (var x in shadowRenderArr) x.sortingOrder = data.shadow;
+        // foreach (var x in backRenderArr) x.sortingOrder = data.back;
     }
 
     public IEnumerator DeathAnimation()
     {
         var transform1 = viewRenderArr[0].transform;
-        var transform2 = shadowRenderArr[0].transform;
+        // var transform2 = shadowRenderArr[0].transform;
         
-        StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
-        yield return StartCoroutine(GameAnimation.ShrinkAndDisappear(transform2, transform2.localScale, deathAnimDuration));
+     yield return   StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
+        // yield return StartCoroutine(GameAnimation.ShrinkAndDisappear(transform2, transform2.localScale, deathAnimDuration));
     }
 
     public void SetFullColor(Color color, Color borderColor)
@@ -247,8 +247,8 @@ public class EnemyRender : MonoBehaviour
         
         viewRenderArr[0].sprite = enemyData.spriteView;
         borderRenderArr[0].sprite = enemyData.spriteBorder;
-        backRenderArr[0].sprite = enemyData.spriteView;
-        shadowRenderArr[0].sprite = enemyData.spriteView;
+        // backRenderArr[0].sprite = enemyData.spriteView;
+        // shadowRenderArr[0].sprite = enemyData.spriteView;
     }
 
     public void SetDirection(Vector2 moveDirection)
@@ -257,6 +257,6 @@ public class EnemyRender : MonoBehaviour
         _originalScaleShadow.x *= moveDirection.x < 0 ? -1 : 1;
 
         viewRenderArr[0].transform.localScale = _originalScale;
-        shadowRenderArr[0].transform.localScale = _originalScaleShadow;
+        // shadowRenderArr[0].transform.localScale = _originalScaleShadow;
     }
 }

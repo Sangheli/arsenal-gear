@@ -148,11 +148,11 @@ public class CursorController : MonoBehaviour
         if (Time.time <= _nextTime)
             return;
         
-        view.isPulsing = false;
-        view.ApplyVisual();
+        // view.isPulsing = false;
+        // view.ApplyVisual();
         
         UpdateNextTime();
-        ShowPulseAnimation();
+        // ShowPulseAnimation();
         
         // var damageResult = _damageHelper.DoDamage
         // (
@@ -174,8 +174,8 @@ public class CursorController : MonoBehaviour
         
         if(_isAI) return;
         
-        if (damageResult.HasRecivedDamage) 
-            G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
+        // if (damageResult.HasRecivedDamage) 
+        //     G.I.playerCursor.view.PulseRingColor(Color.red, 0.15f);
 
         if (damageResult.PlayerDoDamage)
         {

@@ -34,7 +34,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     public GameObject Prefab { get; set; }
     
     public SpriteRenderer viewRenderer;
-    public SpriteRenderer shadowRenderer;
+    // public SpriteRenderer shadowRenderer;
 
     private void Awake()
     {
@@ -168,6 +168,6 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable
     public void SetSortingOrder(EnergySortingOrderData sortingOrderData)
     {
         viewRenderer.sortingOrder = sortingOrderData.view;
-        shadowRenderer.sortingOrder = sortingOrderData.shadow;
+        // shadowRenderer.sortingOrder = sortingOrderData.shadow;
     }
 }

@@ -163,7 +163,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         var deltaTime = Time.deltaTime;
         
         view.render.viewRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
-        view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
+        // view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
         transform.Translate(_moveDirection * (deltaTime * _speed));
     }
