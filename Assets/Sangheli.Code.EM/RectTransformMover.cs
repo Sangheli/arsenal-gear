@@ -2,7 +2,7 @@
 
 public class RectTransformMover : MonoBehaviour
 {
-    [SerializeField] private RectTransform target;        // кого двигаем
+    [SerializeField] private RectTransform[] targetArr;        // кого двигаем
     [SerializeField] private Vector2 minAnchorOffset;     // смещение внутрь от границ контейнера (в UI единицах)
     [SerializeField] private Vector2 maxAnchorOffset;     // смещение внутрь от границ контейнера (в UI единицах)
 
@@ -12,13 +12,13 @@ public class RectTransformMover : MonoBehaviour
     
     private void Awake()
     {
-        if (target != null)
-            _parentRect = target.parent as RectTransform;
+        if (targetArr[0] != null)
+            _parentRect = targetArr[0].parent as RectTransform;
     }
 
     private void MoveToWorldPosition(Vector3 worldPos)
     {
-        if (target == null || _parentRect == null) return;
+        if (targetArr[0] == null || _parentRect == null) return;
         _halfSize ??= _parentRect.rect.size * 0.5f;
         
         var localPos = _parentRect.InverseTransformPoint(worldPos);
@@ -29,7 +29,7 @@ public class RectTransformMover : MonoBehaviour
         anchoredPos.x = Mathf.Clamp(anchoredPos.x, minAnchorOffset.x, maxAnchorOffset.x);
         anchoredPos.y = Mathf.Clamp(anchoredPos.y, minAnchorOffset.y, maxAnchorOffset.y);
 
-        target.anchoredPosition = anchoredPos;
+        foreach (var x in targetArr) x.anchoredPosition = anchoredPos;
     }
     
     private void LateUpdate()
