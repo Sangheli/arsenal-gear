@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Unity.Services.Analytics;
-#if UNITY_EDITOR
 using UnityEngine;
-#endif
 
 public static class AnalyticsHelper
 {
