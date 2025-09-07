@@ -23,7 +23,7 @@ public class CursorDamageHelper3D
         ParamInfo damageParam, float damageValue, float damagePercent,
         float critChance, float critMultiplier, float currentDamageScaleHalf)
     {
-        var ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        var ray = camera.ScreenPointToRay(GetInputPosition());
         var distance = 1000f;
 
         // сохраняем данные для гизмосов
@@ -96,6 +96,11 @@ public class CursorDamageHelper3D
             TotalShieldDamage = totalShield
         };
     }
+
+    private static Vector2 GetInputPosition() =>
+        Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed
+            ? Touchscreen.current.primaryTouch.position.ReadValue()
+            : Mouse.current.position.ReadValue();
 
     // Метод для гизмосов
     public void DrawGizmos()
