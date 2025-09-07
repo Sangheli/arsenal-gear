@@ -273,10 +273,6 @@ MonoBehaviour:
   - {fileID: 6168234484293521608}
   borderRenderArr:
   - {fileID: 3921777000171173304}
-  backRenderArr:
-  - {fileID: 7000676104354347753}
-  shadowRenderArr:
-  - {fileID: 4245914269587504957}
   punchScale: 1.2
   punchScaleCrit: 1.44
   scale: 1
@@ -622,7 +618,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2208088603544254561, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+    - {fileID: 3432653018110046303, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}

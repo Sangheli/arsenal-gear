@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRobot8
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+  prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
   playDeathSound: 0
@@ -25,7 +25,10 @@ MonoBehaviour:
   BaseDamage: 0.9
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
+  FireRateMin: 10
   skipFirstLevelDamage: 0
+  overrideFirstLevel: 0
+  overrideFirstLevelValue: 0
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
