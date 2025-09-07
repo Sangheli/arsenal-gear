@@ -25,7 +25,8 @@ public class BossManager : MonoBehaviour
         var centerPos = new Vector3(0, _currentBoss.CurrentData.PosConfig.maxY, _currentBoss.CurrentData.PosConfig.customZPos);
         yield return SpawnUtils.MoveToCenter(_currentBoss.transform, centerPos);
         yield return new WaitForSeconds(1);
-        _currentBoss.CanAttack = true;
+        if(_currentBoss!=null)
+            _currentBoss.CanAttack = true;
     }
 
     private void OnBossDeath()

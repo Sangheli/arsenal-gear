@@ -25,7 +25,10 @@ MonoBehaviour:
   BaseDamage: 1.6
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
+  FireRateMin: 0
   skipFirstLevelDamage: 0
+  overrideFirstLevel: 0
+  overrideFirstLevelValue: 0
   viewScale: {x: 200, y: 200, z: 200}
   hitVfx: {x: 0.5, y: 0.5, z: 0.5}
   deathVfxScale: {x: 0.25, y: 0.25, z: 0.25}
