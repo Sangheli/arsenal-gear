@@ -33,6 +33,7 @@ public class RoundManager : MonoBehaviour
     public void SetBossActive(bool active) => IsBossActive = active;
 
     public SpawnPositionManager _spawnPositionManager = new();
+    private bool _attackDisabled;
 
     private void Awake()
     {
@@ -59,7 +60,11 @@ public class RoundManager : MonoBehaviour
     
     private void Update()
     {
-        if (!IsAlive) return;
+        if (!IsAlive)
+        {
+            DisableAllEnemyAttacking();
+            return;
+        }
 
         HandleCursorVisibility();
         
@@ -72,7 +77,11 @@ public class RoundManager : MonoBehaviour
             G.I.StopRun(null, EndRoundFadeEnum.RoundFail);
         }
         
-        if(!IsAlive) return;
+        if(!IsAlive)
+        {
+            DisableAllEnemyAttacking();
+            return;
+        }
         
         if (_currentLevelConfig == null) return;
         foreach (var info in _currentLevelConfig.enemies)
@@ -138,6 +147,7 @@ public class RoundManager : MonoBehaviour
     public void OnStartRound()
     {
         _save = G.I.SaveProvider.Get();
+        _attackDisabled = false;
         ClearAll();
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
@@ -265,6 +275,9 @@ public class RoundManager : MonoBehaviour
     {
         if (!IsAlive) return;
         
+        // Disable all enemies from attacking when round terminates
+        DisableAllEnemyAttacking();
+        
         // Notify modifiers about round end
         foreach (var modification in _activeRoundModifications)
             modification.OnRoundEnd(this);
@@ -281,6 +294,16 @@ public class RoundManager : MonoBehaviour
             _attackingEnemies.Remove(enemy);
             AssignNewAttackingEnemy();
         }
+    }
+    
+    // Disable all enemies from attacking
+    public void DisableAllEnemyAttacking()
+    {
+        if(_attackDisabled) return;
+        _attackDisabled = true;
+        
+        foreach (var enemy in _attackingEnemies.Where(enemy => enemy != null && enemy.gameObject.activeInHierarchy)) enemy.CanAttack = false;
+        _attackingEnemies.Clear();
     }
     
     // Update the list of attacking enemies

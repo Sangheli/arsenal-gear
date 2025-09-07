@@ -291,6 +291,9 @@ public class G : MonoBehaviour
         playerCursor.ToggleControl(false, true);
         uiManager.terminateButton.gameObject.SetActive(false);
 
+        // Disable all enemy attacks when round ends
+        roundManager.DisableAllEnemyAttacking();
+
         foreach (var x in energySpawner.EnergyList)
         {
             x.IsActive = false;
