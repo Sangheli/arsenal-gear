@@ -3,20 +3,12 @@ using UnityEngine.UI;
 
 public class RunningBarImage : ARunningBar
 {
-    //---------------------------
     public Image hpImage;
-    public Image hpImageWhiteBack;
-    public Image hpImageBack;
-    
-    private Material _hpImageMat;
-    private Material _hpImageWhiteBackMat;
-    private Material _hpImageBackMat;
+    private Material _hpImageBlock;
 
     private void Awake()
     {
-        _hpImageMat = GetMat(hpImage);
-        _hpImageWhiteBackMat = GetMat(hpImageWhiteBack);
-        _hpImageBackMat = GetMat(hpImageBack);
+        _hpImageBlock = GetMat(hpImage);
     }
 
     private static Material GetMat(Image img)
@@ -29,20 +21,14 @@ public class RunningBarImage : ARunningBar
     
     public override void UpdateView()
     {
-        _hpImageMat.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftFill);
-        _hpImageMat.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightFill);
-        
-        _hpImageWhiteBackMat.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftWhite);
-        _hpImageWhiteBackMat.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightWhite);
-        
-        _hpImageBackMat.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftBack);
-        _hpImageBackMat.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightBack);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, RunningBarValue.WhiteFill);
     }
 
     public override void SetCurrentValue(float newValue)
     {
-        _hpImageWhiteBackMat.SetFloat(RunningBarValue.ClipUvRight, 1 - newValue);
-        _hpImageBackMat.SetFloat(RunningBarValue.ClipUvLeft, newValue);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, newValue);
     }
 
     public override void SetSortingOrder(int order)

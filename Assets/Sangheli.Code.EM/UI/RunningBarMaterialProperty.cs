@@ -24,26 +24,16 @@ public class RunningBarMaterialProperty : ARunningBar
     
     public override void UpdateView()
     {
-        _hpImageBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftFill);
-        _hpImageBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, RunningBarValue.WhiteFill);
         hpImage.SetPropertyBlock(_hpImageBlock);
-        
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftWhite);
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightWhite);
-        hpImageWhiteBack.SetPropertyBlock(_hpImageWhiteBackBlock);
-        
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftBack);
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightBack);
-        hpImageBack.SetPropertyBlock(_hpImageBackBlock);
     }
 
     public override void SetCurrentValue(float newValue)
     {
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvRight, 1 - newValue);
-        hpImageWhiteBack.SetPropertyBlock(_hpImageWhiteBackBlock);
-        
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvLeft, newValue);
-        hpImageBack.SetPropertyBlock(_hpImageBackBlock);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, newValue);
+        hpImage.SetPropertyBlock(_hpImageBlock);
     }
 
     public override void SetSortingOrder(int order)

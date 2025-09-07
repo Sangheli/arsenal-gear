@@ -3,9 +3,6 @@ using UnityEngine;
 public class HalfBarView : MonoBehaviour
 {
     public ARunningBar runningBarImage;
-    public string lowerBorder = "_ClipUvLeft";
-    public string upperBorder = "_ClipUvRight";
-
     private RunningBarValue _runningBarValue;
     private float _oldFillValue;
     
@@ -20,8 +17,8 @@ public class HalfBarView : MonoBehaviour
 
     private void Awake()
     {
-        var clipUvLeft = Shader.PropertyToID(lowerBorder);
-        var clipUvRight = Shader.PropertyToID(upperBorder);
+        var clipUvLeft = Shader.PropertyToID("_FillX");
+        var clipUvRight = Shader.PropertyToID("_FillY");
         
         _runningBarValue = new RunningBarValue(clipUvLeft, clipUvRight);
         runningBarImage.Set(_runningBarValue);

@@ -3,61 +3,38 @@
 public class RunningBarSprite2D : ARunningBar
 {
     public SpriteRenderer hpImage;
-    public SpriteRenderer hpImageWhiteBack;
-    public SpriteRenderer hpImageBack;
     public SpriteRenderer blackBack;
-
     private MaterialPropertyBlock _hpImageBlock;
-    private MaterialPropertyBlock _hpImageWhiteBackBlock;
-    private MaterialPropertyBlock _hpImageBackBlock;
 
     private void Awake()
     {
         _hpImageBlock = new MaterialPropertyBlock();
         hpImage.GetPropertyBlock(_hpImageBlock);
-
-        _hpImageWhiteBackBlock = new MaterialPropertyBlock();
-        hpImageWhiteBack.GetPropertyBlock(_hpImageWhiteBackBlock);
-
-        _hpImageBackBlock = new MaterialPropertyBlock();
-        hpImageBack.GetPropertyBlock(_hpImageBackBlock);
     }
 
     public override void UpdateView()
     {
-        _hpImageBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftFill);
-        _hpImageBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, RunningBarValue.WhiteFill);
         hpImage.SetPropertyBlock(_hpImageBlock);
-
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftWhite);
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightWhite);
-        hpImageWhiteBack.SetPropertyBlock(_hpImageWhiteBackBlock);
-
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvLeft, RunningBarValue.ClipplingLeftBack);
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvRight, RunningBarValue.ClipplingRightBack);
-        hpImageBack.SetPropertyBlock(_hpImageBackBlock);
     }
 
     public override void SetCurrentValue(float newValue)
     {
-        _hpImageWhiteBackBlock.SetFloat(RunningBarValue.ClipUvRight, 1 - newValue);
-        hpImageWhiteBack.SetPropertyBlock(_hpImageWhiteBackBlock);
-
-        _hpImageBackBlock.SetFloat(RunningBarValue.ClipUvLeft, newValue);
-        hpImageBack.SetPropertyBlock(_hpImageBackBlock);
+        _hpImageBlock.SetFloat(RunningBarValue.FillX, RunningBarValue.HpFill);
+        _hpImageBlock.SetFloat(RunningBarValue.FillY, newValue);
+        hpImage.SetPropertyBlock(_hpImageBlock);
     }
 
     public override void SetSortingOrder(int order)
     {
         hpImage.sortingOrder = order;
-        hpImageWhiteBack.sortingOrder = order;
-        hpImageBack.sortingOrder = order;
         blackBack.sortingOrder = order-1;
     }
 
     public override void SetColor(Color fill, Color back)
     {
         hpImage.color = fill;
-        hpImageBack.color = back;
+        // hpImageBack.color = back;
     }
 }
