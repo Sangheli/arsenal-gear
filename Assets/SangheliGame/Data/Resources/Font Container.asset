@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69fca4a2ae36607499370355f52986e4, type: 3}
-  m_Name: New Sprite Container
+  m_Script: {fileID: 11500000, guid: b1ba534ca8d25c241a2a4a81a9717019, type: 3}
+  m_Name: Font Container
   m_EditorClassIdentifier: 
-  ButtonSprite: {fileID: 2530564911472380330, guid: 31e572a1836afad41a3b1ccc1280c89b, type: 3}
-  resourceSpriteList: []
+  fontMain: {fileID: 11400000, guid: 94a0cd39822b12746bb267e5d48b4f56, type: 2}
+  fontMainColor: {r: 0, g: 0, b: 0, a: 1}

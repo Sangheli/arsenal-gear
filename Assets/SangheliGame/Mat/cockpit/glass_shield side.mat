@@ -7,14 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: back 1
+  m_Name: glass_shield side
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DISTORT_ON
-  - FISHEYE_ON
-  - OVERLAYMULT_ON
   - OVERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -57,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
         m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
-        m_Scale: {x: 10, y: 5.5}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
@@ -76,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 590277a20faa49044bb2dd89cd328be8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -96,8 +94,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 970e8ef424293514cafc764f15da69c5, type: 3}
-        m_Scale: {x: 12, y: 20}
+        m_Texture: {fileID: 2800000, guid: b8c11c86ad2f71e468cb5f97390f652b, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
@@ -142,16 +140,16 @@ Material:
     - _CullingOption: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistortAmount: 0.02
-    - _DistortTexXSpeed: 2
-    - _DistortTexYSpeed: 2
+    - _DistortAmount: 0.13
+    - _DistortTexXSpeed: 5
+    - _DistortTexYSpeed: 5
     - _DstBlend: 0
-    - _EditorDrawers: 6
+    - _EditorDrawers: 7
     - _FadeAmount: -0.1
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
-    - _FishEyeUvAmount: 0.2
+    - _FishEyeUvAmount: 0.35
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
@@ -178,7 +176,7 @@ Material:
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
     - _HandDrawnAmount: 10
-    - _HandDrawnSpeed: 1.5
+    - _HandDrawnSpeed: 5
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
     - _HologramBlend: 1
@@ -219,12 +217,12 @@ Material:
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.004
     - _OverlayBlend: 1
-    - _OverlayGlow: 0.7
-    - _OverlayTextureScrollXSpeed: 0.005
-    - _OverlayTextureScrollYSpeed: 0.005
+    - _OverlayGlow: 1
+    - _OverlayTextureScrollXSpeed: 0.025
+    - _OverlayTextureScrollYSpeed: 0.025
     - _Parallax: 0.02
     - _PinchUvAmount: 0.35
-    - _PixelateSize: 32
+    - _PixelateSize: 30
     - _PosterizeGamma: 0.75
     - _PosterizeNumColors: 8
     - _PosterizeOutline: 0
@@ -242,15 +240,15 @@ Material:
     - _ShakeUvSpeed: 2.5
     - _ShakeUvX: 1.5
     - _ShakeUvY: 1
-    - _ShineGlow: 1
-    - _ShineLocation: 0.5
-    - _ShineRotate: 0
-    - _ShineWidth: 0.1
+    - _ShineGlow: 8.6
+    - _ShineLocation: 0.594
+    - _ShineRotate: 0.3
+    - _ShineWidth: 0.234
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TextureScrollXSpeed: 0.05
-    - _TextureScrollYSpeed: 0.05
+    - _TextureScrollXSpeed: 1
+    - _TextureScrollYSpeed: 0
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
@@ -291,7 +289,7 @@ Material:
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OverlayColor: {r: 0.74213827, g: 0.74213827, b: 0.74213827, a: 1}
+    - _OverlayColor: {r: 0, g: 0.721087, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

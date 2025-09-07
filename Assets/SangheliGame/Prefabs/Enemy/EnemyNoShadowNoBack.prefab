@@ -8,6 +8,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 287082877762169091, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: m_Name
+      value: hitVfx(deathVfx)
+      objectReference: {fileID: 0}
     - target: {fileID: 489896085317699707, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
       propertyPath: 'backRenderArr.Array.data[0]'
       value: 
@@ -27,6 +59,18 @@ PrefabInstance:
     - target: {fileID: 4475381246093373681, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527507575500049492, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: ShapeModule.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527507575500049492, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527507575500049492, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4749330463240559967, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
       propertyPath: hpImageBack

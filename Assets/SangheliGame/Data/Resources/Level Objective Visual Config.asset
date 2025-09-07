@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70ecbce670745f447948c057b7ec4c52, type: 3}
-  m_Name: LevelObjectiveVisualConfig
+  m_Name: Level Objective Visual Config
   m_EditorClassIdentifier: Assembly-CSharp::LevelObjectiveVisualConfig
   objectiveVisuals:
   - color: {r: 1, g: 0.95686275, b: 0, a: 1}

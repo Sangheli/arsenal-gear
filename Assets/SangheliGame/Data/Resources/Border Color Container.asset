@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82d184aea3dbc3b418910d5ee87a5a3d, type: 3}
-  m_Name: BorderColorContainer
+  m_Name: Border Color Container
   m_EditorClassIdentifier: Assembly-CSharp::ColorContainer
   colors:
   - {r: 0.06289297, g: 0.06289297, b: 0.06289297, a: 1}
