@@ -19,7 +19,7 @@ public class RectTransformMover : MonoBehaviour
     private void MoveToWorldPosition(Vector3 worldPos)
     {
         if (targetArr[0] == null || _parentRect == null) return;
-        _halfSize ??= _parentRect.rect.size * 0.5f;
+        _halfSize ??= -1*_parentRect.InverseTransformPoint(Vector3.zero);
         
         var localPos = _parentRect.InverseTransformPoint(worldPos);
         var anchoredPos = (Vector2)localPos + _halfSize.Value;
