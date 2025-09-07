@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HalfBarView : MonoBehaviour
@@ -15,6 +16,9 @@ public class HalfBarView : MonoBehaviour
     private float _animationStartValue;
     private float _animationTargetValue;
 
+    public Color fillColor;
+    public Color backColor;
+
     private void Awake()
     {
         var clipUvLeft = Shader.PropertyToID("_FillX");
@@ -22,6 +26,11 @@ public class HalfBarView : MonoBehaviour
         
         _runningBarValue = new RunningBarValue(clipUvLeft, clipUvRight);
         runningBarImage.Set(_runningBarValue);
+    }
+
+    private void Start()
+    {
+        runningBarImage.SetColor(fillColor, backColor);
     }
 
     public void Show(float fillValue, bool doBlink, bool useStartValue)

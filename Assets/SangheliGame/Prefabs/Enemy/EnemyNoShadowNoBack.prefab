@@ -48,6 +48,26 @@ PrefabInstance:
       propertyPath: 'shadowRenderArr.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 644940652218704688, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: backColor.a
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 644940652218704688, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: backColor.r
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 644940652218704688, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: fillColor.a
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 644940652218704688, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: fillColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 644940652218704688, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: fillColor.g
+      value: 0.7411765
+      objectReference: {fileID: 0}
     - target: {fileID: 1088798886079756495, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
       propertyPath: m_IsActive
       value: 0

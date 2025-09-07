@@ -6,6 +6,10 @@ public class RunningBarSprite2D : ARunningBar
     public SpriteRenderer blackBack;
     private MaterialPropertyBlock _hpImageBlock;
 
+    private readonly int _colorA = Shader.PropertyToID("_ColorA");
+    private readonly int _colorB = Shader.PropertyToID("_ColorB");
+    private readonly int _colorC = Shader.PropertyToID("_ColorC");
+    
     private void Awake()
     {
         _hpImageBlock = new MaterialPropertyBlock();
@@ -34,7 +38,8 @@ public class RunningBarSprite2D : ARunningBar
 
     public override void SetColor(Color fill, Color back)
     {
-        hpImage.color = fill;
-        // hpImageBack.color = back;
+        _hpImageBlock.SetColor(_colorA, fill);
+        _hpImageBlock.SetColor(_colorC, back);
+        hpImage.SetPropertyBlock(_hpImageBlock);
     }
 }

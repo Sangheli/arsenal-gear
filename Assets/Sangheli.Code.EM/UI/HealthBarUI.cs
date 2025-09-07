@@ -40,7 +40,8 @@ public class HealthBarUI : MonoBehaviour
             return true;
         
         if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
-        _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration));
+        if(gameObject.activeSelf && timerText.gameObject.activeSelf)
+            _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration));
 
         return true;
     }

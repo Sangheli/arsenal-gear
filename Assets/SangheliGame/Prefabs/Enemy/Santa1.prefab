@@ -557,6 +557,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4908766772291165603}
     m_Modifications:
+    - target: {fileID: 2903767817590713248, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+      propertyPath: backColor.a
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903767817590713248, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+      propertyPath: backColor.r
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903767817590713248, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+      propertyPath: fillColor.a
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903767817590713248, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+      propertyPath: fillColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903767817590713248, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
+      propertyPath: fillColor.g
+      value: 0.7411765
+      objectReference: {fileID: 0}
     - target: {fileID: 4008616252325524462, guid: e55cda22c40e6f84282a8145397d3a91, type: 3}
       propertyPath: m_Name
       value: HPBarSprite

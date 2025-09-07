@@ -9,6 +9,10 @@ public class RunningBarMaterialProperty : ARunningBar
     private MaterialPropertyBlock _hpImageBlock;
     private MaterialPropertyBlock _hpImageWhiteBackBlock;
     private MaterialPropertyBlock _hpImageBackBlock;
+    
+    private readonly int _colorA = Shader.PropertyToID("_ColorA");
+    private readonly int _colorB = Shader.PropertyToID("_ColorB");
+    private readonly int _colorC = Shader.PropertyToID("_ColorC");
 
     private void Awake()
     {
@@ -45,5 +49,8 @@ public class RunningBarMaterialProperty : ARunningBar
 
     public override void SetColor(Color fill, Color back)
     {
+        _hpImageBlock.SetColor(_colorA, fill);
+        _hpImageBlock.SetColor(_colorC, back);
+        hpImage.SetPropertyBlock(_hpImageBlock);
     }
 }

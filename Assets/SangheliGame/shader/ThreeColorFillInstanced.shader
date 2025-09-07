@@ -23,6 +23,7 @@ Shader "Custom/ThreeColorFillSpriteInstanced"
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
         Cull Off
+        Lighting Off
 
         Pass
         {
@@ -30,8 +31,6 @@ Shader "Custom/ThreeColorFillSpriteInstanced"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
-            #pragma multi_compile _ ETC1_EXTERNAL_ALPHA
-
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
@@ -40,7 +39,7 @@ Shader "Custom/ThreeColorFillSpriteInstanced"
             struct appdata_t
             {
                 float4 vertex : POSITION;
-                float2 texcoord : TEXCOORD0;
+                float2 uv : TEXCOORD0;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
@@ -66,7 +65,7 @@ Shader "Custom/ThreeColorFillSpriteInstanced"
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
@@ -79,10 +78,10 @@ Shader "Custom/ThreeColorFillSpriteInstanced"
                 float4 colA = UNITY_ACCESS_INSTANCED_PROP(Props, _ColorA);
                 float4 colB = UNITY_ACCESS_INSTANCED_PROP(Props, _ColorB);
                 float4 colC = UNITY_ACCESS_INSTANCED_PROP(Props, _ColorC);
-                float fillX = UNITY_ACCESS_INSTANCED_PROP(Props, _FillX);
-                float fillY = UNITY_ACCESS_INSTANCED_PROP(Props, _FillY);
+                float fillX = saturate(UNITY_ACCESS_INSTANCED_PROP(Props, _FillX));
+                float fillY = saturate(UNITY_ACCESS_INSTANCED_PROP(Props, _FillY));
 
-                float x = i.uv.x;
+                float x = frac(i.uv.x); 
 
                 float4 fillCol;
                 if (x < fillX)

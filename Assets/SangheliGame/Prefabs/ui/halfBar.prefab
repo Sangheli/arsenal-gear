@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HalfBarView
   runningBarImage: {fileID: 1033181119569966892}
+  fillColor: {r: 0, g: 0.7411765, b: 1, a: 0.47843137}
+  backColor: {r: 0.63529414, g: 0, b: 0, a: 0.47843137}
 --- !u!114 &1033181119569966892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 1ab0159a32ff40e4ba11aa5f5567b366, type: 2}
   m_Color: {r: 0, g: 0.7411765, b: 1, a: 0.47843137}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
