@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 65821725539284130}
   - component: {fileID: 1414408561249452845}
   m_Layer: 0
-  m_Name: deathVfx
+  m_Name: hitVfx(deathVfx)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,7 +612,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4813,7 +4813,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2fd28a60d223ba4cb25e286da19b13a, type: 2}
+  - {fileID: 2100000, guid: c48aab9e28b3e9544bca79f60b739609, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4880,4 +4880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathVfx
   ps: {fileID: 429194629599355181}
-  _psRenderer: {fileID: 65821725539284130}
+  psRenderer: {fileID: 65821725539284130}
+  colorMax: {r: 0, g: 0, b: 0, a: 0}
+  psRendererArr: []
