@@ -148,6 +148,37 @@ public static class AnalyticsHelper
         Send(customEvent, eventName);
     }
     
+    public static void OnLevelProgressMilestone(int milestone)
+    {
+        string eventName = $"ce_levelProgress{milestone}Perc";
+        var customEvent = new CustomEvent(eventName);
+        Send(customEvent, eventName);
+    }
+    
+    public static void CheckLevelProgressMilestones(int previousLevel, int newLevel)
+    {
+        // Get the max level
+        int maxLevel = G.I.maxLevel;
+        if (maxLevel <= 0) return;
+        
+        // Define the milestones to track
+        int[] milestones = { 1, 3, 5,7, 10,12, 15,17, 20, 25, 30, 35, 40, 45, 50, 
+                           55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
+        
+        // Check each milestone
+        foreach (int milestone in milestones)
+        {
+            // Calculate the level that represents this milestone
+            int milestoneLevel = Mathf.CeilToInt(maxLevel * milestone / 100f);
+            
+            // Check if we crossed this milestone
+            if (previousLevel < milestoneLevel && newLevel >= milestoneLevel)
+            {
+                OnLevelProgressMilestone(milestone);
+            }
+        }
+    }
+
     private static void Send(CustomEvent customEvent, string name)
     {
 #if !UNITY_EDITOR

@@ -21,20 +21,22 @@ namespace SangheliCore.Adv
         /// </summary>
         public event Action<bool> OnRewardedAdFinished;
         
+        private const bool SendAnalytics = false;
+
         /// <summary>
         /// Shows an interstitial ad (mock implementation)
         /// </summary>
         public void ShowInterstitial()
         {
             // Send analytics event for interstitial ad request
-            global::AnalyticsHelper.OnInterstitialAdRequested();
+            if(SendAnalytics)
+                AnalyticsHelper.OnInterstitialAdRequested();
             
             if (!IsInterstitialReady()) return;
             
-            Debug.Log("Showing mock interstitial ad");
-            
             // Send analytics event for interstitial ad shown
-            global::AnalyticsHelper.OnInterstitialAdShown();
+            if(SendAnalytics)
+                AnalyticsHelper.OnInterstitialAdShown();
             
             // Simulate ad display with a slight delay
             // In a real implementation, this would be handled by the ad network
@@ -45,7 +47,8 @@ namespace SangheliCore.Adv
             OnInterstitialFinished?.Invoke();
             
             // Send analytics event for interstitial ad finished
-            global::AnalyticsHelper.OnInterstitialAdFinished();
+            if(SendAnalytics)
+                AnalyticsHelper.OnInterstitialAdFinished();
             
             // Make ad available again after showing
             _interstitialReady = true;
@@ -58,14 +61,14 @@ namespace SangheliCore.Adv
         public void ShowRewardedAd(Action<bool> rewardedCallback)
         {
             // Send analytics event for rewarded ad request
-            global::AnalyticsHelper.OnRewardedAdRequested();
+            if(SendAnalytics)
+                AnalyticsHelper.OnRewardedAdRequested();
             
             if (!IsRewardedAdReady()) return;
             
-            Debug.Log("Showing mock rewarded ad");
-            
             // Send analytics event for rewarded ad shown
-            global::AnalyticsHelper.OnRewardedAdShown();
+            if(SendAnalytics)
+                AnalyticsHelper.OnRewardedAdShown();
             
             // Simulate ad display with a slight delay
             // In a real implementation, this would be handled by the ad network
@@ -78,7 +81,8 @@ namespace SangheliCore.Adv
             rewardedCallback?.Invoke(shouldReward);
             
             // Send analytics event for rewarded ad finished with reward status
-            global::AnalyticsHelper.OnRewardedAdFinished(shouldReward);
+            if(SendAnalytics)
+                AnalyticsHelper.OnRewardedAdFinished(shouldReward);
             
             // Make ad available again after showing
             _rewardedAdReady = true;

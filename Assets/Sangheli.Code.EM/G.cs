@@ -367,8 +367,15 @@ public class G : MonoBehaviour
     {
         G.I.RestartsFromEndRound = 0;
         var saveData = G.I.SaveProvider.Get();
+        int previousLevel = saveData.level;
         saveData.level+=delta;
         saveData.level = Mathf.Max(saveData.level, 0);
+        
+        // Track level progression milestones
+        if (delta > 0)
+        {
+            AnalyticsHelper.CheckLevelProgressMilestones(previousLevel, saveData.level);
+        }
     }
     
     private void OnStartRunInstant()
