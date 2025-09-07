@@ -10,6 +10,13 @@ public class DPSManager
         "playerDamageMin4",
         "playerDamageMin5",
     };
+
+    public static float GetPlayerDpsMin()
+    {
+        var saveData = G.I.SaveProvider.Get();
+        var paramContainer = saveData.GetParamContainer();
+        return paramContainer.GetBaseValue(keys[0]);
+    }
     
     public static (float,float) GetPlayerDps()
     {

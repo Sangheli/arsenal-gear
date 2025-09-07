@@ -144,11 +144,11 @@ public class LevelDataConfigRuntime
         {
             case LevelObjectiveType.CoinCount:
                 int coinMin = Random.Range(25, 30);
-                int coinMax = Random.Range(2500, 3000);
+                int coinMax = Random.Range(5000, 6000);
                 return Mathf.RoundToInt(Mathf.Lerp(coinMin, coinMax, t));
             case LevelObjectiveType.EnemyCount:
                 int min = Random.Range(15, 25);
-                int max = Random.Range(250, 350);
+                int max = Random.Range(120, 150);
                 return Mathf.RoundToInt(Mathf.Lerp(min, max, t));
             case LevelObjectiveType.Boss:
                 return Random.Range(50, 3000); //virtual distance to boss
@@ -189,9 +189,10 @@ public class LevelDataConfigRuntime
 
     private static float GetPlayerDps(float scale)
     {
-        // Player DPS progresses from 5 to 225
-        float minDps = 5f;
-        float maxDps = 225f;
+        var (dps, dpsCrit) = DPSManager.GetPlayerDps();
+        
+        float minDps = DPSManager.GetPlayerDpsMin();
+        float maxDps = dpsCrit;
         return Mathf.Lerp(minDps, maxDps, scale);
     }
 
