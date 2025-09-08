@@ -17,6 +17,7 @@
     "preSpawnEnemyCount": 5,
     "poisonDamageSpeed": 0.0,
     "levelModifiers": [],
+    "isSafeLevel": true,
     "enemies": [
         {
             "enemyId": 4,

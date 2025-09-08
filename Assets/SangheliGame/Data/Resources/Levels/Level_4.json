@@ -16,6 +16,7 @@
     "bossEnemySpawnRateMultiplier": 5.0,
     "preSpawnEnemyCount": 10,
     "poisonDamageSpeed": 0.0,
+    "isSafeLevel": true,
     "levelModifiers": [],
     "enemies": [
     ]

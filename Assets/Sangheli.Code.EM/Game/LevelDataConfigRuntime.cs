@@ -47,6 +47,9 @@ public class LevelDataConfigRuntime
         var playerDps = GetPlayerDps(scale);
         var bossHp = CalculateBossHp(scale, playerDps);
         
+        // First few levels are safe levels (tutorial levels)
+        bool isSafeLevel = i < SkipTutorialLevels;
+
         return new LevelConfig
         {
             levelId = i,
@@ -65,7 +68,8 @@ public class LevelDataConfigRuntime
             playerAutoAttack = true, // By default, player auto-attack is enabled
             objectiveType = objectiveType,
             objectiveValue = GetObjectiveValue(objectiveType, scale),
-            levelModifiers = GenerateRandomModifiers(scale) // Generate random modifiers for the level
+            levelModifiers = GenerateRandomModifiers(scale), // Generate random modifiers for the level
+            isSafeLevel = isSafeLevel // Mark tutorial levels as safe
         };
     }
 

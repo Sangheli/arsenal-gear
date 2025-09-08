@@ -10,6 +10,7 @@ public class HPManager
     private const float Tolerance = 0.001f;
     private const float MinHpValueToShow = 5;
     private const float MinHpValueToShowPrc = 0.3f;
+    private const float SafeLevelMinHpPercent = 0.01f; // 5% minimum health on safe levels
     private float _lastUpdateHp;
     private float _maxHp;
 
@@ -54,8 +55,20 @@ public class HPManager
         
         RoundHp -= Mathf.Abs(actualDamage);
 
-        if (RoundHp < 0)
-            RoundHp = 0;
+        // Check if this is a safe level and prevent health from dropping below 5%
+        var currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
+        if (currentLevelConfig != null && currentLevelConfig.isSafeLevel)
+        {
+            var minHp = _maxHp * SafeLevelMinHpPercent;
+            if (RoundHp < minHp)
+                RoundHp = minHp;
+        }
+        else
+        {
+            // Normal behavior - allow health to reach 0
+            if (RoundHp < 0)
+                RoundHp = 0;
+        }
 
         return actualDamage;
     }

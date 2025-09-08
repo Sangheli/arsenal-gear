@@ -50,4 +50,7 @@ public class LevelConfig
 
     [Space]
     public List<LevelEnemyInfo> enemies = new();
+    
+    [Space]
+    public bool isSafeLevel = false; // Уровень, на котором игрок не может умереть (здоровье не может упасть ниже 5%)
 }
