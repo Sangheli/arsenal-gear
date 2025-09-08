@@ -182,12 +182,12 @@ public class LevelDataConfigRuntime
     private static int CalculateBossHp(float t, float playerDps)
     {
         // Calculate boss health based on desired fight duration (14-17 seconds)
-        float minDuration = 14f;
-        float maxDuration = 17f;
+        float minDuration = 20f;
+        float maxDuration = 25f;
         float fightDuration = Mathf.Lerp(minDuration, maxDuration, t);
 
         // Calculate boss health based on player DPS and desired fight duration
-        int bossHp = Mathf.RoundToInt(playerDps * fightDuration * 1.2f);
+        int bossHp = Mathf.RoundToInt(playerDps * fightDuration);
         return bossHp;
     }
 
