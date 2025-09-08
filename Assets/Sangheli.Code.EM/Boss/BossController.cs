@@ -56,6 +56,13 @@ public class BossController : EnemyController
         if(!CanAttack)
             return;
         
+        // Check if player HP is zero or less
+        if (G.I.HpManager.RoundHp <= 0)
+        {
+            CanAttack = false;
+            return;
+        }
+        
         var transform1 = transform;
         
         var delta = _direction * CurrentData.Speed * Time.deltaTime;
