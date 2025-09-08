@@ -148,7 +148,7 @@ public static class AnalyticsHelper
     
     public static void OnLevelProgressMilestone(int milestone)
     {
-        string eventName = $"ce_levelProgress{milestone}Perc";
+        string eventName = $"ce_progress_{milestone:D3}";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
