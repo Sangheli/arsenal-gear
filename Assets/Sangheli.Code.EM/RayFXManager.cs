@@ -15,6 +15,9 @@ public class RayFXManager : MonoBehaviour
     [Header("Общие настройки")] 
     [Tooltip("Автоуничтожение временных объектов, сек")] public float autoDestroyDelay = 2f;
 
+    public float thickness = 0.1f;
+    public GameObject laserGO;
+    
     public Vector3 GetRandomTarget(Vector3 start)
     {
         var minusX = start.x < 0 ? -1 : 1;
@@ -28,7 +31,7 @@ public class RayFXManager : MonoBehaviour
     /// <summary>
     /// Стреляет лучом через TrailRenderer, двигая эмиттер из start в случайную цель.
     /// </summary>
-    public void ShootTrail(Vector3 start)
+    public void ShootTrailOld(Vector3 start)
     {
         if (linePrefab == null)
         {
@@ -47,6 +50,28 @@ public class RayFXManager : MonoBehaviour
         // Destroy the line after 0.2 seconds
         Destroy(line.gameObject, autoDestroyDelay);
     }
+
+    //cylinder
+    public void ShootTrail(Vector3 start)
+    {
+        var end = GetRandomTarget(start);
+
+        GameObject beam = Instantiate(laserGO);
+        Vector3 dir = end - start;
+        float length = dir.magnitude;
+
+        // позиция посередине
+        beam.transform.position = start + dir / 2f;
+
+        // направление
+        beam.transform.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+
+        // масштаб по длине и толщине
+        beam.transform.localScale = new Vector3(thickness, length / 2f, thickness);
+
+        Destroy(beam, autoDestroyDelay);
+    }
+
 
     private void OnDrawGizmosSelected()
     {

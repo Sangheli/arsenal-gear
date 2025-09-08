@@ -1379,9 +1379,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RayFXManager
   minXY: {x: 0.52, y: -0.3}
   maxXY: {x: 0.52, y: 0.3}
-  targetZ: -9.5
+  targetZ: -9.8
   linePrefab: {fileID: 2802767180308059544, guid: c870ee81fa34d9d4b8acfe516b4dc97e, type: 3}
   autoDestroyDelay: 0.2
+  laserGO: {fileID: 5428816588514901664, guid: 9d9e6a8ac2daea8428f67576b411f5a5, type: 3}
 --- !u!4 &1545592216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 498068, guid: 24afaab28ebbf8e40b8a6956429b0359, type: 3}
