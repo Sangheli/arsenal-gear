@@ -60,14 +60,6 @@ MonoBehaviour:
     useCustomPitch: 0
     useCustomStartPitch: 1
     customStartPitch: 0.8
-  enemyMetalHit:
-    ClipList:
-    - {fileID: 8300000, guid: 8869d463e54c8c94a8dff28bdf89b893, type: 3}
-    PitchRange: 0.25
-    Volume: 0
-    useCustomPitch: 0
-    useCustomStartPitch: 0
-    customStartPitch: 1
   collectCoin:
     ClipList:
     - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
@@ -92,14 +84,6 @@ MonoBehaviour:
     useCustomPitch: 0
     useCustomStartPitch: 0
     customStartPitch: 1
-  bossHit:
-    ClipList:
-    - {fileID: 8300000, guid: 5dae9d5e949c19245abc5cc5cd043804, type: 3}
-    PitchRange: 0.25
-    Volume: 0.24
-    useCustomPitch: 0
-    useCustomStartPitch: 0
-    customStartPitch: 1
   bossDeath:
     ClipList:
     - {fileID: 8300000, guid: 603ba10b385aac74db272543b65845cf, type: 3}
@@ -116,11 +100,11 @@ MonoBehaviour:
     useCustomPitch: 0
     useCustomStartPitch: 0
     customStartPitch: 1
-  shell:
+  energyShieldHit:
     ClipList:
-    - {fileID: 8300000, guid: 8206b385abf42e24ea618524af68a586, type: 3}
-    PitchRange: 0
-    Volume: 0
+    - {fileID: 8300000, guid: 5de08501f530ae6468d5661b0ba11489, type: 3}
+    PitchRange: 0.5
+    Volume: 1
     useCustomPitch: 0
     useCustomStartPitch: 0
-    customStartPitch: 1
+    customStartPitch: 0.6

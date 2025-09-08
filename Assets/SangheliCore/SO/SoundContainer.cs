@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Sangheli/SoundContainer")]
 public class SoundContainer : ScriptableObject
@@ -11,32 +10,27 @@ public class SoundContainer : ScriptableObject
     [Space]
     public AudioSettingsSangheli hit;
     public AudioSettingsSangheli laserShoot;
-    [FormerlySerializedAs("hit2")] public AudioSettingsSangheli emptyHit;
+    public AudioSettingsSangheli emptyHit;
     
     [Space]
-    [FormerlySerializedAs("death")]
     public AudioSettingsSangheli enemyDeathSound;
     public AudioSettingsSangheli enemyDeathSoundRobot;
     
-    [Space,Header("Hit")]
-    public AudioSettingsSangheli enemyMetalHit;
-    
     [Space]
-    [FormerlySerializedAs("collect")] public AudioSettingsSangheli collectCoin;
-    [FormerlySerializedAs("collect2")] public AudioSettingsSangheli ShowCoinAnim;
+    public AudioSettingsSangheli collectCoin;
+    public AudioSettingsSangheli ShowCoinAnim;
 
-    [FormerlySerializedAs("woosh1")] [Space]
+    [Space]
     public AudioSettingsSangheli loadinScreen;
 
     [Space]
-    public AudioSettingsSangheli bossHit;
     public AudioSettingsSangheli bossDeath;
     
     [Space]
     public AudioSettingsSangheli gameOver;
     
     [Space]
-    public AudioSettingsSangheli shell;
+    public AudioSettingsSangheli energyShieldHit;
 
     [Serializable]
     public class AudioSettingsSangheli
