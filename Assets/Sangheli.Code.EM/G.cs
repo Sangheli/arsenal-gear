@@ -20,6 +20,7 @@ public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
+    public CockpitManager cockpitManager;
     public WeaponManager weaponManager;
     public Camera cameraMain;
     public OrientationChecker orientationChecker;

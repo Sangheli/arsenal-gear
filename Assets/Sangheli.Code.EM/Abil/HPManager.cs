@@ -40,7 +40,10 @@ public class HPManager
             return reduceValue;
 
         if (doBlink)
+        {
             _doBlink = true;
+            G.I.cockpitManager.PlayDistortion();
+        }
 
         var actualDamage = ignoreShield
             ? reduceValue

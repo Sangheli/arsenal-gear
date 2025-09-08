@@ -15,7 +15,7 @@ public class RunningBarImage : ARunningBar
         _hpImageBlock = GetMat(hpImage);
     }
 
-    private static Material GetMat(Image img)
+    public static Material GetMat(Image img)
     {
         if (img.material != null)
             img.material = Instantiate(img.material);

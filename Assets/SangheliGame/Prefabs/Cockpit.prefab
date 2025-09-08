@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 750190057575160565}
   - component: {fileID: 1056310332471977078}
   - component: {fileID: 5427593804144755131}
+  - component: {fileID: 5394427450809920248}
   m_Layer: 5
   m_Name: Cockpit
   m_TagString: Untagged
@@ -122,6 +123,31 @@ MonoBehaviour:
   minAnchorOffset: {x: -100, y: -100}
   maxAnchorOffset: {x: 100, y: 100}
   factor: -5
+--- !u!114 &5394427450809920248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544686930951848627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8dcb5785a246d4af21866a807d62df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CockpitManager
+  distortionTime: 0.25
+  distortionTime2: 0.1
+  distortionValueStart: 95
+  distortionValueDamage: 30
+  glowValueStart: 1
+  glowValueDamage: 6
+  shieldImageArr:
+  - {fileID: 8378431432453652999}
+  - {fileID: 7705551121429562231}
+  - {fileID: 5557957694613728270}
+  - {fileID: 8632604735358058037}
+  propName: _PixelateSize
+  propNameGlow: _OverlayGlow
 --- !u!1 &566624781487388709
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +733,7 @@ GameObject:
   - component: {fileID: 1327599755106617740}
   - component: {fileID: 2448861065925370420}
   m_Layer: 5
-  m_Name: glass
+  m_Name: glass_big_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,7 +947,7 @@ GameObject:
   - component: {fileID: 8795458584807376731}
   - component: {fileID: 446788873887957641}
   m_Layer: 5
-  m_Name: glass (1)
+  m_Name: glass_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -985,7 +1011,7 @@ GameObject:
   - component: {fileID: 6113242370701938653}
   - component: {fileID: 5696002367853134281}
   m_Layer: 5
-  m_Name: glass (1)
+  m_Name: glass_center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
