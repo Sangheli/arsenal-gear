@@ -2,15 +2,18 @@ using UnityEngine;
 
 public abstract class BaseUpgradeInfo
 {
+    public int row = 0;
+    [Space]
+    public string DisplayName;
+    [Space]
     public float BaseValue;
     public float MaxValue;
     public int MaxUpgrades => Mathf.FloorToInt((MaxValue - BaseValue) / Step);
     public float Step;
-    public string DisplayName;
+
     public float BasePrice;
     public float PriceMult;
     public bool ShowUpgrade = true;
-    public int row = 0;
 
     public float GetValue(int bought) => Mathf.Max(BaseValue + bought * Step, BaseValue);
     

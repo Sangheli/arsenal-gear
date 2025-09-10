@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
 public class ParamInfo : BaseUpgradeInfo
 {
+    [Space]
     public string Key;
     public bool UseRandom;
     public float RandomCoef = 1;
