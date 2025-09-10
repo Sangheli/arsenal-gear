@@ -67,6 +67,8 @@ public class CursorDamageHelper3D
         var totalDamage = 0f;
         var totalShield = 0f;
 
+        Transform targetToShoot = null;
+        
         for (int i = 0; i < hitCount; i++)
         {
             var enemy = _enemyHits[i].collider.GetComponent<DamageReciever>();
@@ -80,7 +82,8 @@ public class CursorDamageHelper3D
             );
 
             enemy.TakeDamage(critResult);
-
+            targetToShoot = enemy.transform;
+            
             if (isAI) continue;
 
             // пример "ответки"
@@ -93,7 +96,8 @@ public class CursorDamageHelper3D
         {
             PlayerDoDamage = hitCount > 0,
             TotalDamage = totalDamage,
-            TotalShieldDamage = totalShield
+            TotalShieldDamage = totalShield,
+            targetToShoot = targetToShoot == null ? Vector3.zero : targetToShoot.position,
         };
     }
 

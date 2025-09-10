@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ClampPosition))]
 public class Weapon2D : MonoBehaviour
 {
+    public ERayType RayType;
     public EWeaponType Type;
     public float bounceScale = 1.2f;
     public float bounceSpeed = 10f;
@@ -12,6 +13,9 @@ public class Weapon2D : MonoBehaviour
     public ClampPosition clampPosition;
 
     private Coroutine bounceRoutine;
+
+    public Transform startPosTf;
+    public Transform endPosTf;
 
     private void OnValidate()
     {
@@ -28,9 +32,16 @@ public class Weapon2D : MonoBehaviour
         clampPosition.SetPosition(pos);
     }
 
-    public void Shoot()
+    public void Shoot(Vector3 endPos)
     {
         BounceView();
+        // ShootRayToTarget(endPosTf.position);
+    }
+
+    private void ShootRayToTarget(Vector3 endPos)
+    {
+        Vector3 startPos = startPosTf.position;
+        G.I.rayFXManager.Shoot(startPos, endPos, RayType);
     }
 
     private void BounceView()

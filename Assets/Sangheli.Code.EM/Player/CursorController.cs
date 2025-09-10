@@ -179,7 +179,7 @@ public class CursorController : MonoBehaviour
 
         if (damageResult.PlayerDoDamage)
         {
-            G.I.weaponManager.Shoot();
+            G.I.weaponManager.Shoot(damageResult.targetToShoot);
             view.DoBounceAnimation(CurrentDamageScale);
         }
         

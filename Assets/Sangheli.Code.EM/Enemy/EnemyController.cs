@@ -291,7 +291,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         var finalDamage = G.I.HpManager.Reduce(DamageValue, doBlink: true, ignoreShield: false);
         float totalShield = DamageValue - finalDamage;
         float totalDamage = finalDamage;
-        G.I.rayFXManager.ShootTrail(transform.position);
+        G.I.rayFXManager.ShootToPlayer(transform.position, ERayType.LaserEnemy);
         var damageResult = new DamageResult { PlayerDoDamage = true, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
     }
 } 

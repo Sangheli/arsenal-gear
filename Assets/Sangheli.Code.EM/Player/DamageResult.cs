@@ -1,4 +1,7 @@
 // Структура для возврата результата атаки
+
+using UnityEngine;
+
 public struct DamageResult
 {
     public bool HasRecivedDamage => TotalDamage>0.0001f;
@@ -7,4 +10,5 @@ public struct DamageResult
     public bool PlayerDoDamage;
     public float TotalDamage;
     public float TotalShieldDamage;
+    public Vector3 targetToShoot;
 } 

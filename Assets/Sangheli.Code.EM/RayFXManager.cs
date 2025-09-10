@@ -1,7 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RayFXManager : MonoBehaviour
 {
+    [System.Serializable]
+    public struct RayPrefab
+    {
+        public ERayType type;
+        public GameObject prefab;
+    }
+    
+    [Header("Ray Prefabs")]
+    [Tooltip("List of prefabs for different ray types")]
+    public RayPrefab[] rayPrefabs;
+
+    //Player coords
     [Header("2D-границы (XY)")]
     [Tooltip("Минимальные XY координаты")] public Vector2 minXY = new Vector2(-5, -5);
     [Tooltip("Максимальные XY координаты")] public Vector2 maxXY = new Vector2(5, 5);
@@ -9,14 +22,29 @@ public class RayFXManager : MonoBehaviour
     [Header("Фиксированная Z-координата для цели")] 
     public float targetZ = 0f;
 
-    [Header("Префабы для рендера")]
-    [Tooltip("LineRenderer для мгновенной линии")] public LineRenderer linePrefab;
 
     [Header("Общие настройки")] 
     [Tooltip("Автоуничтожение временных объектов, сек")] public float autoDestroyDelay = 2f;
 
-    public float thickness = 0.1f;
+    [HideInInspector]
     public GameObject laserGO;
+    public float thickness = 0.1f;
+    
+    // Cache for ray prefabs
+    private Dictionary<ERayType, GameObject> _rayPrefabCache;
+
+    private void Awake()
+    {
+        // Cache the ray prefabs in a dictionary for faster access
+        _rayPrefabCache = new Dictionary<ERayType, GameObject>();
+        foreach (var rayPrefab in rayPrefabs)
+        {
+            if (rayPrefab.type != ERayType.None && rayPrefab.prefab != null)
+            {
+                _rayPrefabCache[rayPrefab.type] = rayPrefab.prefab;
+            }
+        }
+    }
     
     public Vector3 GetRandomTarget(Vector3 start)
     {
@@ -28,35 +56,24 @@ public class RayFXManager : MonoBehaviour
         return new Vector3(x * minusX, y*minusY, targetZ);
     }
 
-    /// <summary>
-    /// Стреляет лучом через TrailRenderer, двигая эмиттер из start в случайную цель.
-    /// </summary>
-    public void ShootTrailOld(Vector3 start)
-    {
-        if (linePrefab == null)
-        {
-            Debug.LogWarning("Line prefab is not assigned");
-            return;
-        }
-
-        Vector3 end = GetRandomTarget(start);
-
-        LineRenderer line = Instantiate(linePrefab);
-        line.positionCount = 2;
-        line.useWorldSpace = true;
-        line.SetPosition(0, start);
-        line.SetPosition(1, end);
-
-        // Destroy the line after 0.2 seconds
-        Destroy(line.gameObject, autoDestroyDelay);
-    }
-
-    //cylinder
-    public void ShootTrail(Vector3 start)
+    public void ShootToPlayer(Vector3 start, ERayType rayType)
     {
         var end = GetRandomTarget(start);
-
-        GameObject beam = Instantiate(laserGO);
+        Shoot(start,end, rayType);
+    }
+    
+    public void Shoot(Vector3 start, Vector3 end, ERayType rayType = ERayType.Laser)
+    {
+        // Get the appropriate prefab based on ray type
+        GameObject prefab;
+        if (!_rayPrefabCache.TryGetValue(rayType, out prefab))
+        {
+            // Fallback to default laserGO if ray type not found
+            prefab = laserGO;
+        }
+        
+        // Instantiate the prefab
+        GameObject beam = Instantiate(prefab);
         Vector3 dir = end - start;
         float length = dir.magnitude;
 
@@ -71,7 +88,6 @@ public class RayFXManager : MonoBehaviour
 
         Destroy(beam, autoDestroyDelay);
     }
-
 
     private void OnDrawGizmosSelected()
     {

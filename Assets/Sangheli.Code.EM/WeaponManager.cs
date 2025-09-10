@@ -74,7 +74,7 @@ public class WeaponManager : MonoBehaviour
             w.SetPos(G.I.playerCursor.transform.position);
     }
 
-    public void Shoot()
+    public void Shoot(Vector3 endPos)
     {
         if (currentWeapons.Count == 0)
             return;
@@ -86,19 +86,19 @@ public class WeaponManager : MonoBehaviour
         
         if (currentWeapons.Count < 2 + 1)
         {
-            ShootAll(currentWeapons);
+            ShootAll(currentWeapons,endPos);
         }
         else
         {
             var randomBounce = currentWeapons.PickRandom(Random.Range(2, currentWeapons.Count + 1));
-            ShootAll(randomBounce);    
+            ShootAll(randomBounce,endPos);    
         }
     }
 
-    private static void ShootAll(List<Weapon2D> randomBounce)
+    private static void ShootAll(List<Weapon2D> randomBounce,Vector3 endPos)
     {
         foreach (var w in randomBounce)
-            w.Shoot();
+            w.Shoot(endPos);
     }
     
     private void PlaySound(EWeaponType Type)
