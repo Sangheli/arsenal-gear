@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +29,11 @@ public class EndRoundView : MonoBehaviour
     public Button returnToStartButton;
     public Text returnToStartText;
     
+    [Space]
+    public Button rateMeButton;
+    public Text rateMeText;
+    public RateMeSO rateMeData;
+    
     private Color _buttonStartNewRoundOriginalColor;
     private Color _buttonStartNewRoundOriginalColor2;
     private Color _buttonStartNewRoundTextOriginalColor;
@@ -58,6 +62,10 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
         if (returnToStartButton != null)
             returnToStartButton.onClick.AddListener(OnReturnToStartScreen);
+        
+        if (rateMeButton != null)
+            rateMeButton.onClick.AddListener(OnRateMeClicked);
+        
         Toggle(false);
         
         buttonStartNewRound.image.color = Color.clear;
@@ -109,12 +117,18 @@ public class EndRoundView : MonoBehaviour
         distortion.gameObject.SetActive(false);
     }
 
-    public void Toggle(bool state)
+    public void Toggle(bool state, int level = -1)
     {
         if (state)
         {
             upgradesText.text = G.I.localization.Get("go_to_upgrades");
             checkPointText.text = G.I.localization.Get("checkpoint_done");
+            
+            // Set rate me button text if the button exists
+            if (rateMeText != null)
+                rateMeText.text = G.I.localization.Get("rate_me");
+            
+            rateMeButton.gameObject.SetActive(!G.I.Data.storeConfig.DisableForStore && level>=10 && level%5==0);
         }
         
         buttonEndRound.interactable = false;
@@ -166,7 +180,7 @@ public class EndRoundView : MonoBehaviour
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
         yield return distortion.DoFade(levelTargetEnd, fadeType);
-        Toggle(true);
+        Toggle(true, save.level);
 
         buttonStartNewRoundText.text = G.PlayLevelAgainFader.Contains(fadeType) ? G.I.localization.Get("play_level_again") : $"{G.I.localization.Get("play_next_level")} {save.level + 1}";
 
@@ -228,5 +242,10 @@ public class EndRoundView : MonoBehaviour
         
         StopCoroutine(_showCoroutine);
         _showCoroutine = null;
+    }
+
+    private void OnRateMeClicked()
+    {
+        if (rateMeData != null) MediaUrlOpener.OpenURL(rateMeData.rateURL);
     }
 }
