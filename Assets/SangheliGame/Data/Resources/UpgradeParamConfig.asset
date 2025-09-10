@@ -125,7 +125,7 @@ MonoBehaviour:
     DisplayName: Attacks_minute_2
     BaseValue: 0
     MaxValue: 80
-    Step: 5
+    Step: 10
     BasePrice: 400
     PriceMult: 1.3
     ShowUpgrade: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
     DisplayName: Attacks_minute_3
     BaseValue: 0
     MaxValue: 80
-    Step: 5
+    Step: 10
     BasePrice: 1200
     PriceMult: 1.05
     ShowUpgrade: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
     DisplayName: Attacks_minute_4
     BaseValue: 0
     MaxValue: 80
-    Step: 5
+    Step: 10
     BasePrice: 1800
     PriceMult: 1.05
     ShowUpgrade: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
     DisplayName: Attacks_minute_5
     BaseValue: 0
     MaxValue: 80
-    Step: 5
+    Step: 10
     BasePrice: 2600
     PriceMult: 1.05
     ShowUpgrade: 1
@@ -298,7 +298,8 @@ MonoBehaviour:
     RandomCoef: 0
     ignoreHardcoreHide: 0
     fullDepentList: []
-    anyDepnetList: []
+    anyDepnetList:
+    - critChance
   - row: 4
     DisplayName: u_LaserCount
     BaseValue: 0
@@ -328,7 +329,7 @@ MonoBehaviour:
     ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList:
-    - Crit_Chance
+    - critChance
   - row: 5
     DisplayName: Shield_Regen_sec
     BaseValue: 0
@@ -359,7 +360,6 @@ MonoBehaviour:
     fullDepentList: []
     anyDepnetList:
     - shieldCapacity
-    - critChance
   - row: 2
     DisplayName: Attack_Diameter
     BaseValue: 1
