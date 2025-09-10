@@ -181,9 +181,9 @@ public class G : MonoBehaviour
         LevelDataConfig = new LevelDataConfigRuntime();
         
         levelTargetManager.OnLoadInit();
+        bossManager = GetComponent<BossManager>();
         if (startGameWithoutMenu) OnStartGameWithoutMenu();
         else OnStartGameWithMenu();
-        bossManager = GetComponent<BossManager>();
     }
 
     public void StartRunFirstTime(bool newGame)
