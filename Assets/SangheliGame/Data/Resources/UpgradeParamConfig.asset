@@ -108,12 +108,86 @@ MonoBehaviour:
     - hp4
     anyDepnetList: []
   - row: 1
+    DisplayName: Attacks_minute
+    BaseValue: 200
+    MaxValue: 280
+    Step: 10
+    BasePrice: 50
+    PriceMult: 1.1
+    ShowUpgrade: 1
+    Key: playerFireRate
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList: []
+    anyDepnetList: []
+  - row: 1
+    DisplayName: Attacks_minute_2
+    BaseValue: 0
+    MaxValue: 80
+    Step: 5
+    BasePrice: 400
+    PriceMult: 1.3
+    ShowUpgrade: 1
+    Key: playerFireRate2
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList:
+    - playerFireRate
+    anyDepnetList: []
+  - row: 1
+    DisplayName: Attacks_minute_3
+    BaseValue: 0
+    MaxValue: 80
+    Step: 5
+    BasePrice: 1200
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerFireRate3
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList:
+    - playerFireRate2
+    anyDepnetList: []
+  - row: 1
+    DisplayName: Attacks_minute_4
+    BaseValue: 0
+    MaxValue: 80
+    Step: 5
+    BasePrice: 1800
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerFireRate4
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList:
+    - playerFireRate3
+    anyDepnetList: []
+  - row: 1
+    DisplayName: Attacks_minute_5
+    BaseValue: 0
+    MaxValue: 80
+    Step: 5
+    BasePrice: 2600
+    PriceMult: 1.05
+    ShowUpgrade: 1
+    Key: playerFireRate5
+    UseRandom: 0
+    RandomCoef: 0
+    ignoreHardcoreHide: 0
+    fullDepentList:
+    - playerFireRate4
+    anyDepnetList: []
+  - row: 2
     DisplayName: Damage_Level_1
     BaseValue: 1
     MaxValue: 5
     Step: 1
-    BasePrice: 40
-    PriceMult: 1.3
+    BasePrice: 75
+    PriceMult: 1.1
     ShowUpgrade: 1
     Key: playerDamageMin
     UseRandom: 1
@@ -121,13 +195,13 @@ MonoBehaviour:
     ignoreHardcoreHide: 0
     fullDepentList: []
     anyDepnetList: []
-  - row: 1
+  - row: 2
     DisplayName: Damage_Level_2
     BaseValue: 0
     MaxValue: 5
     Step: 1
-    BasePrice: 250
-    PriceMult: 1.15
+    BasePrice: 500
+    PriceMult: 1.3
     ShowUpgrade: 1
     Key: playerDamageMin2
     UseRandom: 0
@@ -136,12 +210,12 @@ MonoBehaviour:
     fullDepentList:
     - playerDamageMin
     anyDepnetList: []
-  - row: 1
+  - row: 2
     DisplayName: Damage_Level_3
     BaseValue: 0
     MaxValue: 5
     Step: 1
-    BasePrice: 1150
+    BasePrice: 1250
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin3
@@ -149,15 +223,14 @@ MonoBehaviour:
     RandomCoef: 1.5
     ignoreHardcoreHide: 0
     fullDepentList:
-    - playerDamageMin
     - playerDamageMin2
     anyDepnetList: []
-  - row: 1
+  - row: 2
     DisplayName: Damage_Level_4
     BaseValue: 0
     MaxValue: 5
     Step: 1
-    BasePrice: 1700
+    BasePrice: 1900
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin4
@@ -165,16 +238,14 @@ MonoBehaviour:
     RandomCoef: 1.5
     ignoreHardcoreHide: 0
     fullDepentList:
-    - playerDamageMin
-    - playerDamageMin2
     - playerDamageMin3
     anyDepnetList: []
-  - row: 1
+  - row: 2
     DisplayName: Damage_Level_5
     BaseValue: 0
     MaxValue: 5
     Step: 1
-    BasePrice: 2500
+    BasePrice: 2700
     PriceMult: 1.05
     ShowUpgrade: 1
     Key: playerDamageMin5
@@ -182,24 +253,7 @@ MonoBehaviour:
     RandomCoef: 1.5
     ignoreHardcoreHide: 0
     fullDepentList:
-    - playerDamageMin
-    - playerDamageMin2
-    - playerDamageMin3
     - playerDamageMin4
-    anyDepnetList: []
-  - row: 2
-    DisplayName: Attacks_minute
-    BaseValue: 200
-    MaxValue: 600
-    Step: 5
-    BasePrice: 35
-    PriceMult: 1.2
-    ShowUpgrade: 1
-    Key: playerFireRate
-    UseRandom: 0
-    RandomCoef: 0
-    ignoreHardcoreHide: 0
-    fullDepentList: []
     anyDepnetList: []
   - row: 3
     DisplayName: Crit_Chance
@@ -214,7 +268,8 @@ MonoBehaviour:
     RandomCoef: 0
     ignoreHardcoreHide: 0
     fullDepentList: []
-    anyDepnetList: []
+    anyDepnetList:
+    - playerDamageMin
   - row: 3
     DisplayName: Crit_Multiplier
     BaseValue: 1.1
@@ -256,7 +311,8 @@ MonoBehaviour:
     UseRandom: 0
     RandomCoef: 0
     ignoreHardcoreHide: 0
-    fullDepentList: []
+    fullDepentList:
+    - u_machineGunCount
     anyDepnetList: []
   - row: 5
     DisplayName: Shield_Capacity
@@ -271,7 +327,8 @@ MonoBehaviour:
     RandomCoef: 0
     ignoreHardcoreHide: 0
     fullDepentList: []
-    anyDepnetList: []
+    anyDepnetList:
+    - Crit_Chance
   - row: 5
     DisplayName: Shield_Regen_sec
     BaseValue: 0

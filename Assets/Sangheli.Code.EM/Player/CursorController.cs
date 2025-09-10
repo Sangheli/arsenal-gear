@@ -83,7 +83,7 @@ public class CursorController : MonoBehaviour
         CurrentDamageScale = paramContainer.GetValue("damageDiameter") * radiusPercent;
         CurrentDamageScaleHalf = CurrentDamageScale / 2f;
         _currentHarvestScale = paramContainer.GetValue("collectDiameter") * radiusPercent;
-        _playerFireRate = paramContainer.GetValue("playerFireRate") * fireRatePercent;
+        _playerFireRate = FireRateManager.GetPlayerFireRate() * fireRatePercent;
         _critChance = paramContainer.GetValue("critChance")/100f;
         _critMultiplier = paramContainer.GetValue("critMultiplier");
         _damagePercent = damagePercent;

@@ -26,7 +26,7 @@ public class DPSManager
         var damage = keys.Sum(x => paramContainer.GetValue(x));
         var superMult = GetSuperMult();
         damage *= superMult;
-        var playerFireRate = paramContainer.GetValue("playerFireRate");
+        var playerFireRate = FireRateManager.GetPlayerFireRate();
         var critMultiplier = paramContainer.GetValue("critMultiplier");
 
         var averageDamage = damage;
