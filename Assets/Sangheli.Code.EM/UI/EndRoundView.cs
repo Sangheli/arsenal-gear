@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class EndRoundView : MonoBehaviour
 {
     //text
-    public Text energyText;
+    public Text totalRoundText;
+    public Text totalGameText;
     public Text rewardText;
     public Text rewardBossText;
     
     [Space]
-    public Text energyTextCoin;
+    public Text totalTextCoin;
+    public Text totalGameTextCoin;
     public Text rewardTextCoin;
     public Text rewardBossTextCoin;
 
@@ -48,6 +50,7 @@ public class EndRoundView : MonoBehaviour
     private const string PrefixRound = "round_reward";
     private const string PrefixBoss = "boss_reward";
     private const string PrefixTotal = "total";
+    private const string PrefixTotalSumGame = "totalSumGame";
     
     private Coroutine _showCoroutine;
 
@@ -128,7 +131,8 @@ public class EndRoundView : MonoBehaviour
     {
         if (state)
         {
-            energyText.text = $"{G.I.localization.Get(PrefixTotal)}";
+            totalRoundText.text = $"{G.I.localization.Get(PrefixTotal)}";
+            totalGameText.text = $"{G.I.localization.Get(PrefixTotalSumGame)}";
             rewardText.text = $"{G.I.localization.Get(PrefixRound)}";
             rewardBossText.text = $"{G.I.localization.Get(PrefixBoss)}";
             
@@ -149,19 +153,21 @@ public class EndRoundView : MonoBehaviour
         returnToStartButton.gameObject.SetActive(false);
     }
 
-    public void Show(int energy, int totalEnergy, int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
+    public void Show(int rewardCollected, int energyOnStart, int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
         StopShowCoroutine();
-        _showCoroutine = StartCoroutine(ShowCoroutine(energy, totalEnergy, bossReward, fadeType, levelTargetEnd));
+        _showCoroutine = StartCoroutine(ShowCoroutine(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd));
     }
 
-    private IEnumerator ShowCoroutine(int energy, int totalEnergy,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
+    private IEnumerator ShowCoroutine(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
+        totalGameTextCoin.text = $"{NumberFormatter.Format(energyOnStart, 1)}";
+        
         buttonStartNewRound.image.color = Color.clear;
         buttonStartNewRoundText.color = Color.clear;
         startChild.color = Color.clear;
         
-        rewardTextCoin.text = $"{NumberFormatter.Format(energy, 1)}";
+        rewardTextCoin.text = $"{NumberFormatter.Format(rewardCollected, 1)}";
         rewardBossTextCoin.text = $"{NumberFormatter.Format(bossReward, 1)}";
 
         var save = G.I.SaveProvider.Get();
@@ -201,49 +207,54 @@ public class EndRoundView : MonoBehaviour
         buttonEndRound.interactable = true;
         if (showNextRound) buttonStartNewRound.interactable = true;
 
-        yield return ShowRewardAnim(energy, totalEnergy, PrefixRound, rewardTextCoin);
-        yield return ShowRewardAnim(bossReward, totalEnergy + energy, PrefixBoss, rewardBossTextCoin);
+        yield return ShowRewardAnim(rewardCollected, 0, energyOnStart, rewardTextCoin);
+        yield return ShowRewardAnim(bossReward, rewardCollected, energyOnStart+rewardCollected, rewardBossTextCoin);
     }
     
-    private IEnumerator ShowRewardAnim(int reward, float totalEnergy, string prefix, Text textToDecrease)
+    private IEnumerator ShowRewardAnim(int reward, float startRewardForRound, float startRewardForGame, Text textToDecrease)
     {
         if (reward > 0)
         {
-            yield return ShowCoinAnim(reward, totalEnergy, textToDecrease);
+            yield return ShowCoinAnim(reward, startRewardForRound, startRewardForGame, textToDecrease);
         }
         else if (textToDecrease == rewardTextCoin) // Только для обычной награды обновляем energyText
         {
-            energyTextCoin.text = $"{NumberFormatter.Format(reward + totalEnergy, 1)}";
+            totalTextCoin.text = $"{NumberFormatter.Format(reward, 1)}";
+            totalGameTextCoin.text = $"{NumberFormatter.Format(startRewardForGame, 1)}";
         }
     }
 
-    private IEnumerator ShowCoinAnim(int energy, float totalEnergy, Text textToDecrease)
+    private IEnumerator ShowCoinAnim(int energy, float totalEnergy,float gameEnergy, Text textToDecrease)
     {
-        energyTextCoin.text = $"{NumberFormatter.Format(totalEnergy, 1)}";
+        totalTextCoin.text = $"{NumberFormatter.Format(totalEnergy, 1)}";
+        totalGameTextCoin.text = $"{NumberFormatter.Format(totalEnergy+gameEnergy, 1)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
         float addTemp = energy;
         float stepTime = animationTime / intervalNum;
         float energyPerStep = energy / intervalNum;
-        float currentTotal = totalEnergy;
+        float currentTotal = 0;
+        float currentTotalGame = gameEnergy;
         
         for (int i = 0; i < intervalNum; i++)
         {
             yield return new WaitForSeconds(stepTime);
             currentTotal += energyPerStep;
+            currentTotalGame += energyPerStep;
             addTemp -=  energyPerStep;
-            PrintCoinAnim(textToDecrease, addTemp, currentTotal);
+            PrintCoinAnim(textToDecrease, addTemp, currentTotal, currentTotalGame);
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.ShowCoinAnim);
         }
         
-        PrintCoinAnim(textToDecrease, 0, energy+totalEnergy);
+        PrintCoinAnim(textToDecrease, 0, energy+totalEnergy, energy + totalEnergy + gameEnergy);
     }
     
-    private void PrintCoinAnim(Text textToDecrease, float addTemp, float currentTotal)
+    private void PrintCoinAnim(Text textToDecrease, float addTemp, float currentTotal, float currentTotalGame)
     {
         textToDecrease.text = $"{NumberFormatter.Format(Mathf.Max(addTemp, 0),1)}";
-        energyTextCoin.text = $"{NumberFormatter.Format(currentTotal, 1)}";
+        totalTextCoin.text = $"{NumberFormatter.Format(currentTotal, 1)}";
+        totalGameTextCoin.text = $"{NumberFormatter.Format(currentTotalGame, 1)}";
     }
 
     private void StopShowCoroutine()

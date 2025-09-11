@@ -96,7 +96,7 @@ public class G : MonoBehaviour
     [Space]
     public bool startGameWithoutMenu = true;
     
-    public LevelConfig currentLevel;
+    public LevelConfig currentLevel { get; set; }
     
     private void OnValidate()
     {
@@ -305,22 +305,22 @@ public class G : MonoBehaviour
         
         var save = SaveProvider.Get();
         
-        var energyOnStart = save.totalEnergy;
-        var roundEnergy = EnergyManager.RoundEnergyCount;
+        var gameSum = save.totalEnergy;
+        var roundReward = EnergyManager.RoundEnergyCount;
 
-        var levelWinEnergy = levelTargetEnd?.GetEnergy() ?? 0;
-        var toCollect = GetAutoCollectEnergy(save, out var energyAutoCollect);
+        var bossReward = levelTargetEnd?.GetEnergy() ?? 0;
+        var toCollect = GetAutoCollectEnergy(save, out var rewardAutoCollect);
 
-        save.totalEnergy = energyOnStart + roundEnergy + energyAutoCollect + levelWinEnergy;
+        save.totalEnergy = gameSum + roundReward + rewardAutoCollect + bossReward;
         SaveSystem.Save(sendAnalytics: true, fadeType);
         
-        yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, energyAutoCollect);
+        yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, rewardAutoCollect);
         yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
         
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
         
-        endRoundView.Show(roundEnergy + energyAutoCollect,energyOnStart, levelWinEnergy, fadeType, levelTargetEnd);
+        endRoundView.Show(roundReward + rewardAutoCollect,gameSum, bossReward, fadeType, levelTargetEnd);
     }
 
     private List<EnergyView> GetAutoCollectEnergy(DataSave save, out int energyAutoCollect)
