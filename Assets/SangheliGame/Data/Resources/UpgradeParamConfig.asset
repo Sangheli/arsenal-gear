@@ -285,7 +285,7 @@ MonoBehaviour:
     fullDepentList: []
     anyDepnetList:
     - critChance
-  - row: 4
+  - row: 3
     DisplayName: u_machineGunCount
     BaseValue: 1
     MaxValue: 2
@@ -300,13 +300,13 @@ MonoBehaviour:
     fullDepentList: []
     anyDepnetList:
     - critChance
-  - row: 4
+  - row: 3
     DisplayName: u_LaserCount
     BaseValue: 0
     MaxValue: 2
     Step: 1
     BasePrice: 30000
-    PriceMult: 2
+    PriceMult: 3
     ShowUpgrade: 1
     Key: u_LaserCount
     UseRandom: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
     fullDepentList: []
     anyDepnetList:
     - shieldCapacity
-  - row: 6
+  - row: 5
     DisplayName: Auto_Collect_Coins
     BaseValue: 0
     MaxValue: 50

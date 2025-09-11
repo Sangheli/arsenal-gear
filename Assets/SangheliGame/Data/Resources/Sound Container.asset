@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15209108c349d69448014e8a36fb7bf7, type: 3}
-  m_Name: SoundContainer
+  m_Name: Sound Container
   m_EditorClassIdentifier: 
   buttonClick:
     ClipList:
@@ -104,7 +104,7 @@ MonoBehaviour:
     ClipList:
     - {fileID: 8300000, guid: 5de08501f530ae6468d5661b0ba11489, type: 3}
     PitchRange: 0.5
-    Volume: 1
+    Volume: 0.7
     useCustomPitch: 0
     useCustomStartPitch: 0
     customStartPitch: 0.6
