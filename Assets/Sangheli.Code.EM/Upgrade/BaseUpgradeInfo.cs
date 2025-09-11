@@ -29,10 +29,10 @@ public abstract class BaseUpgradeInfo
         // return basePrice * G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
     }
 
-    private static ulong Pow(float value, int exp)
+    private static double Pow(float value, int exp)
     {
         double result = 1;
         for (int i = 0; i < exp; i++) result *= value;
-        return (ulong) result;
+        return result;
     }
 } 
