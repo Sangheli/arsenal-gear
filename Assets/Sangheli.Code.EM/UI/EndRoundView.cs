@@ -8,6 +8,13 @@ public class EndRoundView : MonoBehaviour
     public Text energyText;
     public Text rewardText;
     public Text rewardBossText;
+    
+    [Space]
+    public Text energyTextCoin;
+    public Text rewardTextCoin;
+    public Text rewardBossTextCoin;
+
+    [Space]
     public Text buttonStartNewRoundText;
     public Text upgradesText;
     public Text checkPointText;
@@ -121,6 +128,10 @@ public class EndRoundView : MonoBehaviour
     {
         if (state)
         {
+            energyText.text = $"{G.I.localization.Get(PrefixTotal)}";
+            rewardText.text = $"{G.I.localization.Get(PrefixRound)}";
+            rewardBossText.text = $"{G.I.localization.Get(PrefixBoss)}";
+            
             upgradesText.text = G.I.localization.Get("go_to_upgrades");
             checkPointText.text = G.I.localization.Get("checkpoint_done");
             
@@ -128,7 +139,7 @@ public class EndRoundView : MonoBehaviour
             if (rateMeText != null)
                 rateMeText.text = G.I.localization.Get("rate_me");
             
-            rateMeButton.gameObject.SetActive(!G.I.Data.storeConfig.DisableForStore && level>=10 && level%5==0);
+            rateMeButton.gameObject.SetActive(!G.I.Data.storeConfig.DisableForStore && level>=20 && level%5==0);
         }
         
         buttonEndRound.interactable = false;
@@ -150,8 +161,8 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRoundText.color = Color.clear;
         startChild.color = Color.clear;
         
-        rewardText.text = $"{G.I.localization.Get(PrefixRound)}{NumberFormatter.Format(energy)}";
-        rewardBossText.text = $"{G.I.localization.Get(PrefixBoss)}{NumberFormatter.Format(bossReward)}";
+        rewardTextCoin.text = $"{NumberFormatter.Format(energy, 1)}";
+        rewardBossTextCoin.text = $"{NumberFormatter.Format(bossReward, 1)}";
 
         var save = G.I.SaveProvider.Get();
         var showGoToUpgradesButton = true;
@@ -190,25 +201,25 @@ public class EndRoundView : MonoBehaviour
         buttonEndRound.interactable = true;
         if (showNextRound) buttonStartNewRound.interactable = true;
 
-        yield return ShowRewardAnim(energy, totalEnergy, PrefixRound, rewardText);
-        yield return ShowRewardAnim(bossReward, totalEnergy + energy, PrefixBoss, rewardBossText);
+        yield return ShowRewardAnim(energy, totalEnergy, PrefixRound, rewardTextCoin);
+        yield return ShowRewardAnim(bossReward, totalEnergy + energy, PrefixBoss, rewardBossTextCoin);
     }
     
     private IEnumerator ShowRewardAnim(int reward, float totalEnergy, string prefix, Text textToDecrease)
     {
         if (reward > 0)
         {
-            yield return ShowCoinAnim(reward, totalEnergy, prefix, textToDecrease);
+            yield return ShowCoinAnim(reward, totalEnergy, textToDecrease);
         }
-        else if (textToDecrease == rewardText) // Только для обычной награды обновляем energyText
+        else if (textToDecrease == rewardTextCoin) // Только для обычной награды обновляем energyText
         {
-            energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(reward + totalEnergy)}";
+            energyTextCoin.text = $"{NumberFormatter.Format(reward + totalEnergy, 1)}";
         }
     }
 
-    private IEnumerator ShowCoinAnim(int energy, float totalEnergy, string prefix, Text textToDecrease)
+    private IEnumerator ShowCoinAnim(int energy, float totalEnergy, Text textToDecrease)
     {
-        energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(totalEnergy)}";
+        energyTextCoin.text = $"{NumberFormatter.Format(totalEnergy, 1)}";
 
         yield return new WaitForSeconds(waitBeforeAnim);
         
@@ -222,17 +233,17 @@ public class EndRoundView : MonoBehaviour
             yield return new WaitForSeconds(stepTime);
             currentTotal += energyPerStep;
             addTemp -=  energyPerStep;
-            PrintCoinAnim(prefix, textToDecrease, addTemp, currentTotal);
+            PrintCoinAnim(textToDecrease, addTemp, currentTotal);
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.ShowCoinAnim);
         }
         
-        PrintCoinAnim(prefix, textToDecrease, 0, energy+totalEnergy);
+        PrintCoinAnim(textToDecrease, 0, energy+totalEnergy);
     }
     
-    private void PrintCoinAnim(string prefix, Text textToDecrease, float addTemp, float currentTotal)
+    private void PrintCoinAnim(Text textToDecrease, float addTemp, float currentTotal)
     {
-        textToDecrease.text = $"{G.I.localization.Get(prefix)}{NumberFormatter.Format(Mathf.Max(addTemp, 0))}";
-        energyText.text = $"{G.I.localization.Get(PrefixTotal)}{NumberFormatter.Format(currentTotal)}";
+        textToDecrease.text = $"{NumberFormatter.Format(Mathf.Max(addTemp, 0),1)}";
+        energyTextCoin.text = $"{NumberFormatter.Format(currentTotal, 1)}";
     }
 
     private void StopShowCoroutine()
