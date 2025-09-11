@@ -108,7 +108,7 @@ public class EnemyData : ScriptableObject
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 
     public Color GetColor() => useRandomColor ? GetRandomColor() : color;
-    public Color GetBorderColor(int difficult) => useRandomColor ? GetRandomColor() : borderColorPalette.GetColor(difficult);
+    public Color GetBorderColor(int difficult) => useRandomColor ? GetRandomColor() : borderColorPalette[difficult];
 
     private Color GetRandomColor()
     {
