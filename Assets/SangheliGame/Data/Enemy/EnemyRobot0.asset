@@ -50,9 +50,11 @@ MonoBehaviour:
   SpawnCoinShift: {x: 0, y: 0.5, z: 0}
   shootPoint: {x: 0.0467, y: -0.0796, z: 0}
   BaseDamage: 0.1
-  FireRateMin: 10
-  overrideFirstLevel: 0
+  overrideFirstLevel: 1
   overrideFirstLevelValue: 0
+  FireRateMin: 10
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

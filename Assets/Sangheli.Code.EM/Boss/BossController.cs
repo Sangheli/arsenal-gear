@@ -18,7 +18,6 @@ public class BossController : EnemyController
         CurrentData.SetBaseHP(hp);
         CurrentData.SetBaseDamage(0);
         DamageValue = bossDamage;
-        fireRateMin = CurrentData.FireRateMin;
         damageReciever.EnemyData = CurrentData;
         
         _onBossDeath = onBossDeath;

@@ -68,9 +68,13 @@ public class EnemyData : ScriptableObject
     [Space,Header("Shoot")] 
     public Vector3 shootPoint;
     public float BaseDamage;
-    public float FireRateMin = 10;
     public bool overrideFirstLevel = false;
     public float overrideFirstLevelValue;
+    
+    [Space,Header("FireRate")]
+    public float FireRateMin = 10;
+    public bool overrideFireRateFirstDifficult = false;
+    public float overrideFireRateFirstDifficultValue = 60;
 
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
@@ -128,5 +132,19 @@ public class EnemyData : ScriptableObject
     public void SetBaseDamage(int i) => BaseDamage = i;
     
     public float GetHP(int difficult) => BaseHealth * (difficult+1);
-    public float GetDamage(int difficult) => overrideFirstLevel ? overrideFirstLevelValue : BaseDamage * (difficult + 1);
+    public float GetDamage(int difficult, int levelIndex)         => overrideFirstLevel && levelIndex < LevelDataConfigRuntime.SkipTutorialLevels ? overrideFirstLevelValue : BaseDamage * (difficult + 1);
+    
+    public float GetInitTimeAttack(int levelIndex)
+    {
+        var value = overrideFireRateFirstDifficult && levelIndex < LevelDataConfigRuntime.SkipTutorialLevels ? overrideFireRateFirstDifficultValue : FireRateMin;
+        value = 60f/ value + Random.Range(1, 3f);
+        return value;
+    }
+
+    public float GetTimeAttack(int levelIndex)
+    {
+        var value = overrideFireRateFirstDifficult && levelIndex < LevelDataConfigRuntime.SkipTutorialLevels ? overrideFireRateFirstDifficultValue : FireRateMin;
+        value = 60f / value;
+        return value;
+    }
 }

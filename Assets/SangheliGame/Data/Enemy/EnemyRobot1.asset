@@ -51,7 +51,7 @@ MonoBehaviour:
   shootPoint: {x: 0.062, y: 0.348, z: 0}
   BaseDamage: 0.2
   FireRateMin: 10
-  overrideFirstLevel: 0
+  overrideFirstLevel: 1
   overrideFirstLevelValue: 0
   UpgradeInfos:
   - row: 0

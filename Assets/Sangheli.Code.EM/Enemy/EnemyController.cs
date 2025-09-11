@@ -44,12 +44,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private Color? _borderColor;
     private float _selfDestructTime;
 
-    private int _difficult;
-    protected float DamageValue;
-    protected float fireRateMin;
+    public int _difficult;
+    public float DamageValue { get; private protected set; }
     public bool CanAttack { get; set; }
 
     private float NextTimeAttack;
+    private int _currentLevel;
     
     private void OnValidate()
     {
@@ -63,14 +63,14 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         damageReciever.Callback = TakeDamage;
     }
 
-    public void Init(EnemyData data, Vector2 moveDirection, int difficult, bool isPreSpawned = false)
+    public void Init(EnemyData data, Vector2 moveDirection, int difficult, int currentLevel, bool isPreSpawned = false)
     {
         IsDead = false;
+        _currentLevel = currentLevel;
         SetData(data);
         shootPoint.transform.localPosition = data.shootPoint;
         _difficult = difficult;
-        DamageValue = CurrentData.GetDamage(_difficult);
-        fireRateMin = CurrentData.FireRateMin;
+        DamageValue = CurrentData.GetDamage(_difficult, currentLevel);
         HpManager.Init(unfillTime, CurrentData.showHPbar,CurrentData.GetHP(difficult));
         bounceMove.Toggle(CurrentData.useBounceAnimation);
         ResetView2();
@@ -87,11 +87,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         // _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
         
-        // Initialize fire rate - enemies can't attack by default, RoundManager will enable it
         CanAttack = false;
-        if (ZPos > 7)
-            CanAttack = false;
-        NextTimeAttack = Time.time + 1 + Random.Range(0,10f) + 60f / fireRateMin;
+        NextTimeAttack = Time.time + CurrentData.GetInitTimeAttack(_currentLevel);
         
         ActivateSelfDestruct();
 
@@ -155,7 +152,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             if (Time.time > NextTimeAttack)
             {
                 DoDamage();
-                NextTimeAttack = Time.time + 60f / fireRateMin;
+                NextTimeAttack = Time.time + CurrentData.GetTimeAttack(_currentLevel);
             }
         }
 

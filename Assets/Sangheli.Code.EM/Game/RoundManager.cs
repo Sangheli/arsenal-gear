@@ -130,7 +130,7 @@ public class RoundManager : MonoBehaviour
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
-        enemy.Init(enemyData, moveDirection,difficult: difficult, isPreSpawned: isPreSpawned);
+        enemy.Init(enemyData, moveDirection,difficult: difficult,_currentLevelConfig.levelId, isPreSpawned: isPreSpawned);
         _sortingOrderData.Iterrate();
         enemy.view.SetSortingOrder(_sortingOrderData);
         
@@ -337,6 +337,9 @@ public class RoundManager : MonoBehaviour
         
         foreach (var enemy in nonAttackingEnemies)
         {
+            if(enemy.DamageValue<0.0001f)
+                continue;
+            
             float distance = Vector3.Distance(enemy.transform.position, playerPosition);
             if (distance < closestDistance)
             {

@@ -9,7 +9,7 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    private const int SkipTutorialLevels = 5;
+    public const int SkipTutorialLevels = 5;
     
     private const double MinRewardBoss = 100;
     private const double MaxRewardBoss = 2000000;

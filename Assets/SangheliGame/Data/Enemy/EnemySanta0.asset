@@ -49,9 +49,8 @@ MonoBehaviour:
     maxY: 0
   SpawnCoinShift: {x: 0, y: 0, z: 0}
   shootPoint: {x: 0, y: 0, z: 0}
-  BaseDamage: 1.6
+  BaseDamage: 0
   FireRateMin: 0
-  skipFirstLevelDamage: 0
   overrideFirstLevel: 0
   overrideFirstLevelValue: 0
   UpgradeInfos:

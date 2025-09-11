@@ -2,7 +2,7 @@
     "levelId": 1,
     "LevelStringEntry": "tutor0",
     "objectiveType": 2,
-    "objectiveValue": 10,
+    "objectiveValue": 5,
     "roundTime": 20.0,
     "bossHp": 21,
     "bossAttack": 1.0,
