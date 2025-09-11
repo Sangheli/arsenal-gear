@@ -39,9 +39,8 @@ public class UIManager : MonoBehaviour
         var save = G.I.SaveProvider?.Get();
         if (save != null)
         {
-            var levelConfig = G.I.LevelDataConfig.Get(save.level);
-            if (levelConfig != null)
-                showButton = levelConfig.showTerminateButton;
+            if (G.I.currentLevel != null)
+                showButton = G.I.currentLevel.showTerminateButton;
         }
         
         terminateButton.gameObject.SetActive(showButton);
@@ -62,8 +61,7 @@ public class UIManager : MonoBehaviour
         var save = G.I.SaveProvider?.Get();
         if (save != null)
         {
-            var levelConfig = G.I.LevelDataConfig.Get(save.level);
-            if (levelConfig is { showHpBar: false })
+            if (G.I.currentLevel is { showHpBar: false })
                 showHp = false;
         }
 

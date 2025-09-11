@@ -101,7 +101,7 @@ public class CursorController : MonoBehaviour
         view.PropertyBlock.SetFloat(GameAnimation.PropInnerRadius, _baseInnerCurrent);
         view.viewRender.SetPropertyBlock(view.PropertyBlock);
         
-        _autoAttack = G.I.roundManager._currentLevelConfig.playerAutoAttack;
+        _autoAttack = G.I.currentLevel.playerAutoAttack;
 
         if (_autoAttack)
         {

@@ -14,7 +14,6 @@ public class LevelTargetManager : MonoBehaviour
     public LevelGradientColor levelGradientColor;
     
     private DataSave _save;
-    private LevelConfig _currentLevelConfig;
     public LevelTargetValue Data;
 
     private void Awake()
@@ -40,9 +39,8 @@ public class LevelTargetManager : MonoBehaviour
     {
         Toggle(true);
         _save = G.I.SaveProvider.Get();
-        _currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
-        Data.Init(_currentLevelConfig);
-        levelTargetBar.Init(_currentLevelConfig, Data);
+        Data.Init(G.I.currentLevel);
+        levelTargetBar.Init(G.I.currentLevel, Data);
         levelTargetBar.UpdateView();
     }
     

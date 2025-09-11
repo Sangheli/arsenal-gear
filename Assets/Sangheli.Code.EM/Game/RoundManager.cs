@@ -26,7 +26,6 @@ public class RoundManager : MonoBehaviour
     private Transform _enemiesParent;
     private SortingOrderData _sortingOrderData;
     private InputSystem_Actions _inputActions;
-    public LevelConfig _currentLevelConfig { get; private set; }
     
     private bool IsBossActive { get; set; }
     public void SetBossActive(bool active) => IsBossActive = active;
@@ -82,8 +81,8 @@ public class RoundManager : MonoBehaviour
             return;
         }
         
-        if (_currentLevelConfig == null) return;
-        foreach (var info in _currentLevelConfig.enemies)
+        if (G.I.currentLevel == null) return;
+        foreach (var info in G.I.currentLevel.enemies)
         {
             var enemy = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
             // Skip enemies with spawnAtStart flag - they should only be spawned at the start
@@ -106,8 +105,8 @@ public class RoundManager : MonoBehaviour
         float effectiveSpawnRate = Mathf.Max(info.spawnRate, 0.1f) * GetSpawnRateMultiplier();
         
         // Reduce spawn rate by the multiplier from level config when boss is active
-        if (IsBossActive && _currentLevelConfig != null)
-            effectiveSpawnRate /= _currentLevelConfig.bossEnemySpawnRateMultiplier;
+        if (IsBossActive && G.I.currentLevel != null)
+            effectiveSpawnRate /= G.I.currentLevel.bossEnemySpawnRateMultiplier;
 
         if (!_enemySpawnTimers.ContainsKey(enemyData))
             _enemySpawnTimers[enemyData] = Time.time + 60f / effectiveSpawnRate;
@@ -129,7 +128,7 @@ public class RoundManager : MonoBehaviour
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
-        enemy.Init(enemyData, moveDirection,difficult: difficult,_currentLevelConfig.levelId, isPreSpawned: isPreSpawned);
+        enemy.Init(enemyData, moveDirection,difficult: difficult,G.I.currentLevel.levelId, isPreSpawned: isPreSpawned);
         _sortingOrderData.Iterrate();
         enemy.view.SetSortingOrder(_sortingOrderData);
         
@@ -143,19 +142,19 @@ public class RoundManager : MonoBehaviour
         enemy.CanAttack = false;
     }
 
-    public void OnStartRound()
+    public void OnStartRound(bool overrideNew)
     {
         _save = G.I.SaveProvider.Get();
         _attackDisabled = false;
         ClearAll();
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
-        _currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
+        G.I.currentLevel = G.I.LevelDataConfig.Get(_save.level, overrideNew);
         
         _activeRoundModifications.Clear();
-        if (_currentLevelConfig != null)
+        if (G.I.currentLevel != null)
         {
-            foreach (var modifierType in _currentLevelConfig.levelModifiers)
+            foreach (var modifierType in G.I.currentLevel.levelModifiers)
             {
                 var modifier = _roundModifications.FirstOrDefault(m => m.ModifierType == modifierType);
                 if (modifier != null)
@@ -198,7 +197,7 @@ public class RoundManager : MonoBehaviour
     {
         UpdateAvailableEnemies();
         
-        if (_currentLevelConfig == null)
+        if (G.I.currentLevel == null)
 		    return;
         var filteredEnemiesForPreSpawn = GetFilteredEnemiesForPreSpawn();
 
@@ -208,7 +207,7 @@ public class RoundManager : MonoBehaviour
             SpawnEnemy(enemyData, difficult: 0, isPreSpawned: true);
         }
 
-        for (var i = 0; i < _currentLevelConfig.preSpawnEnemyCount; i++)
+        for (var i = 0; i < G.I.currentLevel.preSpawnEnemyCount; i++)
         {
             if (filteredEnemiesForPreSpawn.Count == 0) break;
             var enemyData = GetRandomEnemyByChanceForPreSpawn(filteredEnemiesForPreSpawn);
@@ -218,18 +217,18 @@ public class RoundManager : MonoBehaviour
     }
     
     private List<LevelEnemyInfo> GetFilteredEnemiesForPreSpawn() =>
-        _currentLevelConfig.enemies
+        G.I.currentLevel.enemies
             .Select(info => (info, enemy: G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId)))
             .Select(x => x.info).ToList();
 
     private EnemyData GetRandomEnemyByChance()
     {
-        if (_currentLevelConfig == null) return null;
+        if (G.I.currentLevel == null) return null;
         float total = 0f;
-        foreach (var info in _currentLevelConfig.enemies) total += info.spawnChance;
+        foreach (var info in G.I.currentLevel.enemies) total += info.spawnChance;
         float rand = Random.value * total;
         float acc = 0f;
-        foreach (var info in _currentLevelConfig.enemies)
+        foreach (var info in G.I.currentLevel.enemies)
         {
             acc += info.spawnChance;
             if (rand <= acc)
@@ -258,8 +257,8 @@ public class RoundManager : MonoBehaviour
     private void UpdateAvailableEnemies()
     {
         _availableEnemies.Clear();
-        if (_currentLevelConfig == null) return;
-        foreach (var info in _currentLevelConfig.enemies)
+        if (G.I.currentLevel == null) return;
+        foreach (var info in G.I.currentLevel.enemies)
         {
             var enemy = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyId == info.enemyId);
             if (enemy != null)
@@ -312,7 +311,7 @@ public class RoundManager : MonoBehaviour
         _attackingEnemies.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy);
         
         // If we have less than the max attacking enemies, try to assign more
-        while (_attackingEnemies.Count < _currentLevelConfig.MaxAttackingEnemies && AssignNewAttackingEnemy())
+        while (_attackingEnemies.Count < G.I.currentLevel.MaxAttackingEnemies && AssignNewAttackingEnemy())
         {
             // Keep assigning until we reach the limit or run out of candidates
         }

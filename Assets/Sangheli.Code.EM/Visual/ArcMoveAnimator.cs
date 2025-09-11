@@ -48,7 +48,7 @@ public class ArcMoveAnimator : MonoBehaviour
             {
                 finished++;
                 G.I.ObjectPool.Return(enemy);
-                if (finished == enemyCount) G.I.StartRun(false);
+                if (finished == enemyCount) G.I.StartRun(overrideNew: true);
             }));
             // вычисляем текущую задержку: t от 0 до 1
             float t = (float)i / Mathf.Max(1, (enemyCount - 1));

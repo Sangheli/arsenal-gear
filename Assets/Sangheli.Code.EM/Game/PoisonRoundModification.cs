@@ -8,7 +8,7 @@ public class PoisonRoundModification : IRoundModification
 
     public void OnRoundUpdate(RoundManager roundManager)
     {
-        var diff = UnityEngine.Time.deltaTime * roundManager._currentLevelConfig.poisonDamageSpeed;
+        var diff = UnityEngine.Time.deltaTime * G.I.currentLevel.poisonDamageSpeed;
         G.I.HpManager.Reduce(diff, doBlink: false, ignoreShield: true);
     }
 

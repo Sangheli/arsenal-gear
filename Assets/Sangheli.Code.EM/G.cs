@@ -96,6 +96,8 @@ public class G : MonoBehaviour
     [Space]
     public bool startGameWithoutMenu = true;
     
+    public LevelConfig currentLevel;
+    
     private void OnValidate()
     {
         orientationChecker ??= GetComponent<OrientationChecker>();
@@ -204,20 +206,20 @@ public class G : MonoBehaviour
         {
             AnalyticsHelper.OnContinue();
             save.loadTimes++;
-            StartRun();
+            StartRun(overrideNew: true);
         }
     }
 
-    public void StartRun(bool playFader = true)
+    public void StartRun(bool overrideNew, bool playFader = true)
     {
         AnalyticsHelper.OnStartRound();
         G.I.SaveProvider.Get().paramContainer.ResetTemp();
         G.I.SaveProvider.Get().enemyUpgradeContainer.ResetTemp();
         SaveSystem.SaveSilent();
-        StartCoroutine(StartRunSequence(playFader));
+        StartCoroutine(StartRunSequence(playFader, overrideNew));
     }
 
-    private IEnumerator StartRunSequence(bool playFader)
+    private IEnumerator StartRunSequence(bool playFader, bool overrideNew)
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
@@ -227,7 +229,7 @@ public class G : MonoBehaviour
             yield return distortionUI.DoFade(forward: true);
         
         weaponManager.OnStartRound();
-        roundManager.OnStartRound();
+        roundManager.OnStartRound(overrideNew);
         bossManager.ResetBoss();
         endRoundView.OnStartRound();
         tutorial.OnStartRound();

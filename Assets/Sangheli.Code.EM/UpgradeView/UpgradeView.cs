@@ -172,7 +172,7 @@ public class UpgradeView : MonoBehaviour
     private void OnStart()
     {
         G.I.Advertisement.ShowInterstitial();
-        G.I.StartRun();
+        G.I.StartRun(overrideNew: true);
     }
 
     public void Toggle(bool state)

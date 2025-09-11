@@ -84,10 +84,12 @@ public class LevelDataConfigRuntime
         };
     }
 
-    public LevelConfig Get(int levelId)
+    public LevelConfig Get(int levelId, bool overrideNew)
     {
         _levels.TryGetValue(levelId, out var config);
-        return config ?? GenerateRandomLevel(levelId);
+        return (overrideNew && levelId >= SkipTutorialLevels) || config == null
+            ? _levels[levelId] = GenerateRandomLevel(levelId)
+            : config;
     }
 
     private static string GetLevelJsonPath(int levelIndex)

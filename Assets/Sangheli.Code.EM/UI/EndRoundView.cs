@@ -94,7 +94,7 @@ public class EndRoundView : MonoBehaviour
         
         G.I.Advertisement.ShowInterstitial();
         StopShowCoroutine();
-        G.I.StartRun();
+        G.I.StartRun(overrideNew: false);
     }
 
     private void OnReturnToStartScreen()
@@ -171,7 +171,7 @@ public class EndRoundView : MonoBehaviour
         if (save != null)
         {
             var levelId = fadeType == EndRoundFadeEnum.RoundWin ? save.level - 1 : save.level;
-            var levelConfig = G.I.LevelDataConfig.Get(levelId);
+            var levelConfig = G.I.LevelDataConfig.Get(levelId, false);
             if (levelConfig != null)
             {
                 showGoToUpgradesButton = levelConfig.showGoToUpgradesButton;

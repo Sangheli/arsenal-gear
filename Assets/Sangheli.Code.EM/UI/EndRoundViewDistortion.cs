@@ -84,7 +84,7 @@ public class EndRoundViewDistortion : MonoBehaviour
                 if (save != null)
                 {
                     var levelId = save.level;
-                    var levelConfig = G.I.LevelDataConfig.Get(levelId);
+                    var levelConfig = G.I.LevelDataConfig.Get(levelId, false);
                     if (levelConfig != null)
                         useWinColor = levelConfig.useWinColorOnFail;
                 }

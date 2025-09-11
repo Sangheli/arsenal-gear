@@ -15,15 +15,14 @@ public class LevelStringManager : MonoBehaviour
     public void OnStartRound()
     {
         var level = G.I.SaveProvider.Get().level;
-        var zz = GetStringForLevel(level);
+        var zz = GetStringForLevel();
         targetText.text = zz;
         back.gameObject.SetActive(!string.IsNullOrWhiteSpace(zz));
     }
 
-    private string GetStringForLevel(int level) =>
+    private string GetStringForLevel() =>
         G.I.localization
-            .Get
-                (G.I.LevelDataConfig.Get(level)?.LevelStringEntry ?? string.Empty)
+            .Get(G.I.currentLevel.LevelStringEntry ?? string.Empty)
             .ReplaceEscapedNewlines();
 
     public void OnEndRound()

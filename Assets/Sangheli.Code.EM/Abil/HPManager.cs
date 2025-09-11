@@ -56,9 +56,7 @@ public class HPManager
         
         RoundHp -= Mathf.Abs(actualDamage);
 
-        // Check if this is a safe level and prevent health from dropping below 5%
-        var currentLevelConfig = G.I.LevelDataConfig.Get(_save.level);
-        if (currentLevelConfig != null && currentLevelConfig.isSafeLevel)
+        if (G.I.currentLevel is { isSafeLevel: true })
         {
             var minHp = _maxHp * SafeLevelMinHpPercent;
             if (RoundHp < minHp)
