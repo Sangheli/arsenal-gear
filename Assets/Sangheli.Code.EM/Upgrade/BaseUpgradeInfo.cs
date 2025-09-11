@@ -17,10 +17,10 @@ public abstract class BaseUpgradeInfo
 
     public float GetValue(int bought) => Mathf.Max(BaseValue + bought * Step, BaseValue);
     
-    public float GetPrice(int bought, int upgradesBoughtNum)
+    public int GetPrice(int bought, int upgradesBoughtNum)
     {
         var basePrice = BasePrice * Mathf.Pow(PriceMult, bought);
-        return basePrice;
+        return (int) basePrice;
         // var basePrice = BasePrice;
         // return basePrice * G.I.upgradePriceMultiplierManager.CalculatePriceMultiplier(upgradesBoughtNum);
     }

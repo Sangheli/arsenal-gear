@@ -266,6 +266,8 @@ public class LevelDataConfigRuntime
     
     static double CalculateReward(double scale, double minReward, double maxReward, double exponent)
     {
+        var totalPrice = G.I.Data.ParamData.GetTotalPrice();
+        
         // экспоненциальная прогрессия с контролем кривизны
         double adjustedScale = Math.Pow(scale, exponent);
         return minReward * Math.Pow(maxReward / minReward, adjustedScale);
