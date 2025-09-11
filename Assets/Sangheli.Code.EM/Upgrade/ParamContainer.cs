@@ -143,6 +143,6 @@ public class ParamContainer
     }
     
     public string GetDisplayName(string key) => G.I.Data.ParamData.GetParamInfo(key)?.DisplayName ?? "---Error---";
-    public int GetPrice(string key, int num) => G.I.Data.ParamData.GetParamInfo(key)?.GetPrice(UpgradesBought[key], num) ?? 0; // Цена за следующий уровень
+    public uint GetPrice(string key, int num) => G.I.Data.ParamData.GetParamInfo(key)?.GetPrice(UpgradesBought[key], num) ?? 0; // Цена за следующий уровень
     public int GetTotalUpgradesBought() => UpgradesBought?.Values.Sum() ?? 0;
 }

@@ -165,10 +165,10 @@ public class EnemyUpgradeContainer
             ? enemyUpgrades.Where(enemy => enemy?.upgradesBought != null).Sum(enemy => enemy.upgradesBought.Sum()) 
             : 0;
 
-    public int GetPrice(int enemyId, UpgradeType upgradeType, int upgradesBoughtNum)
+    public uint GetPrice(int enemyId, UpgradeType upgradeType, int upgradesBoughtNum)
     {
         var boughtLevel = GetEnemyData(enemyId).GetLevel(upgradeType);
-        return (int) GetUpgradePriceFromEnemyData(enemyId, upgradeType, boughtLevel, upgradesBoughtNum);
+        return (uint) GetUpgradePriceFromEnemyData(enemyId, upgradeType, boughtLevel, upgradesBoughtNum);
     }
 
     public IEnumerable<int> GetAllEnemyIds() => Enumerable.Range(0, G.I.Data.enemyContainer.List.Count);

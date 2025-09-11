@@ -33,10 +33,10 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     protected Color GetColor(bool isMax, bool isDisabled) => isMax ? goldColor : isDisabled ? disabledColor : _normalColor;
     protected static bool GetButtonState(bool isMax, bool isDisabled) => !isMax && !isDisabled;
 
-    private void UpdatePriceText(bool isMax, int price) => 
+    private void UpdatePriceText(bool isMax, uint price) => 
         _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.Format(price, 2)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, int price, float maxValue, float baseValue, bool  hardcodeHide)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, uint price, float maxValue, float baseValue, bool  hardcodeHide)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)

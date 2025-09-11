@@ -12,13 +12,17 @@ public class LevelDataConfigRuntime
     public const int SkipTutorialLevels = 5;
     
     private const double MinRewardBoss = 100;
-    private const double MaxRewardBoss = 2000000;
-    private const  double Exponent = 0.3f;
+    private static double MaxRewardBoss = 2000000;
+    private const  double Exponent = 0.3975f;
+    private float coef = 13.28f;
     
     private const int tierStep = 3;
 
     public LevelDataConfigRuntime()
     {
+        var totalPrice = G.I.Data.ParamData.GetTotalPrice();
+        MaxRewardBoss = (uint)(totalPrice / coef);
+        
         for (var i = 0; i < G.I.maxLevel; i++)
         {
             if (_levels.ContainsKey(i)) continue;
@@ -266,8 +270,6 @@ public class LevelDataConfigRuntime
     
     static double CalculateReward(double scale, double minReward, double maxReward, double exponent)
     {
-        var totalPrice = G.I.Data.ParamData.GetTotalPrice();
-        
         // экспоненциальная прогрессия с контролем кривизны
         double adjustedScale = Math.Pow(scale, exponent);
         return minReward * Math.Pow(maxReward / minReward, adjustedScale);
@@ -359,5 +361,25 @@ public class LevelDataConfigRuntime
     {
         var spawnRate = Mathf.RoundToInt(Mathf.Lerp(min, max, scale));
         return (int)Random.Range(min, spawnRate + 1);
+    }
+    
+    private void TestAllSumUpgrades()
+    {
+        var total = 0f;
+        
+        var totalPrice = G.I.Data.ParamData.GetTotalPrice();
+        var maxReward = totalPrice / coef;
+        
+        for (var i = 0; i < G.I.maxLevel; i++)
+        {
+            var objectiveType = GetObjectiveType(i);
+            if (objectiveType != LevelObjectiveType.Boss) continue;
+            
+            var scale = GetScaleValue(i);
+            var result = (int)CalculateReward(scale, MinRewardBoss, maxReward, Exponent);
+            total += result;
+        }
+        
+        Debug.Log($"[coef][{coef}] tota:____ [{totalPrice}/{total}] [{totalPrice/total}]");
     }
 }
