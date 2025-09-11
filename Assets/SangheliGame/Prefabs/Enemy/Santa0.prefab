@@ -261,14 +261,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0560437273360b649b17ef8ce8f8c632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  shootPoint: {fileID: 5548160587331954462}
   bounceMove: {fileID: 4749907426850337452}
   unfillTime: 0.5
   view: {fileID: 6269158921195688788}
   HpManager: {fileID: 4966239853193077008}
   damageReciever: {fileID: 8780209497533360958}
-  lifeTime: 30
   speedSuper: 40
   distanceToChangeSpeed: 6
+  CurrentData: {fileID: 0}
   manipulateColor: 1
   manipulateBorderColor: 0
   duration: 0.2
@@ -290,10 +291,6 @@ MonoBehaviour:
   - {fileID: 6168234484293521608}
   borderRenderArr:
   - {fileID: 3921777000171173304}
-  backRenderArr:
-  - {fileID: 7000676104354347753}
-  shadowRenderArr:
-  - {fileID: 4245914269587504957}
   punchScale: 1.2
   punchScaleCrit: 1.44
   scale: 1

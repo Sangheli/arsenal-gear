@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7211796590931249980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304997736720411143}
+  m_Layer: 6
+  m_Name: shootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304997736720411143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211796590931249980}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4376716317311768790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8089097037816561608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8,6 +39,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2504494526363040726, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      propertyPath: shootPoint
+      value: 
+      objectReference: {fileID: 1304997736720411143}
     - target: {fileID: 26141979009033389, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1
@@ -146,6 +181,14 @@ PrefabInstance:
     - {fileID: 2716901543685481827, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
     - {fileID: 4475381246093373681, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
     - {fileID: 1088798886079756495, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5548160587331954462, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304997736720411143}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+--- !u!4 &4376716317311768790 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5548160587331954462, guid: dd8af8261fb99404eacbf2ec768bab11, type: 3}
+  m_PrefabInstance: {fileID: 8089097037816561608}
+  m_PrefabAsset: {fileID: 0}

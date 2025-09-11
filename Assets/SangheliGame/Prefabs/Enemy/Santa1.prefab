@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fde58cc1044314194e6ce3d4a98083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
+  shootPoint: {fileID: 5548160587331954462}
   bounceMove: {fileID: 4749907426850337452}
   unfillTime: 0.5
   view: {fileID: 229864134125572741}

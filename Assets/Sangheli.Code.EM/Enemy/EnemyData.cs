@@ -11,26 +11,21 @@ public class EnemyData : ScriptableObject
     
     [Space]
     public bool excludeFromLevelGeneration;
+    
+    [Space,Header("Sound")]
     public bool playDeathSound;
     public bool playDeathSound2;
 
+    [Space,Header("HP")]
     public bool showHPbar = true;
-    public bool useBounceAnimation = true;
-
     public bool cantDie;
-    public bool spawnAtStart;
-    
-    [Space]
     public float BaseHealth;
-    public float BaseDamage;
+
+    [Space,Header("Moving")]
+    public bool useBounceAnimation = true;
+    public bool spawnAtStart;
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
-
-    public float FireRateMin = 10;
-    public bool skipFirstLevelDamage = false;
-
-    public bool overrideFirstLevel = false;
-    public float overrideFirstLevelValue;
     
     [Space, Header("View scale")]
     public Vector3 viewScale = Vector3.one;
@@ -48,10 +43,7 @@ public class EnemyData : ScriptableObject
     public Color color = Color.white;
     public ColorContainer  borderColorPalette;
     
-    [Space,Header("Spaw Rate")]
-    public bool useCustomSpawnRate;
-    
-    [Space]
+    [Space,Header("Spawn")]
     public bool useRandomSpawnRate;
     public int spawnRate1;
     public int spawnRate2;
@@ -70,9 +62,16 @@ public class EnemyData : ScriptableObject
     [Space] 
     public UnitPosConfig PosConfig;
 
-    [Space] 
+    [Space,Header("Coins")] 
     public Vector3 SpawnCoinShift;
     
+    [Space,Header("Shoot")] 
+    public Vector3 shootPoint;
+    public float BaseDamage;
+    public float FireRateMin = 10;
+    public bool overrideFirstLevel = false;
+    public float overrideFirstLevelValue;
+
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
@@ -129,15 +128,5 @@ public class EnemyData : ScriptableObject
     public void SetBaseDamage(int i) => BaseDamage = i;
     
     public float GetHP(int difficult) => BaseHealth * (difficult+1);
-    
-    public float GetDamage(int difficult)
-    {
-        if (overrideFirstLevel)
-            return overrideFirstLevelValue;
-        
-        if (skipFirstLevelDamage && difficult == 0)
-            return 0;
-        
-        return BaseDamage * (difficult + 1);
-    }
+    public float GetDamage(int difficult) => overrideFirstLevel ? overrideFirstLevelValue : BaseDamage * (difficult + 1);
 }

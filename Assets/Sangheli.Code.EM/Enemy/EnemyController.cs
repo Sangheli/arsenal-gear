@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandler
 {
+    public Transform shootPoint;
+ 
+    [Space]
     public SineBounceY bounceMove;
     public float unfillTime = 0.1f;
     public EnemyView view;
@@ -64,6 +67,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     {
         IsDead = false;
         SetData(data);
+        shootPoint.transform.localPosition = data.shootPoint;
         _difficult = difficult;
         DamageValue = CurrentData.GetDamage(_difficult);
         fireRateMin = CurrentData.FireRateMin;
@@ -288,10 +292,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if(DamageValue<0.001f)
             return;
         
-        var finalDamage = G.I.HpManager.Reduce(DamageValue, doBlink: true, ignoreShield: false);
-        float totalShield = DamageValue - finalDamage;
-        float totalDamage = finalDamage;
-        G.I.rayFXManager.ShootToPlayer(transform.position, ERayType.LaserEnemy);
-        var damageResult = new DamageResult { PlayerDoDamage = true, TotalDamage = totalDamage, TotalShieldDamage = totalShield };
+        G.I.HpManager.Reduce(DamageValue, doBlink: true, ignoreShield: false);//shoot to player
+        G.I.rayFXManager.ShootToPlayer(shootPoint.position, ERayType.LaserEnemy);
     }
 } 

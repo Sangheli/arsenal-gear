@@ -18,17 +18,12 @@ MonoBehaviour:
   playDeathSound: 0
   playDeathSound2: 1
   showHPbar: 1
-  useBounceAnimation: 1
   cantDie: 0
-  spawnAtStart: 0
   BaseHealth: 45
-  BaseDamage: 0.9
+  useBounceAnimation: 1
+  spawnAtStart: 0
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
-  FireRateMin: 10
-  skipFirstLevelDamage: 0
-  overrideFirstLevel: 0
-  overrideFirstLevelValue: 0
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
@@ -37,7 +32,6 @@ MonoBehaviour:
   useRandomColor: 0
   color: {r: 0.41960788, g: 0.68235296, b: 0.19215688, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  useCustomSpawnRate: 0
   useRandomSpawnRate: 0
   spawnRate1: 0
   spawnRate2: 0
@@ -54,13 +48,18 @@ MonoBehaviour:
     minY: 0
     maxY: 0
   SpawnCoinShift: {x: 0, y: 0.3, z: 0}
+  shootPoint: {x: 0.0169, y: -0.0793, z: 0}
+  BaseDamage: 0.9
+  FireRateMin: 10
+  overrideFirstLevel: 0
+  overrideFirstLevelValue: 0
   UpgradeInfos:
-  - BaseValue: 50
+  - row: 0
+    DisplayName: Energy_Drop
+    BaseValue: 50
     MaxValue: 50
     Step: 2
-    DisplayName: Energy_Drop
     BasePrice: 100
     PriceMult: 1.2
     ShowUpgrade: 0
-    row: 0
     Type: 1
