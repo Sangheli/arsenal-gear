@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4885057a64846659d5d9e1a607a08e0, type: 3}
-  m_Name: UpgradeParamConfig
+  m_Name: Upgrade ParamConfig
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeParamConfig
   Params:
   - row: 0

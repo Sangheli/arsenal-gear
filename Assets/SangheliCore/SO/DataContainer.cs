@@ -10,7 +10,6 @@ public class DataContainer : ScriptableObject
     public UpgradeParamConfig ParamData; // ScriptableObject с параметрами апгрейдов
     public EnemyContainer enemyContainer; // ScriptableObject с врагами
     public LevelObjectiveVisualConfig objectiveVisualConfig; // Reference to the visual config
-    public ColorContainer hpBaColorContainer;
     public ColorContainer enemyDifficultContainer;
     public StoreConfig storeConfig; // Store configuration with DisableForStore flag
     
