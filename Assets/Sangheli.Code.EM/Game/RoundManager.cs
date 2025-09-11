@@ -12,7 +12,6 @@ public class RoundManager : MonoBehaviour
 
     // List to track enemies that are currently allowed to attack
     private readonly List<EnemyController> _attackingEnemies = new();
-    private const int MaxAttackingEnemies = 3;
 
     private readonly List<IRoundModification> _roundModifications = new()
     {
@@ -313,7 +312,7 @@ public class RoundManager : MonoBehaviour
         _attackingEnemies.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy);
         
         // If we have less than the max attacking enemies, try to assign more
-        while (_attackingEnemies.Count < MaxAttackingEnemies && AssignNewAttackingEnemy())
+        while (_attackingEnemies.Count < _currentLevelConfig.MaxAttackingEnemies && AssignNewAttackingEnemy())
         {
             // Keep assigning until we reach the limit or run out of candidates
         }

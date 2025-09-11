@@ -69,9 +69,12 @@ public class LevelDataConfigRuntime
             objectiveType = objectiveType,
             objectiveValue = GetObjectiveValue(objectiveType, scale),
             levelModifiers = GenerateRandomModifiers(scale), // Generate random modifiers for the level
-            isSafeLevel = isSafeLevel // Mark tutorial levels as safe
+            isSafeLevel = isSafeLevel, // Mark tutorial levels as safe
+            MaxAttackingEnemies = GetMaxAttackNum(scale),
         };
     }
+
+    private int GetMaxAttackNum(float scale) => Mathf.RoundToInt(Mathf.Lerp(3, 15, scale));
 
     private static List<LevelModifierType> GenerateRandomModifiers(float scale)
     {
