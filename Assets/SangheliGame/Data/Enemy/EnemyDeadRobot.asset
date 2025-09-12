@@ -30,11 +30,11 @@ MonoBehaviour:
   deathVfxScale: {x: 0.75, y: 0.75, z: 0.75}
   spriteView: {fileID: 21300000, guid: 872f611eb6e9c1949b8cc2c1b021dd70, type: 3}
   spriteBorder: {fileID: 21300000, guid: 3c096233ee1b99c4f88276fee24a123c, type: 3}
-  useRandomColor: 1
+  useRandomColor: 0
   color: {r: 0.85098046, g: 0.6313726, b: 0.39607847, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  userOverrideBorderColor: 0
-  overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  userOverrideBorderColor: 1
+  overrideBorderColor: {r: 1, g: 1, b: 1, a: 0}
   hitVfxColor: {r: 1, g: 1, b: 1, a: 1}
   useRandomSpawnRate: 1
   spawnRate1: 4

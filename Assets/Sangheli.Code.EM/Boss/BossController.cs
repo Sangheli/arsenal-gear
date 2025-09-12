@@ -29,7 +29,7 @@ public class BossController : EnemyController
             bossView.SetColor(Color.white, color1);
             bossView.SetScale(CurrentData.viewScale.x);
             
-            bossView.hitVfx.SetColor(color1, Color.clear);
+            // bossView.hitVfx.SetColor(color1, Color.clear);
             bossView.hitVfx.SetScale(CurrentData.hitVfx);
             bossView.deathVfx.SetScale(CurrentData.deathVfxScale);
         }
