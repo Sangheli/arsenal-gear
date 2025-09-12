@@ -52,6 +52,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private int _currentLevel;
     
     private AUnitMove _move;
+    private bool _pingPong;
     
     private void OnValidate()
     {
@@ -67,6 +68,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
 
     public void Init(EnemyData data, Vector2 moveDirection, int difficult, int currentLevel, bool isPreSpawned = false)
     {
+        _pingPong = Random.value > 0.75f;
         IsDead = false;
         _currentLevel = currentLevel;
         SetData(data);
@@ -110,10 +112,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         switch (data.UnitMoveType)
         {
             case EUnitMove.Move:
-                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0);
+                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0, _pingPong,  view.render.SetDirection);
                 break;
             case EUnitMove.Fly:
-                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35);
+                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35, _pingPong,  view.render.SetDirection);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -191,6 +193,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         DoMove();
     }
 
+    private void LateUpdate()
+    {
+        _move.LateUpdate();
+        CheckBounds();
+    }
+
     protected virtual void DoMove()
     {
         var deltaTime = Time.deltaTime;
@@ -199,7 +207,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         // view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
         _move.DoMove(deltaTime);
-        CheckBounds();
     }
 
     private void CheckBounds()

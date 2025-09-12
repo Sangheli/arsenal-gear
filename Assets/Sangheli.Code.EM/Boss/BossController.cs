@@ -38,7 +38,7 @@ public class BossController : EnemyController
         SetBossHealth(hp);
         gameObject.SetActive(true);
         _mainCamera = Camera.main;
-        _move.Init(transform, CurrentData.Speed, _mainCamera, Random.insideUnitCircle.normalized, paddingMove);
+        _move.Init(transform, CurrentData.Speed, _mainCamera, Random.insideUnitCircle.normalized, paddingMove, false, view.render.SetDirection);
     }
     
     private void SetBossHealth(float hp)

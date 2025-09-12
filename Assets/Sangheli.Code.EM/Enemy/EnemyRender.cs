@@ -253,7 +253,8 @@ public class EnemyRender : MonoBehaviour
 
     public void SetDirection(Vector2 moveDirection)
     {
-        _originalScale.x *=moveDirection.x < 0 ? -1 : 1;
+        var abs = Mathf.Abs(_originalScale.x);
+        _originalScale.x = abs * (moveDirection.x < 0 ? -1 : 1);
         _originalScaleShadow.x *= moveDirection.x < 0 ? -1 : 1;
 
         viewRenderArr[0].transform.localScale = _originalScale;
