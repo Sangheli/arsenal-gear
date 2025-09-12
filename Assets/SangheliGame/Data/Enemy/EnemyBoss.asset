@@ -59,8 +59,8 @@ MonoBehaviour:
   overrideFirstLevel: 0
   overrideFirstLevelValue: 0
   FireRateMin: 30
-  overrideFireRateFirstDifficult: 0
-  overrideFireRateFirstDifficultValue: 60
+  overrideFireRateFirstDifficult: 1
+  overrideFireRateFirstDifficultValue: 40
   blockRotation: 0
   UnitMoveType: 1
   EnemyType: 1

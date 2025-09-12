@@ -19,7 +19,7 @@ MonoBehaviour:
   playDeathSound2: 1
   showHPbar: 1
   cantDie: 0
-  BaseHealth: 10
+  BaseHealth: 40
   useBounceAnimation: 0
   spawnAtStart: 0
   spawnAtStartHardcore: 0

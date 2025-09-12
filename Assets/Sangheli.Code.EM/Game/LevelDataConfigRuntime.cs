@@ -290,7 +290,7 @@ public class LevelDataConfigRuntime
                 enemyId = enemy.EnemyId,
                 difficult = 0,
                 spawnChance = 100,
-                spawnRate = Mathf.RoundToInt(Random.Range(30, 61))
+                spawnRate = Mathf.RoundToInt(Random.Range(230, 250))
             }).ToList();
         }
         
