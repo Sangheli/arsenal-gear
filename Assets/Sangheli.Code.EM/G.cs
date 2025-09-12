@@ -78,6 +78,8 @@ public class G : MonoBehaviour
     public float minZ = 0f;
     public float maxZ = 10;
     public float posY = 0f;
+
+    public float BoundX = 10;
     
     public readonly IAdvertisement Advertisement = new MockAdvertisement();
 

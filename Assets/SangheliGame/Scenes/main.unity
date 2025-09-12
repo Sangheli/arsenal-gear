@@ -1318,6 +1318,7 @@ MonoBehaviour:
   minZ: 5
   maxZ: 50
   posY: -2.3
+  BoundX: 16.5
   rayFXManager: {fileID: 1503166288}
   predefinedLang: en
   useOrientationChecker: 0
@@ -2146,6 +2147,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835519324286730269, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227986349082677390, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}

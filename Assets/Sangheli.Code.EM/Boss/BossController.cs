@@ -4,11 +4,11 @@ using DG.Tweening;
 public class BossController : EnemyController
 {
     private System.Action _onBossDeath;
-    private Vector2 _direction = Vector2.zero;
     private Camera _mainCamera;
     public float paddingMove = 35;
     private Coroutine _rotAnimCoroutine;
     private Sequence _rotAnimSequence;
+    private readonly AUnitMove _move = new FlyMove();
     
     // Новый Init для босса
     public void Init(float hp, Color color, float bossDamage, System.Action onBossDeath)
@@ -37,9 +37,8 @@ public class BossController : EnemyController
         // Устанавливаем здоровье напрямую, без EnemyData
         SetBossHealth(hp);
         gameObject.SetActive(true);
-        // Инициализация направления и камеры
-        _direction = Random.insideUnitCircle.normalized;
         _mainCamera = Camera.main;
+        _move.Init(transform, CurrentData.Speed, _mainCamera, Random.insideUnitCircle.normalized, paddingMove);
     }
     
     private void SetBossHealth(float hp)
@@ -57,27 +56,13 @@ public class BossController : EnemyController
         if(!CanAttack)
             return;
         
-        // Check if player HP is zero or less
         if (G.I.HpManager.RoundHp <= 0)
         {
             CanAttack = false;
             return;
         }
         
-        var transform1 = transform;
-        
-        var delta = _direction * CurrentData.Speed * Time.deltaTime;
-        var position = transform1.position;
-        
-        position += new Vector3(delta.x, delta.y, 0);
-        transform1.position = position;
-
-        var screenPos = _mainCamera.WorldToScreenPoint(position);
-        var bounced = RandomCursorInput.MoveBounce(screenPos, ref _direction, paddingMove);
-        transform.position = _mainCamera.ScreenToWorldPoint(screenPos);
-        
-        if (bounced) _direction = _direction.normalized;
-        
+        _move.DoMove();
         // base.DoMove();
     }
 

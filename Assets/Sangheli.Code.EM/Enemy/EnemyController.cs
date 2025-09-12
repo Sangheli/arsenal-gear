@@ -51,6 +51,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private float NextTimeAttack;
     private int _currentLevel;
     
+    private AUnitMove _move;
+    
     private void OnValidate()
     {
         damageReciever ??= GetComponentInChildren<DamageReciever>();
@@ -98,7 +100,35 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _colorMain = null; 
         _borderColor = null;
         UpdateColors();
+        
+        _move ??= GetMove(data);
+        MoveInit(data);
+        UnityEngine.Debug.Log(_move);
+
     }
+
+    private void MoveInit(EnemyData data)
+    {
+        switch (data.UnitMoveType)
+        {
+            case EUnitMove.Move:
+                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0);
+                break;
+            case EUnitMove.Fly:
+                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private static AUnitMove GetMove(EnemyData data) =>
+        data.UnitMoveType switch
+        {
+            EUnitMove.Move => new LinearMove(),
+            EUnitMove.Fly => new FlyMove(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
     public void SetData(EnemyData data)
     {
@@ -166,7 +196,18 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         view.render.viewRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         // view.render.shadowRenderArr[0].transform.Rotate(CurrentData.rotationSpeed * deltaTime);
         
-        transform.Translate(_moveDirection * (deltaTime * _speed));
+        _move.DoMove(deltaTime);
+        CheckBounds();
+    }
+
+    private void CheckBounds()
+    {
+        if (transform.position.x < -G.I.BoundX || transform.position.x > G.I.BoundX)
+        {
+            OnBeforeReturnToPool();
+            IsActive = false;
+            G.I.ObjectPool.Return(this);
+        }
     }
 
     private void CheckAndChangeSpeed()
@@ -175,6 +216,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (!(distanceTraveled >= distanceToChangeSpeed)) return;
         _speed = _originalSpeed;
         _hasChangedSpeed = true;
+        MoveInit(CurrentData);
     }
 
     private void TakeDamage(float amount, bool isCrit)
@@ -201,7 +243,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     {
         if (!IsActive) return;
         if (killedByPlayer) G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.EnemyCount, 1);
+        OnBeforeReturnToPool();
+        StartCoroutine(DeathAndReturnToPool(isCrit));
+    }
 
+    private void OnBeforeReturnToPool()
+    {
         // Notify that this enemy is dying
         OnDeathZPosHolder?.Invoke();
         G.I.roundManager._spawnPositionManager.Release(this);
@@ -210,7 +257,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         G.I.roundManager.OnEnemyDestroyed(this);
 
         StopSelfDestruct();
-        StartCoroutine(DeathAndReturnToPool(isCrit));
     }
 
     private IEnumerator DeathAndReturnToPool(bool isCrit)

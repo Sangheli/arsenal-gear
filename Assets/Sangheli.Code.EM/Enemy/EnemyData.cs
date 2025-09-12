@@ -84,6 +84,9 @@ public class EnemyData : ScriptableObject
     [Space, Header("Rotate")]
     public bool blockRotation;
 
+    [Space, Header("Move type")]
+    public EUnitMove UnitMoveType = EUnitMove.Move;
+
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {
