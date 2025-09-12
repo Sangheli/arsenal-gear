@@ -23,7 +23,7 @@ MonoBehaviour:
   useBounceAnimation: 0
   spawnAtStart: 0
   spawnAtStartHardcore: 0
-  Speed: 20
+  Speed: 5
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
@@ -42,7 +42,7 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
-  Tier: 0
+  Tier: 2
   PosConfig:
     useCustomZPos: 0
     customZPos: 0
@@ -62,6 +62,7 @@ MonoBehaviour:
   overrideFireRateFirstDifficultValue: 60
   blockRotation: 0
   UnitMoveType: 2
+  EnemyType: 1
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

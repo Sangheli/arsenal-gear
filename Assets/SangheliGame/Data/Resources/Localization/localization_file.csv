@@ -33,6 +33,7 @@ tutor0,Move your cursor to shoot\nA new robot army is on the way,"Наведит
 tutor1,Sometime You Lose HP over Time,Иногда вы теряете здоровье со временем,Bazen zamanla HP kaybedersiniz,Manchmal verliert man mit der Zeit HP,"Parfois, vous perdez des PV au fil du temps",,,,,,,
 tutor2,Robots attack you too\nFight back!,Роботы тоже нападают на вас\nДайте отпор!,Robotlar sana da saldırıyor\nKarşı koy!,Roboter greifen dich auch an\nWehre dich!,Les robots vous attaquent aussi\nRipostez !,,,,,,,
 tutor3,Fight with Boss\nTo Complete Level,Сразитесь с боссом\nЧтобы пройти уровень,Seviyeyi Tamamlamak İçin Boss ile Savaş,"Kämpfe mit dem Boss, um das Level abzuschließen",Combattez avec le boss pour terminer le niveau,,,,,,,
+tutor4,A great battle with robot armies awaits\nCollect coins by mining minerals to prepare,"Вас ждет грандиозная битва с армиями роботов.\nСобирайте монеты, добывая минералы, чтобы подготовиться.",Robot ordularıyla büyük bir savaş sizi bekliyor. Hazırlanmak için mineralleri çıkararak para toplayın.,"Eine große Schlacht mit Roboterarmeen erwartet Sie\nSammeln Sie Münzen, indem Sie Mineralien abbauen, um sich vorzubereiten",Une grande bataille avec des armées de robots vous attend. Collectez des pièces en extrayant des minéraux pour vous préparer.,,,,,,,
 start_new,New Game,Новая Игра,Yeni Oyun,Neues Spiel,Nouveau jeu,,,,,,,
 load_checkpoint,Continue,Продолжить,Yükle,Weitermachen,Continuer,,,,,,,
 checkpoint,Checkpoint,Чекпоинт,Checkpoint,Kontrollpunkt,Point de contrôle,,,,,,,

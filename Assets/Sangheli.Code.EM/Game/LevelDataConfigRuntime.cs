@@ -9,7 +9,7 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    public const int SkipTutorialLevels = 5;
+    public const int SkipTutorialLevels = 6;
     
     private const double MinRewardBoss = 100;
     private static double MaxRewardBoss = 2000000;
@@ -57,7 +57,7 @@ public class LevelDataConfigRuntime
         return new LevelConfig
         {
             levelId = i,
-            enemies = GenerateEnemies(scale, i),
+            enemies = GenerateEnemies(scale, i, objectiveType),
             showHpBar = true,
             checkNextRoundFromSave = false,
             showGoToUpgradesButton = true,
@@ -155,6 +155,10 @@ public class LevelDataConfigRuntime
     {
         switch (objectiveType)
         {
+            case LevelObjectiveType.Mineral:
+                int coinMinM = Random.Range(100, 120);
+                int coinMaxM = Random.Range(7000, 8000);
+                return Mathf.RoundToInt(Mathf.Lerp(coinMinM, coinMaxM, t));
             case LevelObjectiveType.CoinCount:
                 int coinMin = Random.Range(25, 30);
                 int coinMax = Random.Range(5000, 6000);
@@ -275,11 +279,24 @@ public class LevelDataConfigRuntime
         return minReward * Math.Pow(maxReward / minReward, adjustedScale);
     }
     
-    private List<LevelEnemyInfo> GenerateEnemies(float scale, int i)
+    private List<LevelEnemyInfo> GenerateEnemies(float scale, int i, LevelObjectiveType levelObjectiveType)
     {
+        if (levelObjectiveType == LevelObjectiveType.Mineral)
+        {
+            var enemyDatas = G.I.Data.enemyContainer.List.Where(x => x.EnemyType == EEnemyType.Mineral).ToList();
+
+            return enemyDatas.Select(enemy => new LevelEnemyInfo
+            {
+                enemyId = enemy.EnemyId,
+                difficult = 0,
+                spawnChance = 100,
+                spawnRate = Mathf.RoundToInt(Random.Range(30, 61))
+            }).ToList();
+        }
+        
         var sorted =  G.I.Data.enemyContainer
             .List
-            .Where(x => !x.excludeFromLevelGeneration)
+            .Where(x => !x.excludeFromLevelGeneration && x.EnemyType == EEnemyType.Robot)
             .ToList();
 
         var selectedEnemies = GetSelectedEnemies(scale, sorted, i);

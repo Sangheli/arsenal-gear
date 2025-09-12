@@ -19,6 +19,7 @@ public class LevelTargetValue
             { LevelObjectiveType.CoinCount, new LevelEndMoney()},
             { LevelObjectiveType.Time, new LevelEndTimer()},
             { LevelObjectiveType.EnemyCount, new LevelEndEnemy()},
+            { LevelObjectiveType.Mineral, new LevelEndMoney()},
         };
         
         TargetView = targetView;

@@ -4,5 +4,6 @@ public enum LevelObjectiveType
     CoinCount,
     EnemyCount,
     Boss,
-    Time
+    Time,
+    Mineral,
 }

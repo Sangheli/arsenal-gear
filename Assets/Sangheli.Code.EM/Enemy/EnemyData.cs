@@ -87,6 +87,9 @@ public class EnemyData : ScriptableObject
     [Space, Header("Move type")]
     public EUnitMove UnitMoveType = EUnitMove.Move;
 
+    [Space, Header("Type")] 
+    public EEnemyType EnemyType = EEnemyType.Robot;
+
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
     {

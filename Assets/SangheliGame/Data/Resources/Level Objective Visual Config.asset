@@ -25,3 +25,6 @@ MonoBehaviour:
   - color: {r: 1, g: 1, b: 1, a: 1}
     objectiveType: 4
     sprite: {fileID: 21300000, guid: 2bf3b1133eaaa20469cbbf6c5c3c203a, type: 3}
+  - color: {r: 1, g: 0.95686275, b: 0, a: 1}
+    objectiveType: 5
+    sprite: {fileID: 21300000, guid: 02dab3a1e6c908c4987af49820910412, type: 3}
