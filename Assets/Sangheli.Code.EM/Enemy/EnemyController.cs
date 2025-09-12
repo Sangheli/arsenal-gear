@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 using Random = UnityEngine.Random;
@@ -52,6 +53,12 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private int _currentLevel;
     
     protected AUnitMove _move;
+    private Dictionary<EUnitMove, AUnitMove> _moveDict = new()
+    {
+        { EUnitMove.Move, new LinearMove() },
+        { EUnitMove.Fly, new FlyMove() },
+    };
+    
     private bool _pingPong;
     
     private void OnValidate()
@@ -103,32 +110,25 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _borderColor = null;
         UpdateColors();
         
-        _move ??= GetMove(data);
-        MoveInit(data);
+        _moveDict.TryGetValue(data.UnitMoveType, out _move);
+        MoveInit(data, false);
     }
 
-    private void MoveInit(EnemyData data)
+    private void MoveInit(EnemyData data, bool pingPong)
     {
         switch (data.UnitMoveType)
         {
             case EUnitMove.Move:
-                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0, _pingPong,false,  view.render.SetDirection);
+            case EUnitMove.Fly when !_hasChangedSpeed:
+                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0, pingPong,pingPong,  view.render.SetDirection);
                 break;
             case EUnitMove.Fly:
-                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35, _pingPong,false,  view.render.SetDirection);
+                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35, false,false,  view.render.SetDirection);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-
-    private static AUnitMove GetMove(EnemyData data) =>
-        data.UnitMoveType switch
-        {
-            EUnitMove.Move => new LinearMove(),
-            EUnitMove.Fly => new FlyMove(),
-            _ => throw new ArgumentOutOfRangeException()
-        };
 
     public void SetData(EnemyData data)
     {
@@ -200,8 +200,13 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
 
     protected virtual void OnLateUpdate()
     {
+        if(!_hasChangedSpeed) 
+            return;
+        
         _move.LateUpdate();
-        CheckBounds();
+        
+        if(CurrentData.UnitMoveType != EUnitMove.Fly)
+            CheckBounds();
     }
 
     protected virtual void DoMove()
@@ -230,7 +235,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (!(distanceTraveled >= distanceToChangeSpeed)) return;
         _speed = _originalSpeed;
         _hasChangedSpeed = true;
-        MoveInit(CurrentData);
+        MoveInit(CurrentData, _pingPong);
     }
 
     private void TakeDamage(float amount, bool isCrit)
