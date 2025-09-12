@@ -48,6 +48,8 @@ public class EnemyData : ScriptableObject
     public bool userOverrideBorderColor;
     public Color overrideBorderColor;
     
+    public Color hitVfxColor;
+    
     [Space,Header("Spawn")]
     public bool useRandomSpawnRate;
     public int spawnRate1;
@@ -131,6 +133,8 @@ public class EnemyData : ScriptableObject
             overrideBorderColor :
             useRandomColor ? GetRandomColor() : borderColorPalette[difficult];
     }
+
+    public Color GetHitVfxColor() => hitVfxColor;
 
     public static Color GetRandomColor()
     {

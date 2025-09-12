@@ -103,8 +103,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         
         _move ??= GetMove(data);
         MoveInit(data);
-        UnityEngine.Debug.Log(_move);
-
     }
 
     private void MoveInit(EnemyData data)
@@ -155,7 +153,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             return;
         
         view.render.SetFullColor(_colorMain.Value, _borderColor.Value);
-        view.hitVfx.SetColor(view.render.OriginalColor, CurrentData.GetBorderColor(_difficult));
+
+        var maxColor = CurrentData.useRandomColor ? _borderColor.Value : CurrentData.hitVfxColor;
+        var minColor = maxColor /1.3f;
+        minColor.a = 1;
+        view.hitVfx.SetColor(minColor, maxColor);
     }
 
     public void ResetView()
