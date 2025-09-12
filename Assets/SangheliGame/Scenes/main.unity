@@ -1319,6 +1319,8 @@ MonoBehaviour:
   maxZ: 50
   posY: -2.3
   BoundX: 16.5
+  boundBossMin: {x: -60, y: 13}
+  boundBossMax: {x: 60, y: 32}
   rayFXManager: {fileID: 1503166288}
   predefinedLang: en
   useOrientationChecker: 0

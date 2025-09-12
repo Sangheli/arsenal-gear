@@ -8,11 +8,11 @@ public class BossController : EnemyController
     public float paddingMove = 35;
     private Coroutine _rotAnimCoroutine;
     private Sequence _rotAnimSequence;
-    private readonly AUnitMove _move = new FlyMove();
     
     // Новый Init для босса
     public void Init(float hp, Color color, float bossDamage, System.Action onBossDeath)
     {
+        _move = new FlyMove();
         view.render.blockSpriteReplace = true;
         CurrentData = G.I.Data.enemyContainer.List[5];
         CurrentData.SetBaseHP(hp);
@@ -38,7 +38,7 @@ public class BossController : EnemyController
         SetBossHealth(hp);
         gameObject.SetActive(true);
         _mainCamera = Camera.main;
-        _move.Init(transform, CurrentData.Speed, _mainCamera, Random.insideUnitCircle.normalized, paddingMove, false, view.render.SetDirection);
+        _move.Init(transform, CurrentData.Speed, _mainCamera, Random.insideUnitCircle.normalized, paddingMove, false, true, view.render.SetDirection);
     }
     
     private void SetBossHealth(float hp)
@@ -64,6 +64,11 @@ public class BossController : EnemyController
         
         _move.DoMove();
         // base.DoMove();
+    }
+
+    protected override void OnLateUpdate()
+    {
+        
     }
 
     // Переопределяем смерть

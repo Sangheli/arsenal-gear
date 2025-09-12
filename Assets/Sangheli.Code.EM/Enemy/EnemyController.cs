@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private float NextTimeAttack;
     private int _currentLevel;
     
-    private AUnitMove _move;
+    protected AUnitMove _move;
     private bool _pingPong;
     
     private void OnValidate()
@@ -112,10 +112,10 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         switch (data.UnitMoveType)
         {
             case EUnitMove.Move:
-                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0, _pingPong,  view.render.SetDirection);
+                _move.Init(transform, _speed, G.I.cameraMain, _moveDirection, 0, _pingPong,false,  view.render.SetDirection);
                 break;
             case EUnitMove.Fly:
-                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35, _pingPong,  view.render.SetDirection);
+                _move.Init(transform, _speed, G.I.cameraMain, Random.insideUnitCircle.normalized, 35, _pingPong,false,  view.render.SetDirection);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -194,6 +194,11 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     }
 
     private void LateUpdate()
+    {
+        OnLateUpdate();
+    }
+
+    protected virtual void OnLateUpdate()
     {
         _move.LateUpdate();
         CheckBounds();

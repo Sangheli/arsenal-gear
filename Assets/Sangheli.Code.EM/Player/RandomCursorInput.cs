@@ -70,4 +70,49 @@ public class RandomCursorInput : ICursorInput
         
         return bounced;
     }
+    
+    public static bool MoveBounce3D(Vector3 pos, ref Vector2 direction)
+    {
+        bool bounced = false;
+        float minX = G.I.boundBossMin.x;
+        float maxX = G.I.boundBossMax.x;
+        float minY = G.I.boundBossMin.y;
+        float maxY = G.I.boundBossMax.y;
+
+        if (pos.x < minX)
+        {
+            pos.x = minX;
+            direction.x = Mathf.Abs(Random.Range(0.2f, 1f));
+
+            direction = direction.normalized;
+            bounced = true;
+        }
+        else if (pos.x > maxX)
+        {
+            pos.x = maxX;
+            direction.x = -Mathf.Abs(Random.Range(0.2f, 1f));
+            
+            direction = direction.normalized;
+            bounced = true;
+        }
+
+        if (pos.y < minY)
+        {
+            pos.y = minY;
+            direction.y = Random.Range(0.1f, 0.5f);
+            
+            direction = direction.normalized;
+            bounced = true;
+        }
+        else if (pos.y > maxY)
+        {
+            pos.y = maxY;
+            direction.y = Random.Range(-0.1f, -0.5f);
+            
+            direction = direction.normalized;
+            bounced = true;
+        }
+        
+        return bounced;
+    }
 } 

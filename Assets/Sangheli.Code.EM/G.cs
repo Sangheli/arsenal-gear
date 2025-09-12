@@ -80,6 +80,9 @@ public class G : MonoBehaviour
     public float posY = 0f;
 
     public float BoundX = 10;
+
+    public Vector2 boundBossMin;
+    public Vector2 boundBossMax;
     
     public readonly IAdvertisement Advertisement = new MockAdvertisement();
 

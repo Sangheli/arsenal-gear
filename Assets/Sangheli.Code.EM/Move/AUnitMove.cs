@@ -9,10 +9,11 @@ public abstract class AUnitMove
     protected float PaddingMove;
     protected bool PingPong;
     protected System.Action<Vector2> ChangeDirectionCallback;
+    protected bool IsBoss;
 
     protected bool Bounced { get; set; }
 
-    public void Init(Transform transform, float speed, Camera camera, Vector2 direction, float paddingMove, bool pingPong, System.Action<Vector2> changeDirectionCallback)
+    public void Init(Transform transform, float speed, Camera camera, Vector2 direction, float paddingMove, bool pingPong,bool isBoss, System.Action<Vector2> changeDirectionCallback)
     {
         Transform = transform;
         Speed = speed;
@@ -25,6 +26,7 @@ public abstract class AUnitMove
             Speed *= Random.Range(29f,31f);
 
         ChangeDirectionCallback = changeDirectionCallback;
+        IsBoss = isBoss;
     }
     
     public virtual void DoMove() { }
