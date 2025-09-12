@@ -10,27 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemySanta0
+  m_Name: EnemyBoss
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: -2504494526363040726, guid: 7ef2c3eb74e43f04e820f119a0583886, type: 3}
+  prefab: {fileID: 8804953943074486240, guid: 4a45712d4dd0dcc47b568be946ea35fd, type: 3}
   DisplayName: Candy_1
   excludeFromLevelGeneration: 1
   playDeathSound: 0
-  playDeathSound2: 0
-  showHPbar: 0
-  cantDie: 1
-  BaseHealth: 0
-  useBounceAnimation: 0
-  spawnAtStart: 1
+  playDeathSound2: 1
+  showHPbar: 1
+  cantDie: 0
+  BaseHealth: 75
+  useBounceAnimation: 1
+  spawnAtStart: 0
+  spawnAtStartHardcore: 0
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
-  viewScale: {x: 200, y: 200, z: 200}
-  hitVfx: {x: 0.5, y: 0.5, z: 0.5}
-  deathVfxScale: {x: 0.25, y: 0.25, z: 0.25}
-  spriteView: {fileID: 21300000, guid: 5f9bcddff9c27674dbc9fc7883943656, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 5f9bcddff9c27674dbc9fc7883943656, type: 3}
-  useRandomColor: 0
-  color: {r: 0.85098046, g: 0.6313726, b: 0.39607847, a: 1}
+  viewScale: {x: 30, y: 25, z: 25}
+  hitVfx: {x: 12, y: 12, z: 12}
+  deathVfxScale: {x: 12, y: 12, z: 12}
+  spriteView: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 358421d7ff724fc4e949e5b4f2d6faaf, type: 3}
+  useRandomColor: 1
+  color: {r: 0.8196079, g: 0.8117648, b: 0, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   useRandomSpawnRate: 1
   spawnRate1: 4
@@ -42,17 +43,22 @@ MonoBehaviour:
   Tier: -1
   PosConfig:
     useCustomZPos: 1
-    customZPos: 50
+    customZPos: 80
     ignoreSpawnPositionManager: 1
     useRanomYPos: 1
-    minY: 0
-    maxY: 0
+    minY: 25
+    maxY: 25
+    useXPos: 0
+    posX: 0
   SpawnCoinShift: {x: 0, y: 0, z: 0}
   shootPoint: {x: 0, y: 0, z: 0}
   BaseDamage: 0
-  FireRateMin: 0
   overrideFirstLevel: 0
   overrideFirstLevelValue: 0
+  FireRateMin: 30
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
+  blockRotation: 0
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

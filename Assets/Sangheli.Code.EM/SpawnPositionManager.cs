@@ -18,11 +18,13 @@ public class SpawnPositionManager
 
         var overrideZ = posConfig.GetZPos() ?? Mathf.Round(Random.Range(G.I.minZ, G.I.maxZ));
         var overrideY = posConfig.GetYPos() ?? G.I.posY;
+        var overrideX = posConfig.GetXPos();
         
         if (posConfig.ignoreSpawnPositionManager)
         {
             zPosition = Mathf.RoundToInt(overrideZ);
             spawnPosition = ScreenSpawnHelper.GetRandomScreenPosition(overrideY, overrideZ);
+            if (overrideX != null) spawnPosition.x = overrideX.Value;
             return true;
         }
 

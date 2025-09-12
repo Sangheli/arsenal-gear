@@ -24,6 +24,7 @@ public class EnemyData : ScriptableObject
     [Space,Header("Moving")]
     public bool useBounceAnimation = true;
     public bool spawnAtStart;
+    public bool spawnAtStartHardcore;
     public float Speed;
     public Vector3 rotationSpeed = new(0, 0, 30);
     
@@ -42,6 +43,10 @@ public class EnemyData : ScriptableObject
     [Space]
     public Color color = Color.white;
     public ColorContainer  borderColorPalette;
+
+    [Space]
+    public bool userOverrideBorderColor;
+    public Color overrideBorderColor;
     
     [Space,Header("Spawn")]
     public bool useRandomSpawnRate;
@@ -75,6 +80,9 @@ public class EnemyData : ScriptableObject
     public float FireRateMin = 10;
     public bool overrideFireRateFirstDifficult = false;
     public float overrideFireRateFirstDifficultValue = 60;
+
+    [Space, Header("Rotate")]
+    public bool blockRotation;
 
     [Space,Header("Upgrades")]
     public List<EnemyUpgradeInfo> UpgradeInfos = new()
@@ -111,9 +119,14 @@ public class EnemyData : ScriptableObject
     public virtual float GetEnergy() => GetUpgradeValue(UpgradeType.EnergyDrop, CachedEnergyDropLevel);
 
     public Color GetColor() => useRandomColor ? GetRandomColor() : color;
-    public Color GetBorderColor(int difficult) => useRandomColor ? GetRandomColor() : borderColorPalette[difficult];
+    public Color GetBorderColor(int difficult)
+    {
+        return userOverrideBorderColor ?
+            overrideBorderColor :
+            useRandomColor ? GetRandomColor() : borderColorPalette[difficult];
+    }
 
-    private Color GetRandomColor()
+    public static Color GetRandomColor()
     {
         // Generate vibrant colors that fit the neon aesthetic of the game
         float hue = UnityEngine.Random.value;

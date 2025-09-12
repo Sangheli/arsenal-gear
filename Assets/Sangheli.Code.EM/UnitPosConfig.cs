@@ -15,7 +15,12 @@ public class UnitPosConfig
     public bool useRanomYPos;
     public float minY;
     public float maxY;
+
+    [Space] 
+    public bool useXPos;
+    public float posX;
     
     public float? GetZPos() => useCustomZPos ? customZPos : null;
     public float? GetYPos() => useRanomYPos ? Mathf.Round(UnityEngine.Random.Range(minY, maxY)) : null;
+    public float? GetXPos() => useXPos ? posX : null;
 }

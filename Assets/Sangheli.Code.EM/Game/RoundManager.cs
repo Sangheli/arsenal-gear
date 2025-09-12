@@ -125,6 +125,8 @@ public class RoundManager : MonoBehaviour
         if(!_spawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition)) return;
         
         var moveDirection = ScreenSpawnHelper.GetMovementDirection(spawnPosition);
+        if (enemyData.blockRotation) moveDirection.x = 1;
+        
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);

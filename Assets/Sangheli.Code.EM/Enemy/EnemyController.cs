@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private Vector3 _startPosition;
     private bool _isPreSpawned;
     private bool _hasChangedSpeed;
-    public EnemyData CurrentData;
+    public EnemyData CurrentData { get; protected set; }
     private Coroutine _lifeTimeCoroutine;
     protected bool IsActive;
     protected bool IsDead;
@@ -144,7 +144,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private void Update()
     {
         if (!IsActive) return;
-        if (_isPreSpawned && !_hasChangedSpeed) CheckAndChangeSpeed();
+        if (_isPreSpawned && !_hasChangedSpeed && !CurrentData.spawnAtStartHardcore) CheckAndChangeSpeed();
 
         // Handle fire rate timing
         if (CanAttack)

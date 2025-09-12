@@ -7,7 +7,6 @@ public class BossView : EnemyView
 
     private Coroutine _bounceRoutineBoss2;
     private Coroutine _bounceShadowRoutineBoss;
-    public Color ramkaColor = Color.black;
     private bool shadowUpdated = false;
     
     public void SetScale(float viewScale)
@@ -21,7 +20,7 @@ public class BossView : EnemyView
         // render.shadowRenderArr[1].transform.localPosition /= viewScale;
     }
 
-    public void SetColor(Color color)
+    public void SetColor(Color color, Color borderColor)
     {
         color *= colorMult;
         color.a = 1;
@@ -32,7 +31,7 @@ public class BossView : EnemyView
         render.OriginalColor = color;
         render.ApplyPropertyView(color);
         render.ApplyPropertyBack(backColor);
-        render.ApplyBorderColor(ramkaColor);
+        render.ApplyBorderColor(borderColor);
         render.SetOriginalScale(Vector3.one, true);
     }
 }

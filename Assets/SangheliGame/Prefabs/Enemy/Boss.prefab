@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &452298675655793036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8624718081245891454}
+  m_Layer: 6
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8624718081245891454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452298675655793036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0289, y: 0.6408, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5548160587331954462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1404090923352231950
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,11 +60,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8830552553377477237}
   - {fileID: 2733894123267819174}
+  - {fileID: 8624718081245891454}
   m_Father: {fileID: 8371877352978581320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6168234484293521608
@@ -83,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2651deaf0fbd2154db7b0964e51fbb96, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,8 +157,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.45, y: 1, z: 0.2}
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Size: {x: 1.35, y: 1.35, z: 0.19999997}
+  m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!1 &2716901543685481827
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +262,7 @@ GameObject:
   - component: {fileID: 229864134125572741}
   - component: {fileID: 8804953943074486240}
   m_Layer: 6
-  m_Name: Santa1
+  m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,7 +328,6 @@ MonoBehaviour:
   hitVfx: {fileID: 2918547017458249300}
   render: {fileID: 489896085317699707}
   colorMult: 0.8
-  ramkaColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &8804953943074486240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fde58cc1044314194e6ce3d4a98083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
-  shootPoint: {fileID: 5548160587331954462}
+  shootPoint: {fileID: 8624718081245891454}
   bounceMove: {fileID: 4749907426850337452}
   unfillTime: 0.5
   view: {fileID: 229864134125572741}
@@ -317,10 +348,10 @@ MonoBehaviour:
   damageReciever: {fileID: 8780209497533360958}
   speedSuper: 40
   distanceToChangeSpeed: 6
-  CurrentData: {fileID: 0}
   manipulateColor: 1
   manipulateBorderColor: 0
   duration: 0.2
+  _difficult: 0
   paddingMove: 15
 --- !u!1 &3852211787599547661
 GameObject:
@@ -491,7 +522,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: d42b91e5d11e3324d83df4f81bef20c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 358421d7ff724fc4e949e5b4f2d6faaf, type: 3}
   m_Color: {r: 0.044341575, g: 0.12364425, b: 0.23899364, a: 1}
   m_FlipX: 0
   m_FlipY: 0

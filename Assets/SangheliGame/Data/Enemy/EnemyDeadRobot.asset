@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
-  m_Name: EnemyCoockie
+  m_Name: EnemyDeadRobot
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
   DisplayName: Candy_1
@@ -27,8 +27,8 @@ MonoBehaviour:
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.75, y: 0.75, z: 0.75}
-  spriteView: {fileID: -1615771939188749659, guid: e8ebd7cf3582dfa4e875ac2c38963e02, type: 3}
-  spriteBorder: {fileID: 21300000, guid: e90f3c27022ea7a4aa8dc86758307679, type: 3}
+  spriteView: {fileID: 21300000, guid: 872f611eb6e9c1949b8cc2c1b021dd70, type: 3}
+  spriteBorder: {fileID: 21300000, guid: 3c096233ee1b99c4f88276fee24a123c, type: 3}
   useRandomColor: 1
   color: {r: 0.85098046, g: 0.6313726, b: 0.39607847, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
@@ -50,10 +50,11 @@ MonoBehaviour:
   SpawnCoinShift: {x: 0, y: 0, z: 0}
   shootPoint: {x: 0, y: 0, z: 0}
   BaseDamage: 0
-  FireRateMin: 10
-  skipFirstLevelDamage: 0
   overrideFirstLevel: 0
   overrideFirstLevelValue: 0
+  FireRateMin: 10
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

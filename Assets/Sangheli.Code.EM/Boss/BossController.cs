@@ -19,15 +19,17 @@ public class BossController : EnemyController
         CurrentData.SetBaseDamage(0);
         DamageValue = bossDamage;
         damageReciever.EnemyData = CurrentData;
+
+        var color1 = EnemyData.GetRandomColor();
         
         _onBossDeath = onBossDeath;
         // Инициализация view
         if (view is BossView bossView)
         {
-            bossView.SetColor(color);
+            bossView.SetColor(Color.white, color1);
             bossView.SetScale(CurrentData.viewScale.x);
             
-            bossView.hitVfx.SetColor(color, Color.clear);
+            bossView.hitVfx.SetColor(color1, Color.clear);
             bossView.hitVfx.SetScale(CurrentData.hitVfx);
             bossView.deathVfx.SetScale(CurrentData.deathVfxScale);
         }
