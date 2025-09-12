@@ -307,8 +307,8 @@ MonoBehaviour:
   - {fileID: 6168234484293521608}
   borderRenderArr:
   - {fileID: 3921777000171173304}
-  punchScale: 1.2
-  punchScaleCrit: 1.44
+  punchScale: 4
+  punchScaleCrit: 6
   scale: 1
   duration: 0.2
   maxFlashValue: 1
@@ -1187,21 +1187,25 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.minColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 429194629599355181, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4097099458767488122, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_Name
       value: deathVfx
       objectReference: {fileID: 0}
     - target: {fileID: 4286549327131396564, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_LocalScale.x
-      value: 25
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4286549327131396564, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_LocalScale.y
-      value: 25
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4286549327131396564, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_LocalScale.z
-      value: 25
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4286549327131396564, guid: b9c3f6d6f47c5d64ea6e20625e4ea029, type: 3}
       propertyPath: m_LocalPosition.x

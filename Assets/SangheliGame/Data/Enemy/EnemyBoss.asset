@@ -26,8 +26,8 @@ MonoBehaviour:
   Speed: 20
   rotationSpeed: {x: 0, y: 0, z: 0}
   viewScale: {x: 20, y: 25, z: 25}
-  hitVfx: {x: 12, y: 12, z: 12}
-  deathVfxScale: {x: 12, y: 12, z: 12}
+  hitVfx: {x: 7, y: 7, z: 7}
+  deathVfxScale: {x: 3, y: 3, z: 3}
   spriteView: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
   spriteBorder: {fileID: 21300000, guid: 358421d7ff724fc4e949e5b4f2d6faaf, type: 3}
   useRandomColor: 1
