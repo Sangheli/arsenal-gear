@@ -35,6 +35,7 @@ MonoBehaviour:
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   userOverrideBorderColor: 0
   overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  hitVfxColor: {r: 0.8196079, g: 0.8117648, b: 0, a: 1}
   useRandomSpawnRate: 1
   spawnRate1: 4
   spawnRate2: 10
@@ -61,6 +62,8 @@ MonoBehaviour:
   overrideFireRateFirstDifficult: 0
   overrideFireRateFirstDifficultValue: 60
   blockRotation: 0
+  UnitMoveType: 1
+  EnemyType: 1
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop
