@@ -4,23 +4,19 @@ using System.Linq;
 [Serializable]
 public class DataSave
 {
-    //release
     public int totalEnergy;
     public float timeSinceStart;
     public bool hasVisitedUpgradeMenu;
     public int level;
     public int loadTimes;
     
-    //big update 1 - versioning
     public int saveVersion = 0;
     
-    //big update 1
     public int wins;
     public int losses;
     public int upgradesBoughtNum;
     public int shopVisits;
 
-    //release
     public ParamContainer paramContainer;
     public EnemyUpgradeContainer enemyUpgradeContainer;
     
