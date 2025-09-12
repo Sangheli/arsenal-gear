@@ -25,7 +25,7 @@ MonoBehaviour:
   spawnAtStartHardcore: 1
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
-  viewScale: {x: -65, y: 65, z: 1}
+  viewScale: {x: 6, y: 6, z: 6}
   hitVfx: {x: 0.5, y: 0.5, z: 0.5}
   deathVfxScale: {x: 0.25, y: 0.25, z: 0.25}
   spriteView: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
@@ -34,7 +34,7 @@ MonoBehaviour:
   color: {r: 0.9137255, g: 0.2784314, b: 1, a: 1}
   borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   userOverrideBorderColor: 1
-  overrideBorderColor: {r: 0.9137255, g: 0.2784314, b: 1, a: 1}
+  overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
   useRandomSpawnRate: 1
   spawnRate1: 4
   spawnRate2: 10
@@ -48,8 +48,8 @@ MonoBehaviour:
     customZPos: 50
     ignoreSpawnPositionManager: 1
     useRanomYPos: 1
-    minY: -32.8
-    maxY: -32.8
+    minY: 0
+    maxY: 0
     useXPos: 1
     posX: -10
   SpawnCoinShift: {x: 0, y: 0, z: 0}
