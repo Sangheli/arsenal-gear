@@ -16,7 +16,7 @@ public class LevelDataConfigRuntime
     private const  double Exponent = 0.3975f;
     private float coef = 13.28f;
     
-    private const int tierStep = 3;
+    private const int tierStep = 5;
 
     public LevelDataConfigRuntime()
     {
