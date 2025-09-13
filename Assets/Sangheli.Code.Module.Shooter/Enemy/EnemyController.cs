@@ -92,9 +92,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _originalSpeed = CurrentData.Speed;
         _speed = _originalSpeed;
         _isPreSpawned = isPreSpawned;
-        _hasChangedSpeed = false;
+        _hasChangedSpeed = CurrentData.spawnData.spawnAtStartHardcore;
         _startPosition = transform.position;
-        if (_isPreSpawned) _speed = speedSuper;
+        if (_isPreSpawned &&  !CurrentData.spawnData.spawnAtStartHardcore ) _speed = speedSuper;
         if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
         // _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
         
@@ -261,7 +261,15 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     public virtual void Die(bool isCrit, bool killedByPlayer)
     {
         if (!IsActive) return;
-        if (killedByPlayer) G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.EnemyCount, 1);
+        
+        if (killedByPlayer)
+        {
+            if(CurrentData.EnemyType == EEnemyType.Robot)
+                G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.EnemyCount, 1);
+            if(CurrentData.EnemyType == EEnemyType.Factory)
+                G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.Factory, 1);
+        }
+        
         OnBeforeReturnToPool();
         StartCoroutine(DeathAndReturnToPool(isCrit));
     }

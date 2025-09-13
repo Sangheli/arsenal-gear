@@ -41,11 +41,6 @@ MonoBehaviour:
     userOverrideBorderColor: 1
     overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
     hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
-  spawnAtStart: 1
-  spawnAtStartHardcore: 1
-  useRandomSpawnRate: 1
-  spawnRate1: 4
-  spawnRate2: 10
   spawnData:
     spawnAtStart: 1
     spawnAtStartHardcore: 1
@@ -58,7 +53,8 @@ MonoBehaviour:
   selfDestructTimeRandomAdd: 0
   PosConfig:
     useCustomZPos: 1
-    customZPos: 50
+    customZPosMin: 50
+    customZPosMax: 50
     ignoreSpawnPositionManager: 1
     useRanomYPos: 1
     minY: 0

@@ -9,7 +9,7 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    public const int SkipTutorialLevels = 7;
+    public const int SkipTutorialLevels = 6;
     
     private const double MinRewardBoss = 100;
     private static double MaxRewardBoss = 2000000;
@@ -17,6 +17,13 @@ public class LevelDataConfigRuntime
     private float coef = 13.28f;
     
     private const int tierStep = 7;
+    
+    private static readonly List<LevelObjectiveType> ExcludeObjectiveTypes = new()
+    {
+        LevelObjectiveType.None,
+        LevelObjectiveType.Boss,
+        LevelObjectiveType.Factory,
+    };
 
     public LevelDataConfigRuntime()
     {
@@ -158,6 +165,7 @@ public class LevelDataConfigRuntime
         switch (objectiveType)
         {
             case LevelObjectiveType.Factory:
+                return 3;
                 int coinMinF = Random.Range(3, 5);
                 int coinMaxF = Random.Range(10, 15);
                 return Mathf.RoundToInt(Mathf.Lerp(coinMinF, coinMaxF, t));
@@ -191,7 +199,7 @@ public class LevelDataConfigRuntime
         // Generate list of non-boss objectives
         var nonBossObjectives = Enum.GetValues(typeof(LevelObjectiveType))
             .Cast<LevelObjectiveType>()
-            .Where(type => type != LevelObjectiveType.Boss && type != LevelObjectiveType.None)
+            .Where(type => !ExcludeObjectiveTypes.Contains(type))
             .ToArray();
             
         // Select random objective from non-boss types
@@ -300,20 +308,7 @@ public class LevelDataConfigRuntime
                 spawnRate = Mathf.RoundToInt(Random.Range(230, 250))
             }).ToList();
         }
-        
-        if (levelObjectiveType == LevelObjectiveType.Factory)
-        {
-            var enemyDatas = G.I.Data.enemyContainer.List.Where(x => x.EnemyType == EEnemyType.Factory).ToList();
 
-            return enemyDatas.Select(enemy => new LevelEnemyInfo
-            {
-                enemyId = enemy.EnemyId,
-                difficult = 0,
-                spawnChance = 100,
-                spawnRate = Mathf.RoundToInt(Random.Range(230, 250))
-            }).ToList();
-        }
-        
         var sorted =  G.I.Data.enemyContainer
             .List
             .Where(x => !x.excludeFromLevelGeneration && x.EnemyType == EEnemyType.Robot)
@@ -332,7 +327,7 @@ public class LevelDataConfigRuntime
         countFactor = Mathf.Clamp01(countFactor);
 
         // Generate LevelEnemyInfo for each selected enemy
-        return selectedEnemies.Select(enemy => new LevelEnemyInfo
+        var result = selectedEnemies.Select(enemy => new LevelEnemyInfo
             {
                 enemyId = enemy.enemyData.EnemyId,
                 difficult = enemy.difficult,
@@ -343,6 +338,8 @@ public class LevelDataConfigRuntime
                 // Чем больше врагов, тем ниже частота появления каждого из них
                 spawnRate = Mathf.RoundToInt(Random.Range(30, 61) * countFactor) // От 15 до 60
             }).ToList();
+
+        return result;
     }
 
     private List<LevelEnemyInfoToGenerate> GetSelectedEnemies(float scale, List<EnemyData> sorted, int i)

@@ -22,7 +22,7 @@ public class BossManager : MonoBehaviour
 
     private IEnumerator SpawnAndAttack()
     {
-        var centerPos = new Vector3(0, _currentBoss.CurrentData.PosConfig.maxY, _currentBoss.CurrentData.PosConfig.customZPos);
+        var centerPos = new Vector3(0, _currentBoss.CurrentData.PosConfig.maxY, _currentBoss.CurrentData.PosConfig.customZPosMin);
         yield return SpawnUtils.MoveToCenter(_currentBoss.transform, centerPos);
         yield return new WaitForSeconds(1);
         if(_currentBoss!=null)

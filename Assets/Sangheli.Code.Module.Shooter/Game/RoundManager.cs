@@ -122,12 +122,21 @@ public class RoundManager : MonoBehaviour
 
     private static float GetSpawnRateMultiplier() => 1.0f + 0.35f * G.I.levelTargetManager.Data.End.GetLevelPercent();
 
-    private void SpawnEnemy(EnemyData enemyData,int difficult, bool isPreSpawned = false)
+    private void SpawnEnemy(EnemyData enemyData,int difficult, bool isPreSpawned = false, bool ignoreLimits = false, Vector3? hardCodePos = null)
     {
-        if(currentMaxOnScreen>=G.I.currentLevel.MaxEnemyOnScreen)
+        if (!ignoreLimits && currentMaxOnScreen >= G.I.currentLevel.MaxEnemyOnScreen) 
             return;
-        
-        if(!_spawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition)) return;
+
+        var findPos = _spawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition);
+
+        if (hardCodePos != null)
+        {
+            spawnPosition = hardCodePos.Value;
+            findPos = true;
+        }
+
+        if(!findPos)
+            return;
         
         var moveDirection = ScreenSpawnHelper.GetMovementDirection(spawnPosition);
         if (enemyData.blockVisualDirectionChange) moveDirection.x = 1;
@@ -211,9 +220,20 @@ public class RoundManager : MonoBehaviour
         var filteredEnemiesForPreSpawn = GetFilteredEnemiesForPreSpawn();
 
         // Spawn enemies with spawnAtStart flag
-        foreach (var enemyData in _availableEnemies.Where(e => e.spawnData.spawnAtStart))
+        if (G.I.currentLevel.objectiveType == LevelObjectiveType.Factory)
         {
-            SpawnEnemy(enemyData, difficult: 0, isPreSpawned: true);
+            var enemyData = G.I.Data.enemyContainer.List.FirstOrDefault(e => e.EnemyType == EEnemyType.Factory);
+            for (var i = 0; i < G.I.currentLevel.objectiveValue; i++)
+            {
+                SpawnEnemy(enemyData, difficult: 0, isPreSpawned: true, ignoreLimits: true, new Vector3(i*15-16,enemyData.PosConfig.GetYPos().Value,45+i));
+            }
+        }
+        else
+        {
+            foreach (var enemyData in _availableEnemies.Where(e => e.spawnData.spawnAtStart))
+            {
+                SpawnEnemy(enemyData, difficult: 0, isPreSpawned: true);
+            }
         }
 
         for (var i = 0; i < G.I.currentLevel.preSpawnEnemyCount; i++)

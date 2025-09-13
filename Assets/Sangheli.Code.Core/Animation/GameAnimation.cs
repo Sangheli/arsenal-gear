@@ -55,7 +55,7 @@ public static class GameAnimation
 
     public static IEnumerator ShrinkAndDisappear(Transform view, Vector3 scale1, float duration)
     {
-        yield return OnScaleAnim(view, duration, scale1, Vector3.zero);
+        yield return OnScaleAnim(view, duration, scale1, new Vector3(0,0,1));
         view.localScale = Vector3.zero;
     }
     

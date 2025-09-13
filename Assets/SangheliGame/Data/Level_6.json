@@ -1,5 +1,5 @@
 {
-    "levelId": 6,
+    "levelId": 60000,
     "LevelStringEntry": "tutor5",
     "objectiveType":6,
     "objectiveValue": 3,
@@ -21,7 +21,7 @@
     "enemies": [
         {
             "enemyId": 20,
-            "spawnChance": 100.0,
+            "spawnChance": 0,
             "spawnRate": 30.0
         }
     ]

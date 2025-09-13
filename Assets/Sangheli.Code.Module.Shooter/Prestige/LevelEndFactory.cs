@@ -1,37 +1,45 @@
-﻿public class LevelEndFactory : ILevelTargetEnd
+﻿using UnityEngine;
+
+public class LevelEndFactory : ILevelTargetEnd
 {
-    public float CurrentValue { get; }
-    public string Localization { get; }
+    public float CurrentValue => _value;
+    public string Localization => "level_complete";
 
     public int GetEnergy()
     {
-        return 0;
+        return _currentLevelConfig.levelReward;
     }
+    
+    private LevelConfig _currentLevelConfig;
+    private int _value;
 
     public void Add(LevelObjectiveType levelObjectiveType, float value)
     {
-        // throw new System.NotImplementedException();
-    }
+        if (levelObjectiveType != LevelObjectiveType.Factory)
+            return;
 
+        _value += (int)value;
+    }
+    
     public void OnEnd()
     {
-        // throw new System.NotImplementedException();
+        G.ChangeLevel(1);
+        G.I.StopRun(this, EndRoundFadeEnum.RoundWin);
     }
 
     public void ResetValue(LevelConfig currentLevelConfig)
     {
-        // throw new System.NotImplementedException();
+        _currentLevelConfig = currentLevelConfig;
+        _value = 0;
     }
 
     public bool IsCompleted()
     {
-        return false;
-        // throw new System.NotImplementedException();
+        return _value >= _currentLevelConfig.objectiveValue;
     }
 
     public float GetLevelPercent()
     {
-        return 0;
-        // throw new System.NotImplementedException();
+        return Mathf.Clamp01(_value / (float)_currentLevelConfig.objectiveValue);
     }
 }

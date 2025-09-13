@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyFactory
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: 6422823629525648998, guid: 31c9411eeec0c424a87094ade4659db3, type: 3}
+  prefab: {fileID: 7407000051574272186, guid: e689a4270323738439c51d23a4557123, type: 3}
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
   EnemyType: 3
@@ -25,11 +25,11 @@ MonoBehaviour:
   UnitMoveType: 1
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
-  useBounceAnimation: 1
+  useBounceAnimation: 0
   blockVisualDirectionChange: 0
-  viewScale: {x: 7, y: 7, z: 7}
-  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
-  deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
+  viewScale: {x: 35, y: 35, z: 35}
+  hitVfx: {x: 5, y: 5, z: 5}
+  deathVfxScale: {x: 5, y: 5, z: 5}
   spriteData:
     spriteView: {fileID: 21300000, guid: 302a7c754d574e84c9083189dc712d3d, type: 3}
     spriteBorder: {fileID: 21300000, guid: 302a7c754d574e84c9083189dc712d3d, type: 3}
@@ -47,33 +47,30 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 67698d63ed5c0aa47b08c9160981acb8, type: 3}
     - {fileID: 21300000, guid: fabcec3f12e0c1b42a683ef6d0e614e7, type: 3}
     useMultiSprite: 1
-  useRandomColor: 1
-  color: {r: 0.46274513, g: 0.023529414, b: 0.18431373, a: 1}
-  userOverrideBorderColor: 0
-  overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
-  hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
   colorData:
     useRandomColor: 1
     color: {r: 0.4627451, g: 0.023529412, b: 0.18431373, a: 1}
-    userOverrideBorderColor: 0
-    overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
+    userOverrideBorderColor: 1
+    overrideBorderColor: {r: 1, g: 1, b: 1, a: 0}
     hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
-  spawnAtStart: 0
-  spawnAtStartHardcore: 0
-  useRandomSpawnRate: 0
-  spawnRate1: 0
-  spawnRate2: 0
+  spawnData:
+    spawnAtStart: 0
+    spawnAtStartHardcore: 1
+    useRandomSpawnRate: 0
+    spawnRate1: 0
+    spawnRate2: 0
   useSelfDestruct: 0
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
   PosConfig:
-    useCustomZPos: 0
-    customZPos: 0
+    useCustomZPos: 1
+    customZPosMin: 45
+    customZPosMax: 50
     ignoreSpawnPositionManager: 0
     useRanomYPos: 1
-    minY: -2
-    maxY: -2
+    minY: 15
+    maxY: 15
     useXPos: 0
     posX: 0
   SpawnCoinShift: {x: 0, y: 0.5, z: 0}

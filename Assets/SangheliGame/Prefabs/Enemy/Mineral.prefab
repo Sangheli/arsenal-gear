@@ -50,12 +50,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4693210002999050513, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
       propertyPath: m_Name
-      value: MineralNoShadowNoBack
+      value: Mineral
       objectReference: {fileID: 0}
     - target: {fileID: 5443682603618641427, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 6d174307ae12cfa49a71ac3254ff17d4, type: 2}
+    - target: {fileID: 5662940918767580060, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662940918767580060, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662940918767580060, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662940918767580060, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
