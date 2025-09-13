@@ -15,27 +15,39 @@ MonoBehaviour:
   prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
+  EnemyType: 1
+  Tier: 2
   playDeathSound: 0
   playDeathSound2: 1
   showHPbar: 1
   cantDie: 0
   BaseHealth: 45
-  useBounceAnimation: 1
-  spawnAtStart: 0
-  spawnAtStartHardcore: 0
+  UnitMoveType: 1
   Speed: 0.2
   rotationSpeed: {x: 0, y: 0, z: 0}
+  useBounceAnimation: 1
+  blockVisualDirectionChange: 0
   viewScale: {x: 3, y: 3, z: 3}
   hitVfx: {x: 1.5, y: 1.5, z: 1.5}
   deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
-  spriteView: {fileID: 21300000, guid: 7a4a5a3aadc4f9940bff391a972fd234, type: 3}
-  spriteBorder: {fileID: 21300000, guid: fb1cdf8372b09d147b1f6673bf0c987b, type: 3}
+  spriteData:
+    spriteView: {fileID: 21300000, guid: 7a4a5a3aadc4f9940bff391a972fd234, type: 3}
+    spriteBorder: {fileID: 21300000, guid: fb1cdf8372b09d147b1f6673bf0c987b, type: 3}
+    multiSprite: []
+    useMultiSprite: 0
   useRandomColor: 0
   color: {r: 0.41960788, g: 0.68235296, b: 0.19215688, a: 1}
-  borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   userOverrideBorderColor: 0
   overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
   hitVfxColor: {r: 0.43137258, g: 0.6784314, b: 0.18823531, a: 1}
+  colorData:
+    useRandomColor: 0
+    color: {r: 0.41960785, g: 0.68235296, b: 0.19215687, a: 1}
+    userOverrideBorderColor: 0
+    overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
+    hitVfxColor: {r: 0.43137255, g: 0.6784314, b: 0.1882353, a: 1}
+  spawnAtStart: 0
+  spawnAtStartHardcore: 0
   useRandomSpawnRate: 0
   spawnRate1: 0
   spawnRate2: 0
@@ -43,7 +55,6 @@ MonoBehaviour:
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
-  Tier: 2
   PosConfig:
     useCustomZPos: 0
     customZPos: 0
@@ -61,9 +72,6 @@ MonoBehaviour:
   FireRateMin: 10
   overrideFireRateFirstDifficult: 0
   overrideFireRateFirstDifficultValue: 60
-  blockRotation: 0
-  UnitMoveType: 1
-  EnemyType: 1
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

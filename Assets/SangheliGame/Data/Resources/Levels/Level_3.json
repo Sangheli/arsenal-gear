@@ -17,6 +17,7 @@
     "preSpawnEnemyCount": 10,
     "poisonDamageSpeed": 0.66,
     "isSafeLevel": false,
+    "MaxEnemyOnScreen": 5,
     "levelModifiers": [
         1
     ],

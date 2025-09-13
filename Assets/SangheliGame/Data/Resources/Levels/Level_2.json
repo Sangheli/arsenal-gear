@@ -18,6 +18,7 @@
     "poisonDamageSpeed": 0.0,
     "levelModifiers": [],
     "isSafeLevel": true,
+    "MaxEnemyOnScreen": 5,
     "enemies": [
         {
             "enemyId": 3,

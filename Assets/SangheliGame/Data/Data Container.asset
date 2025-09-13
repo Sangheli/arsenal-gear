@@ -18,6 +18,6 @@ MonoBehaviour:
   ParamData: {fileID: 11400000, guid: ff91616b78abe294e96acaee8e0d5c49, type: 2}
   enemyContainer: {fileID: 11400000, guid: d6e268d7d6ddd244f8baf37169540afc, type: 2}
   objectiveVisualConfig: {fileID: 11400000, guid: 6376d1a463c8350428093675700987b7, type: 2}
-  hpBaColorContainer: {fileID: 11400000, guid: 75cb3bb8de0dcc542b8cb7be1c0bce66, type: 2}
   enemyDifficultContainer: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   storeConfig: {fileID: 11400000, guid: 26f7fc48326bdfe45a64674c262ee769, type: 2}
+  borderColorPaletteEnemy: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}

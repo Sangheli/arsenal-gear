@@ -15,16 +15,19 @@ MonoBehaviour:
   objectiveVisuals:
   - color: {r: 1, g: 0.95686275, b: 0, a: 1}
     objectiveType: 1
-    sprite: {fileID: 21300000, guid: 02dab3a1e6c908c4987af49820910412, type: 3}
+    sprite: {fileID: 21300000, guid: fc2392b783f7a8d4fa3237eb3dfe28d5, type: 3}
   - color: {r: 1, g: 1, b: 1, a: 1}
     objectiveType: 2
-    sprite: {fileID: 21300000, guid: 44499f8611d5d9c41807e44b33df2c55, type: 3}
+    sprite: {fileID: 21300000, guid: 960d6b712fb97814393f6cf3241cb96e, type: 3}
   - color: {r: 1, g: 1, b: 1, a: 1}
     objectiveType: 3
-    sprite: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
+    sprite: {fileID: 21300000, guid: 53811ef2fb271ce4bb837d1ede0ea133, type: 3}
   - color: {r: 1, g: 1, b: 1, a: 1}
     objectiveType: 4
     sprite: {fileID: 21300000, guid: 2bf3b1133eaaa20469cbbf6c5c3c203a, type: 3}
   - color: {r: 1, g: 0.95686275, b: 0, a: 1}
     objectiveType: 5
-    sprite: {fileID: 21300000, guid: 02dab3a1e6c908c4987af49820910412, type: 3}
+    sprite: {fileID: 21300000, guid: fc2392b783f7a8d4fa3237eb3dfe28d5, type: 3}
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    objectiveType: 6
+    sprite: {fileID: 21300000, guid: a66bee3ff11733943a881b41727fb06c, type: 3}

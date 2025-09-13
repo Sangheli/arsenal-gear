@@ -15,34 +15,47 @@ MonoBehaviour:
   prefab: {fileID: -2504494526363040726, guid: 7ef2c3eb74e43f04e820f119a0583886, type: 3}
   DisplayName: bossDead
   excludeFromLevelGeneration: 1
+  EnemyType: 1
+  Tier: -1
   playDeathSound: 0
   playDeathSound2: 0
   showHPbar: 0
   cantDie: 1
   BaseHealth: 0
-  useBounceAnimation: 0
-  spawnAtStart: 1
-  spawnAtStartHardcore: 1
+  UnitMoveType: 1
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
+  useBounceAnimation: 0
+  blockVisualDirectionChange: 1
   viewScale: {x: 6, y: 6, z: 6}
   hitVfx: {x: 0.5, y: 0.5, z: 0.5}
   deathVfxScale: {x: 0.25, y: 0.25, z: 0.25}
-  spriteView: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
-  spriteBorder: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
-  useRandomColor: 0
-  color: {r: 0.9137255, g: 0.2784314, b: 1, a: 1}
-  borderColorPalette: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
-  userOverrideBorderColor: 1
-  overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
+  spriteData:
+    spriteView: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
+    spriteBorder: {fileID: 21300000, guid: 49770b8b38cbc4a4592cd6d7c1c5096f, type: 3}
+    multiSprite: []
+    useMultiSprite: 0
+  colorData:
+    useRandomColor: 0
+    color: {r: 0.9137255, g: 0.2784314, b: 1, a: 1}
+    userOverrideBorderColor: 1
+    overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
+    hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
+  spawnAtStart: 1
+  spawnAtStartHardcore: 1
   useRandomSpawnRate: 1
   spawnRate1: 4
   spawnRate2: 10
+  spawnData:
+    spawnAtStart: 1
+    spawnAtStartHardcore: 1
+    useRandomSpawnRate: 1
+    spawnRate1: 4
+    spawnRate2: 10
   useSelfDestruct: 0
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
-  Tier: -1
   PosConfig:
     useCustomZPos: 1
     customZPos: 50
@@ -60,7 +73,6 @@ MonoBehaviour:
   FireRateMin: 0
   overrideFireRateFirstDifficult: 0
   overrideFireRateFirstDifficultValue: 60
-  blockRotation: 1
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop

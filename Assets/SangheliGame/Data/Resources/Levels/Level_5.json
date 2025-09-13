@@ -9,7 +9,7 @@
     "levelReward": 0,
     "showHpBar": true,
     "checkNextRoundFromSave": false,
-    "showGoToUpgradesButton": false,
+    "showGoToUpgradesButton": true,
     "showTerminateButton": false,
     "useWinColorOnFail": false,
     "playerAutoAttack": true,

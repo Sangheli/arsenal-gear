@@ -1,0 +1,28 @@
+{
+    "levelId": 6,
+    "LevelStringEntry": "tutor5",
+    "objectiveType":6,
+    "objectiveValue": 3,
+    "roundTime": 20.0,
+    "bossHp": 21,
+    "bossAttack": 1.0,
+    "levelReward": 0,
+    "showHpBar": true,
+    "checkNextRoundFromSave": false,
+    "showGoToUpgradesButton": true,
+    "showTerminateButton": false,
+    "useWinColorOnFail": false,
+    "playerAutoAttack": true,
+    "bossEnemySpawnRateMultiplier": 5.0,
+    "preSpawnEnemyCount": 3,
+    "poisonDamageSpeed": 0.0,
+    "levelModifiers": [],
+    "isSafeLevel": true,
+    "enemies": [
+        {
+            "enemyId": 20,
+            "spawnChance": 100.0,
+            "spawnRate": 30.0
+        }
+    ]
+}
