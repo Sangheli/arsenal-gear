@@ -220,16 +220,16 @@ public class G : MonoBehaviour
         }
     }
 
-    public void StartRun(bool overrideNew, bool playFader = true)
+    public void StartRun(bool overrideNew, bool playFader = true, bool playFaderBack = true)
     {
         AnalyticsHelper.OnStartRound();
         G.I.SaveProvider.Get().paramContainer.ResetTemp();
         G.I.SaveProvider.Get().enemyUpgradeContainer.ResetTemp();
         SaveSystem.SaveSilent();
-        StartCoroutine(StartRunSequence(playFader, overrideNew));
+        StartCoroutine(StartRunSequence(playFader, overrideNew, playFaderBack));
     }
 
-    private IEnumerator StartRunSequence(bool playFader, bool overrideNew)
+    private IEnumerator StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack)
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
@@ -262,7 +262,7 @@ public class G : MonoBehaviour
         yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
         CanPlay = true;
         
-        if(playFader)
+        if(playFaderBack)
             yield return distortionUI.DoFade(forward: false);
         
         distortionUI.DoBlock(false);
@@ -399,7 +399,7 @@ public class G : MonoBehaviour
         SaveProvider.CreateNew();
         SaveProvider.Get().saveVersion = GameVersionConstants.CURRENT_GAME_VERSION;
         SaveSystem.SaveSilent();
-        StartRun(false);
+        StartRun(false, playFader: false, playFaderBack: true);
     }
     
     private void OnStartGameWithMenu()
@@ -418,6 +418,7 @@ public class G : MonoBehaviour
         {
             startGameView.Toggle(true);
             startGameView.DoSaveInfoFadeOut(2.0f, 1);
+            StartCoroutine(G.I.distortionUI.StartFadeOut());
         }
         else
         {

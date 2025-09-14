@@ -38,7 +38,6 @@ public class DistortionUI : MonoBehaviour
         _matUp = GetMat(distUp);
         DoBlock(false);
         
-        StartCoroutine(StartFadeOut());
     }
 
     private Material GetMat(Image img)
@@ -50,7 +49,7 @@ public class DistortionUI : MonoBehaviour
         return img.material;
     }
 
-    private IEnumerator StartFadeOut()
+    public IEnumerator StartFadeOut()
     {
         DoBlock(true);
         _matDown.SetFloat(FadeAmount, MaxValue);
