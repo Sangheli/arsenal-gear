@@ -1879,14 +1879,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 456469765178463276, guid: 4b449c050f4eca646a2e42271647ac11, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 456469765178463276, guid: 4b449c050f4eca646a2e42271647ac11, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1155143973102322856, guid: 4b449c050f4eca646a2e42271647ac11, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2042,10 +2034,6 @@ PrefabInstance:
     - target: {fileID: 9064985009394160380, guid: 4b449c050f4eca646a2e42271647ac11, type: 3}
       propertyPath: m_Name
       value: StartGameCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 9064985009394160380, guid: 4b449c050f4eca646a2e42271647ac11, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

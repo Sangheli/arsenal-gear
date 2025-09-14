@@ -1,126 +1,110 @@
-key,en,ru,tr,de,fr,Column 7,Column 8,Column 9,Column 10,Column 11,Column 12,Column 13
-start_game,Play,Играть,Başlat,Spielen,Jouer,,,,,,,
-start_round,Play,Играть,Başlat,Spielen,Jouer,,,,,,,
-upgrade,Upgrade,Улучшить,Yükselt,Upgrade,Mise à niveau,,,,,,,
-settings,Settings,Опции,Ayarlar,Einstellungen,Paramètres,,,,,,,
-quit,Quit,Выход,Çıkış,Aufhören,Quitter,,,,,,,
-level,Level,Уровень,Seviye,Ebene,Niveau,,,,,,,
-energy,Coins,Энергия,Enerji,Münzen,Pièces,,,,,,,
-continue,Continue,Продолжить,Devam,Weitermachen,Continuer,,,,,,,
-main_menu,Main Menu,Главное меню,Ana Menü,Hauptmenü,Menu principal,,,,,,,
-total_energy,Total Coins,Всего энергии,Toplam Enerji,Gesamtanzahl Münzen,Total des pièces,,,,,,,
-round_energy,Round Coins,Энергия за раунд,Raunt Enerjisi,Runde Münzen,Pièces rondes,,,,,,,
-restart,Restart,Заново,Yeniden,Neustart,Redémarrage,,,,,,,
-boss_energy,Boss Coins,Энергия босса,Boss Enerjisi,Boss-Münzen,Pièces de boss,,,,,,,
-win,Win,Победа,Kazandı,Gewinnen,Gagner,,,,,,,
-lose,Lose,Поражение,Kaybetti,Verlieren,Perdre,,,,,,,
-next_level,Next Level,Следующий уровень,Sonraki Seviye,Nächstes Level,Niveau suivant,,,,,,,
-try_again,Try Again,Повторить попытку,Tekrar Dene,Versuchen Sie es erneut,Essayer à nouveau,,,,,,,
-upgrades,Upgrades,Улучшения,Yükseltmeler,Verbesserungen,Mises à niveau,,,,,,,
-back,Back,Назад,Geri,Zurück,Dos,,,,,,,
-damage,Damage,Урон,Hasar,Schaden,Dommage,,,,,,,
-dps,DPS,УВС,Saniye Başına Hasar,Schaden pro Sekunde,DPS,,,,,,,
-crit,Crit,Крит,Kritik,Krit,Critique,,,,,,,
-hp,HP,ХП,Can,HP,HP,,,,,,,
-shield,Shield,Щит,Kalkan,Schild,Bouclier,,,,,,,
-prestige,Prestige,Престиж,Prestij,Prestige,Prestige,,,,,,,
-boss,Boss,Босс,Boss,Chef,Chef,,,,,,,
-reward,Reward,Награда,Ödül,Belohnen,Récompense,,,,,,,
-auto_collect,Auto Collect,Автосбор,Oto Topla,Automatische Erfassung,Collecte automatique,,,,,,,
-language,Language,Язык,Dil,Sprache,Langue,,,,,,,
-tutorMinusOne,Another robo-army has been defeated\nMove your cursor and collect coins,Ещё одна армия роботов потерпела поражение.\nПеремещайте курсор и собирайте монеты.,Başka bir robo-ordu yenildi\nİmlecinizi hareket ettirin ve paraları toplayın,Eine weitere Robo-Armee wurde besiegt\nBewegen Sie Ihren Cursor und sammeln Sie Münzen,Une autre armée de robots a été vaincue\nDéplacez votre curseur et collectez des pièces,,,,,,,
-tutor0,Move your cursor to shoot\nA new robot army is on the way,"Наведите курсор, чтобы стрелять.\nНовая армия роботов уже в пути.",Ateş etmek için imlecinizi hareket ettirin\nYeni bir robot ordusu yolda,"Bewegen Sie den Cursor, um zu schießen. Eine neue Roboterarmee ist unterwegs.",Déplacez votre curseur pour tirer\nUne nouvelle armée de robots est en route,,,,,,,
-tutor1,Sometime You Lose HP over Time,Иногда вы теряете здоровье со временем,Bazen zamanla HP kaybedersiniz,Manchmal verliert man mit der Zeit HP,"Parfois, vous perdez des PV au fil du temps",,,,,,,
-tutor2,Robots attack you too\nFight back!,Роботы тоже нападают на вас\nДайте отпор!,Robotlar sana da saldırıyor\nKarşı koy!,Roboter greifen dich auch an\nWehre dich!,Les robots vous attaquent aussi\nRipostez !,,,,,,,
-tutor3,Fight with Boss\nTo Complete Level,Сразитесь с боссом\nЧтобы пройти уровень,Seviyeyi Tamamlamak İçin Boss ile Savaş,"Kämpfe mit dem Boss, um das Level abzuschließen",Combattez avec le boss pour terminer le niveau,,,,,,,
-tutor4,A great battle with robot armies awaits\nCollect coins by mining minerals to prepare,"Вас ждет грандиозная битва с армиями роботов.\nСобирайте монеты, добывая минералы, чтобы подготовиться.",Robot ordularıyla büyük bir savaş sizi bekliyor. Hazırlanmak için mineralleri çıkararak para toplayın.,"Eine große Schlacht mit Roboterarmeen erwartet Sie\nSammeln Sie Münzen, indem Sie Mineralien abbauen, um sich vorzubereiten",Une grande bataille avec des armées de robots vous attend. Collectez des pièces en extrayant des minéraux pour vous préparer.,,,,,,,
-tutor5,Destroy factories\nTo reduce robot reinforcements,Уничтожайте фабрики\nЧтобы уменьшить количество подкреплений роботов,Fabrikaları yok edin\nRobot takviyelerini azaltmak için,"Zerstöre Fabriken, um die Roboterverstärkung zu reduzieren",Détruire les usines\nPour réduire les renforts de robots,,,,,,,
-start_new,New Game,Новая Игра,Yeni Oyun,Neues Spiel,Nouveau jeu,,,,,,,
-load_checkpoint,Continue,Продолжить,Yükle,Weitermachen,Continuer,,,,,,,
-checkpoint,Checkpoint,Чекпоинт,Checkpoint,Kontrollpunkt,Point de contrôle,,,,,,,
-play_time,Play time,Время игры,Oynama Süresi,Spielzeit,Temps de jeu,,,,,,,
-go_to_upgrades,Upgrades,Улучшения,Yükseltmeler,Verbesserungen,Mises à niveau,,,,,,,
-round_reward,Collected:,Собрано:,Toplandı:,Gesammelt:,Collecté :,,,,,,,
-boss_reward,Round reward:,Награда за раунд:,Tur ödülü:,Rundenbelohnung:,Récompense du tour :,,,,,,,
-total,Full Round Reward:,Награда за полный раунд:,Tam Tur Ödülü:,Belohnung für die volle Runde:,Récompense du tour complet :,,,,,,,
-totalSumGame,All Player's Money,Все деньги игрока,Tüm Oyuncu Parası,Das gesamte Geld des Spielers,Tout l'argent du joueur,,,,,,,
-play_level_again,Play Level Again,Играть снова,Tekrar Oyna,Level erneut spielen,Jouez à nouveau à niveau,,,,,,,
-play_next_level,Play next level:,Следующий уровень:,Sonraki:,Nächstes Level spielen:,Jouez au niveau suivant :,,,,,,,
-checkpoint_done,Game Saved,Игра сохранена,Oyun Kaydedildi,Spiel gespeichert,Jeu sauvegardé,,,,,,,
-s,s,с,sn,S,s,,,,,,,
-m,m,м,dk,M,m,,,,,,,
-h,h,ч,s,H,h,,,,,,,
-win_text,Boss defeated,Босс побеждён,Boss yenildi,Boss besiegt,Boss vaincu,,,,,,,
-fail_text,You’re out of HP\nGrab upgrades and play again,Здоровье на нуле\nКупи улучшения и попробуй снова,Canın bitti\nYükseltmeleri al ve tekrar oyna,Du hast keine HP mehr\nNimm Upgrades und spiele erneut,Vous n'avez plus de HP\nObtenez des mises à niveau et rejouez,,,,,,,
-level_complete,Level Complete,Уровень пройден,Seviye tamamlandı,Level abgeschlossen,Niveau terminé,,,,,,,
-demo_done,You’ve completed Tier 2 levels. Stay tuned for more!,Вы завершили уровни Tier 2. Следите за новостями!,2. Seviye'yi tamamladınız. Daha fazlası için bizi takip etmeye devam edin!,Sie haben Stufe 2 abgeschlossen. Bleiben Sie dran für mehr!,Vous avez terminé les niveaux 2. Restez connectés pour en savoir plus !,,,,,,,
-progress,Progress:,Прогресс:,İlerleme:,Fortschritt:,Progrès:,,,,,,,
-auto_save_info_text,"No worries, your game auto-saves",Игра сохраняется автоматически,Oyun otomatik,"Keine Sorge, Ihr Spiel wird automatisch gespeichert","Ne vous inquiétez pas, votre jeu est sauvegardé automatiquement",,,,,,,
-hp_short,HP,ХП,HP,HP,HP,,,,,,,
-shield_short,S,Щ,S,S,S,,,,,,,
-lowhp,Low HP,Мало ХП,Az Can,Niedrige HP,Faible HP,,,,,,,
-price,Price,Цена,Fiyat,Preis,Prix,,,,,,,
-max,Max,Макс,Maks,Max,Max,,,,,,,
-Crown,Crown,Корона,Taç,Krone,Couronne,,,,,,,
-Round_Green,Round Green,Зелёный круг,Yeşil Daire,Rund Grün,Rond Vert,,,,,,,
-Round_Purple,Round Purple,Фиолетовый круг,Mor Daire,Rund Lila,Rond violet,,,,,,,
-Round_Orange,Round Orange,Оранжевый круг,Turuncu Daire,Rund Orange,Orange ronde,,,,,,,
-Saw_Grey,Saw Grey,Серая пила,Gri Testere,Sägegrau,Scie grise,,,,,,,
-Saw_Red,Saw Red,Красная пила,Kırmızı Testere,Säge Rot,Scie rouge,,,,,,,
-Square_Blue,Square Blue,Синий квадрат,Mavi Kare,Quadratisch Blau,Carré bleu,,,,,,,
-Square_White,Square White,Белый квадрат,Beyaz Kare,Quadratisch Weiß,Carré Blanc,,,,,,,
-Star_Aqua,Star Aqua,Аквамариновая звезда,Açık Mavi Yıldız,Star Aqua,Étoile Aqua,,,,,,,
-Star_Gold,Star Gold,Золотая звезда,Altın Yıldız,Star Gold,Étoile d'or,,,,,,,
-Triangle_Blue,Triangle Blue,Синий треугольник,Mavi Üçgen,Dreieck Blau,Triangle bleu,,,,,,,
-Triangle_Orange,Triangle Orange,Оранжевый треугольник,Turuncu Üçgen,Dreieck Orange,Triangle Orange,,,,,,,
-Energy_Drop,Coins,Энергия,Enerji,Münzen,Pièces,,,,,,,
-HP_Level_1,HP Level 1,Здоровье I,Can I,HP-Stufe 1,HP Niveau 1,,,,,,,
-HP_Level_2,HP Level 2,Здоровье II,Can II,HP-Stufe 2,HP Niveau 2,,,,,,,
-HP_Level_3,HP Level 3,Здоровье III,Can III,HP-Stufe 3,HP Niveau 3,,,,,,,
-HP_Level_4,HP Level 4,Здоровье IV,Can IV,HP-Stufe 4,Niveau HP 4,,,,,,,
-HP_Level_5,HP Level 5,Здоровье V,Can V,HP-Stufe 5,Niveau HP 5,,,,,,,
-Damage_Level_1,Damage Level 1,Урон I,Hasar I,Schadensstufe 1,Niveau de dégâts 1,,,,,,,
-Damage_Level_2,Damage Level 2,Урон II,Hasar II,Schadensstufe 2,Niveau de dégâts 2,,,,,,,
-Damage_Level_3,Damage Level 3,Урон III,Hasar III,Schadensstufe 3,Niveau de dégâts 3,,,,,,,
-Damage_Level_4,Damage Level 4,Урон IV,Hasar IV,Schadensstufe 4,Niveau de dégâts 4,,,,,,,
-Damage_Level_5,Damage Level 5,Урон V,Hasar V,Schadensstufe 5,Niveau de dégâts 5,,,,,,,
-Attacks_minute,FireRate LvL 1,Скорость огня LvL 1,Ateş Hızı Seviye 1,Feuerrate Stufe 1,Cadence de tir niveau 1,,,,,,,
-Attacks_minute_2,FireRate LvL 2,Скорострельность LvL 2,Ateş Hızı Seviye 2,Feuerrate Stufe 2,Cadence de tir niveau 2,,,,,,,
-Attacks_minute_3,FireRate LvL 3,Скорострельность LvL 3,Ateş Hızı Seviye 3,Feuerrate Stufe 3,Cadence de tir niveau 3,,,,,,,
-Attacks_minute_4,FireRate LvL 4,Скорострельность LvL 4,Ateş Hızı Seviye 4,Feuerrate Stufe 4,Cadence de tir niveau 4,,,,,,,
-Attacks_minute_5,FireRate LvL 5,Скорострельность LvL 5,Ateş Hızı Seviye 5,Feuerrate Stufe 5,Cadence de tir niveau 5,,,,,,,
-Attack_Diameter,Attack Diameter,Диаметр атаки,Saldırı Çapı,Angriffsdurchmesser,Diamètre d'attaque,,,,,,,
-Collect_Diameter,Collect Diameter,Диаметр сбора,Toplama Çapı,Durchmesser erfassen,Diamètre de collecte,,,,,,,
-Shield_Capacity,Shield Capacity,Ёмкость щита,Kalkan Kapasitesi,Schildkapazität,Capacité du bouclier,,,,,,,
-Shield_Regen_sec,Shield Regen/sec,Регенерация щита/сек,Kalkan Yenilenme/sn,Schildregeneration/Sek.,Régénération du bouclier/sec,,,,,,,
-Crit_Chance,Crit Chance %,Шанс крит. урона %,Kritik Şans %,Krit. Trefferchance %,% de chance de critique,,,,,,,
-Crit_Multiplier,Crit Multiplier,Коэффициент крита,Kritik Çarpanı,Crit-Multiplikator,Multiplicateur de critique,,,,,,,
-Auto_Collect_Coins,Auto Collect Coins %,Автосбор монет %,Otomatik Para Toplama %,Münzen automatisch sammeln %,% de collecte automatique de pièces,,,,,,,
-AI_Cursor_Count,AI Cursor Count,Курсоры ИИ,Yapay Zeka İmleçleri,AI-Cursor-Anzahl,Nombre de curseurs IA,,,,,,,
-AI_Cursor_Damage_Player,Damage\n% of Player,Урон\n% от игрока,Yapay Zeka Hasarı\nOyuncunun %’si,Schaden\n% des Spielers,Dégâts\n% du joueur,,,,,,,
-AI_Cursor_Radius_Player,Radius\n% of Player,Радиус\n% от игрока,Yapay Zeka Yarıçapı\nOyuncunun %’si,Radius\n% des Spielers,Rayon\n% du joueur,,,,,,,
-AI_Cursor_Fire_Rate_Player,Fire Rate\n% of Player,Скорострельность\n% от игрока,Yapay Zeka Atış Hızı\nOyuncunun %’si,Feuerrate\n% des Spielers,Cadence de tir\n% du joueur,,,,,,,
-ai,AI,ИИ,AI,KI,IA,,,,,,,
-player_terminated_text,Round Terminated,Раунд прерван,Raunt Sonlandırıldı,Rund terminiert,Tour terminé,,,,,,,
-terminate,Stop,Стоп,Dur,Stoppen,Arrêt,,,,,,,
-return_to_start,To Start Screen,На начальный экран,Başlangıç ekranına dön,Zum Startbildschirm,Pour démarrer l'écran,,,,,,,
-new_levels_available,New Levels,Новые уровни,Yeni Seviyeler,Neue Level,Nouveaux niveaux,,,,,,,
-mission1,,Диверсия,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission1_discription1,,Не дайте исследованиям конкурента вашего клиента увенчаться успехом.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission1_discription2,,"Конкурент вашего клиента продвигается в исследованиях, саботируйте их исследования.",#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission1_discription3,,Предпримите действия по сдерживанию прогресса в исследованиях ключевого конкурента.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission2,,Добыча ресурсов,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission2_discription1,,Поступила информация из случайно подслушанного разговора о неизведанном месторождении. Следует провести разведку и добыть необходимые материалы.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission2_discription2,,"Мне довелось узнать о нетронутом месторождении. Нужно тихо его проверить и собрать ресурсы, пока никто не опередил.",#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission2_discription3,,"Мне перепала информация о ""лакомом"" местечке. Надо его изучить и собрать там припасов для обмундирования.",#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission3,,Эвакуация,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission3_discription1,,Силы противника окружили наших сотрудников. Ваша задача — удерживать периметр до их полной эвакуации.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission3_discription2,,"В связи с враждебными действиями конкурентов, необходимо обеспечить безопасность до момента извлечения нашей команды из зоны конфликта.",#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission3_discription3,,Требуется поддерживать оборонительную позицию до полного завершения процесса деблокирования и эвакуации сотрудников.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission4,,Борьба с работорговлей,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission4_discription1,,Поступила информация о работорговом узле синдиката. Освободите рабов и уничтожьте узел,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission4_discription2,,Выявлена точка оборота живого товара. Ваша задача — принудительное освобождение удерживаемых там людей.,#VALUE!,#VALUE!,#VALUE!,,,,,,,
-mission4_discription3,,"Клиент предоставил данные о ячейке работорговцев. Задача — проникнуть, нейтрализовать охрану и вывести цели.",#VALUE!,#VALUE!,#VALUE!,,,,,,,
-u_machineGunCount,Machine Gun Count,Количество пулеметов,Makineli Tüfek Sayısı,Maschinengewehrzählung,Nombre de mitrailleuses,,,,,,,
-u_LaserCount,Laser Gun Count,Количество лазерных пушек,Lazer Silah Sayısı,Anzahl der Laserpistolen,Comptage des pistolets laser,,,,,,,
-rate_me,Rate Game,Оценить игру,Oran Oyunu,Spiel bewerten,Évaluer le jeu,,,,,,,
+key,en,ru,tr
+start_game,Play,Играть,Başlat
+start_round,Play,Играть,Başlat
+upgrade,Upgrade,Улучшить,Yükselt
+settings,Settings,Опции,Ayarlar
+quit,Quit,Выход,Çıkış
+level,Level,Уровень,Seviye
+energy,Coins,Монеты,Madeni paralar
+continue,Continue,Продолжить,Devam
+main_menu,Main Menu,Главное меню,Ana Menü
+total_energy,Total Coins,Всего монет,Toplam Paralar
+round_energy,Level Coins,Монеты уровня,Seviye Paraları
+restart,Restart,Заново,Yeniden
+boss_energy,Boss Coins,Монеты босса,Patron Paraları
+win,Win,Победа,Kazandı
+lose,Lose,Поражение,Kaybetti
+next_level,Next Level,Следующий уровень,Sonraki Seviye
+try_again,Try Again,Повторить попытку,Tekrar Dene
+upgrades,Upgrades,Улучшения,Yükseltmeler
+back,Back,Назад,Geri
+damage,Damage,Урон,Hasar
+dps,DPS,УВС,DPS
+crit,Crit,Крит,Kritik
+hp,HP,ХП,Can
+shield,Shield,Щит,Kalkan
+prestige,Prestige,Престиж,Prestij
+boss,Boss,Босс,Boss
+reward,Reward,Награда,Ödül
+auto_collect,Auto Collect,Автосбор,Oto Topla
+language,Language,Язык,Dil
+tutorMinusOne,Another robo-army has been defeated\nMove your cursor and collect coins,Ещё одна армия роботов потерпела поражение.\nПеремещайте курсор и собирайте монеты.,Başka bir robo-ordu yenildi\nİmlecinizi hareket ettirin ve paraları toplayın
+tutor0,Move your cursor to shoot\nA new robot army is on the way,"Наведите курсор, чтобы стрелять.\nНовая армия роботов уже в пути.",Ateş etmek için imlecinizi hareket ettirin\nYeni bir robot ordusu yolda
+tutor1,Sometime You Lose HP over Time,Иногда вы теряете здоровье со временем,Bazen zamanla HP kaybedersiniz
+tutor2,Robots attack you too\nFight back!,Роботы тоже нападают на вас\nДайте отпор!,Robotlar sana da saldırıyor\nKarşı koy!
+tutor3,Fight with Boss\nTo Complete Level,Сразитесь с боссом\nЧтобы пройти уровень,Seviyeyi Tamamlamak İçin Boss ile Savaş
+tutor4,A great battle with robot armies awaits\nCollect coins by mining minerals to prepare,"Вас ждет грандиозная битва с армиями роботов.\nСобирайте монеты, добывая минералы, чтобы подготовиться.",Robot ordularıyla büyük bir savaş sizi bekliyor. Hazırlanmak için mineralleri çıkararak para toplayın.
+tutor5,Destroy factories\nTo reduce robot reinforcements,Уничтожайте фабрики\nЧтобы уменьшить количество подкреплений роботов,Fabrikaları yok edin\nRobot takviyelerini azaltmak için
+start_new,New Game,Новая Игра,Yeni Oyun
+load_checkpoint,Continue,Продолжить,Yükle
+checkpoint,Checkpoint,Чекпоинт,Checkpoint
+play_time,Play time,Время игры,Oynama Süresi
+go_to_upgrades,Upgrades,Улучшения,Yükseltmeler
+round_reward,Collected:,Собрано:,Toplandı:
+boss_reward,Round reward:,Награда за раунд:,Tur ödülü:
+total,Full Round Reward:,Награда за полный раунд:,Tam Tur Ödülü:
+totalSumGame,All Player's Money,Все деньги игрока,Tüm Oyuncu Parası
+play_level_again,Play Level Again,Играть снова,Tekrar Oyna
+play_next_level,Play next level:,Следующий уровень:,Sonraki:
+checkpoint_done,Game Saved,Игра сохранена,Oyun Kaydedildi
+s,s,с,sn
+m,m,м,dk
+h,h,ч,s
+win_text,Boss defeated,Босс побеждён,Boss yenildi
+fail_text,You’re out of HP\nGrab upgrades and play again,Здоровье на нуле\nКупи улучшения и попробуй снова,Canın bitti\nYükseltmeleri al ve tekrar oyna
+level_complete,Level Complete,Уровень пройден,Seviye tamamlandı
+demo_done,You’ve completed Tier 2 levels. Stay tuned for more!,Вы завершили уровни Tier 2. Следите за новостями!,2. Seviye'yi tamamladınız. Daha fazlası için bizi takip etmeye devam edin!
+progress,Progress:,Прогресс:,İlerleme:
+auto_save_info_text,"No worries, your game auto-saves",Игра сохраняется автоматически,Oyun otomatik
+hp_short,HP,ХП,HP
+shield_short,S,Щ,S
+lowhp,Low HP,Мало ХП,Az Can
+price,Price,Цена,Fiyat
+max,Max,Макс,Maks
+Crown,Crown,Корона,Taç
+Round_Green,Round Green,Зелёный круг,Yeşil Daire
+Round_Purple,Round Purple,Фиолетовый круг,Mor Daire
+Round_Orange,Round Orange,Оранжевый круг,Turuncu Daire
+Saw_Grey,Saw Grey,Серая пила,Gri Testere
+Saw_Red,Saw Red,Красная пила,Kırmızı Testere
+Square_Blue,Square Blue,Синий квадрат,Mavi Kare
+Square_White,Square White,Белый квадрат,Beyaz Kare
+Star_Aqua,Star Aqua,Аквамариновая звезда,Açık Mavi Yıldız
+Star_Gold,Star Gold,Золотая звезда,Altın Yıldız
+Triangle_Blue,Triangle Blue,Синий треугольник,Mavi Üçgen
+Triangle_Orange,Triangle Orange,Оранжевый треугольник,Turuncu Üçgen
+Energy_Drop,Coins,Монеты,Madeni paralar
+HP_Level_1,HP Level 1,Уровень HP 1,HP Seviye 1
+HP_Level_2,HP Level 2,Уровень HP 2,HP Seviye 2
+HP_Level_3,HP Level 3,Уровень HP 3,HP Seviye 3
+HP_Level_4,HP Level 4,Уровень HP 4,HP Seviye 4
+HP_Level_5,HP Level 5,Уровень HP 5,HP Seviye 5
+Damage_Level_1,Damage Level 1,Урон I,Hasar I
+Damage_Level_2,Damage Level 2,Урон II,Hasar II
+Damage_Level_3,Damage Level 3,Урон III,Hasar III
+Damage_Level_4,Damage Level 4,Урон IV,Hasar IV
+Damage_Level_5,Damage Level 5,Урон V,Hasar V
+Attacks_minute,FireRate LvL 1,Скорость огня LvL 1,Ateş Hızı Seviye 1
+Attacks_minute_2,FireRate LvL 2,Скорострельность LvL 2,Ateş Hızı Seviye 2
+Attacks_minute_3,FireRate LvL 3,Скорострельность LvL 3,Ateş Hızı Seviye 3
+Attacks_minute_4,FireRate LvL 4,Скорострельность LvL 4,Ateş Hızı Seviye 4
+Attacks_minute_5,FireRate LvL 5,Скорострельность LvL 5,Ateş Hızı Seviye 5
+Attack_Diameter,Attack Diameter,Диаметр атаки,Saldırı Çapı
+Collect_Diameter,Collect Diameter,Диаметр сбора,Toplama Çapı
+Shield_Capacity,Shield Capacity,Ёмкость щита,Kalkan Kapasitesi
+Shield_Regen_sec,Shield Regen/sec,Регенерация щита/сек,Kalkan Yenilenme/sn
+Crit_Chance,Crit Chance %,Шанс крита %,Kritik Şans %
+Crit_Multiplier,Crit Multiplier,Множитель крита,Kritik Çarpan
+Auto_Collect_Coins,Auto Collect Coins %,Автосбор монет %,Otomatik Para Toplama %
+AI_Cursor_Count,AI Cursor Count,Курсоры ИИ,Yapay Zeka İmleçleri
+AI_Cursor_Damage_Player,Damage\n% of Player,Урон\n% от игрока,Yapay Zeka Hasarı\nOyuncunun %’si
+AI_Cursor_Radius_Player,Radius\n% of Player,Радиус\n% от игрока,Yapay Zeka Yarıçapı\nOyuncunun %’si
+AI_Cursor_Fire_Rate_Player,Fire Rate\n% of Player,Скорострельность\n% от игрока,Yapay Zeka Atış Hızı\nOyuncunun %’si
+ai,AI,ИИ,AI
+player_terminated_text,Round Terminated,Раунд прерван,Raunt Sonlandırıldı
+terminate,Stop,Стоп,Dur
+return_to_start,To Start Screen,На начальный экран,Başlangıç ekranına dön
+new_levels_available,New Levels,Новые уровни,Yeni Seviyeler
+rate_me,Rate Game,Оценить игру,Oran Oyunu
+u_machineGunCount,Machine Gun Count,Количество пулеметов,Makineli Tüfek Sayısı
+u_LaserCount,Laser Gun Count,Количество лазерных пушек,Lazer Silah Sayısı
