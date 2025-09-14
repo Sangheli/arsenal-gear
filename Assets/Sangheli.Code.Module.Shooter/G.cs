@@ -171,7 +171,7 @@ public class G : MonoBehaviour
         Container.camera.orthographicSize = isHorizontal ? orthoHor : orthoVert;
     }
 
-    public void OnFirstLoad()
+    public async UniTaskVoid OnFirstLoad()
     {
         weaponManager.Init();
         endRoundView.OnFirstLoad();
@@ -193,6 +193,7 @@ public class G : MonoBehaviour
         
         levelTargetManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();
+        await UniTask.Yield();
         if (startGameWithoutMenu) OnStartGameWithoutMenu();
         else OnStartGameWithMenu();
     }
