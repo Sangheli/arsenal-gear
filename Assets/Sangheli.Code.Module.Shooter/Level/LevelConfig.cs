@@ -57,4 +57,9 @@ public class LevelConfig
     [Space]
     public int MaxAttackingEnemies = 3;
     public int MaxEnemyOnScreen = 10;
+
+    public override string ToString()
+    {
+        return $"{nameof(levelId)}: {levelId}\n {nameof(LevelStringEntry)}: {LevelStringEntry}\n {nameof(objectiveType)}: {objectiveType}\n {nameof(objectiveValue)}: {objectiveValue}\n {nameof(roundTime)}: {roundTime}\n {nameof(bossHp)}: {bossHp}\n {nameof(bossAttack)}: {bossAttack}\n {nameof(levelReward)}: {levelReward}\n {nameof(showHpBar)}: {showHpBar}\n {nameof(checkNextRoundFromSave)}: {checkNextRoundFromSave}\n {nameof(showGoToUpgradesButton)}: {showGoToUpgradesButton}\n {nameof(showTerminateButton)}: {showTerminateButton}\n {nameof(useWinColorOnFail)}: {useWinColorOnFail}\n {nameof(playerAutoAttack)}: {playerAutoAttack}\n {nameof(bossEnemySpawnRateMultiplier)}: {bossEnemySpawnRateMultiplier}\n {nameof(preSpawnEnemyCount)}: {preSpawnEnemyCount}\n {nameof(poisonDamageSpeed)}: {poisonDamageSpeed}\n {nameof(levelModifiers)}: {levelModifiers}\n {nameof(enemies)}: {enemies}\n {nameof(isSafeLevel)}: {isSafeLevel}\n {nameof(MaxAttackingEnemies)}: {MaxAttackingEnemies}\n {nameof(MaxEnemyOnScreen)}: {MaxEnemyOnScreen}";
+    }
 }

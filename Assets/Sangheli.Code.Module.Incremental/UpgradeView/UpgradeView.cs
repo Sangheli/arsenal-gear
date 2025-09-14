@@ -194,7 +194,7 @@ public class UpgradeView : MonoBehaviour
         // Обновляем DPS
         if (dpmText != null)
         {
-            var (dps, dpsCrit) = DPSManager.GetPlayerDps();
+            var (dps, dpsCrit) = DPSManager.GetCurrentPlayerDps();
             dpmText.text =  $"{G.I.localization.Get("dps")}: {NumberFormatter.Format(dps)}";
             critText.text = $"{G.I.localization.Get("crit")}: {NumberFormatter.Format(dpsCrit)}";
         }

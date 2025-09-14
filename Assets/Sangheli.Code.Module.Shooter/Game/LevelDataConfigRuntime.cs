@@ -174,7 +174,7 @@ public class LevelDataConfigRuntime
                 int coinMaxM = Random.Range(7000, 8000);
                 return Mathf.RoundToInt(Mathf.Lerp(coinMinM, coinMaxM, t));
             case LevelObjectiveType.CoinCount:
-                int coinMin = Random.Range(25, 30);
+                int coinMin = Random.Range(50, 75);
                 int coinMax = Random.Range(5000, 6000);
                 return Mathf.RoundToInt(Mathf.Lerp(coinMin, coinMax, t));
             case LevelObjectiveType.EnemyCount:
@@ -215,12 +215,13 @@ public class LevelDataConfigRuntime
 
         // Calculate boss health based on player DPS and desired fight duration
         int bossHp = Mathf.RoundToInt(playerDps * fightDuration);
-        return bossHp;
+        float bossHPMult =Mathf.Lerp(0.15f, 1, t); 
+        return (int)(bossHp*bossHPMult);
     }
 
     private static float GetPlayerDps(float scale)
     {
-        var (dps, dpsCrit) = DPSManager.GetPlayerDps();
+        var (dps, dpsCrit) = DPSManager.GetDpsMax();
         
         float minDps = DPSManager.GetPlayerDpsMin();
         float maxDps = dpsCrit;
@@ -275,7 +276,7 @@ public class LevelDataConfigRuntime
 
     private static int GetLevelReward(LevelObjectiveType objectiveType, float t)
     {
-        const float bossCoef = 0.75f; 
+        const float bossCoef = 1f; 
         const float factoryCoef = 0.2f;
         var reward = (int)CalculateReward(t, MinRewardBoss, MaxRewardBoss, Exponent);
         

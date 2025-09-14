@@ -110,11 +110,11 @@ public class StartGameView : MonoBehaviour
         var stats = new System.Text.StringBuilder();
         stats.AppendLine($"{G.I.localization.Get("checkpoint")}: {PlayerPrefs.GetString(SaveSystem.GetKey())}");
         stats.AppendLine($"{G.I.localization.Get("level")}: {saveData.level+1}");
-        stats.AppendLine($"{G.I.localization.Get("total_energy")}: {NumberFormatter.Format(saveData.totalEnergy, 0)}");
+        stats.AppendLine($"{G.I.localization.Get("total_energy")}: {NumberFormatter.Format(saveData.totalEnergy, 1)}");
         stats.AppendLine($"{G.I.localization.Get("play_time")}: {GameTimeDisplay.GetFormattedTime(saveData.timeSinceStart)}");
 
         // Добавляем DPS
-        var (dps, dpsCrit) = DPSManager.GetPlayerDps();
+        var (dps, dpsCrit) = DPSManager.GetCurrentPlayerDps();
         // stats.AppendLine($"DPS: {NumberFormatter.Format(dps)}/Crit: {NumberFormatter.Format(dpsCrit)}");
 
         // Добавляем очки престижа и глобальный множитель цены
