@@ -74,21 +74,21 @@ Star_Gold,Star Gold,Золотая звезда,Altın Yıldız
 Triangle_Blue,Triangle Blue,Синий треугольник,Mavi Üçgen
 Triangle_Orange,Triangle Orange,Оранжевый треугольник,Turuncu Üçgen
 Energy_Drop,Coins,Монеты,Madeni paralar
-HP_Level_1,HP Level 1,Уровень HP 1,HP Seviye 1
-HP_Level_2,HP Level 2,Уровень HP 2,HP Seviye 2
-HP_Level_3,HP Level 3,Уровень HP 3,HP Seviye 3
-HP_Level_4,HP Level 4,Уровень HP 4,HP Seviye 4
-HP_Level_5,HP Level 5,Уровень HP 5,HP Seviye 5
-Damage_Level_1,Damage Level 1,Урон I,Hasar I
-Damage_Level_2,Damage Level 2,Урон II,Hasar II
-Damage_Level_3,Damage Level 3,Урон III,Hasar III
-Damage_Level_4,Damage Level 4,Урон IV,Hasar IV
-Damage_Level_5,Damage Level 5,Урон V,Hasar V
-Attacks_minute,FireRate LvL 1,Скорость огня LvL 1,Ateş Hızı Seviye 1
-Attacks_minute_2,FireRate LvL 2,Скорострельность LvL 2,Ateş Hızı Seviye 2
-Attacks_minute_3,FireRate LvL 3,Скорострельность LvL 3,Ateş Hızı Seviye 3
-Attacks_minute_4,FireRate LvL 4,Скорострельность LvL 4,Ateş Hızı Seviye 4
-Attacks_minute_5,FireRate LvL 5,Скорострельность LvL 5,Ateş Hızı Seviye 5
+HP_Level_1,HP I,Здоровье I,HP I
+HP_Level_2,HP II,Здоровье II,HP II
+HP_Level_3,HP III,Здоровье III,HP III
+HP_Level_4,HP IV,Здоровье IV,HP IV
+HP_Level_5,HP V,Здоровье V,HP V
+Damage_Level_1,Damage I,Урон I,Hasar I
+Damage_Level_2,Damage II,Урон II,Hasar II
+Damage_Level_3,Damage III,Урон III,Hasar III
+Damage_Level_4,Damage IV,Урон IV,Hasar IV
+Damage_Level_5,Damage V,Урон V,Hasar V
+Attacks_minute,FireRate I,Скорострельность I,Ateş Hızı I
+Attacks_minute_2,FireRate II,Скорострельность II,Ateş Oranı II
+Attacks_minute_3,FireRate III,Скорострельность III,Ateş Hızı III
+Attacks_minute_4,FireRate IV,Скорострельность IV,Ateş Oranı IV
+Attacks_minute_5,FireRate V,Скорострельность V,Ateş Hızı V
 Attack_Diameter,Attack Diameter,Диаметр атаки,Saldırı Çapı
 Collect_Diameter,Collect Diameter,Диаметр сбора,Toplama Çapı
 Shield_Capacity,Shield Capacity,Ёмкость щита,Kalkan Kapasitesi
