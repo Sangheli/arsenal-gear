@@ -174,6 +174,10 @@ public class G : MonoBehaviour
     public void OnFirstLoad()
     {
         weaponManager.Init();
+        endRoundView.OnFirstLoad();
+        uiManager.OnFirstLoad();
+        upgradeView.OnFirstLoad();
+        startGameView.OnFirstLoad();
         tutorial.OnFirstLoad();
         Data.enemyContainer.UpdateEnemyIndices();
         ObjectPool = new SangheliObjectPool();

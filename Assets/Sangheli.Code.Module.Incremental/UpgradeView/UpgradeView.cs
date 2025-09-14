@@ -28,7 +28,7 @@ public class UpgradeView : MonoBehaviour
     private Dictionary<int, UpgradeRowView> _upgradeRows;
     private const int CheatEnergyAmount = 10000000;
     
-    private void Awake()
+    public void OnFirstLoad()
     {
         cheatButton.gameObject.SetActive(false);
         startButton.onClick.AddListener(OnStart);

@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     [Header("Terminate Button")]
     public Button terminateButton;
 
-    private void Awake()
+    public void OnFirstLoad()
     {
             terminateButton.onClick.AddListener(OnTerminateButtonClicked);
     }

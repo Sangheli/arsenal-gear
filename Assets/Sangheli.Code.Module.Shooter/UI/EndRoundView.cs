@@ -63,7 +63,7 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRoundText ??= buttonStartNewRound.GetComponentInChildren<Text>();
     }
 
-    private void Awake()
+    public void OnFirstLoad()
     {
         _buttonStartNewRoundOriginalColor = buttonStartNewRound.image.color;
         _buttonStartNewRoundOriginalColor2 = startChild.color;

@@ -25,7 +25,7 @@ public class StartGameView : MonoBehaviour
 
     public UIEffect startButtonUiEffect;
     
-    private void Start()
+    public void OnFirstLoad()
     {
         startButton.onClick.AddListener(OnStartButtonClick);
         loadCheckpointButton.onClick.AddListener(LoadCheckpoint);

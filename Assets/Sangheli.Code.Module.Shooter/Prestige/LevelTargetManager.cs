@@ -16,18 +16,9 @@ public class LevelTargetManager : MonoBehaviour
     private DataSave _save;
     public LevelTargetValue Data;
 
-    private void Awake()
-    {
-        Data ??= new LevelTargetValue(levelTargetBar,levelGradientColor);
-    }
-
-    private void Toggle(bool state)
-    {
-        view.gameObject.SetActive(state);
-    }
-
     public void OnLoadInit()
     {
+        Data ??= new LevelTargetValue(levelTargetBar,levelGradientColor);
         Toggle(false);
         
         _propertyBlock = new MaterialPropertyBlock();
@@ -35,6 +26,11 @@ public class LevelTargetManager : MonoBehaviour
         ApplyLevelColor();
     }
     
+    private void Toggle(bool state)
+    {
+        view.gameObject.SetActive(state);
+    }
+
     public void OnStartRound()
     {
         Toggle(true);
