@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0be535e59ad1464abd8910f2033c690, type: 3}
   m_Name: Store Config
   m_EditorClassIdentifier: Assembly-CSharp::StoreConfig
-  DisableForStore: 0
+  DisableForStore: 1
