@@ -142,7 +142,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: c28bf0a0f5d54154291e1c6c3f198938, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -272,6 +273,9 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
+  androidAppCategory: 3
+  useAndroidAppCategory: 1
+  androidAppCategoryOther: 
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
@@ -707,24 +711,24 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
+    Android: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
     Kepler: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    PS4: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    PS5: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
+    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    PS4: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    PS5: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
     QNX: DOTWEEN
     ReservedCFE: DOTWEEN
-    Standalone: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    VisionOS: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    WebGL: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;AssetsPlatform_yg;YandexGamesPlatform_yg;InterstitialAdv_yg
-    Windows Store Apps: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    XboxOne: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    iPhone: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
-    tvOS: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;NJSON_YG2;InterstitialAdv_yg
+    Standalone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    VisionOS: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    WebGL: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;AssetsPlatform_yg;InterstitialAdv_yg;YandexGamesPlatform_yg
+    Windows Store Apps: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    XboxOne: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    iPhone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
+    tvOS: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;InterstitialAdv_yg;YandexGamesPlatform_yg
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
