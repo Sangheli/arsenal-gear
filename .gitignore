@@ -94,3 +94,9 @@ Assets/PluginYourGames/Editor/BuildLogYG2.txt.meta
 Assets/PluginYourGames/Editor/BuildLogYG2.txt
 .vscode/
 global.json
+linux_build/
+linux_build.*
+Assets/HandRailGun/
+Assets/HandRailGun.meta
+pc_build/
+arsenal_gear_pc_build.7z

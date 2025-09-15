@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8806054013684246817}
   - component: {fileID: 6199109324919670422}
+  - component: {fileID: 3717173097483178333}
   - component: {fileID: 14125498443062698}
+  - component: {fileID: 7549904994192324564}
   m_Layer: 7
   m_Name: Energy
   m_TagString: Energy
@@ -70,6 +72,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!50 &3717173097483178333
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812110110790532489}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &14125498443062698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,14 +111,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c7d7091a37d401ebb97a9344b2843e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Energy
+  coinFloorHandler: {fileID: 7549904994192324564}
   flySpeed: 15
   flySpeedFast: 15
   flyAcceleration: 20
   t1: 0.2
   t2: 0.3
   maxScale: 1.5
+  maxDelayCollect: 0.1
   viewRenderer: {fileID: 2315365853651909906}
   shadowRenderer: {fileID: 3546975680916664839}
+--- !u!114 &7549904994192324564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812110110790532489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f041125bcc4312823d79a170a10022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinFloorHandler
+  rb: {fileID: 3717173097483178333}
 --- !u!1 &4372242647234082321
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 706407470171848911}
   - component: {fileID: 2315365853651909906}
+  - component: {fileID: 4693127158291246129}
   m_Layer: 7
   m_Name: view
   m_TagString: Energy
@@ -181,6 +226,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &4693127158291246129
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4372242647234082321}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5531811285686631514
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4661049818534028634
 Transform:
   m_ObjectHideFlags: 0

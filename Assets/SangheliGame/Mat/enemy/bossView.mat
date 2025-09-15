@@ -14,6 +14,8 @@ Material:
   m_ValidKeywords:
   - CLIPPING_ON
   - HITEFFECT_ON
+  - OVERLAYMULT_ON
+  - OVERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -94,7 +96,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 74087f6d03f233e4a8a142fa01f9e5cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: a642d62ad0007344b8aa4db71a60c048, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -124,7 +126,7 @@ Material:
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
-    - _ClipUvUp: 0.8
+    - _ClipUvUp: 0.043
     - _ColorChangeLuminosity: 0
     - _ColorChangeTolerance: 0.25
     - _ColorChangeTolerance2: 0.25
@@ -216,10 +218,10 @@ Material:
     - _OutlineTexXSpeed: 10
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.2
-    - _OverlayBlend: 1
+    - _OverlayBlend: 0.2
     - _OverlayGlow: 1
-    - _OverlayTextureScrollXSpeed: 0.25
-    - _OverlayTextureScrollYSpeed: 0.25
+    - _OverlayTextureScrollXSpeed: 0
+    - _OverlayTextureScrollYSpeed: 0
     - _Parallax: 0.02
     - _PinchUvAmount: 0.35
     - _PixelateSize: 32

@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15209108c349d69448014e8a36fb7bf7, type: 3}
+  m_Name: Sound Container
+  m_EditorClassIdentifier: 
+  buttonClick:
+    ClipList:
+    - {fileID: 8300000, guid: 67f03f40bc64322409b2ea7a0aa2e4bb, type: 3}
+    PitchRange: 0.15
+    Volume: 0.6
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  hit:
+    ClipList:
+    - {fileID: 8300000, guid: b16aa04a86e93404ea8a443772d412a4, type: 3}
+    PitchRange: 0
+    Volume: 0.07
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  laserShoot:
+    ClipList:
+    - {fileID: 8300000, guid: f5aab9517f320b5478f4f8896ece8822, type: 3}
+    PitchRange: 0.25
+    Volume: 0.07
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  emptyHit:
+    ClipList:
+    - {fileID: 8300000, guid: ffdb1401ee52ae343a890f7287a321ea, type: 3}
+    PitchRange: 0.25
+    Volume: 0
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  enemyDeathSound:
+    ClipList:
+    - {fileID: 8300000, guid: 09d7b16ffbee0094babfa1c970fe1b33, type: 3}
+    PitchRange: 0.25
+    Volume: 0.2
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  enemyDeathSoundRobot:
+    ClipList:
+    - {fileID: 8300000, guid: 495d41f70967ef54db23f0e79cab2809, type: 3}
+    PitchRange: 0.1
+    Volume: 2
+    useCustomPitch: 0
+    useCustomStartPitch: 1
+    customStartPitch: 0.8
+  collectCoin:
+    ClipList:
+    - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
+    PitchRange: 0.25
+    Volume: 0.4
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  ShowCoinAnim:
+    ClipList:
+    - {fileID: 8300000, guid: b7b38dfef2ffb764ebd8071323e4b1fd, type: 3}
+    PitchRange: 0.25
+    Volume: 0.25
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  loadinScreen:
+    ClipList:
+    - {fileID: 8300000, guid: f13eacd5d290eee4d814421f5b3a99f8, type: 3}
+    PitchRange: 0.05
+    Volume: 0.34
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  bossDeath:
+    ClipList:
+    - {fileID: 8300000, guid: 603ba10b385aac74db272543b65845cf, type: 3}
+    PitchRange: 0
+    Volume: 0.6
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  gameOver:
+    ClipList:
+    - {fileID: 8300000, guid: 4b0975ea2925cf2479953a84a84f7f27, type: 3}
+    PitchRange: 0
+    Volume: 0.4
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 1
+  energyShieldHit:
+    ClipList:
+    - {fileID: 8300000, guid: 5de08501f530ae6468d5661b0ba11489, type: 3}
+    PitchRange: 0.5
+    Volume: 0.7
+    useCustomPitch: 0
+    useCustomStartPitch: 0
+    customStartPitch: 0.6

@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
+  m_Name: EnemyMineral
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 6422823629525648998, guid: 31c9411eeec0c424a87094ade4659db3, type: 3}
+  DisplayName: Round_Orange
+  excludeFromLevelGeneration: 0
+  EnemyType: 2
+  Tier: 0
+  playDeathSound: 0
+  playDeathSound2: 1
+  showHPbar: 0
+  cantDie: 0
+  BaseHealth: 10
+  UnitMoveType: 1
+  Speed: 0
+  rotationSpeed: {x: 0, y: 0, z: 0}
+  useBounceAnimation: 1
+  blockVisualDirectionChange: 0
+  viewScale: {x: 7, y: 7, z: 7}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
+  spriteData:
+    spriteView: {fileID: 21300000, guid: 963d9390f770c204f8d45b306df5c49b, type: 3}
+    spriteBorder: {fileID: 21300000, guid: fcbfd88b5723dd440bfab3a3de169e08, type: 3}
+    multiSprite: []
+    useMultiSprite: 0
+  useRandomColor: 1
+  color: {r: 0.46274513, g: 0.023529414, b: 0.18431373, a: 1}
+  userOverrideBorderColor: 0
+  overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
+  hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
+  colorData:
+    useRandomColor: 1
+    color: {r: 0.4627451, g: 0.023529412, b: 0.18431373, a: 1}
+    userOverrideBorderColor: 0
+    overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
+    hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
+  spawnAtStart: 0
+  spawnAtStartHardcore: 0
+  useRandomSpawnRate: 0
+  spawnRate1: 0
+  spawnRate2: 0
+  useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
+  selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
+  PosConfig:
+    useCustomZPos: 0
+    customZPos: 0
+    ignoreSpawnPositionManager: 0
+    useRanomYPos: 1
+    minY: -2
+    maxY: -2
+    useXPos: 0
+    posX: 0
+  SpawnCoinShift: {x: 0, y: 0.5, z: 0}
+  shootPoint: {x: 0.0467, y: -0.0796, z: 0}
+  BaseDamage: 0
+  overrideFirstLevel: 1
+  overrideFirstLevelValue: 0
+  FireRateMin: 10
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
+  UpgradeInfos:
+  - row: 0
+    DisplayName: Energy_Drop
+    BaseValue: 15
+    MaxValue: 16
+    Step: 2
+    BasePrice: 100
+    PriceMult: 1.2
+    ShowUpgrade: 0
+    Type: 1

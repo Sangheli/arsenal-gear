@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
+  m_Name: EnemyDeadRobot
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+  DisplayName: Candy_1
+  excludeFromLevelGeneration: 1
+  EnemyType: 1
+  Tier: -1
+  playDeathSound: 1
+  playDeathSound2: 0
+  showHPbar: 0
+  cantDie: 0
+  BaseHealth: 0
+  UnitMoveType: 1
+  Speed: 0
+  rotationSpeed: {x: 0, y: 0, z: 30}
+  useBounceAnimation: 0
+  blockVisualDirectionChange: 0
+  viewScale: {x: 3, y: 3, z: 3}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.75, y: 0.75, z: 0.75}
+  spriteData:
+    spriteView: {fileID: 21300000, guid: 872f611eb6e9c1949b8cc2c1b021dd70, type: 3}
+    spriteBorder: {fileID: 21300000, guid: 3c096233ee1b99c4f88276fee24a123c, type: 3}
+    multiSprite: []
+    useMultiSprite: 0
+  colorData:
+    useRandomColor: 0
+    color: {r: 0.8509804, g: 0.6313726, b: 0.39607844, a: 1}
+    userOverrideBorderColor: 1
+    overrideBorderColor: {r: 0, g: 0.7165003, b: 1, a: 1}
+    hitVfxColor: {r: 1, g: 1, b: 1, a: 1}
+  spawnData:
+    spawnAtStart: 0
+    spawnAtStartHardcore: 0
+    useRandomSpawnRate: 1
+    spawnRate1: 4
+    spawnRate2: 10
+  useSelfDestruct: 1
+  useRandomSelfDestructTime: 1
+  selfDestructTime: 1.5
+  selfDestructTimeRandomAdd: 0.5
+  PosConfig:
+    useCustomZPos: 0
+    customZPosMin: 0.1
+    customZPosMax: 0
+    ignoreSpawnPositionManager: 1
+    useRanomYPos: 1
+    minY: -4
+    maxY: 4
+    useXPos: 0
+    posX: 0
+  SpawnCoinShift: {x: 0, y: 0, z: 0}
+  shootPoint: {x: 0, y: 0, z: 0}
+  BaseDamage: 0
+  overrideFirstLevel: 0
+  overrideFirstLevelValue: 0
+  FireRateMin: 10
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
+  UpgradeInfos:
+  - row: 0
+    DisplayName: Energy_Drop
+    BaseValue: 1
+    MaxValue: 90
+    Step: 5
+    BasePrice: 300
+    PriceMult: 1.2
+    ShowUpgrade: 0
+    Type: 1

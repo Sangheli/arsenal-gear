@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d184aea3dbc3b418910d5ee87a5a3d, type: 3}
+  m_Name: Color Container Border
+  m_EditorClassIdentifier: Assembly-CSharp::ColorContainer
+  colors:
+  - {r: 0.06289297, g: 0.06289297, b: 0.06289297, a: 1}
+  - {r: 0, g: 1, b: 0.12451458, a: 1}
+  - {r: 0, g: 0.28835678, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.831789, g: 0, b: 1, a: 1}
+  - {r: 0.94415927, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.9840884, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.43753973, b: 0, a: 1}
+  - {r: 0.33414412, g: 0.6855345, b: 0.37819594, a: 1}
+  - {r: 1, g: 0, b: 0.9028506, a: 1}
+  - {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}

@@ -125,7 +125,7 @@ MonoBehaviour:
   texts:
   - {fileID: 618881687322102666}
   - {fileID: 2915074338217681501}
-  starGameWaitTime: 0.1
+  starGameWaitTime: 0.15
   endRoundWaitTime: 0.1
   canvasGroup: {fileID: 7921149170164745495}
 --- !u!1 &2676480299835523794

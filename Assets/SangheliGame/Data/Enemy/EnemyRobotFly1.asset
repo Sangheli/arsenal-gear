@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
+  m_Name: EnemyRobotFly1
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+  DisplayName: Round_Orange
+  excludeFromLevelGeneration: 0
+  EnemyType: 1
+  Tier: 2
+  playDeathSound: 0
+  playDeathSound2: 1
+  showHPbar: 1
+  cantDie: 0
+  BaseHealth: 40
+  UnitMoveType: 2
+  Speed: 5
+  rotationSpeed: {x: 0, y: 0, z: 0}
+  useBounceAnimation: 0
+  blockVisualDirectionChange: 0
+  viewScale: {x: 3, y: 3, z: 3}
+  hitVfx: {x: 1.5, y: 1.5, z: 1.5}
+  deathVfxScale: {x: 0.8, y: 0.8, z: 0.8}
+  spriteData:
+    spriteView: {fileID: 21300000, guid: 25a11136e92c26f41838c5f65297630e, type: 3}
+    spriteBorder: {fileID: 21300000, guid: ba9944dbe7161fc44bb7f5c4dec2674a, type: 3}
+    multiSprite: []
+    useMultiSprite: 0
+  useRandomColor: 0
+  color: {r: 0.2901961, g: 0, b: 0.25882354, a: 1}
+  userOverrideBorderColor: 0
+  overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
+  hitVfxColor: {r: 0.6117647, g: 0.69803923, b: 0.7411765, a: 1}
+  colorData:
+    useRandomColor: 0
+    color: {r: 0.2901961, g: 0, b: 0.25882354, a: 1}
+    userOverrideBorderColor: 0
+    overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
+    hitVfxColor: {r: 0.6117647, g: 0.69803923, b: 0.7411765, a: 1}
+  spawnAtStart: 0
+  spawnAtStartHardcore: 0
+  useRandomSpawnRate: 0
+  spawnRate1: 0
+  spawnRate2: 0
+  useSelfDestruct: 0
+  useRandomSelfDestructTime: 0
+  selfDestructTime: 0
+  selfDestructTimeRandomAdd: 0
+  PosConfig:
+    useCustomZPos: 0
+    customZPos: 0
+    ignoreSpawnPositionManager: 0
+    useRanomYPos: 0
+    minY: 0
+    maxY: 0
+    useXPos: 0
+    posX: 0
+  SpawnCoinShift: {x: 0, y: 2, z: 0}
+  shootPoint: {x: 0, y: 0.151, z: 0}
+  BaseDamage: 1.5
+  overrideFirstLevel: 0
+  overrideFirstLevelValue: 0
+  FireRateMin: 10
+  overrideFireRateFirstDifficult: 0
+  overrideFireRateFirstDifficultValue: 60
+  UpgradeInfos:
+  - row: 0
+    DisplayName: Energy_Drop
+    BaseValue: 4
+    MaxValue: 230
+    Step: 2
+    BasePrice: 100
+    PriceMult: 1.2
+    ShowUpgrade: 0
+    Type: 1
