@@ -828,7 +828,7 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6a31e8d5-e1de-4a3c-b7ab-24c3532abd9b
+  cloudProjectId: 6afdcf8d-fda4-4468-9346-305a6cc9c998
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames:
   - Very Low
@@ -837,7 +837,7 @@ PlayerSettings:
   - High
   - Very High
   - Ultra
-  projectName: energiminer
+  projectName: Arsenal Gear
   organizationId: andrewsavelyev
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
