@@ -73,13 +73,14 @@ MonoBehaviour:
     showFirstAdv: 0
     interAdvInterval: 0
     postponeCallByFail: 0
+    autoPauseGame: 0
     selectWebGLTemplate: 1
     runInBackground: 0
     enableExceptions: 1
     compressionFormat: 1
     decompressionFallback: 1
     autoGraphicsAPI: 1
-    minimalCodeCompression: 1
+    managedStrippingLevel: 1
     dataCaching: 0
     colorSpace: 0
     archivingBuild: 0

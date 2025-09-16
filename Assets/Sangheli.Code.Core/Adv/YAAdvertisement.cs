@@ -9,7 +9,6 @@ namespace SangheliCore.Adv
         public event Action<bool> OnRewardedAdFinished;
         public void ShowInterstitial()
         {
-            AnalyticsHelper.OnInterstitialAdShown();
             YG2.InterstitialAdvShow();
         }
 
