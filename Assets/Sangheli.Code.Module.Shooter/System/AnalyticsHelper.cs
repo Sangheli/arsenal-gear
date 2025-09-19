@@ -6,6 +6,8 @@ using UnityEngine;
 
 public static class AnalyticsHelper
 {
+    private const string ProgressString = "ce_progress_";
+    
     public static void Checkpoint(EndRoundFadeEnum fadeType)
     {
         const string eventName = "ce_checkpoint";
@@ -148,7 +150,21 @@ public static class AnalyticsHelper
     
     public static void OnLevelProgressMilestone(int milestone)
     {
-        string eventName = $"ce_progress_{milestone:D3}";
+        string eventName = $"{ProgressString}{milestone:D3}";
+        var customEvent = new CustomEvent(eventName);
+        Send(customEvent, eventName);
+    }
+    
+    public static void OnTutorialLevelProgress(int tutorialLevel)
+    {
+        string eventName = $"{ProgressString}000_{tutorialLevel+1:D3}";
+        var customEvent = new CustomEvent(eventName);
+        Send(customEvent, eventName);
+    }
+    
+    public static void OnContinueRewarded()
+    {
+        string eventName = $"ce_adv_continue";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
@@ -156,6 +172,9 @@ public static class AnalyticsHelper
     public static void CheckLevelProgressMilestones(int previousLevel, int newLevel)
     {
         // Get the max level
+        if (previousLevel < LevelDataConfigRuntime.SkipTutorialLevels ) 
+            OnTutorialLevelProgress(previousLevel);
+
         int maxLevel = G.I.maxLevel;
         if (maxLevel <= 0) return;
         
