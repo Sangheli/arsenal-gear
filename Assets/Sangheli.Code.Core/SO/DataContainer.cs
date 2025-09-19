@@ -13,6 +13,7 @@ public class DataContainer : ScriptableObject
     public ColorContainer enemyDifficultContainer;
     public StoreConfig storeConfig; // Store configuration with DisableForStore flag
     public ColorContainer borderColorPaletteEnemy;
+    public ContinueSettingsSO continueSettings; // Continue feature settings
     
     public void Init()
     {
