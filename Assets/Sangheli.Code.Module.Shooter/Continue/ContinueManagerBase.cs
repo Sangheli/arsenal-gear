@@ -1,4 +1,4 @@
 ﻿public class ContinueManagerBase
 {
-    public readonly IContinueManager ContinueManager = new ContinueManagerSimple();
+    public readonly IContinueManager ContinueManager = new ContinueManagerYandex();
 }

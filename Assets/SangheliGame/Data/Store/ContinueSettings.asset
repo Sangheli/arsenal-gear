@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ContinueSettings
   m_EditorClassIdentifier: Assembly-CSharp::ContinueSettingsSO
   healthRestorePercent: 100
-  continueEnabled: 0
+  continueEnabled: 1
   oneContinuePerSession: 1
   enemyAttackDelay: 1.5

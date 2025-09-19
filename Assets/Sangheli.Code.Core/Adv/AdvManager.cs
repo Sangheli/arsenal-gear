@@ -2,5 +2,5 @@
 
 public class AdvManager
 {
-    public readonly IAdvertisement Advertisement = new MockAdvertisement();
+    public readonly IAdvertisement Advertisement = new YAAdvertisement();
 }
