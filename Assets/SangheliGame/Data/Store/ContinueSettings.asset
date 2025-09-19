@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f151b1341ff82488c99d4bc6e685d0, type: 3}
   m_Name: ContinueSettings
   m_EditorClassIdentifier: Assembly-CSharp::ContinueSettingsSO
-  healthRestorePercent: 50
+  healthRestorePercent: 100
   continueEnabled: 1
   oneContinuePerSession: 1
+  enemyAttackDelay: 1.5

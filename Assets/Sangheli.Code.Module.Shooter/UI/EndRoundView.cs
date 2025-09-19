@@ -28,6 +28,13 @@ public class EndRoundView : MonoBehaviour
     public float animationTime = 1;
     public float intervalNum = 10;
     
+    [Space]
+    // Continue feature
+    public Button continueButton;
+    public Text continueButtonText;
+    
+    private ContinueManagerBase _continueManagerBase = new();
+    
     public EndRoundViewDistortion distortion;
     
     [Space]
@@ -51,6 +58,7 @@ public class EndRoundView : MonoBehaviour
     private const string PrefixBoss = "boss_reward";
     private const string PrefixTotal = "total";
     private const string PrefixTotalSumGame = "totalSumGame";
+    private const string PrefixContinue = "continue_for_reward";
     
     private Coroutine _showCoroutine;
 
@@ -70,6 +78,10 @@ public class EndRoundView : MonoBehaviour
         _buttonStartNewRoundTextOriginalColor = buttonStartNewRoundText.color;
         buttonEndRound.onClick.AddListener(OnExitFromRound);
         buttonStartNewRound.onClick.AddListener(OnStartNewRound);
+        
+        // Initialize continue button
+        continueButton.onClick.AddListener(OnContinue);
+        
         if (returnToStartButton != null)
             returnToStartButton.onClick.AddListener(OnReturnToStartScreen);
         
@@ -82,11 +94,15 @@ public class EndRoundView : MonoBehaviour
         buttonStartNewRoundText.color = Color.clear;
     }
 
-    public void OnStartRound() => distortion.gameObject.SetActive(false);
+    public void OnStartRound()
+    {
+        distortion.gameObject.SetActive(false);
+        _continueManagerBase.ContinueManager.Reset();
+    }
 
     private void OnExitFromRound()
     {
-        G.I.Advertisement.ShowInterstitial();
+        G.I.AdvManager.Advertisement.ShowInterstitial();
         StopShowCoroutine();
         G.I.GoToUpgrades();
     }
@@ -95,7 +111,7 @@ public class EndRoundView : MonoBehaviour
     {
         G.I.RestartsFromEndRound++;
         
-        G.I.Advertisement.ShowInterstitial();
+        G.I.AdvManager.Advertisement.ShowInterstitial();
         StopShowCoroutine();
         G.I.StartRun(overrideNew: false);
     }
@@ -139,16 +155,14 @@ public class EndRoundView : MonoBehaviour
             upgradesText.text = G.I.localization.Get("go_to_upgrades");
             checkPointText.text = G.I.localization.Get("checkpoint_done");
             
+            // Set continue button text if the button exists
+                continueButtonText.text = G.I.localization.Get(PrefixContinue);
+            
             // Set rate me button text if the button exists
             if (rateMeText != null)
                 rateMeText.text = G.I.localization.Get("rate_me");
-            
-            rateMeButton.gameObject.SetActive(!G.I.Data.storeConfig.DisableForStore && level>=20 && level%5==0);
         }
         
-        buttonEndRound.interactable = false;
-        buttonStartNewRound.interactable = false;
-        buttonStartNewRound.interactable = false;
         View.SetActive(state);
         returnToStartButton.gameObject.SetActive(false);
     }
@@ -185,6 +199,13 @@ public class EndRoundView : MonoBehaviour
             }
         }
 
+        var subLevel =fadeType == EndRoundFadeEnum.RoundWin ? save.level : save.level+1;
+        var every5 = subLevel % 5 == 0;
+        var afterTutor = subLevel >= 10;
+        var canContinue = _continueManagerBase.ContinueManager.CanContinue(save.level);
+        continueButton.gameObject.SetActive( every5 &&  afterTutor && fadeType == EndRoundFadeEnum.RoundFail && canContinue);
+        rateMeButton.gameObject.SetActive(!G.I.Data.storeConfig.DisableForStore && subLevel>=20 && every5);
+
         if (showNextRound)
         {
             buttonStartNewRound.image.color = _buttonStartNewRoundOriginalColor;
@@ -203,9 +224,6 @@ public class EndRoundView : MonoBehaviour
 
         saveInfo.Show();
         saveInfo.FadeOut(2,1);
-        
-        buttonEndRound.interactable = true;
-        if (showNextRound) buttonStartNewRound.interactable = true;
 
         yield return ShowRewardAnim(rewardCollected, 0, energyOnStart, rewardTextCoin);
         yield return ShowRewardAnim(bossReward, rewardCollected, energyOnStart+rewardCollected, rewardBossTextCoin);
@@ -265,6 +283,8 @@ public class EndRoundView : MonoBehaviour
         StopCoroutine(_showCoroutine);
         _showCoroutine = null;
     }
+
+    private void OnContinue() => _continueManagerBase.ContinueManager.OnContinue();
 
     private void OnRateMeClicked()
     {

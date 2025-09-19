@@ -20,14 +20,10 @@ public class ContinueManagerSimple : IContinueManager
     {
         if (!CanContinue(1000000000))
             return;
-
-        AnalyticsHelper.OnContinueRewarded();
+        
         _hasContinued = true;
-        G.I.HpManager.OnRespawn();
+        G.I.OnGameContinue();
     }
 
-    public void Reset()
-    {
-        _hasContinued = false;
-    }
+    public void Reset() => _hasContinued = false;
 }

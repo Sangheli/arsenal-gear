@@ -427,4 +427,34 @@ public class G : MonoBehaviour
         
         endRoundView.distortion.OnLoadInit();
     }
+
+    public void OnGameContinue()
+    {
+        AnalyticsHelper.OnContinueRewarded();
+        G.I.HpManager.OnRespawn();
+        
+        // Hide end round view
+        G.I.endRoundView.Toggle(false);
+        
+        // Resume gameplay
+        G.I.roundManager.IsAlive = true;
+        G.I.roundManager.IsAliveForPlay = true;
+        G.I.playerCursor.ToggleControl(true, true);
+        G.I.playerCursor.Toggle(true);
+        G.I.uiManager.Toggle(true);
+        
+        // Reset distortion
+        G.I.endRoundView.distortion.ResetView();
+        G.I.endRoundView.distortion.gameObject.SetActive(false);
+        
+        // Reset all existing coins to make them collectible again
+        foreach (var energy in G.I.energySpawner.EnergyList.Where(energy => energy != null))
+        {
+            energy.Init();
+            energy.coinFloorHandler.Toggle(true);
+        }
+        
+        G.I.roundManager.DisableAllEnemyAttacking();
+        G.I.roundManager.StartEnemyAttackDelay(G.I.Data.continueSettings.enemyAttackDelay);
+    }
 }

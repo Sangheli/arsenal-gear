@@ -34,6 +34,13 @@ public class HPManager
         RoundHp = _maxHp = Keys.Sum(x => _save.GetParamContainer().GetValue(x));
         G.I.uiManager.ShowHp(RoundHp, _maxHp, 1, false, startValue: true );
     }
+    
+    public void OnRespawn()
+    {
+        var fillValue = G.I.Data.continueSettings.healthRestorePercent / 100f;
+        RoundHp = _maxHp * fillValue;
+        G.I.uiManager.ShowHp(RoundHp, _maxHp, fillValue, false, startValue: false );
+    }
 
     public float Reduce(float reduceValue, bool doBlink, bool ignoreShield)
     {

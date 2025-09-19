@@ -186,12 +186,14 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             if (Time.time > NextTimeAttack)
             {
                 DoDamage();
-                NextTimeAttack = Time.time + CurrentData.GetTimeAttack(_currentLevel);
+                UpdateTimeAttack();
             }
         }
 
         DoMove();
     }
+
+    public void UpdateTimeAttack() => NextTimeAttack = Time.time + CurrentData.GetTimeAttack(_currentLevel);
 
     private void LateUpdate()
     {
