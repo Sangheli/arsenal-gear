@@ -15,4 +15,4 @@ MonoBehaviour:
   healthRestorePercent: 100
   continueEnabled: 1
   oneContinuePerSession: 1
-  enemyAttackDelay: 1.5
+  enemyAttackDelay: 3
