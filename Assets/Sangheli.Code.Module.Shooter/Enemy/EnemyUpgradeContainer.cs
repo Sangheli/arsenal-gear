@@ -157,6 +157,7 @@ public class EnemyUpgradeContainer
     public int GetMaxLevel(int id, UpgradeType type) => GetUpgradeInfoFromEnemyData(id, type)?.MaxUpgrades ?? 0;
 
     public string GetDisplayName(int id, UpgradeType type) => GetUpgradeInfoFromEnemyData(id, type)?.DisplayName ?? "";
+    public bool GetAutoFormat(int id, UpgradeType type) => GetUpgradeInfoFromEnemyData(id, type)?.AutoFormat ?? false;
 
     public string GetEnemyDisplayName(int enemyId) => GetById(enemyId)?.DisplayName;
 

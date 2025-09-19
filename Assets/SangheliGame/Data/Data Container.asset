@@ -21,3 +21,4 @@ MonoBehaviour:
   enemyDifficultContainer: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
   storeConfig: {fileID: 11400000, guid: 26f7fc48326bdfe45a64674c262ee769, type: 2}
   borderColorPaletteEnemy: {fileID: 11400000, guid: bae8e0c9eb0e8574394fa98b314d12ec, type: 2}
+  continueSettings: {fileID: 11400000, guid: e415fd0d2d7f1e246b776d98994df391, type: 2}

@@ -15,6 +15,7 @@ public abstract class BaseUpgradeInfo
     public ulong BasePrice;
     public float PriceMult;
     public bool ShowUpgrade = true;
+    public bool AutoFormat = false;
 
     public float GetValue(int bought) => Mathf.Max(BaseValue + bought * Step, BaseValue);
     

@@ -20,7 +20,7 @@ public class EnergyBarUI : MonoBehaviour
         if(!gameObject.activeSelf)
             return;
         
-        energyText.text = $"{NumberFormatter.Format(value, 1)}";
+        energyText.text = $"{NumberFormatter.FormatAuto(value,1)}";
         if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
         _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(energyText.transform, _originalScale, punchScale, duration));
     }

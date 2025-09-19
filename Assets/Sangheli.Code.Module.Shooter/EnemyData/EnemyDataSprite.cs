@@ -10,5 +10,5 @@ public class EnemyDataSprite
     public List<Sprite> multiSprite;
     public bool useMultiSprite;
     
-    public Sprite Get() => useMultiSprite ? multiSprite.PickRandomSingle() : spriteView;
+    public Sprite Get() => useMultiSprite && multiSprite.Count > 0 ? multiSprite.PickRandomSingle() : spriteView;
 }

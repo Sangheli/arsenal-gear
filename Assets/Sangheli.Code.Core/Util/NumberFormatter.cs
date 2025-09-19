@@ -49,6 +49,8 @@ public static class NumberFormatter
     
     public static string Format(int number, int decimalPlaces = 2, bool useSuffix = true) => Format((double)number, decimalPlaces, useSuffix);
     public static string Format(long number, int decimalPlaces = 2, bool useSuffix = true) => Format((double)number, decimalPlaces, useSuffix);
+    public static string FormatAuto(int value, int decimalPlaces = 2) => Format(value, value < 1000 ? 0 : decimalPlaces);
+    public static string FormatAuto(double value, int decimalPlaces = 2) => Format(value, value < 1000 ? 0 : decimalPlaces);
 
     #endregion
 

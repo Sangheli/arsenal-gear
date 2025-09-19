@@ -32,6 +32,8 @@ public class RoundManager : MonoBehaviour
 
     public SpawnPositionManager _spawnPositionManager = new();
     private bool _attackDisabled;
+    private bool _isEnemyAttackDelayed;
+    private float _enemyAttackDelayEndTime;
 
     private int currentMaxOnScreen;
     
@@ -81,6 +83,13 @@ public class RoundManager : MonoBehaviour
         {
             DisableAllEnemyAttacking();
             return;
+        }
+        
+        // Check if we need to enable enemy attacks after delay
+        if (_isEnemyAttackDelayed && Time.time >= _enemyAttackDelayEndTime)
+        {
+            _isEnemyAttackDelayed = false;
+            EnableAllEnemyAttacking();
         }
         
         if (G.I.currentLevel == null) return;
@@ -334,6 +343,23 @@ public class RoundManager : MonoBehaviour
         _attackingEnemies.Clear();
     }
     
+    public void EnableAllEnemyAttacking()
+    {
+       UpdateAttackingEnemies();
+        
+        if (G.I.bossManager.CurrentBoss != null)
+        {
+            G.I.bossManager.CurrentBoss.UpdateTimeAttack();
+            G.I.bossManager.CurrentBoss.CanAttack = true;
+        }
+    }
+    
+    public void StartEnemyAttackDelay(float delay)
+    {
+        _isEnemyAttackDelayed = true;
+        _enemyAttackDelayEndTime = Time.time + delay;
+    }
+    
     // Update the list of attacking enemies
     private void UpdateAttackingEnemies()
     {
@@ -378,6 +404,7 @@ public class RoundManager : MonoBehaviour
         
         if (closestEnemy != null)
         {
+            closestEnemy.UpdateTimeAttack();
             closestEnemy.CanAttack = true;
             _attackingEnemies.Add(closestEnemy);
             return true;

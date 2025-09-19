@@ -4,29 +4,29 @@ using UnityEngine;
 public class BossManager : MonoBehaviour
 {
     public BossController bossPrefab;
-    private BossController _currentBoss;
+    public BossController CurrentBoss { get; private set; }
     private System.Action _onBossDefeated;
 
     public void SpawnBoss(float hp, Color color, float bossDamage, System.Action onBossDefeated)
     {
-        _currentBoss = G.I.ObjectPool.Get(bossPrefab);
-        _currentBoss.CanAttack = false;
+        CurrentBoss = G.I.ObjectPool.Get(bossPrefab);
+        CurrentBoss.CanAttack = false;
         _onBossDefeated = onBossDefeated;
         G.I.roundManager._spawnPositionManager.GetPosition(G.I.Data.enemyContainer.List[5].PosConfig, out var spawnPosition, out var zPosition);
-        _currentBoss.transform.position = spawnPosition;
-        _currentBoss.gameObject.SetActive(true);
-        _currentBoss.Init(hp, color, bossDamage, OnBossDeath);
-        _currentBoss.StopAllCoroutines();
-        _currentBoss.StartCoroutine(SpawnAndAttack());
+        CurrentBoss.transform.position = spawnPosition;
+        CurrentBoss.gameObject.SetActive(true);
+        CurrentBoss.Init(hp, color, bossDamage, OnBossDeath);
+        CurrentBoss.StopAllCoroutines();
+        CurrentBoss.StartCoroutine(SpawnAndAttack());
     }
 
     private IEnumerator SpawnAndAttack()
     {
-        var centerPos = new Vector3(0, _currentBoss.CurrentData.PosConfig.maxY, _currentBoss.CurrentData.PosConfig.customZPosMin);
-        yield return SpawnUtils.MoveToCenter(_currentBoss.transform, centerPos);
+        var centerPos = new Vector3(0, CurrentBoss.CurrentData.PosConfig.maxY, CurrentBoss.CurrentData.PosConfig.customZPosMin);
+        yield return SpawnUtils.MoveToCenter(CurrentBoss.transform, centerPos);
         yield return new WaitForSeconds(1);
-        if(_currentBoss!=null)
-            _currentBoss.CanAttack = true;
+        if(CurrentBoss!=null)
+            CurrentBoss.CanAttack = true;
     }
 
     private void OnBossDeath()
@@ -34,15 +34,15 @@ public class BossManager : MonoBehaviour
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.hit);
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.bossDeath);
         _onBossDefeated?.Invoke();
-        _currentBoss = null;
+        CurrentBoss = null;
     }
 
     public void ResetBoss()
     {
-        if (_currentBoss != null)
+        if (CurrentBoss != null)
         {
-            G.I.ObjectPool.Return(_currentBoss);
-            _currentBoss = null;
+            G.I.ObjectPool.Return(CurrentBoss);
+            CurrentBoss = null;
         }
         
         // Reset boss active flag when boss is reset

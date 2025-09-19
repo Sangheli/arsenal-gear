@@ -135,6 +135,7 @@ public class ParamContainer
 
     public int GetBoughtLevel(string key) => UpgradesBought.ContainsKey(key) ? UpgradesBought[key] : 0;
     public int GetMaxLevel(string key) => G.I.Data.ParamData.GetParamInfo(key)?.MaxUpgrades ?? 0;
+    public bool GetAutoFormat(string key) => G.I.Data.ParamData.GetParamInfo(key)?.AutoFormat ?? false;
     
     public IEnumerable<string> GetAllParamKeys()
     {

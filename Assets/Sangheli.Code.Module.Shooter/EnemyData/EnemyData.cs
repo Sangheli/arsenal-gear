@@ -122,7 +122,7 @@ public class EnemyData : ScriptableObject
     public float GetTimeAttack(int levelIndex)
     {
         var value = overrideFireRateFirstDifficult && levelIndex < LevelDataConfigRuntime.SkipTutorialLevels ? overrideFireRateFirstDifficultValue : FireRateMin;
-        value = 60f / value;
+        value = 60f / value  + Random.Range(0, 0.5f);
         return value;
     }
 }

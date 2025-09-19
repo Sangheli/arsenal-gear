@@ -34,15 +34,16 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
     protected static bool GetButtonState(bool isMax, bool isDisabled) => !isMax && !isDisabled;
 
     private void UpdatePriceText(bool isMax, uint price) => 
-        _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.Format(price, 2)}";
+        _priceText.text = isMax ? G.I.localization.Get("max") : $"{G.I.localization.Get("price")}: {NumberFormatter.FormatAuto(price)}";
 
-    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, uint price, float maxValue, float baseValue, bool  hardcodeHide)
+    protected void RefreshView(string paramName, float value, float? nextValue, int bought, int max, bool isMax, uint price, float maxValue, float baseValue, bool  hardcodeHide, bool useAutoFormat)
     {
         _paramNameText.text = paramName;
         if (isMax || nextValue == null)
-            _valueText.text = $"{NumberFormatter.Format(value)}";
+            _valueText.text = useAutoFormat ? $"{NumberFormatter.FormatAuto(value)}" : $"{NumberFormatter.Format(value)}";
         else
-            _valueText.text = $"{NumberFormatter.Format(value)} => {NumberFormatter.Format(nextValue.Value)}";
+            _valueText.text = useAutoFormat ? $"{NumberFormatter.FormatAuto(value)} → {NumberFormatter.FormatAuto(nextValue.Value)}" : $"{NumberFormatter.Format(value)} → {NumberFormatter.Format(nextValue.Value)}";
+
         _progressFill.fillAmount = (value-baseValue)/(maxValue-baseValue);
         UpdateButtonState(isMax, price, hardcodeHide);
         UpdatePriceText(isMax, price);

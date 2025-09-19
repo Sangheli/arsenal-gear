@@ -171,7 +171,7 @@ public class UpgradeView : MonoBehaviour
 
     private void OnStart()
     {
-        G.I.Advertisement.ShowInterstitial();
+        G.I.AdvManager.Advertisement.ShowInterstitial();
         G.I.StartRun(overrideNew: true);
     }
 
@@ -189,7 +189,7 @@ public class UpgradeView : MonoBehaviour
         var save = G.I.SaveProvider.Get();
         
         if (moneyText != null)
-            moneyText.text = $"{G.I.localization.Get("energy")}: {NumberFormatter.Format(G.I.SaveProvider.Get().totalEnergy, 2)}";
+            moneyText.text = $"{G.I.localization.Get("energy")}: {NumberFormatter.FormatAuto(G.I.SaveProvider.Get().totalEnergy, 2)}";
 
         // Обновляем DPS
         if (dpmText != null)
@@ -203,7 +203,7 @@ public class UpgradeView : MonoBehaviour
         if (hpText != null)
         {
             var totalHp = HPManager.Keys.Sum(key => save.GetParamContainer().GetValue(key));
-            hpText.text = $"{G.I.localization.Get("hp")}: {NumberFormatter.Format(totalHp, 1)}";
+            hpText.text = $"{G.I.localization.Get("hp")}: {NumberFormatter.FormatAuto(totalHp, 1)}";
         }
 
         if (prestigeText != null)
