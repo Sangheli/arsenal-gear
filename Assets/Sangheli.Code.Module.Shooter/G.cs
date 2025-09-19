@@ -84,7 +84,7 @@ public class G : MonoBehaviour
     public Vector2 boundBossMin;
     public Vector2 boundBossMax;
     
-    public readonly IAdvertisement Advertisement = new MockAdvertisement();
+    public readonly AdvManager AdvManager = new();
 
     public RayFXManager rayFXManager;
 
