@@ -30,12 +30,11 @@ public class RoundManager : MonoBehaviour
     private bool IsBossActive { get; set; }
     public void SetBossActive(bool active) => IsBossActive = active;
 
-    public SpawnPositionManager _spawnPositionManager = new();
-    private bool _attackDisabled;
+    public SpawnPositionManager SpawnPositionManager { get; }= new();
     private bool _isEnemyAttackDelayed;
     private float _enemyAttackDelayEndTime;
 
-    private int currentMaxOnScreen;
+    private int _currentMaxOnScreen;
     
     private void Awake()
     {
@@ -63,10 +62,7 @@ public class RoundManager : MonoBehaviour
     private void Update()
     {
         if (!IsAlive)
-        {
-            DisableAllEnemyAttacking();
             return;
-        }
 
         HandleCursorVisibility();
         
@@ -80,10 +76,7 @@ public class RoundManager : MonoBehaviour
         }
         
         if(!IsAlive)
-        {
-            DisableAllEnemyAttacking();
             return;
-        }
         
         // Check if we need to enable enemy attacks after delay
         if (_isEnemyAttackDelayed && Time.time >= _enemyAttackDelayEndTime)
@@ -133,10 +126,10 @@ public class RoundManager : MonoBehaviour
 
     private void SpawnEnemy(EnemyData enemyData,int difficult, bool isPreSpawned = false, bool ignoreLimits = false, Vector3? hardCodePos = null)
     {
-        if (!ignoreLimits && currentMaxOnScreen >= G.I.currentLevel.MaxEnemyOnScreen) 
+        if (!ignoreLimits && _currentMaxOnScreen >= G.I.currentLevel.MaxEnemyOnScreen) 
             return;
 
-        var findPos = _spawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition);
+        var findPos = SpawnPositionManager.GetPosition(enemyData.PosConfig, out var spawnPosition, out var zPosition);
 
         if (hardCodePos != null)
         {
@@ -153,7 +146,7 @@ public class RoundManager : MonoBehaviour
         var enemy = G.I.ObjectPool.Get(enemyData.prefab, spawnPosition);
         enemy.transform.SetParent(_enemiesParent); // Устанавливаем родителя
         _enemyList.Add(enemy);
-        currentMaxOnScreen++;
+        _currentMaxOnScreen++;
         enemy.Init(enemyData, moveDirection,difficult: difficult,G.I.currentLevel.levelId, isPreSpawned: isPreSpawned);
         _sortingOrderData.Iterrate();
         enemy.view.SetSortingOrder(_sortingOrderData);
@@ -170,9 +163,8 @@ public class RoundManager : MonoBehaviour
 
     public void OnStartRound(bool overrideNew)
     {
-        currentMaxOnScreen = 0;
+        _currentMaxOnScreen = 0;
         _save = G.I.SaveProvider.Get();
-        _attackDisabled = false;
         ClearAll();
         _enemySpawnTimers.Clear();
         _sortingOrderData ??= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
@@ -214,7 +206,7 @@ public class RoundManager : MonoBehaviour
 
         _enemyList.Clear();
         _attackingEnemies.Clear();
-        _spawnPositionManager.Clear();
+        SpawnPositionManager.Clear();
         
         // Reset boss active state when clearing all enemies
         IsBossActive = false;
@@ -325,7 +317,7 @@ public class RoundManager : MonoBehaviour
     // Called when an enemy is destroyed to potentially allow another enemy to attack
     public void OnEnemyDestroyed(EnemyController enemy)
     {
-        currentMaxOnScreen--;
+        _currentMaxOnScreen--;
         if (_attackingEnemies.Contains(enemy))
         {
             _attackingEnemies.Remove(enemy);
@@ -336,9 +328,6 @@ public class RoundManager : MonoBehaviour
     // Disable all enemies from attacking
     public void DisableAllEnemyAttacking()
     {
-        if(_attackDisabled) return;
-        _attackDisabled = true;
-        
         foreach (var enemy in _attackingEnemies.Where(enemy => enemy != null && enemy.gameObject.activeInHierarchy)) enemy.CanAttack = false;
         _attackingEnemies.Clear();
     }

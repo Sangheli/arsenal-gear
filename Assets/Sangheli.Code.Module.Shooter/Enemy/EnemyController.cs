@@ -280,7 +280,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     {
         // Notify that this enemy is dying
         OnDeathZPosHolder?.Invoke();
-        G.I.roundManager._spawnPositionManager.Release(this);
+        G.I.roundManager.SpawnPositionManager.Release(this);
 
         // Notify RoundManager that this enemy is destroyed
         G.I.roundManager.OnEnemyDestroyed(this);
