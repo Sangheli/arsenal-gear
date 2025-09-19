@@ -27,7 +27,7 @@ public class LevelTargetBar : MonoBehaviour
             case LevelObjectiveType.Factory:
             case LevelObjectiveType.Mineral:
             case LevelObjectiveType.CoinCount:
-                progressText.text = $"{NumberFormatter.Format(_levelTargetValue.End.CurrentValue, 1)}/{NumberFormatter.Format(_currentLevelConfig.objectiveValue, 1)}";
+                progressText.text = $"{NumberFormatter.FormatAuto(_levelTargetValue.End.CurrentValue, 1)}/{NumberFormatter.FormatAuto(_currentLevelConfig.objectiveValue, 1)}";
                 break;
             case LevelObjectiveType.EnemyCount:
                 progressText.text = $"{NumberFormatter.Format(_levelTargetValue.End.CurrentValue, 0)}/{NumberFormatter.Format(_currentLevelConfig.objectiveValue, 0)}";

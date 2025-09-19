@@ -49,10 +49,11 @@ public class EnemyUpgradeStateView : BaseUpgradeStateView
 
         var paramNameEnemy = upgradeContainer.GetEnemyDisplayName(_enemyId);
         var paramNameDisplay = upgradeContainer.GetDisplayName(_enemyId, _upgradeType);
+        var autoFormat = upgradeContainer.GetAutoFormat(_enemyId, _upgradeType);
         var paramName = $"[{G.I.localization.Get(paramNameEnemy)}] {G.I.localization.Get(paramNameDisplay)}";
         float? nextValue = isMax ? null : upgradeContainer.GetNextLevelValue(_enemyId, _upgradeType);
         save.UpdateUpgradesBoughtNum();
         var price = upgradeContainer.GetPrice(_enemyId, _upgradeType, save.upgradesBoughtNum);
-        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue, baseValue, hardcodeHide);
+        RefreshView(paramName, value, nextValue, bought, max, isMax, price, maxValue, baseValue, hardcodeHide, autoFormat);
     }
 } 
