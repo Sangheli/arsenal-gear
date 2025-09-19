@@ -42,7 +42,7 @@ public abstract class BaseUpgradeStateView : MonoBehaviour
         if (isMax || nextValue == null)
             _valueText.text = useAutoFormat ? $"{NumberFormatter.FormatAuto(value)}" : $"{NumberFormatter.Format(value)}";
         else
-            _valueText.text = useAutoFormat ? $"{NumberFormatter.FormatAuto(value)} → {NumberFormatter.FormatAuto(nextValue.Value)}" : $"{NumberFormatter.Format(value)} → {NumberFormatter.Format(nextValue.Value)}";
+            _valueText.text = useAutoFormat ? $"{NumberFormatter.FormatAuto(value)} -> {NumberFormatter.FormatAuto(nextValue.Value)}" : $"{NumberFormatter.Format(value)} -> {NumberFormatter.Format(nextValue.Value)}";
 
         _progressFill.fillAmount = (value-baseValue)/(maxValue-baseValue);
         UpdateButtonState(isMax, price, hardcodeHide);

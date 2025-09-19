@@ -12,7 +12,7 @@ public class BossManager : MonoBehaviour
         CurrentBoss = G.I.ObjectPool.Get(bossPrefab);
         CurrentBoss.CanAttack = false;
         _onBossDefeated = onBossDefeated;
-        G.I.roundManager._spawnPositionManager.GetPosition(G.I.Data.enemyContainer.List[5].PosConfig, out var spawnPosition, out var zPosition);
+        G.I.roundManager.SpawnPositionManager.GetPosition(G.I.Data.enemyContainer.List[5].PosConfig, out var spawnPosition, out var zPosition);
         CurrentBoss.transform.position = spawnPosition;
         CurrentBoss.gameObject.SetActive(true);
         CurrentBoss.Init(hp, color, bossDamage, OnBossDeath);

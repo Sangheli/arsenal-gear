@@ -16,7 +16,7 @@ public class ContinueManagerSimple : IContinueManager
         return true;
     }
     
-    public void OnContinue()
+    public virtual void OnContinue()
     {
         if (!CanContinue(1000000000))
             return;

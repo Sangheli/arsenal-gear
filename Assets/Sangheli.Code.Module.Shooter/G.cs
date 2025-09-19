@@ -454,7 +454,6 @@ public class G : MonoBehaviour
             energy.coinFloorHandler.Toggle(true);
         }
         
-        G.I.roundManager.DisableAllEnemyAttacking();
         G.I.roundManager.StartEnemyAttackDelay(G.I.Data.continueSettings.enemyAttackDelay);
     }
 }
