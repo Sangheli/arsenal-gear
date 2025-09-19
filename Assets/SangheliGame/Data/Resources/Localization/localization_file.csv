@@ -28,10 +28,10 @@ boss,Boss,Босс,Boss
 reward,Reward,Награда,Ödül
 auto_collect,Auto Collect,Автосбор,Oto Topla
 language,Language,Язык,Dil
-tutorMinusOne,Another robo-army has been defeated\nMove your cursor and collect coins,Ещё одна армия роботов потерпела поражение.\nПеремещайте курсор и собирайте монеты.,Başka bir robo-ordu yenildi\nİmlecinizi hareket ettirin ve paraları toplayın
-tutor0,Move your cursor to shoot\nA new robot army is on the way,"Наведите курсор, чтобы стрелять.\nНовая армия роботов уже в пути.",Ateş etmek için imlecinizi hareket ettirin\nYeni bir robot ordusu yolda
+tutorMinusOne,"Another robo-army has been defeated\nCatch coins, this is your reward","Ещё одна армия роботов повержена. Ловите монеты, это ваша награда.","Başka bir robo-ordu yenildi\nParaları yakala, ödülün bu"
+tutor0,Point crosshair to shoot\nA new robot army is on the way,"Наведите прицел, чтобы стрелять.\nНовая армия роботов уже в пути.",Nişangahı doğrultup ateş edin\nYeni bir robot ordusu yolda
 tutor1,Sometime You Lose HP over Time,Иногда вы теряете здоровье со временем,Bazen zamanla HP kaybedersiniz
-tutor2,Robots attack you too\nFight back!,Роботы тоже нападают на вас\nДайте отпор!,Robotlar sana da saldırıyor\nKarşı koy!
+tutor2,Robots attack you too\nFight back,Роботы тоже нападают на вас\nДайте отпор,Robotlar da sana saldırıyor\nKarşı koy
 tutor3,Fight with Boss\nTo Complete Level,Сразитесь с боссом\nЧтобы пройти уровень,Seviyeyi Tamamlamak İçin Boss ile Savaş
 tutor4,A great battle with robot armies awaits\nCollect coins by mining minerals to prepare,"Вас ждет грандиозная битва с армиями роботов.\nСобирайте монеты, добывая минералы, чтобы подготовиться.",Robot ordularıyla büyük bir savaş sizi bekliyor. Hazırlanmak için mineralleri çıkararak para toplayın.
 tutor5,Destroy factories\nTo reduce robot reinforcements,Уничтожайте фабрики\nЧтобы уменьшить количество подкреплений роботов,Fabrikaları yok edin\nRobot takviyelerini azaltmak için
@@ -108,3 +108,4 @@ new_levels_available,New Levels,Новые уровни,Yeni Seviyeler
 rate_me,Rate Game,Оценить игру,Oran Oyunu
 u_machineGunCount,Machine Gun Count,Количество пулеметов,Makineli Tüfek Sayısı
 u_LaserCount,Laser Gun Count,Количество лазерных пушек,Lazer Silah Sayısı
+continue_for_reward,Watch Ad to Respawn,"Посмотрите рекламу, чтобы возродиться",Yeniden Canlanma Reklamını İzle
