@@ -75,10 +75,11 @@ MonoBehaviour:
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop
-    BaseValue: 1
+    BaseValue: 5
     MaxValue: 90
     Step: 5
     BasePrice: 300
     PriceMult: 1.2
     ShowUpgrade: 0
+    AutoFormat: 0
     Type: 1
