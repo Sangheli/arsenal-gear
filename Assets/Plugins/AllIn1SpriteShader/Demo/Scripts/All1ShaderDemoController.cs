@@ -49,7 +49,6 @@ namespace AllIn1SpriteShader
 
         private void GetInput()
         {
-            return;
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 expositors[currExpositor].ChangeTarget(-1);

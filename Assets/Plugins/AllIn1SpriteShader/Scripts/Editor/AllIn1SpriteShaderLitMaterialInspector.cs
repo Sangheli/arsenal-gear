@@ -774,19 +774,19 @@ public class AllIn1SpriteShaderLitMaterialInspector : ShaderGUI
     private void ResetProperty(MaterialProperty targetProperty)
     {
         if(originalMaterialCopy == null) originalMaterialCopy = new Material(targetMat.shader);
-        if(targetProperty.propertyType == ShaderPropertyType.Float || targetProperty.propertyType == ShaderPropertyType.Range)
+        if(targetProperty.type == MaterialProperty.PropType.Float || targetProperty.type == MaterialProperty.PropType.Range)
         {
             targetProperty.floatValue = originalMaterialCopy.GetFloat(targetProperty.name);
         }
-        else if(targetProperty.propertyType == ShaderPropertyType.Vector)
+        else if(targetProperty.type == MaterialProperty.PropType.Vector)
         {
             targetProperty.vectorValue = originalMaterialCopy.GetVector(targetProperty.name);
         }
-        else if(targetProperty.propertyType == ShaderPropertyType.Color)
+        else if(targetProperty.type == MaterialProperty.PropType.Color)
         {
             targetProperty.colorValue = originalMaterialCopy.GetColor(targetProperty.name);
         }
-        else if(targetProperty.propertyType == ShaderPropertyType.Texture)
+        else if(targetProperty.type == MaterialProperty.PropType.Texture)
         {
             targetProperty.textureValue = originalMaterialCopy.GetTexture(targetProperty.name);
         }
