@@ -135,11 +135,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CockpitManager
   shakeView: {fileID: 7101735553746501240}
-  shakeForce: 1
+  shakeForce: 3
   shakeTime: 0.35
   distortionTime: 0.25
   distortionTime2: 0.1
-  distortionValueStart: 95
+  distortionValueStart: 250
   distortionValueDamage: 30
   glowValueStart: 1
   glowValueDamage: 6
