@@ -14,7 +14,6 @@ public class CursorController : MonoBehaviour
 
     private bool _isAI;    
     private bool _lastUsedInput;
-    private bool _isMobile;
     private bool _canControl;
     
     private float _nextTime;
@@ -50,7 +49,6 @@ public class CursorController : MonoBehaviour
     {
         _damageHelper.Init();
         _collectorHelper.Init();
-        _isMobile = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer;
         _actions = new InputSystem_Actions();
         _actions.Enable();
         CursorInput = new PlayerInputCursor(_actions);
@@ -138,7 +136,7 @@ public class CursorController : MonoBehaviour
             TryDoDamage();
             _collectorHelper.CollectEnergy(coinCollectorTf, CollectRadius, CurrentDamageScaleHalf);
         }
-        if (CursorInput.GetCursorState(out var worldPos, G.I.cameraMain, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition, _isMobile) == CursorState.None) return;
+        if (CursorInput.GetCursorState(out var worldPos, G.I.cameraMain, transform, inputMoveSpeed, shift, ref _lastUsedInput, ref _lastMousePosition) == EInputType.None) return;
         transform.position = worldPos;
     }
     private void TryDoDamage()

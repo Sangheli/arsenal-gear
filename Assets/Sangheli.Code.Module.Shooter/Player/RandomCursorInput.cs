@@ -12,7 +12,7 @@ public class RandomCursorInput : ICursorInput
         _lastWorldPosition = currentTransform.position;
     }
 
-    public CursorState GetCursorState(out Vector3 worldPos, Camera camera, Transform currentTransform, float inputMoveSpeed, Vector2 shift, ref bool lastUsedInput, ref Vector2 lastMousePosition, bool isMobile)
+    public EInputType GetCursorState(out Vector3 worldPos, Camera camera, Transform currentTransform, float inputMoveSpeed, Vector2 shift, ref bool lastUsedInput, ref Vector2 lastMousePosition)
     {
         // Двигаем курсор в мировых координатах
         var delta = _direction * _speed * Time.deltaTime;
@@ -25,7 +25,7 @@ public class RandomCursorInput : ICursorInput
         worldPos.z = -10f;
         
         if (bounced) _direction = _direction.normalized;
-        return CursorState.Mouse;
+        return EInputType.Mouse;
     }
 
     public static bool MoveBounce(Vector3 screenPos, ref Vector2 direction, float paddingPercent)

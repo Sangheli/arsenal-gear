@@ -13,13 +13,15 @@ using UnityEngine.Serialization;
 
 [RequireComponent(
     typeof(SceneContainer),
-    typeof(OrientationChecker)
+    typeof(OrientationChecker),
+    typeof(InputDetector)
 )]
 
 public class G : MonoBehaviour
 {
     public GameObject debugConsole;
 
+    [FormerlySerializedAs("mobileDetector")] public InputDetector inputDetector;
     public CockpitManager cockpitManager;
     public WeaponManager weaponManager;
     public Camera cameraMain;
@@ -108,6 +110,7 @@ public class G : MonoBehaviour
         orientationChecker ??= GetComponent<OrientationChecker>();
         Container ??= GetComponent<SceneContainer>();
         localization ??= GetComponent<LocalizationBridge>();
+        inputDetector ??= GetComponent<InputDetector>();
     }
     
     private void LateUpdate()
