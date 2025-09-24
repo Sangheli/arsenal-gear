@@ -95,7 +95,7 @@ Shield_Capacity,Shield Capacity,Ёмкость щита,Kalkan Kapasitesi
 Shield_Regen_sec,Shield Regen/sec,Регенерация щита/сек,Kalkan Yenilenme/sn
 Crit_Chance,Crit Chance %,Шанс крита %,Kritik Şans %
 Crit_Multiplier,Crit Multiplier,Множитель крита,Kritik Çarpan
-Auto_Collect_Coins,Leftover Coin Collect %,% сбора оставшихся монет,Artan Para Toplama %
+Auto_Collect_Coins,% Missed Coins,% пропущенных монет,% Kaçırılan Paralar
 AI_Cursor_Count,AI Cursor Count,Курсоры ИИ,Yapay Zeka İmleçleri
 AI_Cursor_Damage_Player,Damage\n% of Player,Урон\n% от игрока,Yapay Zeka Hasarı\nOyuncunun %’si
 AI_Cursor_Radius_Player,Radius\n% of Player,Радиус\n% от игрока,Yapay Zeka Yarıçapı\nOyuncunun %’si
