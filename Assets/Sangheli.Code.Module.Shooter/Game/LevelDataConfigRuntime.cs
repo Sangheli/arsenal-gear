@@ -9,7 +9,7 @@ public class LevelDataConfigRuntime
 {
     private readonly Dictionary<int, LevelConfig> _levels = new();
 
-    public const int SkipTutorialLevels = 6;
+    public const int SkipTutorialLevels = 5;
     
     private const double MinRewardBoss = 100;
     private static double MaxRewardBoss = 2000000;
@@ -17,14 +17,25 @@ public class LevelDataConfigRuntime
     private float coef = 13.28f;
     
     private const int tierStep = 7;
-    
-    private static readonly List<LevelObjectiveType> ExcludeObjectiveTypes = new()
+
+    private const int MineralStepMin = 2;
+    private static int _lastMineralRound;
+
+    private static readonly List<LevelObjectiveType> ObjectivesAll = new()
     {
-        LevelObjectiveType.None,
-        LevelObjectiveType.Boss,
-        LevelObjectiveType.Factory,
+        LevelObjectiveType.Time,
+        LevelObjectiveType.CoinCount,
+        LevelObjectiveType.EnemyCount,
+        LevelObjectiveType.Mineral,
     };
 
+    private static readonly List<LevelObjectiveType> ObjectivesAllWithoutMineral = new()
+    {
+        LevelObjectiveType.Time,
+        LevelObjectiveType.CoinCount,
+        LevelObjectiveType.EnemyCount,
+    };
+    
     public LevelDataConfigRuntime()
     {
         var totalPrice = G.I.Data.ParamData.GetTotalPrice();
@@ -100,9 +111,14 @@ public class LevelDataConfigRuntime
     public LevelConfig Get(int levelId, bool overrideNew)
     {
         _levels.TryGetValue(levelId, out var config);
-        return (overrideNew && levelId >= SkipTutorialLevels) || config == null
+        var result = (overrideNew && levelId >= SkipTutorialLevels) || config == null
             ? _levels[levelId] = GenerateRandomLevel(levelId)
             : config;
+
+        if (result.objectiveType == LevelObjectiveType.Mineral) 
+            _lastMineralRound = result.levelId;
+        
+        return result;
     }
 
     private static string GetLevelJsonPath(int levelIndex)
@@ -196,14 +212,9 @@ public class LevelDataConfigRuntime
         if ((i + 1) % 5 == 0) 
             return LevelObjectiveType.Boss;
         
-        // Generate list of non-boss objectives
-        var nonBossObjectives = Enum.GetValues(typeof(LevelObjectiveType))
-            .Cast<LevelObjectiveType>()
-            .Where(type => !ExcludeObjectiveTypes.Contains(type))
-            .ToArray();
-            
-        // Select random objective from non-boss types
-        return nonBossObjectives[Random.Range(0, nonBossObjectives.Length)];
+        return i - MineralStepMin >= _lastMineralRound 
+            ? ObjectivesAll[Random.Range(0, ObjectivesAll.Count)] 
+            : ObjectivesAllWithoutMineral[Random.Range(0, ObjectivesAll.Count)];
     }
 
     private static int CalculateBossHp(float t, float playerDps)
