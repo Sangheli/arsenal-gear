@@ -102,12 +102,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bebc5b6983f4b2f9f585303e5f7bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon2D
+  RayType: 1
   Type: 2
   bounceScale: 1.2
   bounceSpeed: 10
   startScale: {x: 0, y: 0, z: 0}
   view: {fileID: 3258655074197701571}
   clampPosition: {fileID: 5395615937491245226}
+  startPosTf: {fileID: 0}
+  endPosTf: {fileID: 0}
 --- !u!114 &5395615937491245226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +127,7 @@ MonoBehaviour:
   maxBounds: {x: 5.5, y: 1.2}
   useSideMagnet: 1
   invert: 1
-  toCheckRT: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &4195122405937245481
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,12 +264,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bebc5b6983f4b2f9f585303e5f7bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon2D
+  RayType: 3
   Type: 1
   bounceScale: 1.2
   bounceSpeed: 10
   startScale: {x: 0, y: 0, z: 0}
   view: {fileID: 4852995047847591733}
   clampPosition: {fileID: 8845643548800052394}
+  startPosTf: {fileID: 0}
+  endPosTf: {fileID: 0}
 --- !u!114 &8845643548800052394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +289,7 @@ MonoBehaviour:
   maxBounds: {x: -1.8, y: 0.59}
   useSideMagnet: 0
   invert: 0
-  toCheckRT: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &5954548842481608692
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,12 +336,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bebc5b6983f4b2f9f585303e5f7bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon2D
+  RayType: 1
   Type: 2
   bounceScale: 1.2
   bounceSpeed: 10
   startScale: {x: 0, y: 0, z: 0}
   view: {fileID: 7794766358671221577}
   clampPosition: {fileID: 4382550661490504812}
+  startPosTf: {fileID: 0}
+  endPosTf: {fileID: 0}
 --- !u!114 &4382550661490504812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +361,7 @@ MonoBehaviour:
   maxBounds: {x: 5.5, y: 1.2}
   useSideMagnet: 1
   invert: 0
-  toCheckRT: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &6123875593831934767
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,12 +408,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bebc5b6983f4b2f9f585303e5f7bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon2D
+  RayType: 3
   Type: 1
   bounceScale: 1.2
   bounceSpeed: 10
   startScale: {x: 0, y: 0, z: 0}
   view: {fileID: 7599224887316791535}
   clampPosition: {fileID: 5407460759211279360}
+  startPosTf: {fileID: 0}
+  endPosTf: {fileID: 0}
 --- !u!114 &5407460759211279360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +433,7 @@ MonoBehaviour:
   maxBounds: {x: 4.8, y: 0.59}
   useSideMagnet: 0
   invert: 0
-  toCheckRT: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &6665674984104034726
 GameObject:
   m_ObjectHideFlags: 0

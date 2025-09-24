@@ -594,7 +594,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3555544701851134283}
-  - {fileID: 6454925654679870}
   - {fileID: 4654724262879309201}
   - {fileID: 530654202170293124}
   m_Father: {fileID: 8873996404641677064}
@@ -1820,6 +1819,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2046838072144494054}
+  - {fileID: 6454925654679870}
   - {fileID: 8873996404641677064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2058,11 +2058,11 @@ RectTransform:
   m_Children:
   - {fileID: 1534091769726293984}
   - {fileID: 7933480548674513092}
-  m_Father: {fileID: 3019242306526236611}
+  m_Father: {fileID: 8694430500510272092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -190, y: 194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 240, y: -284}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9080242670282590751
@@ -2081,7 +2081,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4704061688832904467}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2231,10 +2231,10 @@ RectTransform:
   - {fileID: 5801393828466664623}
   m_Father: {fileID: 3019242306526236611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 289, y: -939}
-  m_SizeDelta: {x: 457.40002, y: 150}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -259, y: 141}
+  m_SizeDelta: {x: 457.3999, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3205334249395002934
 CanvasRenderer:
@@ -3057,7 +3057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -207.15405}
+  m_AnchoredPosition: {x: 0, y: -207}
   m_SizeDelta: {x: -60, y: 164.1329}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &779152144792750348
