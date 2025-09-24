@@ -3,7 +3,7 @@
     "LevelStringEntry": "tutor3",
     "objectiveType": 3,
     "objectiveValue": 35,
-    "roundTime": 7.0,
+    "roundTime": 5.0,
     "bossHp": 75,
     "bossAttack": 0.25,
     "levelReward": 100,
