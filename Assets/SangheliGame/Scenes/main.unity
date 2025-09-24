@@ -1106,6 +1106,7 @@ GameObject:
   - component: {fileID: 1503166285}
   - component: {fileID: 1503166287}
   - component: {fileID: 1503166288}
+  - component: {fileID: 1503166289}
   m_Layer: 0
   m_Name: G
   m_TagString: Untagged
@@ -1138,6 +1139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G
   debugConsole: {fileID: 0}
+  mobileDetector: {fileID: 0}
   cockpitManager: {fileID: 1499923762}
   weaponManager: {fileID: 1395614469}
   cameraMain: {fileID: 519420031}
@@ -1387,6 +1389,19 @@ MonoBehaviour:
   autoDestroyDelay: 0.05
   laserGO: {fileID: 5428816588514901664, guid: 9d9e6a8ac2daea8428f67576b411f5a5, type: 3}
   thickness: 0.1
+--- !u!114 &1503166289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503166272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa13e82261d2466b9de72b9b501cb922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobileDetector
+  overrideMobileState: 0
 --- !u!4 &1678977254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 822350038660724014, guid: 7ffd903ff78eeda4994b78aeb378204f, type: 3}
@@ -1940,6 +1955,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8873996404641677064, guid: 1575edd5cfecbb84098a3bb409724de2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2133,6 +2152,22 @@ PrefabInstance:
     - target: {fileID: 7428196205547390857, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
       propertyPath: m_Name
       value: TutorManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606340168322387232, guid: fa9fa01beb22cab4f86b85ae96b192fa, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3085,6 +3120,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1888777723642964916, guid: 75424bca0842ac24891d95bbbb8b2861, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888777723642964916, guid: 75424bca0842ac24891d95bbbb8b2861, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888777723642964916, guid: 75424bca0842ac24891d95bbbb8b2861, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1896091215416360486, guid: 75424bca0842ac24891d95bbbb8b2861, type: 3}
