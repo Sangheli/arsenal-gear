@@ -2,7 +2,7 @@
     "levelId": 0,
     "LevelStringEntry": "tutorMinusOne",
     "objectiveType": 1,
-    "objectiveValue": 60,
+    "objectiveValue": 80,
     "roundTime": 30.0,
     "bossHp": 10,
     "bossAttack": 1.0,
@@ -12,18 +12,14 @@
     "showGoToUpgradesButton": false,
     "showTerminateButton": false,
     "useWinColorOnFail": false,
-    "playerAutoAttack": false,
+    "playerAutoAttack": true,
     "bossEnemySpawnRateMultiplier": 5.0,
-    "preSpawnEnemyCount": 5,
+    "preSpawnEnemyCount": 1,
     "poisonDamageSpeed": 0.0,
     "levelModifiers": [],
     "isSafeLevel": true,
+    "MaxEnemyOnScreen": 1,
     "enemies": [
-        {
-            "enemyId": 4,
-            "spawnChance": 0.0,
-            "spawnRate": 0
-        },
         {
             "enemyId": 0,
             "spawnChance": 100.0,
