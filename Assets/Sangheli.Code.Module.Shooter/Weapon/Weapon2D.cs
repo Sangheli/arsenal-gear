@@ -27,6 +27,11 @@ public class Weapon2D : MonoBehaviour
         startScale = view.transform.localScale;
     }
 
+    public void SetPos(Vector2 pos)
+    {
+        clampPosition.SetPosition(pos);
+    }
+    
     public void SetPos(Vector3 pos)
     {
         clampPosition.SetPosition(pos);

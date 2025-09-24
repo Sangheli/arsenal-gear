@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ClampPosition : MonoBehaviour
 {
@@ -10,11 +11,29 @@ public class ClampPosition : MonoBehaviour
     public bool useSideMagnet;
     public bool invert;
 
+    [Header("Плавность движения")]
+    [Range(0.01f, 20f)] public float moveSpeed = 10f;
+
     private const float ConstX = 10.26399200013f;
+
+    private Vector3 targetWorldPos; // сюда будем сохранять целевую позицию
 
     private void Awake()
     {
         if (useSideMagnet) RecalcBounds();
+
+        // чтобы стартовать без рывка
+        targetWorldPos = transform.position;
+    }
+
+    private void Update()
+    {
+        // Плавно двигаем объект к targetWorldPos
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetWorldPos,
+            Time.deltaTime * moveSpeed
+        );
     }
 
     private void RecalcBounds()
@@ -42,12 +61,32 @@ public class ClampPosition : MonoBehaviour
     /// </summary>
     public void SetPosition(Vector3 targetPos)
     {
+        var worldPos = targetPos;
+        
         // Ограничиваем X и Y
-        float clampedX = Mathf.Clamp(targetPos.x, minBounds.x, maxBounds.x);
-        float clampedY = Mathf.Clamp(targetPos.y, minBounds.y, maxBounds.y);
+        float clampedX = Mathf.Clamp(worldPos.x, minBounds.x, maxBounds.x);
+        float clampedY = Mathf.Clamp(worldPos.y, minBounds.y, maxBounds.y);
 
         // Z оставляем от targetPos
-        var transform1 = transform;
-        transform1.position = new Vector3(clampedX, clampedY, transform1.position.z);
+        targetWorldPos = new Vector3(clampedX, clampedY, transform.position.z);
+    }
+    
+    /// <summary>
+    /// Устанавливает целевую позицию (объект двигается плавно).
+    /// </summary>
+    public void SetPosition(Vector2 screenPos)
+    {
+        var objPos = transform.position;
+        var cam = G.I.cameraMain.transform;
+        var distance = Vector3.Dot(objPos - cam.position, cam.forward);
+        var screenPoint = new Vector3(screenPos.x, screenPos.y, distance);
+        var worldPos = G.I.cameraMain.ScreenToWorldPoint(screenPoint);
+
+        // Ограничиваем X и Y
+        float clampedX = Mathf.Clamp(worldPos.x, minBounds.x, maxBounds.x);
+        float clampedY = Mathf.Clamp(worldPos.y, minBounds.y, maxBounds.y);
+
+        // целевая позиция (Z оставляем)
+        targetWorldPos = new Vector3(clampedX, clampedY, transform.position.z);
     }
 }

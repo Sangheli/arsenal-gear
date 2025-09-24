@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -72,6 +73,31 @@ public class WeaponManager : MonoBehaviour
         
         foreach (var w in currentWeapons)
             w.SetPos(G.I.playerCursor.transform.position);
+    }
+    
+    private void LateUpdateNew()
+    {
+        if(currentWeapons == null)
+            return;
+        
+        if (currentWeapons.Count == 0)
+            return;
+        
+        var screenPos = GetScreenPos();
+
+        foreach (var w in currentWeapons)
+            w.SetPos(screenPos);
+    }
+
+    private static Vector2 GetScreenPos()
+    {
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            return Touchscreen.current.primaryTouch.position.ReadValue();
+        
+        if(Mouse.current != null)
+            return Mouse.current.position.ReadValue();
+        
+        return Vector2.zero;
     }
 
     public void Shoot(Vector3 endPos)
