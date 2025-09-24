@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveSystem
 {
-    private const int SaveSlot = 0;
+    public const int SaveSlot = 0;
     private const string SaveKeyPrefix = "SaveSlot_";
     
     public static void SaveSilent() => Save(false, EndRoundFadeEnum.None);
