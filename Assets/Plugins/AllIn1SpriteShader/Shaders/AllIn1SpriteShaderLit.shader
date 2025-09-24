@@ -2729,6 +2729,8 @@ Shader "AllIn1SpriteShader/AllIn1SpriteShaderLit"
 			normalTS.xy *= _NormalStrength;
 			o.Normal = normalTS;
 		#endif
+        float normalSign = sign(dot(d.worldSpaceViewDir, d.worldSpaceNormal));
+        o.Normal *= normalSign;
 
 
 		//GLITCH_ON
@@ -6287,6 +6289,8 @@ Shader "AllIn1SpriteShader/AllIn1SpriteShaderLit"
 			normalTS.xy *= _NormalStrength;
 			o.Normal = normalTS;
 		#endif
+        float normalSign = sign(dot(d.worldSpaceViewDir, d.worldSpaceNormal));
+        o.Normal *= normalSign;
 
 
 		//GLITCH_ON
@@ -9871,6 +9875,8 @@ Shader "AllIn1SpriteShader/AllIn1SpriteShaderLit"
 			normalTS.xy *= _NormalStrength;
 			o.Normal = normalTS;
 		#endif
+        float normalSign = sign(dot(d.worldSpaceViewDir, d.worldSpaceNormal));
+        o.Normal *= normalSign;
 
 
 		//GLITCH_ON
@@ -13338,6 +13344,8 @@ Shader "AllIn1SpriteShader/AllIn1SpriteShaderLit"
 			normalTS.xy *= _NormalStrength;
 			o.Normal = normalTS;
 		#endif
+        float normalSign = sign(dot(d.worldSpaceViewDir, d.worldSpaceNormal));
+        o.Normal *= normalSign;
 
 
 		//GLITCH_ON
@@ -16739,6 +16747,8 @@ Shader "AllIn1SpriteShader/AllIn1SpriteShaderLit"
 			normalTS.xy *= _NormalStrength;
 			o.Normal = normalTS;
 		#endif
+        float normalSign = sign(dot(d.worldSpaceViewDir, d.worldSpaceNormal));
+        o.Normal *= normalSign;
 
 
 		//GLITCH_ON

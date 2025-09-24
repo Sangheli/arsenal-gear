@@ -13,6 +13,7 @@ public class CursorDamageHelper3D
     private float LastDistance { get; set; }
     private Vector3[] LastHitPoints { get; } = new Vector3[256];
     private int LastHitCount { get; set; }
+    private static Vector2 _lastTouchPosition = Vector2.zero;
 
     public void Init()
     {
@@ -102,9 +103,17 @@ public class CursorDamageHelper3D
     }
 
     private static Vector2 GetInputPosition() =>
-        Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed
-            ? Touchscreen.current.primaryTouch.position.ReadValue()
+        G.I.inputDetector.GetCurrentInputType == EInputType.Touch && Touchscreen.current != null
+            ? GetLastTouchPosition() 
             : Mouse.current.position.ReadValue();
+
+    private static Vector2 GetLastTouchPosition()
+    {
+        var touch = Touchscreen.current.primaryTouch;
+        return touch.phase.ReadValue() != UnityEngine.InputSystem.TouchPhase.None
+            ? _lastTouchPosition = touch.position.ReadValue()
+            : _lastTouchPosition;
+    }
 
     // Метод для гизмосов
     public void DrawGizmos()
@@ -153,5 +162,10 @@ public class CursorDamageHelper3D
             Gizmos.DrawLine(prevPoint, nextPoint);
             prevPoint = nextPoint;
         }
+    }
+
+    public void Reset()
+    {
+        _lastTouchPosition = Vector2.zero;
     }
 }

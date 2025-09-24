@@ -21,7 +21,7 @@ MonoBehaviour:
   playDeathSound2: 0
   showHPbar: 0
   cantDie: 0
-  BaseHealth: 0
+  BaseHealth: 2
   UnitMoveType: 1
   Speed: 0
   rotationSpeed: {x: 0, y: 0, z: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
     useRandomSpawnRate: 1
     spawnRate1: 4
     spawnRate2: 10
-  useSelfDestruct: 1
+  useSelfDestruct: 0
   useRandomSelfDestructTime: 1
   selfDestructTime: 1.5
   selfDestructTimeRandomAdd: 0.5
@@ -75,10 +75,11 @@ MonoBehaviour:
   UpgradeInfos:
   - row: 0
     DisplayName: Energy_Drop
-    BaseValue: 1
+    BaseValue: 10
     MaxValue: 90
     Step: 5
     BasePrice: 300
     PriceMult: 1.2
     ShowUpgrade: 0
+    AutoFormat: 0
     Type: 1

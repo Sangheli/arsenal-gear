@@ -17,6 +17,8 @@ public class DataSave
     public int upgradesBoughtNum;
     public int shopVisits;
 
+    public int lastAnalyticsSavedGameMinute = -1;
+
     public ParamContainer paramContainer;
     public EnemyUpgradeContainer enemyUpgradeContainer;
     

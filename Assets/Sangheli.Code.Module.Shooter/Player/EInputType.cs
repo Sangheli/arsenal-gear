@@ -1,4 +1,4 @@
-public enum CursorState
+public enum EInputType
 {
     None,
     Mouse,

@@ -28,12 +28,12 @@ boss,Boss,Босс,Boss
 reward,Reward,Награда,Ödül
 auto_collect,Auto Collect,Автосбор,Oto Topla
 language,Language,Язык,Dil
-tutorMinusOne,"Another robo-army has been defeated\nCatch coins, this is your reward","Ещё одна армия роботов повержена. Ловите монеты, это ваша награда.","Başka bir robo-ordu yenildi\nParaları yakala, ödülün bu"
+tutorMinusOne,"Target enemies, fire, and collect coins","Цельтесь в врагов, стреляйте и собирайте монеты","Düşmanları hedef alın, ateş edin ve paraları toplayın"
 tutor0,Point crosshair to shoot\nA new robot army is on the way,"Наведите прицел, чтобы стрелять.\nНовая армия роботов уже в пути.",Nişangahı doğrultup ateş edin\nYeni bir robot ordusu yolda
 tutor1,Sometime You Lose HP over Time,Иногда вы теряете здоровье со временем,Bazen zamanla HP kaybedersiniz
 tutor2,Robots attack you too\nFight back,Роботы тоже нападают на вас\nДайте отпор,Robotlar da sana saldırıyor\nKarşı koy
 tutor3,Fight with Boss\nTo Complete Level,Сразитесь с боссом\nЧтобы пройти уровень,Seviyeyi Tamamlamak İçin Boss ile Savaş
-tutor4,A great battle with robot armies awaits\nCollect coins by mining minerals to prepare,"Вас ждет грандиозная битва с армиями роботов.\nСобирайте монеты, добывая минералы, чтобы подготовиться.",Robot ordularıyla büyük bir savaş sizi bekliyor. Hazırlanmak için mineralleri çıkararak para toplayın.
+tutor4,"Mine minerals to collect coins, and power up","Добывайте минералы, чтобы собирать монеты и улучшать свои способности.",Madeni paraları toplamak ve güçlenmek için mineralleri çıkarın
 tutor5,Destroy factories\nTo reduce robot reinforcements,Уничтожайте фабрики\nЧтобы уменьшить количество подкреплений роботов,Fabrikaları yok edin\nRobot takviyelerini azaltmak için
 start_new,New Game,Новая Игра,Yeni Oyun
 load_checkpoint,Continue,Продолжить,Yükle
@@ -95,7 +95,7 @@ Shield_Capacity,Shield Capacity,Ёмкость щита,Kalkan Kapasitesi
 Shield_Regen_sec,Shield Regen/sec,Регенерация щита/сек,Kalkan Yenilenme/sn
 Crit_Chance,Crit Chance %,Шанс крита %,Kritik Şans %
 Crit_Multiplier,Crit Multiplier,Множитель крита,Kritik Çarpan
-Auto_Collect_Coins,Auto Collect Coins %,Автосбор монет %,Otomatik Para Toplama %
+Auto_Collect_Coins,% Missed Coins,% пропущенных монет,% Kaçırılan Paralar
 AI_Cursor_Count,AI Cursor Count,Курсоры ИИ,Yapay Zeka İmleçleri
 AI_Cursor_Damage_Player,Damage\n% of Player,Урон\n% от игрока,Yapay Zeka Hasarı\nOyuncunun %’si
 AI_Cursor_Radius_Player,Radius\n% of Player,Радиус\n% от игрока,Yapay Zeka Yarıçapı\nOyuncunun %’si

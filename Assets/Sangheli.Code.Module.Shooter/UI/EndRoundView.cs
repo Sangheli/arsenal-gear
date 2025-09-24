@@ -165,6 +165,7 @@ public class EndRoundView : MonoBehaviour
         }
         
         View.SetActive(state);
+        saveInfo.gameObject.SetActive(state);
         returnToStartButton.gameObject.SetActive(false);
     }
 

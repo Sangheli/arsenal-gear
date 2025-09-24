@@ -25,17 +25,14 @@ public class EndRoundViewDistortion : MonoBehaviour
     public Color demoColor;
     public Color playerTerminatedColor;
 
-    private void Awake()
+    public void OnLoadInit()
     {
         // Создаём копию материала, чтобы не менять sharedMaterial
         if (ViewImage.material != null)
             ViewImage.material = Instantiate(ViewImage.material);
         
         _mat = ViewImage.material;
-    }
-
-    public void OnLoadInit()
-    {
+        
         ResetView();
         gameObject.SetActive(false);
     }

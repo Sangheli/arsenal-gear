@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050e98092e7a40609207cda834a23e07, type: 3}
   m_Name: EnemyRobot13
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: 3277496391944960994, guid: 39758cca78fb36444a39dbb0411169b3, type: 3}
+  prefab: {fileID: 3277496391944960994, guid: 99a0635bdb7608342b6b427d21e89e8d, type: 3}
   DisplayName: Round_Orange
   excludeFromLevelGeneration: 0
   EnemyType: 1
@@ -35,29 +35,26 @@ MonoBehaviour:
     spriteBorder: {fileID: 21300000, guid: 20bf8c331d8215a438a452ce10206713, type: 3}
     multiSprite: []
     useMultiSprite: 0
-  useRandomColor: 0
-  color: {r: 0.70980394, g: 0.49803925, b: 0.19607845, a: 1}
-  userOverrideBorderColor: 0
-  overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
-  hitVfxColor: {r: 0.9215687, g: 0.8941177, b: 0.36078432, a: 1}
   colorData:
     useRandomColor: 0
     color: {r: 0.70980394, g: 0.49803922, b: 0.19607843, a: 1}
     userOverrideBorderColor: 0
     overrideBorderColor: {r: 0, g: 0, b: 0, a: 0}
     hitVfxColor: {r: 0.92156863, g: 0.89411765, b: 0.36078432, a: 1}
-  spawnAtStart: 0
-  spawnAtStartHardcore: 0
-  useRandomSpawnRate: 0
-  spawnRate1: 0
-  spawnRate2: 0
+  spawnData:
+    spawnAtStart: 0
+    spawnAtStartHardcore: 0
+    useRandomSpawnRate: 0
+    spawnRate1: 0
+    spawnRate2: 0
   useSelfDestruct: 0
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
   PosConfig:
     useCustomZPos: 0
-    customZPos: 0
+    customZPosMin: 0
+    customZPosMax: 0
     ignoreSpawnPositionManager: 0
     useRanomYPos: 0
     minY: 0
@@ -81,4 +78,5 @@ MonoBehaviour:
     BasePrice: 100
     PriceMult: 1.2
     ShowUpgrade: 0
+    AutoFormat: 0
     Type: 1

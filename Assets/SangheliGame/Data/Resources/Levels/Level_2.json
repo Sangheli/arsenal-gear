@@ -1,11 +1,11 @@
 {
     "levelId": 2,
-    "LevelStringEntry": "tutor2",
-    "objectiveType": 4,
-    "objectiveValue": 15,
-    "roundTime": 15.0,
-    "bossHp": 42,
-    "bossAttack": 3.0,
+    "LevelStringEntry": "tutor4",
+    "objectiveType":5,
+    "objectiveValue": 50,
+    "roundTime": 20.0,
+    "bossHp": 21,
+    "bossAttack": 1.0,
     "levelReward": 0,
     "showHpBar": true,
     "checkNextRoundFromSave": false,
@@ -18,17 +18,11 @@
     "poisonDamageSpeed": 0.0,
     "levelModifiers": [],
     "isSafeLevel": true,
-    "MaxEnemyOnScreen": 5,
     "enemies": [
         {
-            "enemyId": 3,
+            "enemyId": 19,
             "spawnChance": 100.0,
-            "spawnRate": 15.0
-        },
-        {
-            "enemyId": 2,
-            "spawnChance": 100.0,
-            "spawnRate": 35.0
+            "spawnRate": 30.0
         }
     ]
 }

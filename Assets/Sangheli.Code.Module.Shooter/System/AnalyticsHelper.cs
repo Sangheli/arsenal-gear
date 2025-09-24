@@ -6,10 +6,13 @@ using UnityEngine;
 
 public static class AnalyticsHelper
 {
-    private const string ProgressString = "ce_progress_";
+    private const string ProgressString = "ce_pv2_";
+    private const string MinuteString = "ce_minute_";
     
     public static void Checkpoint(EndRoundFadeEnum fadeType)
     {
+        SendMinutes();
+        
         const string eventName = "ce_checkpoint";
         
         var save = G.I.SaveProvider.Get();
@@ -29,6 +32,27 @@ public static class AnalyticsHelper
         Send(customEvent, eventName);
     }
     
+    private static void SendMinutes()
+    {
+        var save = G.I.SaveProvider.Get();
+        var currentGameMinute = Mathf.FloorToInt(save.timeSinceStart / 60f);
+        var lastSavedMinute = save.lastAnalyticsSavedGameMinute;
+
+        // Send analytics for each passed minute since last saved
+        for (var minute = lastSavedMinute + 1; minute <= currentGameMinute; minute++)
+        {
+            var eventName = $"{MinuteString}{minute:D3}";
+            var customEvent = new CustomEvent(eventName);
+            Send(customEvent, eventName);
+        }
+
+        if (currentGameMinute-lastSavedMinute>0)
+        {
+            save.lastAnalyticsSavedGameMinute = currentGameMinute;
+            G.I.SaveProvider.Save(SaveSystem.SaveSlot, false, EndRoundFadeEnum.None);
+        }
+    }
+
     public static void OnYoutubeClicked()
     {
         const string eventName = "ce_youtube";
@@ -45,7 +69,7 @@ public static class AnalyticsHelper
     
     public static void OnFirstGameLaunch()
     {
-        const string eventName = "ce_newGame";
+        var eventName = $"{ProgressString}000000";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent,eventName);
     }
@@ -150,14 +174,14 @@ public static class AnalyticsHelper
     
     public static void OnLevelProgressMilestone(int milestone)
     {
-        string eventName = $"{ProgressString}{milestone:D3}";
+        string eventName = $"{ProgressString}{milestone:D3}000";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
     
     public static void OnTutorialLevelProgress(int tutorialLevel)
     {
-        string eventName = $"{ProgressString}000_{tutorialLevel+1:D3}";
+        string eventName = $"{ProgressString}000{tutorialLevel+1:D3}";
         var customEvent = new CustomEvent(eventName);
         Send(customEvent, eventName);
     }
@@ -172,7 +196,7 @@ public static class AnalyticsHelper
     public static void CheckLevelProgressMilestones(int previousLevel, int newLevel)
     {
         // Get the max level
-        if (previousLevel < LevelDataConfigRuntime.SkipTutorialLevels ) 
+        if (previousLevel < 10 ) 
             OnTutorialLevelProgress(previousLevel);
 
         int maxLevel = G.I.maxLevel;
