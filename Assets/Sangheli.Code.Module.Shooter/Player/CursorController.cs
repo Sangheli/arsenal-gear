@@ -77,6 +77,7 @@ public class CursorController : MonoBehaviour
     
     private void InitParams(float damagePercent = 1f, float radiusPercent = 1f, float fireRatePercent = 1f)
     {
+        transform.position = new Vector3(0, 0, -10);
         _damageHelper.Reset();
         var paramContainer = _save.GetParamContainer();
         CurrentDamageScale = paramContainer.GetValue("damageDiameter") * radiusPercent;
