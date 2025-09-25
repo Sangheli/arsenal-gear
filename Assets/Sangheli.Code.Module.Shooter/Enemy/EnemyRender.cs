@@ -8,6 +8,8 @@ public class EnemyRender : MonoBehaviour
     private readonly int _colorProperty = Shader.PropertyToID("_Color");
     public string borderColorPropName = "_Color";
     public int borderColorProp = 0;
+
+    public Transform mainView;
     
     [Space]
     public SpriteRenderer[] viewRenderArr;
@@ -64,7 +66,7 @@ public class EnemyRender : MonoBehaviour
         
         _originalScale = viewScale;
         _originalScaleShadow = viewScale;
-        viewRenderArr[0].transform.localScale = _originalScale*scale;
+        mainView.localScale = _originalScale*scale;
         // shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
     }
     
@@ -94,7 +96,7 @@ public class EnemyRender : MonoBehaviour
     public void SetScale(float scale)
     {
         this.scale = scale;
-        viewRenderArr[0].transform.localScale = _originalScale*scale;
+        mainView.localScale = _originalScale*scale;
         // shadowRenderArr[0].transform.localScale = _originalScaleShadow*scale;
     }
 
@@ -124,7 +126,7 @@ public class EnemyRender : MonoBehaviour
         addonScale /= scale;
         
         // Запуск и кеширование новых корутин
-        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(viewRenderArr[0].transform, _originalScale*scale, 1+addonScale, duration));
+        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(mainView, _originalScale*scale, 1+addonScale, duration));
         // _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(shadowRenderArr[0].transform, _originalScaleShadow*scale, 1+addonScale, duration));
     }
 
@@ -147,7 +149,7 @@ public class EnemyRender : MonoBehaviour
         if (_critColorRoutine != null)
             StopCoroutine(_critColorRoutine);
         
-        var transform2 = viewRenderArr[0].transform;
+        var transform2 = mainView;
         // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
         // transform3.localScale = _originalScaleShadow;
@@ -159,7 +161,7 @@ public class EnemyRender : MonoBehaviour
     
     public void ResetItem()
     {
-        var transform2 = viewRenderArr[0].transform;
+        var transform2 = mainView;
         // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
         // transform3.localScale = _originalScaleShadow;
@@ -202,7 +204,7 @@ public class EnemyRender : MonoBehaviour
 
     public IEnumerator DeathAnimation()
     {
-        var transform1 = viewRenderArr[0].transform;
+        var transform1 = mainView.transform;
         // var transform2 = shadowRenderArr[0].transform;
         
      yield return   StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
@@ -253,11 +255,12 @@ public class EnemyRender : MonoBehaviour
 
     public void SetDirection(Vector2 moveDirection)
     {
-        var abs = Mathf.Abs(_originalScale.x);
-        _originalScale.x = abs * (moveDirection.x < 0 ? -1 : 1);
-        _originalScaleShadow.x *= moveDirection.x < 0 ? -1 : 1;
+        // var abs = Mathf.Abs(_originalScale.x);
+        var newScale = Vector3.one;
+        newScale.x = moveDirection.x < 0 ? -1 : 1;
+        // _originalScaleShadow.x *= moveDirection.x < 0 ? -1 : 1;
 
-        viewRenderArr[0].transform.localScale = _originalScale;
+        viewRenderArr[0].transform.localScale = newScale;
         // shadowRenderArr[0].transform.localScale = _originalScaleShadow;
     }
 }
