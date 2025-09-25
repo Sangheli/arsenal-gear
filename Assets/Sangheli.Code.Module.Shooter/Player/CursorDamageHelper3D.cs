@@ -103,7 +103,7 @@ public class CursorDamageHelper3D
     }
 
     private static Vector2 GetInputPosition() =>
-        G.I.inputDetector.GetCurrentInputType == EInputType.Touch && Touchscreen.current != null
+        G.I.inputDetector.Handler.GetCurrentInputType() == EInputType.Touch && Touchscreen.current != null
             ? GetLastTouchPosition() 
             : Mouse.current.position.ReadValue();
 

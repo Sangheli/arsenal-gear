@@ -2,23 +2,14 @@
 
 public class InputDetector : MonoBehaviour
 {
-    private EInputType _inputType;
+    public EInputType InputType { get; private set; }
     public EInputType overrideMobileState;
     
+    public IInputDetectorHandler Handler;
+
     private void Awake()
     {
-        _inputType = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer ? EInputType.Touch :  EInputType.Mouse;
-    }
-    
-    public EInputType GetCurrentInputType
-    {
-        get
-        {
-#if UNITY_EDITOR
-            if (overrideMobileState != EInputType.None)
-                return overrideMobileState;
-#endif
-            return _inputType;
-        }
+        InputType = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer ? EInputType.Touch :  EInputType.Mouse;
+        Handler = new InputDetectorBase(this);
     }
 }

@@ -16,7 +16,7 @@ public class PlayerInputCursor : ICursorInput
         var state = EInputType.None;
         var move = _inputSystemActions.Player.Move.ReadValue<Vector2>();
         var currentMousePosition = Mouse.current != null ? Mouse.current.position.ReadValue() : Vector2.zero;
-        var inputType = G.I.inputDetector.GetCurrentInputType;
+        var inputType = G.I.inputDetector.Handler.GetCurrentInputType();
         
         if (inputType == EInputType.Touch && Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
         {
