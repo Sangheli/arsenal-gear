@@ -41,6 +41,7 @@ public class SoundContainer : ScriptableObject
         public bool useCustomPitch;
         public bool useCustomStartPitch;
         public float customStartPitch = 1;
+        public bool playLoop;
         
         public float GetPitch()
         {

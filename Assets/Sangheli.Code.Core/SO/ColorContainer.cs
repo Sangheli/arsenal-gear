@@ -17,4 +17,16 @@ public class ColorContainer : ScriptableObject
     public int Length => colors.Length;
     
     public Color this[int index] => GetColor(index);
+
+    public Color PickRandom()
+    {
+        if (colors == null || colors.Length == 0)
+        {
+            Debug.LogWarning("ColorContainer пуст — невозможно выбрать случайный цвет.");
+            return Color.white;
+        }
+
+        var index = UnityEngine.Random.Range(0, colors.Length);
+        return colors[index];
+    }
 }

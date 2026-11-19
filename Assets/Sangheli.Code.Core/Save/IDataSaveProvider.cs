@@ -8,6 +8,7 @@ public interface IDataSaveProvider
     void Save(int slot, bool sendAnalytics, EndRoundFadeEnum endRoundType);
     void SaveSystemSave();
     void CreateNew();
+    void ResetSave();
     void ResetSystemSave();
     void ApplyFromSave(int slot);
     bool IsExist();

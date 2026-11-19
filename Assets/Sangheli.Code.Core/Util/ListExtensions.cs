@@ -24,6 +24,34 @@ public static class ListExtensions
     public static List<T> PickRandom<T>(this IEnumerable<T> source, int num) => 
         source.ToList().PickRandom(num);
     
-    public static T PickRandomSingle<T>(this List<T> source) => 
+    public static T PickRandomSingle<T>(this IList<T> source) =>
         source[UnityEngine.Random.Range(0, source.Count)];
+
+    public static T PickRandomSingle<T>(this IEnumerable<T> source) =>
+        source.ToList().PickRandomSingle();
+
+    public static T PickRandomSingle<T>(this IEnumerable<T> source, IList<T> forbidden)
+    {
+        var allowed = source.Where(o => !forbidden.Contains(o)).ToList();
+
+        if (allowed.Count == 0)
+            return default;
+
+        return allowed.PickRandomSingle();
+    }
+
+    public static List<T> Shuffle<T>(this IEnumerable<T> list)
+    {
+        var result = new List<T>(list);
+        var n = result.Count;
+
+        while (n > 1)
+        {
+            n--;
+            var k = Rand.Next(n + 1);
+            (result[k], result[n]) = (result[n], result[k]);
+        }
+
+        return result;
+    }
 }

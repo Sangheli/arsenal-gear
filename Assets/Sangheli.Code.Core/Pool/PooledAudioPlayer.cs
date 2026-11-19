@@ -12,12 +12,14 @@ public class PooledAudioPlayer : MonoBehaviour
 
     // Отслеживает, когда последний раз был воспроизведён каждый AudioClip
     private Dictionary<AudioClip, float> lastPlayTime;
+    private Dictionary<AudioClip, AudioSource> loopingSources;
 
     void Awake()
     {
         availableSources = new Queue<AudioSource>(initialPoolSize);
         allSources = new List<AudioSource>(initialPoolSize);
         lastPlayTime = new Dictionary<AudioClip, float>();
+        loopingSources = new Dictionary<AudioClip, AudioSource>();
 
         for (int i = 0; i < initialPoolSize; i++)
         {
@@ -39,15 +41,18 @@ public class PooledAudioPlayer : MonoBehaviour
     }
 
     public void PlayWithRandomPitch(SoundContainer.AudioSettingsSangheli clip) => 
-        PlayWithPitch(clip, clip.GetPitch());
+        PlayWithPitch(clip, clip?.GetPitch() ?? 1f);
 
     public void PlayWithRandomPitchWithVolumeMod(SoundContainer.AudioSettingsSangheli clip,float volumeMode) => 
-        PlayWithPitchWithVolume(clip,  clip.GetPitch(), volumeMode);
+        PlayWithPitchWithVolume(clip, clip?.GetPitch() ?? 1f, volumeMode);
 
     public void PlayWithPitch(SoundContainer.AudioSettingsSangheli clip, float pitch)
     {
+        if (clip?.ClipList == null || clip.ClipList.Count == 0)
+            return;
+
         var index = Random.Range(0, clip.ClipList.Count);
-        if (!IsCanPlay(clip, index))
+        if (!clip.playLoop && !IsCanPlay(clip, index))
             return;
 
         var subClip = clip.ClipList[index];
@@ -56,8 +61,11 @@ public class PooledAudioPlayer : MonoBehaviour
 
     public void PlayWithPitchWithVolume(SoundContainer.AudioSettingsSangheli clip, float pitch, float volumeMod)
     {
+        if (clip?.ClipList == null || clip.ClipList.Count == 0)
+            return;
+
         var index = Random.Range(0, clip.ClipList.Count);
-        if (!IsCanPlay(clip, index))
+        if (!clip.playLoop && !IsCanPlay(clip, index))
             return;
 
         var subClip = clip.ClipList[index];
@@ -84,6 +92,10 @@ public class PooledAudioPlayer : MonoBehaviour
 
     private void PlaySound(SoundContainer.AudioSettingsSangheli clip, float pitch, float len, int index, float volumeMod = 1)
     {
+        var subClip = clip.ClipList[index];
+        if (clip.playLoop && loopingSources.ContainsKey(subClip))
+            return;
+
         AudioSource source = (availableSources.Count > 0)
             ? availableSources.Dequeue()
             : AddNewSourceToPool(); // Расширяем пул при необходимости
@@ -91,13 +103,16 @@ public class PooledAudioPlayer : MonoBehaviour
         GameObject obj = source.gameObject;
         obj.SetActive(true);
 
-        var subClip = clip.ClipList[index];
         source.clip = subClip;
         source.pitch = pitch;
         source.volume = clip.Volume * volumeMod;
+        source.loop = clip.playLoop;
         source.Play();
 
-        StartCoroutine(ReleaseAfterPlay(source, len + 0.1f));
+        if (clip.playLoop)
+            loopingSources[subClip] = source;
+        else
+            StartCoroutine(ReleaseAfterPlay(source, len + 0.1f));
     }
 
     private IEnumerator ReleaseAfterPlay(AudioSource source, float delay)
@@ -107,5 +122,38 @@ public class PooledAudioPlayer : MonoBehaviour
         source.clip = null;
         // source.gameObject.SetActive(false);
         availableSources.Enqueue(source);
+    }
+
+    public void StopLoop(SoundContainer.AudioSettingsSangheli clip)
+    {
+        if (clip?.ClipList == null)
+            return;
+
+        foreach (var subClip in clip.ClipList)
+        {
+            if (!loopingSources.TryGetValue(subClip, out var source))
+                continue;
+
+            source.Stop();
+            source.loop = false;
+            source.clip = null;
+            availableSources.Enqueue(source);
+            loopingSources.Remove(subClip);
+            break;
+        }
+    }
+
+    public void StopAllLoops()
+    {
+        foreach (var pair in loopingSources)
+        {
+            var source = pair.Value;
+            source.Stop();
+            source.loop = false;
+            source.clip = null;
+            availableSources.Enqueue(source);
+        }
+
+        loopingSources.Clear();
     }
 }

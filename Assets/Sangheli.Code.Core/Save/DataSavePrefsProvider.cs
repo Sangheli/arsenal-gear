@@ -34,6 +34,13 @@ public class DataSavePrefsProvider : IDataSaveProvider
         _dataSave.Validate();
     }
 
+    public void ResetSave()
+    {
+        _dataSave = new DataSave();
+        _dataSave.Validate();
+        _saveManager.Delete();
+    }
+
     public void ResetSystemSave()
     {
         _systemSave = new SystemSave();
