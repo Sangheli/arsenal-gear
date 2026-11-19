@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RandomCursorInput : ICursorInput
 {
-    private Vector2 _direction = Vector2.zero;
+    private Vector3 _direction = Vector3.zero;
     private Vector3 _lastWorldPosition = Vector3.zero;
     private readonly float _speed = 2f;
 		
@@ -28,7 +28,7 @@ public class RandomCursorInput : ICursorInput
         return EInputType.Mouse;
     }
 
-    public static bool MoveBounce(Vector3 screenPos, ref Vector2 direction, float paddingPercent)
+    public static bool MoveBounce(Vector3 screenPos, ref Vector3 direction, float paddingPercent)
     {
         bool bounced = false;
         float paddingX = Screen.width * paddingPercent * 0.01f;
@@ -71,7 +71,7 @@ public class RandomCursorInput : ICursorInput
         return bounced;
     }
     
-    public static bool MoveBounce3D(Vector3 pos, ref Vector2 direction)
+    public static bool MoveBounce3D(Vector3 pos, ref Vector3 direction)
     {
         bool bounced = false;
         float minX = G.I.boundBossMin.x;

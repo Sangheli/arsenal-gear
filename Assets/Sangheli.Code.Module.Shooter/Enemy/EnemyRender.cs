@@ -253,7 +253,7 @@ public class EnemyRender : MonoBehaviour
         // shadowRenderArr[0].sprite = enemyData.spriteView;
     }
 
-    public void SetDirection(Vector2 moveDirection)
+    public void SetDirection(Vector3 moveDirection)
     {
         // var abs = Mathf.Abs(_originalScale.x);
         var newScale = Vector3.one;

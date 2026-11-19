@@ -5,15 +5,15 @@ public abstract class AUnitMove
     protected Transform Transform;
     protected float Speed;
     protected Camera MainCamera;
-    protected Vector2 Direction;
+    protected Vector3 Direction;
     protected float PaddingMove;
     protected bool PingPong;
-    protected System.Action<Vector2> ChangeDirectionCallback;
+    protected System.Action<Vector3> ChangeDirectionCallback;
     protected bool IsBoss;
 
     protected bool Bounced { get; set; }
 
-    public void Init(Transform transform, float speed, Camera camera, Vector2 direction, float paddingMove, bool pingPong,bool isBoss, System.Action<Vector2> changeDirectionCallback)
+    public void Init(Transform transform, float speed, Camera camera, Vector2 direction, float paddingMove, bool pingPong,bool isBoss, System.Action<Vector3> changeDirectionCallback)
     {
         Transform = transform;
         Speed = speed;
