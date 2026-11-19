@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -31,7 +33,7 @@ public class TextUpAnimated : MonoBehaviour, IReturnable, IResetable
         _startPos = transform.localPosition;
     }
 
-    public IEnumerator AnimateUp(string value)
+    public async Task AnimateUp(string value, CancellationToken cancellationToken = default)
     {
         canvasGroup.alpha = 1;
         txt.text = value;
@@ -49,7 +51,8 @@ public class TextUpAnimated : MonoBehaviour, IReturnable, IResetable
             var progress = t / duration;
             transform.position = Vector3.Lerp(startPos, endPos, progress);
             canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, progress);
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
             t += Time.deltaTime;
         }
 

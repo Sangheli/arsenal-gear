@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 using Random = UnityEngine.Random;
@@ -20,7 +22,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     [Header("Speed Change Settings")]
     public float speedSuper = 20f;
     public float distanceToChangeSpeed = 2000f;
-    private Coroutine _selfDestructCoroutine;
+    private CancellationTokenSource _selfDestructCancellation;
+    private CancellationTokenSource _deathCancellation;
 
     private Vector2 _moveDirection;
     private float _originalSpeed;
@@ -28,7 +31,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     private bool _isPreSpawned;
     private bool _hasChangedSpeed;
     public EnemyData CurrentData { get; protected set; }
-    private Coroutine _lifeTimeCoroutine;
     protected bool IsActive;
     protected bool IsDead;
     public bool manipulateColor = true;
@@ -95,8 +97,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _hasChangedSpeed = CurrentData.spawnData.spawnAtStartHardcore;
         _startPosition = transform.position;
         if (_isPreSpawned &&  !CurrentData.spawnData.spawnAtStartHardcore ) _speed = speedSuper;
-        if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
-        // _lifeTimeCoroutine = StartCoroutine(LifeTimeCoroutine());
         
         CanAttack = false;
         NextTimeAttack = Time.time + CurrentData.GetInitTimeAttack(_currentLevel);
@@ -167,13 +167,6 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         view.SetHitValue(0);
         view.SetFillValue(0);
     }
-
-    // private IEnumerator LifeTimeCoroutine()
-    // {
-    //     yield return new WaitForSeconds(lifeTime);
-    //     if (IsActive)
-    //         G.I.ObjectPool.Return(this);
-    // }
 
     private void Update()
     {
@@ -273,7 +266,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         }
         
         OnBeforeReturnToPool();
-        StartCoroutine(DeathAndReturnToPool(isCrit));
+        _deathCancellation = new CancellationTokenSource();
+        _ = DeathAndReturnToPool(isCrit, _deathCancellation.Token);
     }
 
     private void OnBeforeReturnToPool()
@@ -288,7 +282,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         StopSelfDestruct();
     }
 
-    private IEnumerator DeathAndReturnToPool(bool isCrit)
+    private async Task DeathAndReturnToPool(bool isCrit, CancellationToken cancellationToken)
     {
         G.I.energySpawner.Spawn(transform.position, CurrentData);
         view.PlayDeathVfx();
@@ -302,8 +296,8 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.enemyDeathSoundRobot);
         
         IsActive = false;
-        yield return new WaitForSeconds(duration);
-        yield return view.DeathAnimation();
+        await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+        await view.DeathAnimation(cancellationToken);
         G.I.ObjectPool.Return(this);
     }
 
@@ -325,8 +319,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         _hasChangedSpeed = false;
         _startPosition = Vector3.zero;
         _originalSpeed = 0f;
-        if (_lifeTimeCoroutine != null) StopCoroutine(_lifeTimeCoroutine);
-        _lifeTimeCoroutine = null;
+        CancelDeath();
         
         StopSelfDestruct();
         view.ResetItem();
@@ -336,27 +329,44 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
 
     private void ActivateSelfDestruct()
     {
-        if (_selfDestructCoroutine != null)
-            StopCoroutine(_selfDestructCoroutine);
+        StopSelfDestruct();
         
         if (CurrentData.useSelfDestruct && _selfDestructTime > 0)
-            _selfDestructCoroutine = StartCoroutine(SelfDestructCoroutine());
+        {
+            _selfDestructCancellation = new CancellationTokenSource();
+            _ = SelfDestructAsync(_selfDestructCancellation.Token);
+        }
     }
     
     
-    private IEnumerator SelfDestructCoroutine()
+    private async Task SelfDestructAsync(CancellationToken cancellationToken)
     {
-        yield return new WaitForSeconds(_selfDestructTime);
-        if (!IsActive || IsDead) yield break;
+        await Task.Delay(TimeSpan.FromSeconds(_selfDestructTime), cancellationToken);
+        if (!IsActive || IsDead) return;
         IsDead = true;
         Die(false, false);
     }
 
     private void StopSelfDestruct()
     {
-        if (_selfDestructCoroutine == null) return;
-        StopCoroutine(_selfDestructCoroutine);
-        _selfDestructCoroutine = null;
+        if (_selfDestructCancellation == null) return;
+        _selfDestructCancellation.Cancel();
+        _selfDestructCancellation.Dispose();
+        _selfDestructCancellation = null;
+    }
+
+    private void CancelDeath()
+    {
+        if (_deathCancellation == null) return;
+        _deathCancellation.Cancel();
+        _deathCancellation.Dispose();
+        _deathCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        StopSelfDestruct();
+        CancelDeath();
     }
     
     private void DoDamage()

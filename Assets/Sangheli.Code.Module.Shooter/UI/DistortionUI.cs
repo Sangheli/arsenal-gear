@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -13,7 +15,6 @@ public class DistortionUI : MonoBehaviour
     public Text[] texts;
     
     private static readonly int FadeAmount = Shader.PropertyToID("_FadeAmount");
-    private Coroutine _fadeCoroutine;
     private Material _matDown;
     private Material _matUp;
 
@@ -49,19 +50,19 @@ public class DistortionUI : MonoBehaviour
         return img.material;
     }
 
-    public IEnumerator StartFadeOut()
+    public async Task StartFadeOut(CancellationToken cancellationToken = default)
     {
         DoBlock(true);
         _matDown.SetFloat(FadeAmount, MaxValue);
         _matUp.SetFloat(FadeAmount, MaxValue);
         for (int i = 0; i < texts.Length; i++)
             texts[i].color = _startTextColors[i];
-        yield return new WaitForSeconds(starGameWaitTime);
-        yield return DoFade(forward: false);
+        await Task.Delay(TimeSpan.FromSeconds(starGameWaitTime), cancellationToken);
+        await DoFade(forward: false, cancellationToken);
         DoBlock(false);
     }
 
-    public IEnumerator DoFade(bool forward)
+    public async Task DoFade(bool forward, CancellationToken cancellationToken = default)
     {
         distDown.gameObject.SetActive(forward);
         distUp.gameObject.SetActive(!forward);
@@ -100,7 +101,8 @@ public class DistortionUI : MonoBehaviour
                 _matUp.SetFloat(FadeAmount, currentValue);
             }
             
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
         
         for (int i = 0; i < texts.Length; i++)

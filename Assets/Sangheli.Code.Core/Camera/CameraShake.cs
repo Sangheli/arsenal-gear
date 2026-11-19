@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 
@@ -18,8 +20,8 @@ public class CameraShake : MonoBehaviour
     public float deathShakeFrequency = 120f;
     
     private Vector3 _originalPosition;
-    private bool _isShaking = false;
-    private Coroutine _shakeCoroutine;
+    private bool _isShaking;
+    private CancellationTokenSource _shakeCancellation;
     
     private void Awake()
     {
@@ -28,46 +30,37 @@ public class CameraShake : MonoBehaviour
     
     public void Shake()
     {
-        if (_isShaking)
-        {
-            StopCoroutine(_shakeCoroutine);
-        }
-        
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine());
+        StartShake();
+        _ = ShakeAsync(_shakeCancellation);
     }
     
     public void Shake(float intensity, float duration)
     {
-        if (_isShaking)
-        {
-            StopCoroutine(_shakeCoroutine);
-        }
-        
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(intensity, duration));
+        StartShake();
+        _ = ShakeAsync(_shakeCancellation, intensity, duration);
     }
     
     public void DeathShake()
     {
-        if (_isShaking)
-        {
-            StopCoroutine(_shakeCoroutine);
-        }
-        
-        _shakeCoroutine = StartCoroutine(DeathShakeCoroutine());
+        StartShake();
+        _ = DeathShakeAsync(_shakeCancellation);
     }
     
     public void ShakeSmall()
     {
-        if (_isShaking)
-        {
-            StopCoroutine(_shakeCoroutine);
-        }
-        
-        _shakeCoroutine = StartCoroutine(ShakeCoroutine(shakeIntensity/2));
+        StartShake();
+        _ = ShakeAsync(_shakeCancellation, shakeIntensity / 2);
+    }
+
+    private void StartShake()
+    {
+        CancelShake();
+        _shakeCancellation = new CancellationTokenSource();
     }
     
-    private IEnumerator ShakeCoroutine(float intensity = -1f, float duration = -1f)
+    private async Task ShakeAsync(CancellationTokenSource cancellation, float intensity = -1f, float duration = -1f)
     {
+        var cancellationToken = cancellation.Token;
         transform.localPosition = _originalPosition;
         _isShaking = true;
         
@@ -78,27 +71,39 @@ public class CameraShake : MonoBehaviour
         
         float elapsed = 0f;
         
-        while (elapsed < actualDuration)
+        try
         {
-            float progress = elapsed / actualDuration;
-            float curveValue = actualCurve.Evaluate(progress);
-            
-            // Резкий шейк с высокой частотой для эффекта удара
-            float x = Mathf.Sin(Time.time * actualFrequency) * actualIntensity * curveValue;
-            float y = Mathf.Cos(Time.time * actualFrequency * 0.7f) * actualIntensity * curveValue;
-            
-            transform.localPosition = _originalPosition + new Vector3(x, y, 0);
-            
-            elapsed += Time.deltaTime;
-            yield return null;
+            while (elapsed < actualDuration)
+            {
+                float progress = elapsed / actualDuration;
+                float curveValue = actualCurve.Evaluate(progress);
+
+                // Резкий шейк с высокой частотой для эффекта удара
+                float x = Mathf.Sin(Time.time * actualFrequency) * actualIntensity * curveValue;
+                float y = Mathf.Cos(Time.time * actualFrequency * 0.7f) * actualIntensity * curveValue;
+
+                transform.localPosition = _originalPosition + new Vector3(x, y, 0);
+
+                elapsed += Time.deltaTime;
+                await Task.Yield();
+                cancellationToken.ThrowIfCancellationRequested();
+            }
         }
-        
-        transform.localPosition = _originalPosition;
-        _isShaking = false;
+        finally
+        {
+            if (_shakeCancellation == cancellation)
+            {
+                _shakeCancellation = null;
+                cancellation.Dispose();
+                if (this != null) transform.localPosition = _originalPosition;
+                _isShaking = false;
+            }
+        }
     }
     
-    private IEnumerator DeathShakeCoroutine()
+    private async Task DeathShakeAsync(CancellationTokenSource cancellation)
     {
+        var cancellationToken = cancellation.Token;
         transform.localPosition = _originalPosition;
         _isShaking = true;
         
@@ -108,37 +113,64 @@ public class CameraShake : MonoBehaviour
         AnimationCurve actualCurve = settings != null ? settings.shakeCurve : shakeCurve;
         
         float elapsed = 0f;
-        
-        while (elapsed < actualDuration)
+
+        try
         {
-            float progress = elapsed / actualDuration;
-            float curveValue = actualCurve.Evaluate(progress);
-            
-            // Очень резкий шейк с высокой частотой для эффекта удара при смерти
-            float x = Mathf.Sin(Time.time * actualFrequency) * actualIntensity * curveValue;
-            float y = Mathf.Cos(Time.time * actualFrequency * 0.8f) * actualIntensity * curveValue;
-            
-            // Добавляем дополнительную случайность для более резкого эффекта
-            x += Random.Range(-0.1f, 0.1f) * actualIntensity * curveValue;
-            y += Random.Range(-0.1f, 0.1f) * actualIntensity * curveValue;
-            
-            transform.localPosition = _originalPosition + new Vector3(x, y, 0);
-            
-            elapsed += Time.deltaTime;
-            yield return null;
+            while (elapsed < actualDuration)
+            {
+                float progress = elapsed / actualDuration;
+                float curveValue = actualCurve.Evaluate(progress);
+
+                // Очень резкий шейк с высокой частотой для эффекта удара при смерти
+                float x = Mathf.Sin(Time.time * actualFrequency) * actualIntensity * curveValue;
+                float y = Mathf.Cos(Time.time * actualFrequency * 0.8f) * actualIntensity * curveValue;
+
+                // Добавляем дополнительную случайность для более резкого эффекта
+                x += Random.Range(-0.1f, 0.1f) * actualIntensity * curveValue;
+                y += Random.Range(-0.1f, 0.1f) * actualIntensity * curveValue;
+
+                transform.localPosition = _originalPosition + new Vector3(x, y, 0);
+
+                elapsed += Time.deltaTime;
+                await Task.Yield();
+                cancellationToken.ThrowIfCancellationRequested();
+            }
         }
-        
-        transform.localPosition = _originalPosition;
-        _isShaking = false;
+        finally
+        {
+            if (_shakeCancellation == cancellation)
+            {
+                _shakeCancellation = null;
+                cancellation.Dispose();
+                if (this != null) transform.localPosition = _originalPosition;
+                _isShaking = false;
+            }
+        }
     }
     
     public void StopShake()
     {
-        if (_isShaking && _shakeCoroutine != null)
-        {
-            StopCoroutine(_shakeCoroutine);
-            transform.localPosition = _originalPosition;
-            _isShaking = false;
-        }
+        if (!_isShaking)
+            return;
+
+        CancelShake();
+        transform.localPosition = _originalPosition;
+        _isShaking = false;
+    }
+
+    private void CancelShake()
+    {
+        if (_shakeCancellation == null)
+            return;
+
+        var cancellation = _shakeCancellation;
+        _shakeCancellation = null;
+        cancellation.Cancel();
+        cancellation.Dispose();
+    }
+
+    private void OnDestroy()
+    {
+        CancelShake();
     }
 } 

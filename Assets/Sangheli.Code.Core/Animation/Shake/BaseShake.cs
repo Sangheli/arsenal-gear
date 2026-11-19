@@ -1,5 +1,5 @@
 using System.Threading;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class BaseShake<T> : MonoBehaviour
@@ -22,13 +22,13 @@ public abstract class BaseShake<T> : MonoBehaviour
 
     public void Shake(ShakeSettings shakeSettings, bool addRandomness = false)
     {
-        ShakeAsync(shakeSettings, addRandomness).Forget();
+        _ = ShakeAsync(shakeSettings, addRandomness);
     }
 
-    public async UniTask ShakeAsync(ShakeSettings shakeSettings, bool addRandomness = false)
+    public async Task ShakeAsync(ShakeSettings shakeSettings, bool addRandomness = false)
     {
         CancelShake();
-        var cancellation = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+        var cancellation = new CancellationTokenSource();
         _shakeCancellation = cancellation;
         var token = cancellation.Token;
 
@@ -52,7 +52,8 @@ public abstract class BaseShake<T> : MonoBehaviour
 
                 SetPosition(_originalPosition + new Vector2(x, y));
                 elapsed += Time.deltaTime;
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
+                await Task.Yield();
+                token.ThrowIfCancellationRequested();
             }
         }
         finally

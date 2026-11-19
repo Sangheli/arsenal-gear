@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +9,7 @@ public class EnergyBarUI : MonoBehaviour
     public float punchScale = 1.2f;
     public float duration = 0.2f;
 
-    private Coroutine _bounceCoroutine;
+    private CancellationTokenSource _bounceCancellation;
     private Vector3 _originalScale;
 
     private void Awake()
@@ -21,7 +23,23 @@ public class EnergyBarUI : MonoBehaviour
             return;
         
         energyText.text = $"{NumberFormatter.FormatAuto(value,1)}";
-        if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
-        _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(energyText.transform, _originalScale, punchScale, duration));
+        CancelBounce();
+        _bounceCancellation = new CancellationTokenSource();
+        _ = GameAnimation.Bounce(energyText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token);
     }
-} 
+
+    private void CancelBounce()
+    {
+        if (_bounceCancellation == null)
+            return;
+
+        _bounceCancellation.Cancel();
+        _bounceCancellation.Dispose();
+        _bounceCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelBounce();
+    }
+}

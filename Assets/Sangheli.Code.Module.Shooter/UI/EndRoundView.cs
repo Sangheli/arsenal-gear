@@ -1,4 +1,7 @@
 using System.Collections;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,7 +63,7 @@ public class EndRoundView : MonoBehaviour
     private const string PrefixTotalSumGame = "totalSumGame";
     private const string PrefixContinue = "continue_for_reward";
     
-    private Coroutine _showCoroutine;
+    private CancellationTokenSource _showCancellation;
 
     public UIFaderOut saveInfo;
 
@@ -103,7 +106,7 @@ public class EndRoundView : MonoBehaviour
     private void OnExitFromRound()
     {
         G.I.AdvManager.Advertisement.ShowInterstitial();
-        StopShowCoroutine();
+        StopShowAnimation();
         G.I.GoToUpgrades();
     }
 
@@ -112,7 +115,7 @@ public class EndRoundView : MonoBehaviour
         G.I.RestartsFromEndRound++;
         
         G.I.AdvManager.Advertisement.ShowInterstitial();
-        StopShowCoroutine();
+        StopShowAnimation();
         G.I.StartRun(overrideNew: false);
     }
 
@@ -170,11 +173,12 @@ public class EndRoundView : MonoBehaviour
 
     public void Show(int rewardCollected, int energyOnStart, int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
     {
-        StopShowCoroutine();
-        _showCoroutine = StartCoroutine(ShowCoroutine(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd));
+        StopShowAnimation();
+        _showCancellation = new CancellationTokenSource();
+        _ = ShowAsync(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd, _showCancellation.Token);
     }
 
-    private IEnumerator ShowCoroutine(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
+    private async Task ShowAsync(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         totalGameTextCoin.text = $"{NumberFormatter.Format(energyOnStart, 1)}";
         
@@ -218,7 +222,7 @@ public class EndRoundView : MonoBehaviour
 
         distortion.gameObject.SetActive(true);
         distortion.ResetView();
-        yield return distortion.DoFade(levelTargetEnd, fadeType);
+        await distortion.DoFade(levelTargetEnd, fadeType, cancellationToken);
         Toggle(true, save.level);
 
         buttonStartNewRoundText.text = G.PlayLevelAgainFader.Contains(fadeType) ? G.I.localization.Get("play_level_again") : $"{G.I.localization.Get("play_next_level")} {save.level + 1}";
@@ -226,15 +230,15 @@ public class EndRoundView : MonoBehaviour
         saveInfo.Show();
         saveInfo.FadeOut(2,1);
 
-        yield return ShowRewardAnim(rewardCollected, 0, energyOnStart, rewardTextCoin);
-        yield return ShowRewardAnim(bossReward, rewardCollected, energyOnStart+rewardCollected, rewardBossTextCoin);
+        await ShowRewardAnim(rewardCollected, 0, energyOnStart, rewardTextCoin, cancellationToken);
+        await ShowRewardAnim(bossReward, rewardCollected, energyOnStart+rewardCollected, rewardBossTextCoin, cancellationToken);
     }
     
-    private IEnumerator ShowRewardAnim(int reward, float startRewardForRound, float startRewardForGame, Text textToDecrease)
+    private async Task ShowRewardAnim(int reward, float startRewardForRound, float startRewardForGame, Text textToDecrease, CancellationToken cancellationToken)
     {
         if (reward > 0)
         {
-            yield return ShowCoinAnim(reward, startRewardForRound, startRewardForGame, textToDecrease);
+            await ShowCoinAnim(reward, startRewardForRound, startRewardForGame, textToDecrease, cancellationToken);
         }
         else if (textToDecrease == rewardTextCoin) // Только для обычной награды обновляем energyText
         {
@@ -243,12 +247,12 @@ public class EndRoundView : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowCoinAnim(int energy, float totalEnergy,float gameEnergy, Text textToDecrease)
+    private async Task ShowCoinAnim(int energy, float totalEnergy,float gameEnergy, Text textToDecrease, CancellationToken cancellationToken)
     {
         totalTextCoin.text = $"{NumberFormatter.Format(totalEnergy, 1)}";
         totalGameTextCoin.text = $"{NumberFormatter.Format(totalEnergy+gameEnergy, 1)}";
 
-        yield return new WaitForSeconds(waitBeforeAnim);
+        await Task.Delay(TimeSpan.FromSeconds(waitBeforeAnim), cancellationToken);
         
         float addTemp = energy;
         float stepTime = animationTime / intervalNum;
@@ -258,7 +262,7 @@ public class EndRoundView : MonoBehaviour
         
         for (int i = 0; i < intervalNum; i++)
         {
-            yield return new WaitForSeconds(stepTime);
+            await Task.Delay(TimeSpan.FromSeconds(stepTime), cancellationToken);
             currentTotal += energyPerStep;
             currentTotalGame += energyPerStep;
             addTemp -=  energyPerStep;
@@ -276,13 +280,19 @@ public class EndRoundView : MonoBehaviour
         totalGameTextCoin.text = $"{NumberFormatter.Format(currentTotalGame, 1)}";
     }
 
-    private void StopShowCoroutine()
+    private void StopShowAnimation()
     {
-        if (_showCoroutine == null) 
+        if (_showCancellation == null)
             return;
         
-        StopCoroutine(_showCoroutine);
-        _showCoroutine = null;
+        _showCancellation.Cancel();
+        _showCancellation.Dispose();
+        _showCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        StopShowAnimation();
     }
 
     private void OnContinue() => _continueManagerBase.ContinueManager.OnContinue();

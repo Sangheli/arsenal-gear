@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using System.Text;
 
@@ -9,15 +11,15 @@ public class DamageTextManager : MonoBehaviour
     private bool _hasDamageThisFrame;
 
     private readonly List<TextUpAnimated> _spawned = new();
-    private readonly Dictionary<TextUpAnimated, Coroutine> _activeCoroutines = new();
+    private readonly Dictionary<TextUpAnimated, CancellationTokenSource> _activeAnimations = new();
 
     public void AddDamage(DamageResult damageResult, float CurrentDamageScale) => 
-        StartCoroutine(ShowDamageText(damageResult, CurrentDamageScale));
+        ShowDamageText(damageResult, CurrentDamageScale);
 
-    private IEnumerator ShowDamageText(DamageResult damageResult, float CurrentDamageScale)
+    private void ShowDamageText(DamageResult damageResult, float CurrentDamageScale)
     {
         if(damageResult.TotalDamage<=0 && damageResult.TotalShieldDamage<=0)
-            yield break;
+            return;
         
         var sb = new StringBuilder();
         
@@ -34,7 +36,9 @@ public class DamageTextManager : MonoBehaviour
         _spawned.Add(textObj);
         var transform1 = textObj.transform;
         transform1.position = GetPos(CurrentDamageScale);
-        _activeCoroutines[textObj] = StartCoroutine(AnimateAndReturn(textObj, sb.ToString()));
+        var cancellation = new CancellationTokenSource();
+        _activeAnimations[textObj] = cancellation;
+        _ = AnimateAndReturn(textObj, sb.ToString(), cancellation.Token);
     }
 
     private static Vector3 GetPos(float CurrentDamageScale)
@@ -46,23 +50,41 @@ public class DamageTextManager : MonoBehaviour
         return pos;
     }
 
-    private IEnumerator AnimateAndReturn(TextUpAnimated textObj, string text)
+    private async Task AnimateAndReturn(TextUpAnimated textObj, string text, CancellationToken cancellationToken)
     {
-        yield return textObj.AnimateUp(text);
+        await textObj.AnimateUp(text, cancellationToken);
         G.I.ObjectPool.Return(textObj);
         _spawned.Remove(textObj);
-        _activeCoroutines.Remove(textObj);
+        if (_activeAnimations.TryGetValue(textObj, out var cancellation))
+        {
+            _activeAnimations.Remove(textObj);
+            cancellation.Dispose();
+        }
     }
 
     public void StartRound()
     {
         foreach (var x in _spawned)
         {
-            if (_activeCoroutines.TryGetValue(x, out var coroutine)) StopCoroutine(coroutine);
+            if (_activeAnimations.TryGetValue(x, out var cancellation))
+            {
+                cancellation.Cancel();
+                cancellation.Dispose();
+            }
             G.I.ObjectPool.Return(x);
         }
         
         _spawned.Clear();
-        _activeCoroutines.Clear();
+        _activeAnimations.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var cancellation in _activeAnimations.Values)
+        {
+            cancellation.Cancel();
+            cancellation.Dispose();
+        }
+        _activeAnimations.Clear();
     }
 } 

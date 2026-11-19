@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
@@ -42,6 +43,7 @@ public class CursorController : MonoBehaviour
     
     private float _damageValueSum;
     private bool _autoAttack = true;
+    private CancellationTokenSource _pulseCancellation;
     public float radiusGizmos = 1f;
     public Color colorGizmos = Color.green;
     
@@ -197,7 +199,19 @@ public class CursorController : MonoBehaviour
     private void ShowPulseAnimation()
     {
         var interval = 60f / _playerFireRate;
-        StartCoroutine(GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval, _baseInnerCurrent));
+        CancelPulse();
+        _pulseCancellation = new CancellationTokenSource();
+        _ = GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval, _baseInnerCurrent, _pulseCancellation.Token);
+    }
+
+    private void CancelPulse()
+    {
+        if (_pulseCancellation == null)
+            return;
+
+        _pulseCancellation.Cancel();
+        _pulseCancellation.Dispose();
+        _pulseCancellation = null;
     }
 
     private void UpdateNextTime()
@@ -214,6 +228,7 @@ public class CursorController : MonoBehaviour
 
     private void OnDisable()
     {
+        CancelPulse();
         if (_actions == null) 
             return;
         

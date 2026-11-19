@@ -63,6 +63,6 @@ public class LevelTargetManager : MonoBehaviour
 
     private void Update()
     {
-        if(Data.Active) Data.AddTimeValue();
+        if (Data != null && Data.Active) Data.AddTimeValue();
     }
 } 

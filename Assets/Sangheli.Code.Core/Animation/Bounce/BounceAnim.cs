@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BounceAnim : MonoBehaviour
@@ -26,23 +26,23 @@ public class BounceAnim : MonoBehaviour
 
     public void Play()
     {
-        PlayAsync().Forget();
+        _ = PlayAsync();
     }
 
-    public async UniTask PlayAsync()
+    public async Task PlayAsync()
     {
         if (!gameObject.activeSelf)
             return;
 
         CancelBounce();
-        var cancellation = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+        var cancellation = new CancellationTokenSource();
         _bounceCancellation = cancellation;
         var token = cancellation.Token;
 
         try
         {
             if (startBounceShift > 0)
-                await UniTask.Delay(TimeSpan.FromSeconds(startBounceShift), cancellationToken: token);
+                await Task.Delay(TimeSpan.FromSeconds(startBounceShift), token);
 
             var duration = splitDuration ? bounceDuration / 2f : bounceDuration;
             var targetScale = baseScale * bounceScale;
@@ -60,7 +60,7 @@ public class BounceAnim : MonoBehaviour
         }
     }
 
-    private async UniTask ScaleAsync(Vector3 startScale, Vector3 targetScale, float duration, CancellationToken token)
+    private async Task ScaleAsync(Vector3 startScale, Vector3 targetScale, float duration, CancellationToken token)
     {
         if (duration <= 0)
         {
@@ -73,7 +73,8 @@ public class BounceAnim : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             transform.localScale = Vector3.Lerp(startScale, targetScale, Mathf.Clamp01(elapsed / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            await Task.Yield();
+            token.ThrowIfCancellationRequested();
         }
 
         transform.localScale = targetScale;

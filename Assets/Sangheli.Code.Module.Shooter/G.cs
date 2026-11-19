@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+using System.Threading;
+using System.Threading.Tasks;
 using DG.Tweening;
 using SangheliCode;
 using SangheliCore;
@@ -65,6 +67,7 @@ public class G : MonoBehaviour
     public int delim = 25;
     
     public int RestartsFromEndRound { get; set; }
+    private CancellationTokenSource _sequenceCancellation;
     
     public LevelDataConfigRuntime LevelDataConfig { get; set; }
     public ArcMoveAnimator arcMoveAnimator;
@@ -134,13 +137,13 @@ public class G : MonoBehaviour
         Application.runInBackground = true;
 #endif
         LocalizationBridge.Localizations = new HashSet<IUILocalization>();
-        StartGame();
+        _ = StartGame();
     }
 #pragma warning restore CS4014
     
-    private async UniTaskVoid StartGame()
+    private async Task StartGame()
     {
-        await UniTask.Yield();
+        await Task.Yield();
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
@@ -174,7 +177,7 @@ public class G : MonoBehaviour
         Container.camera.orthographicSize = isHorizontal ? orthoHor : orthoVert;
     }
 
-    public async UniTaskVoid OnFirstLoad()
+    public async Task OnFirstLoad()
     {
         weaponManager.Init();
         endRoundView.OnFirstLoad();
@@ -196,7 +199,7 @@ public class G : MonoBehaviour
         
         levelTargetManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();
-        await UniTask.Yield();
+        await Task.Yield();
         if (startGameWithoutMenu) OnStartGameWithoutMenu();
         else OnStartGameWithMenu();
     }
@@ -229,17 +232,18 @@ public class G : MonoBehaviour
         G.I.SaveProvider.Get().paramContainer.ResetTemp();
         G.I.SaveProvider.Get().enemyUpgradeContainer.ResetTemp();
         SaveSystem.SaveSilent();
-        StartCoroutine(StartRunSequence(playFader, overrideNew, playFaderBack));
+        var cancellationToken = BeginSequence();
+        _ = StartRunSequence(playFader, overrideNew, playFaderBack, cancellationToken);
     }
 
-    private IEnumerator StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack)
+    private async Task StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack, CancellationToken cancellationToken)
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
         localization.UpdateLocalization();
         
         if(playFader)
-            yield return distortionUI.DoFade(forward: true);
+            await distortionUI.DoFade(forward: true, cancellationToken);
         
         weaponManager.OnStartRound();
         roundManager.OnStartRound(overrideNew);
@@ -262,11 +266,11 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
         
-        yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
+        await Task.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken);
         CanPlay = true;
         
         if(playFaderBack)
-            yield return distortionUI.DoFade(forward: false);
+            await distortionUI.DoFade(forward: false, cancellationToken);
         
         distortionUI.DoBlock(false);
     }
@@ -275,10 +279,11 @@ public class G : MonoBehaviour
     {
         var save = SaveProvider.Get();
         var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.RoundWin;
-        StartCoroutine( demoEnd ? ShowEndGame(levelTargetEnd) : StopRunSequence(fadeType, levelTargetEnd));
+        var cancellationToken = BeginSequence();
+        _ = demoEnd ? ShowEndGame(levelTargetEnd, cancellationToken) : StopRunSequence(fadeType, levelTargetEnd, cancellationToken);
     }
     
-    private IEnumerator ShowEndGame(ILevelTargetEnd levelTargetEnd)
+    private async Task ShowEndGame(ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         var save = SaveProvider.Get();
         save.level = maxLevel - 1;
@@ -292,14 +297,14 @@ public class G : MonoBehaviour
         tutorial.OnEndRound();
         endRoundView.distortion.gameObject.SetActive(true);
         endRoundView.distortion.ResetView();
-        yield return endRoundView.distortion.DoFade(levelTargetEnd, EndRoundFadeEnum.EndGame);
+        await endRoundView.distortion.DoFade(levelTargetEnd, EndRoundFadeEnum.EndGame, cancellationToken);
         uiManager.Toggle(false);
 
         endRoundView.returnToStartButton.gameObject.SetActive(true);
         endRoundView.returnToStartText.text = G.I.localization.Get("return_to_start");
     }
 
-    private IEnumerator StopRunSequence(EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd)
+    private async Task StopRunSequence(EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
@@ -327,8 +332,8 @@ public class G : MonoBehaviour
         save.totalEnergy = gameSum + roundReward + rewardAutoCollect + bossReward;
         SaveSystem.Save(sendAnalytics: true, fadeType);
         
-        yield return GameAnimation.CollectAllEnergyOnScreen(toCollect, rewardAutoCollect);
-        yield return new WaitForSeconds(uiManager.energyBarUI.duration*2);
+        await GameAnimation.CollectAllEnergyOnScreen(toCollect, rewardAutoCollect, cancellationToken);
+        await Task.Delay(TimeSpan.FromSeconds(uiManager.energyBarUI.duration * 2), cancellationToken);
         
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
@@ -347,18 +352,19 @@ public class G : MonoBehaviour
 
     public void GoToUpgrades()
     {
-        StartCoroutine(GoToUpgradesCoroutine());
+        _ = GoToUpgradesAsync();
     }
 
-    private IEnumerator GoToUpgradesCoroutine()
+    private async Task GoToUpgradesAsync()
     {
+        var cancellationToken = BeginSequence();
         var save = I.SaveProvider.Get();
         save.shopVisits++;
         SaveSystem.SaveSilent();
         
         distortionUI.DoBlock(true);
         bossManager.ResetBoss();
-        yield return distortionUI.DoFade(forward: true);
+        await distortionUI.DoFade(forward: true, cancellationToken);
         uiManager.Toggle(false);
         startGameView.Toggle(false);
         EnergyManager.OnGoToUpgradeView();
@@ -371,8 +377,8 @@ public class G : MonoBehaviour
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
         
-        yield return new WaitForSeconds(distortionUI.endRoundWaitTime);
-        yield return distortionUI.DoFade(forward: false);
+        await Task.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken);
+        await distortionUI.DoFade(forward: false, cancellationToken);
         
         distortionUI.DoBlock(false);
         
@@ -421,7 +427,7 @@ public class G : MonoBehaviour
         {
             startGameView.Toggle(true);
             startGameView.DoSaveInfoFadeOut(2.0f, 1);
-            StartCoroutine(G.I.distortionUI.StartFadeOut());
+            _ = G.I.distortionUI.StartFadeOut();
         }
         else
         {
@@ -458,5 +464,19 @@ public class G : MonoBehaviour
         }
         
         G.I.roundManager.StartEnemyAttackDelay(G.I.Data.continueSettings.enemyAttackDelay);
+    }
+
+    private CancellationToken BeginSequence()
+    {
+        _sequenceCancellation?.Cancel();
+        _sequenceCancellation?.Dispose();
+        _sequenceCancellation = new CancellationTokenSource();
+        return _sequenceCancellation.Token;
+    }
+
+    private void OnDestroy()
+    {
+        _sequenceCancellation?.Cancel();
+        _sequenceCancellation?.Dispose();
     }
 }

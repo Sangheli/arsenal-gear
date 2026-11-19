@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -13,6 +16,7 @@ public class ScreenSpinManager : MonoBehaviour
     public AnimationCurve scaleCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
     private Texture2D _screenshotTexture;
+    private readonly CancellationTokenSource _destroyCancellation = new();
 
     private void OnValidate()
     {
@@ -25,9 +29,9 @@ public class ScreenSpinManager : MonoBehaviour
         screenImage.enabled = false;
     }
 
-    public void PlayEffect() => StartCoroutine(Animate());
+    public void PlayEffect() => _ = Animate(_destroyCancellation.Token);
 
-    private IEnumerator Animate()
+    private async Task Animate(CancellationToken cancellationToken)
     {
         ResetTransform();
         var elapsed = 0f;
@@ -37,7 +41,8 @@ public class ScreenSpinManager : MonoBehaviour
             DoRotate(t);
             DoScale(t);
             elapsed += Time.deltaTime;
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         HideTransform();
@@ -73,5 +78,11 @@ public class ScreenSpinManager : MonoBehaviour
         _screenshotTexture = ScreenCapture.CaptureScreenshotAsTexture();
         screenImage.texture = _screenshotTexture;
         screenImage.enabled = true;
+    }
+
+    private void OnDestroy()
+    {
+        _destroyCancellation.Cancel();
+        _destroyCancellation.Dispose();
     }
 }

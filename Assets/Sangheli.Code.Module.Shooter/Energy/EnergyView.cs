@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,6 +28,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
     private Transform _target;
     private Vector3 _originalScale;
     private float _currentFlySpeed; // текущая скорость полёта
+    private CancellationTokenSource _scaleAnimationCancellation;
     
     private float _collectDelayTimer; // таймер на сбор
     public float maxDelayCollect = 1;
@@ -116,17 +119,19 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
         ScaleDownAnimated = true;
         transform.SetParent(_target);
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
-        StartCoroutine(OnEndScaleAnim());
+        CancelScaleAnimation();
+        _scaleAnimationCancellation = new CancellationTokenSource();
+        _ = OnEndScaleAnim(_scaleAnimationCancellation.Token);
     }
 
-    private IEnumerator OnEndScaleAnim()
+    private async Task OnEndScaleAnim(CancellationToken cancellationToken)
     {
         G.I.EnergyManager.CollectEnergy();
         G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.CoinCount, 1);
         IsActive = false;
         PlayerFound = false;
-        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t1, 1f, maxScale);
-        yield return GameAnimation.OnScaleAnim(transform, _originalScale, t2, maxScale, 0f);
+        await GameAnimation.OnScaleAnim(transform, _originalScale, t1, 1f, maxScale, cancellationToken);
+        await GameAnimation.OnScaleAnim(transform, _originalScale, t2, maxScale, 0f, cancellationToken);
         G.I.ObjectPool.Return(this);
     }
 
@@ -147,6 +152,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
 
     public void Init()
     {
+        CancelScaleAnimation();
         CanCollect = false;
         IsActive = true;
         PlayerFound = false;
@@ -157,6 +163,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
 
     public void ResetItem()
     {
+        CancelScaleAnimation();
         IsActive = false;
         PlayerFound = false;
         var transform1 = transform;
@@ -169,5 +176,20 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
     {
         viewRenderer.sortingOrder = sortingOrderData.view;
         // shadowRenderer.sortingOrder = sortingOrderData.shadow;
+    }
+
+    private void CancelScaleAnimation()
+    {
+        if (_scaleAnimationCancellation == null)
+            return;
+
+        _scaleAnimationCancellation.Cancel();
+        _scaleAnimationCancellation.Dispose();
+        _scaleAnimationCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelScaleAnimation();
     }
 }

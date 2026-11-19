@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 
@@ -20,7 +22,8 @@ public class CursorView : MonoBehaviour
     public Color color;
     public Color color2 = new Color(0,0,0,122f/256f);
     public Color originalInnerColorRingOuter = Color.white;
-    private Coroutine _pulseCoroutine;
+    private CancellationTokenSource _bounceCancellation;
+    private CancellationTokenSource _pulseCancellation;
     private float _currentScale = 1f;
     public bool isPulsing;
     private Color _pulseColor;
@@ -62,23 +65,24 @@ public class CursorView : MonoBehaviour
         var addonScale = punchScale - 1;
         addonScale /= scale;
         
-        StopAllCoroutines();
-        StartCoroutine(GameAnimation.Bounce(view.transform, _originalScale * scale, 1+addonScale, duration));
+        CancelAnimation(ref _bounceCancellation);
+        CancelAnimation(ref _pulseCancellation);
+        _bounceCancellation = new CancellationTokenSource();
+        _ = GameAnimation.Bounce(view.transform, _originalScale * scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token);
     }
 
     public void PulseRingColor(Color pulseColor, float duration)
     {
-        if (_pulseCoroutine != null)
-            StopCoroutine(_pulseCoroutine);
-        
+        CancelAnimation(ref _pulseCancellation);
         isPulsing = false;
         ApplyVisual();
 
         _pulseColor = pulseColor;
-        _pulseCoroutine = StartCoroutine(PulseRingColorCoroutine(pulseColor, duration));
+        _pulseCancellation = new CancellationTokenSource();
+        _ = PulseRingColorAsync(pulseColor, duration, _pulseCancellation.Token);
     }
 
-    private IEnumerator PulseRingColorCoroutine(Color pulseColor, float duration)
+    private async Task PulseRingColorAsync(Color pulseColor, float duration, CancellationToken cancellationToken)
     {
         isPulsing = false;
         ApplyVisual();
@@ -93,7 +97,8 @@ public class CursorView : MonoBehaviour
             ApplyVisual();
             
             t += Time.deltaTime;
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
         
         _pulseColor = pulseColor;
@@ -109,7 +114,8 @@ public class CursorView : MonoBehaviour
             ApplyVisual();
             
             t += Time.deltaTime;
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
         
         isPulsing = false;
@@ -133,4 +139,20 @@ public class CursorView : MonoBehaviour
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.emptyHit);
         // deathVfx.Play();
     }
-} 
+
+    private static void CancelAnimation(ref CancellationTokenSource cancellation)
+    {
+        if (cancellation == null)
+            return;
+
+        cancellation.Cancel();
+        cancellation.Dispose();
+        cancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelAnimation(ref _bounceCancellation);
+        CancelAnimation(ref _pulseCancellation);
+    }
+}

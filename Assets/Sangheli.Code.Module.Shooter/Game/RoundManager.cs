@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class RoundManager : MonoBehaviour
 {
@@ -33,6 +37,7 @@ public class RoundManager : MonoBehaviour
     public SpawnPositionManager SpawnPositionManager { get; }= new();
     private bool _isEnemyAttackDelayed;
     private float _enemyAttackDelayEndTime;
+    private CancellationTokenSource _enablePlayCancellation;
 
     private int _currentMaxOnScreen;
     
@@ -51,6 +56,8 @@ public class RoundManager : MonoBehaviour
     {
         if (_inputActions != null)
             _inputActions.Player.Crouch.performed -= OnDebugMinusHp;
+
+        CancelEnablePlay();
     }
 
     private void OnDebugMinusHp(InputAction.CallbackContext context)
@@ -189,14 +196,25 @@ public class RoundManager : MonoBehaviour
         
         PreSpawnEnemies();
         IsAlive = true;
-        StopAllCoroutines();
-        StartCoroutine(EnableIsAliveForPlayDelayed());
+        CancelEnablePlay();
+        _enablePlayCancellation = new CancellationTokenSource();
+        _ = EnableIsAliveForPlayDelayed(_enablePlayCancellation.Token);
     }
 
-    private System.Collections.IEnumerator EnableIsAliveForPlayDelayed()
+    private async Task EnableIsAliveForPlayDelayed(CancellationToken cancellationToken)
     {
-        yield return new WaitForSeconds(0.5f);
+        await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
         IsAliveForPlay = true;
+    }
+
+    private void CancelEnablePlay()
+    {
+        if (_enablePlayCancellation == null)
+            return;
+
+        _enablePlayCancellation.Cancel();
+        _enablePlayCancellation.Dispose();
+        _enablePlayCancellation = null;
     }
 
     public void ClearAll()

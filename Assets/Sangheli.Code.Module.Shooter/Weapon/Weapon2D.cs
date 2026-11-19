@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(ClampPosition))]
@@ -12,7 +14,7 @@ public class Weapon2D : MonoBehaviour
     public Transform view;
     public ClampPosition clampPosition;
 
-    private Coroutine bounceRoutine;
+    private CancellationTokenSource _bounceCancellation;
 
     public Transform startPosTf;
     public Transform endPosTf;
@@ -51,14 +53,12 @@ public class Weapon2D : MonoBehaviour
 
     private void BounceView()
     {
-        // если старая анимация ещё идёт – останавливаем её
-        if (bounceRoutine != null)
-            StopCoroutine(bounceRoutine);
-
-        bounceRoutine = StartCoroutine(BounceAnim());
+        CancelBounce();
+        _bounceCancellation = new CancellationTokenSource();
+        _ = BounceAnim(_bounceCancellation.Token);
     }
 
-    private IEnumerator BounceAnim()
+    private async Task BounceAnim(CancellationToken cancellationToken)
     {
         Vector3 targetScale = startScale * bounceScale;
 
@@ -68,7 +68,8 @@ public class Weapon2D : MonoBehaviour
         {
             t += Time.deltaTime * bounceSpeed;
             view.localScale = Vector3.Lerp(startScale, targetScale, t);
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         // Возврат обратно
@@ -77,12 +78,26 @@ public class Weapon2D : MonoBehaviour
         {
             t += Time.deltaTime * bounceSpeed;
             view.localScale = Vector3.Lerp(targetScale, startScale, t);
-            yield return null;
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         // На всякий случай вернуть точный старт
         view.localScale = startScale;
+    }
 
-        bounceRoutine = null;
+    private void CancelBounce()
+    {
+        if (_bounceCancellation == null)
+            return;
+
+        _bounceCancellation.Cancel();
+        _bounceCancellation.Dispose();
+        _bounceCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelBounce();
     }
 }

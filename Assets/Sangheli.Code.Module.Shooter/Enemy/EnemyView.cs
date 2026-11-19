@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,7 +28,7 @@ public class EnemyView : MonoBehaviour
     public virtual void ResetItem()
     {
         render.ResetItem();
-        render.ResetCoroutines();
+        render.ResetAnimations();
 
         SetHitValue(0);
         SetFillValue(0);
@@ -50,8 +52,8 @@ public class EnemyView : MonoBehaviour
         hpBarView.runningBarImage.SetSortingOrder(data.back);
     }
 
-    public virtual IEnumerator DeathAnimation()
+    public virtual async Task DeathAnimation(CancellationToken cancellationToken = default)
     {
-        yield return render.DeathAnimation();
+        await render.DeathAnimation(cancellationToken);
     }
 }

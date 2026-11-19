@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnergySpawner : MonoBehaviour
 {
@@ -19,6 +23,7 @@ public class EnergySpawner : MonoBehaviour
     private Vector2 _screenMax;
     private Transform _energyParent;
     private EnergySortingOrderData _sortingOrderData = new() { view = 15002, shadow = 15001, Max = 30000, Start = 15002 };
+    private readonly CancellationTokenSource _destroyCancellation = new();
 
     public void OnLoadInit()
     {
@@ -41,7 +46,7 @@ public class EnergySpawner : MonoBehaviour
         pos = G.I.cameraMain.WorldToScreenPoint(pos+enemyData.SpawnCoinShift);
         pos = ScreenToWorldOnPlane(pos);
         if(enemyData.GetEnergy() < 1) return;
-        StartCoroutine(SpawnCoins(pos, enemyData));
+        _ = SpawnCoins(pos, enemyData, _destroyCancellation.Token);
     }
 
     private Vector3 ScreenToWorldOnPlane(Vector2 screenPos, float zPlane = 0f)
@@ -78,7 +83,7 @@ public class EnergySpawner : MonoBehaviour
         return energy;
     }
     
-    private System.Collections.IEnumerator SpawnCoins(Vector3 pos, EnemyData enemyData)
+    private async Task SpawnCoins(Vector3 pos, EnemyData enemyData, CancellationToken cancellationToken)
     {
         var energyCount =  enemyData.GetEnergy();
         int intervals = (int)Mathf.Min(energyCount, 10);
@@ -92,7 +97,7 @@ public class EnergySpawner : MonoBehaviour
             {
                 SpawnCoin(pos);
             }
-            yield return new WaitForSeconds(spawnInterval);
+            await Task.Delay(TimeSpan.FromSeconds(spawnInterval), cancellationToken);
         }
     }
     
@@ -134,5 +139,11 @@ public class EnergySpawner : MonoBehaviour
             G.I.ObjectPool.Return(x);
         
         EnergyList.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        _destroyCancellation.Cancel();
+        _destroyCancellation.Dispose();
     }
 }

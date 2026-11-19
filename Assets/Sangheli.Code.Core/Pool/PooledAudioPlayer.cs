@@ -1,6 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PooledAudioPlayer : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class PooledAudioPlayer : MonoBehaviour
     // Отслеживает, когда последний раз был воспроизведён каждый AudioClip
     private Dictionary<AudioClip, float> lastPlayTime;
     private Dictionary<AudioClip, AudioSource> loopingSources;
+    private readonly CancellationTokenSource _destroyCancellation = new();
 
     void Awake()
     {
@@ -112,12 +116,12 @@ public class PooledAudioPlayer : MonoBehaviour
         if (clip.playLoop)
             loopingSources[subClip] = source;
         else
-            StartCoroutine(ReleaseAfterPlay(source, len + 0.1f));
+            _ = ReleaseAfterPlay(source, len + 0.1f, _destroyCancellation.Token);
     }
 
-    private IEnumerator ReleaseAfterPlay(AudioSource source, float delay)
+    private async Task ReleaseAfterPlay(AudioSource source, float delay, CancellationToken cancellationToken)
     {
-        yield return new WaitForSeconds(delay);
+        await Task.Delay(TimeSpan.FromSeconds(delay), cancellationToken);
         source.Stop();
         source.clip = null;
         // source.gameObject.SetActive(false);
@@ -155,5 +159,11 @@ public class PooledAudioPlayer : MonoBehaviour
         }
 
         loopingSources.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        _destroyCancellation.Cancel();
+        _destroyCancellation.Dispose();
     }
 }

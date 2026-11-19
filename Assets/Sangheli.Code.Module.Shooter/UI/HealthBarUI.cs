@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +9,7 @@ public class HealthBarUI : MonoBehaviour
     public float punchScale = 1.2f;
     public float duration = 0.2f;
     private Color _startColor;
-    private Coroutine _blinkCoroutine;
-    private Coroutine _bounceCoroutine;
+    private CancellationTokenSource _bounceCancellation;
     private Vector3 _originalScale;
     public float unFillTime = 0.5f;
 
@@ -39,10 +40,28 @@ public class HealthBarUI : MonoBehaviour
         if (!doBlink) 
             return true;
         
-        if (_bounceCoroutine != null) StopCoroutine(_bounceCoroutine);
+        CancelBounce();
         if(gameObject.activeSelf && timerText.gameObject.activeSelf)
-            _bounceCoroutine = StartCoroutine(GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration));
+        {
+            _bounceCancellation = new CancellationTokenSource();
+            _ = GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token);
+        }
 
         return true;
     }
-} 
+
+    private void CancelBounce()
+    {
+        if (_bounceCancellation == null)
+            return;
+
+        _bounceCancellation.Cancel();
+        _bounceCancellation.Dispose();
+        _bounceCancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelBounce();
+    }
+}

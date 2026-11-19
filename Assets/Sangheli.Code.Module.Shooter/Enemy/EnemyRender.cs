@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyRender : MonoBehaviour
@@ -27,10 +30,9 @@ public class EnemyRender : MonoBehaviour
     private Vector3 _originalScale;
     private Vector3 _originalScaleShadow;
 
-    private Coroutine _bounceRoutine;
-    private Coroutine _bounceShadowRoutine;
-    private Coroutine _flashRoutine;
-    private Coroutine _critColorRoutine;
+    private CancellationTokenSource _bounceCancellation;
+    private CancellationTokenSource _flashCancellation;
+    private CancellationTokenSource _critColorCancellation;
     
     public float punchScale = 1.2f;
     public float punchScaleCrit = 1.2f*1.2f;
@@ -115,60 +117,39 @@ public class EnemyRender : MonoBehaviour
 
     public void DoBounceAnimation(bool isCrit)
     {
-        // Остановка предыдущих корутин
-        if (_bounceRoutine != null)
-            StopCoroutine(_bounceRoutine);
-        if (_bounceShadowRoutine != null)
-            StopCoroutine(_bounceShadowRoutine);
+        CancelAnimation(ref _bounceCancellation);
 
         var tempScale = isCrit ? punchScaleCrit : punchScale;
         var addonScale = tempScale - 1;
         addonScale /= scale;
         
-        // Запуск и кеширование новых корутин
-        _bounceRoutine = StartCoroutine(GameAnimation.Bounce(mainView, _originalScale*scale, 1+addonScale, duration));
-        // _bounceShadowRoutine = StartCoroutine(GameAnimation.Bounce(shadowRenderArr[0].transform, _originalScaleShadow*scale, 1+addonScale, duration));
+        _bounceCancellation = new CancellationTokenSource();
+        _ = GameAnimation.Bounce(mainView, _originalScale*scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token);
     }
 
     public void FlashEffect(bool isCrit)
     {
-        if (_flashRoutine != null)
-            StopCoroutine(_flashRoutine);
-        
-        _flashRoutine = StartCoroutine(GameAnimation.FlashEffect(SetHitValue, isCrit, maxFlashValue, duration));
+        CancelAnimation(ref _flashCancellation);
+        _flashCancellation = new CancellationTokenSource();
+        _ = GameAnimation.FlashEffect(SetHitValue, isCrit, maxFlashValue, duration, _flashCancellation.Token);
     }
 
-    public void ResetCoroutines()
+    public void ResetAnimations()
     {
-        if (_flashRoutine != null)
-            StopCoroutine(_flashRoutine);
-        if (_bounceRoutine != null)
-            StopCoroutine(_bounceRoutine);
-        if (_bounceShadowRoutine != null)
-            StopCoroutine(_bounceShadowRoutine);
-        if (_critColorRoutine != null)
-            StopCoroutine(_critColorRoutine);
+        CancelAnimation(ref _flashCancellation);
+        CancelAnimation(ref _bounceCancellation);
+        CancelAnimation(ref _critColorCancellation);
         
         var transform2 = mainView;
-        // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
-        // transform3.localScale = _originalScaleShadow;
-        
-        // Сброс вращения
         transform2.localRotation = Quaternion.identity;
-        // transform3.localRotation = Quaternion.identity;
     }
     
     public void ResetItem()
     {
         var transform2 = mainView;
-        // var transform3 = shadowRenderArr[0].transform;
         transform2.localScale = _originalScale;
-        // transform3.localScale = _originalScaleShadow;
-        
-        // Сброс вращения
         transform2.localRotation = Quaternion.identity;
-        // transform3.localRotation = Quaternion.identity;
         
         // Ensure color is reset to original
         PropertyBlock.SetColor(_colorProperty, OriginalColor);
@@ -181,15 +162,16 @@ public class EnemyRender : MonoBehaviour
         PropertyBlock.SetColor(_colorProperty, OriginalColor);
         ApplyPropertyView();
         
-        if (_critColorRoutine != null) StopCoroutine(_critColorRoutine);
-        _critColorRoutine = StartCoroutine(CritColorCoroutine());
+        CancelAnimation(ref _critColorCancellation);
+        _critColorCancellation = new CancellationTokenSource();
+        _ = CritColorAsync(_critColorCancellation.Token);
     }
     
-    public IEnumerator CritColorCoroutine()
+    private async Task CritColorAsync(CancellationToken cancellationToken)
     {
         PropertyBlock.SetColor(_colorProperty, Color.red);
         ApplyPropertyView();
-        yield return new WaitForSeconds(duration);
+        await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
         PropertyBlock.SetColor(_colorProperty, OriginalColor);
         ApplyPropertyView();
     }
@@ -202,13 +184,10 @@ public class EnemyRender : MonoBehaviour
         // foreach (var x in backRenderArr) x.sortingOrder = data.back;
     }
 
-    public IEnumerator DeathAnimation()
+    public async Task DeathAnimation(CancellationToken cancellationToken = default)
     {
         var transform1 = mainView.transform;
-        // var transform2 = shadowRenderArr[0].transform;
-        
-     yield return   StartCoroutine(GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration));
-        // yield return StartCoroutine(GameAnimation.ShrinkAndDisappear(transform2, transform2.localScale, deathAnimDuration));
+        await GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration, cancellationToken);
     }
 
     public void SetFullColor(Color color, Color borderColor)
@@ -262,5 +241,22 @@ public class EnemyRender : MonoBehaviour
 
         viewRenderArr[0].transform.localScale = newScale;
         // shadowRenderArr[0].transform.localScale = _originalScaleShadow;
+    }
+
+    private static void CancelAnimation(ref CancellationTokenSource cancellation)
+    {
+        if (cancellation == null)
+            return;
+
+        cancellation.Cancel();
+        cancellation.Dispose();
+        cancellation = null;
+    }
+
+    private void OnDestroy()
+    {
+        CancelAnimation(ref _flashCancellation);
+        CancelAnimation(ref _bounceCancellation);
+        CancelAnimation(ref _critColorCancellation);
     }
 }
