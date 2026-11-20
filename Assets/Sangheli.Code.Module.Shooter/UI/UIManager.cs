@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public HealthBarUI healthBarUI;
     public ShieldBarUI shieldBarUI;
     public EnergyBarUI energyBarUI;
+    public ShakeSettings damageShakeSettings = new();
     
     [Header("Terminate Button")]
     public Button terminateButton;
@@ -73,6 +74,12 @@ public class UIManager : MonoBehaviour
         if (healthBarUI != null)
             healthBarUI.gameObject.SetActive(true);
         return healthBarUI != null && healthBarUI.Show(hp, fullValue, fillValue, doBlink, startValue: startValue);
+    }
+
+    public void PlayDamageShake()
+    {
+        healthBarUI?.Shake(damageShakeSettings);
+        shieldBarUI?.Shake(damageShakeSettings);
     }
 
     public void Toggle(bool b)

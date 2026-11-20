@@ -51,6 +51,7 @@ public class HPManager
         {
             _doBlink = true;
             G.I.cockpitManager.PlayDistortion();
+            G.I.uiManager.PlayDamageShake();
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.energyShieldHit);
         }
 

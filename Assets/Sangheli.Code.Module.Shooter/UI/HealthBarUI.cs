@@ -11,6 +11,7 @@ public class HealthBarUI : MonoBehaviour
     private Color _startColor;
     private CancellationTokenSource _bounceCancellation;
     private Vector3 _originalScale;
+    private RectTransformShake _shake;
     public float unFillTime = 0.5f;
 
     public HalfBarView[] halfBarViewArr;
@@ -48,6 +49,21 @@ public class HealthBarUI : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void Shake(ShakeSettings settings)
+    {
+        if (!gameObject.activeSelf)
+            return;
+
+        if (_shake == null)
+        {
+            _shake = GetComponent<RectTransformShake>();
+            if (_shake == null)
+                _shake = gameObject.AddComponent<RectTransformShake>();
+        }
+
+        _shake.Shake(settings, addRandomness: true);
     }
 
     private void CancelBounce()
