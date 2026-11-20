@@ -20,7 +20,7 @@ public class LevelTargetManager : MonoBehaviour
     {
         Data ??= new LevelTargetValue(levelTargetBar,levelGradientColor);
         Toggle(false);
-        
+        return;
         _propertyBlock = new MaterialPropertyBlock();
         targetRenderer.GetPropertyBlock(_propertyBlock);
         ApplyLevelColor();
