@@ -22,7 +22,7 @@ public class BossManager : MonoBehaviour
         CurrentBoss.gameObject.SetActive(true);
         CurrentBoss.Init(hp, color, bossDamage, OnBossDeath);
         _spawnCancellation = new CancellationTokenSource();
-        _ = SpawnAndAttack(CurrentBoss, _spawnCancellation.Token);
+        _ = SpawnAndAttack(CurrentBoss, _spawnCancellation.Token).LogExceptions();
     }
 
     private async Task SpawnAndAttack(BossController boss, CancellationToken cancellationToken)

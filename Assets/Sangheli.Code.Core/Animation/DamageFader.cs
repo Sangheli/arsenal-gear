@@ -48,7 +48,7 @@ public class DamageFader : MonoBehaviour
 
     public void PlayAnim()
     {
-        _ = PlayAnimAsync();
+        _ = PlayAnimAsync().LogExceptions();
     }
 
     public async Task PlayAnimAsync()

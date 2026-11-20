@@ -31,25 +31,25 @@ public class CameraShake : MonoBehaviour
     public void Shake()
     {
         StartShake();
-        _ = ShakeAsync(_shakeCancellation);
+        _ = ShakeAsync(_shakeCancellation).LogExceptions();
     }
     
     public void Shake(float intensity, float duration)
     {
         StartShake();
-        _ = ShakeAsync(_shakeCancellation, intensity, duration);
+        _ = ShakeAsync(_shakeCancellation, intensity, duration).LogExceptions();
     }
     
     public void DeathShake()
     {
         StartShake();
-        _ = DeathShakeAsync(_shakeCancellation);
+        _ = DeathShakeAsync(_shakeCancellation).LogExceptions();
     }
     
     public void ShakeSmall()
     {
         StartShake();
-        _ = ShakeAsync(_shakeCancellation, shakeIntensity / 2);
+        _ = ShakeAsync(_shakeCancellation, shakeIntensity / 2).LogExceptions();
     }
 
     private void StartShake()

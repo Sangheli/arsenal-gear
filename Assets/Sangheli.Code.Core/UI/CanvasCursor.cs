@@ -35,7 +35,7 @@ public class CanvasCursor : MonoBehaviour
         {
             CancelClick();
             _clickCancellation = new CancellationTokenSource();
-            _ = ShowCursor(_clickCancellation.Token);
+            _ = ShowCursor(_clickCancellation.Token).LogExceptions();
         }
     }
 

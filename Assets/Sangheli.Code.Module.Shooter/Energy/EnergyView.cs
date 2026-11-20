@@ -121,7 +121,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
         G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.collectCoin);
         CancelScaleAnimation();
         _scaleAnimationCancellation = new CancellationTokenSource();
-        _ = OnEndScaleAnim(_scaleAnimationCancellation.Token);
+        _ = OnEndScaleAnim(_scaleAnimationCancellation.Token).LogExceptions();
     }
 
     private async Task OnEndScaleAnim(CancellationToken cancellationToken)

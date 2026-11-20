@@ -25,7 +25,7 @@ public class EnergyBarUI : MonoBehaviour
         energyText.text = $"{NumberFormatter.FormatAuto(value,1)}";
         CancelBounce();
         _bounceCancellation = new CancellationTokenSource();
-        _ = GameAnimation.Bounce(energyText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token);
+        _ = GameAnimation.Bounce(energyText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token).LogExceptions();
     }
 
     private void CancelBounce()

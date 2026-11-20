@@ -38,7 +38,7 @@ public class DamageTextManager : MonoBehaviour
         transform1.position = GetPos(CurrentDamageScale);
         var cancellation = new CancellationTokenSource();
         _activeAnimations[textObj] = cancellation;
-        _ = AnimateAndReturn(textObj, sb.ToString(), cancellation.Token);
+        _ = AnimateAndReturn(textObj, sb.ToString(), cancellation.Token).LogExceptions();
     }
 
     private static Vector3 GetPos(float CurrentDamageScale)

@@ -175,7 +175,7 @@ public class EndRoundView : MonoBehaviour
     {
         StopShowAnimation();
         _showCancellation = new CancellationTokenSource();
-        _ = ShowAsync(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd, _showCancellation.Token);
+        _ = ShowAsync(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd, _showCancellation.Token).LogExceptions();
     }
 
     private async Task ShowAsync(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)

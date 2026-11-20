@@ -68,7 +68,7 @@ public class CursorView : MonoBehaviour
         CancelAnimation(ref _bounceCancellation);
         CancelAnimation(ref _pulseCancellation);
         _bounceCancellation = new CancellationTokenSource();
-        _ = GameAnimation.Bounce(view.transform, _originalScale * scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token);
+        _ = GameAnimation.Bounce(view.transform, _originalScale * scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token).LogExceptions();
     }
 
     public void PulseRingColor(Color pulseColor, float duration)
@@ -79,7 +79,7 @@ public class CursorView : MonoBehaviour
 
         _pulseColor = pulseColor;
         _pulseCancellation = new CancellationTokenSource();
-        _ = PulseRingColorAsync(pulseColor, duration, _pulseCancellation.Token);
+        _ = PulseRingColorAsync(pulseColor, duration, _pulseCancellation.Token).LogExceptions();
     }
 
     private async Task PulseRingColorAsync(Color pulseColor, float duration, CancellationToken cancellationToken)

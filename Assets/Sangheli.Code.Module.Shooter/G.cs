@@ -126,7 +126,6 @@ public class G : MonoBehaviour
         ShieldManager.LateUpdate();
     }
 
-#pragma warning disable CS4014
     private void Awake()
     {
 #if !UNITY_EDITOR
@@ -137,9 +136,8 @@ public class G : MonoBehaviour
         Application.runInBackground = true;
 #endif
         LocalizationBridge.Localizations = new HashSet<IUILocalization>();
-        _ = StartGame();
+        _ = StartGame().LogExceptions();
     }
-#pragma warning restore CS4014
     
     private async Task StartGame()
     {
@@ -233,7 +231,7 @@ public class G : MonoBehaviour
         G.I.SaveProvider.Get().enemyUpgradeContainer.ResetTemp();
         SaveSystem.SaveSilent();
         var cancellationToken = BeginSequence();
-        _ = StartRunSequence(playFader, overrideNew, playFaderBack, cancellationToken);
+        _ = StartRunSequence(playFader, overrideNew, playFaderBack, cancellationToken).LogExceptions();
     }
 
     private async Task StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack, CancellationToken cancellationToken)
@@ -280,7 +278,7 @@ public class G : MonoBehaviour
         var save = SaveProvider.Get();
         var demoEnd = save.level >= maxLevel && fadeType == EndRoundFadeEnum.RoundWin;
         var cancellationToken = BeginSequence();
-        _ = demoEnd ? ShowEndGame(levelTargetEnd, cancellationToken) : StopRunSequence(fadeType, levelTargetEnd, cancellationToken);
+        _ = (demoEnd ? ShowEndGame(levelTargetEnd, cancellationToken) : StopRunSequence(fadeType, levelTargetEnd, cancellationToken)).LogExceptions();
     }
     
     private async Task ShowEndGame(ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
@@ -352,7 +350,7 @@ public class G : MonoBehaviour
 
     public void GoToUpgrades()
     {
-        _ = GoToUpgradesAsync();
+        _ = GoToUpgradesAsync().LogExceptions();
     }
 
     private async Task GoToUpgradesAsync()
@@ -427,7 +425,7 @@ public class G : MonoBehaviour
         {
             startGameView.Toggle(true);
             startGameView.DoSaveInfoFadeOut(2.0f, 1);
-            _ = G.I.distortionUI.StartFadeOut();
+            _ = G.I.distortionUI.StartFadeOut().LogExceptions();
         }
         else
         {

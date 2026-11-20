@@ -37,9 +37,7 @@ namespace SangheliCore
             if(useLocSelector)
                 localizationSelector.gameObject.SetActive(false);
             
-#pragma warning disable CS4014
-            G.I.OnFirstLoad();
-#pragma warning restore CS4014
+            _ = G.I.OnFirstLoad().LogExceptions();
         }
     
         public void UpdateLocalization()

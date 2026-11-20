@@ -198,7 +198,7 @@ public class RoundManager : MonoBehaviour
         IsAlive = true;
         CancelEnablePlay();
         _enablePlayCancellation = new CancellationTokenSource();
-        _ = EnableIsAliveForPlayDelayed(_enablePlayCancellation.Token);
+        _ = EnableIsAliveForPlayDelayed(_enablePlayCancellation.Token).LogExceptions();
     }
 
     private async Task EnableIsAliveForPlayDelayed(CancellationToken cancellationToken)

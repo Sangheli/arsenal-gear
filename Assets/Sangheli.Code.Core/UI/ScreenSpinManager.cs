@@ -29,7 +29,7 @@ public class ScreenSpinManager : MonoBehaviour
         screenImage.enabled = false;
     }
 
-    public void PlayEffect() => _ = Animate(_destroyCancellation.Token);
+    public void PlayEffect() => _ = Animate(_destroyCancellation.Token).LogExceptions();
 
     private async Task Animate(CancellationToken cancellationToken)
     {

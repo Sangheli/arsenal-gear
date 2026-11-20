@@ -124,14 +124,14 @@ public class EnemyRender : MonoBehaviour
         addonScale /= scale;
         
         _bounceCancellation = new CancellationTokenSource();
-        _ = GameAnimation.Bounce(mainView, _originalScale*scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token);
+        _ = GameAnimation.Bounce(mainView, _originalScale*scale, 1+addonScale, duration, cancellationToken: _bounceCancellation.Token).LogExceptions();
     }
 
     public void FlashEffect(bool isCrit)
     {
         CancelAnimation(ref _flashCancellation);
         _flashCancellation = new CancellationTokenSource();
-        _ = GameAnimation.FlashEffect(SetHitValue, isCrit, maxFlashValue, duration, _flashCancellation.Token);
+        _ = GameAnimation.FlashEffect(SetHitValue, isCrit, maxFlashValue, duration, _flashCancellation.Token).LogExceptions();
     }
 
     public void ResetAnimations()
@@ -164,7 +164,7 @@ public class EnemyRender : MonoBehaviour
         
         CancelAnimation(ref _critColorCancellation);
         _critColorCancellation = new CancellationTokenSource();
-        _ = CritColorAsync(_critColorCancellation.Token);
+        _ = CritColorAsync(_critColorCancellation.Token).LogExceptions();
     }
     
     private async Task CritColorAsync(CancellationToken cancellationToken)

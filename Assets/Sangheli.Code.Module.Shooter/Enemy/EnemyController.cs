@@ -267,7 +267,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         
         OnBeforeReturnToPool();
         _deathCancellation = new CancellationTokenSource();
-        _ = DeathAndReturnToPool(isCrit, _deathCancellation.Token);
+        _ = DeathAndReturnToPool(isCrit, _deathCancellation.Token).LogExceptions();
     }
 
     private void OnBeforeReturnToPool()
@@ -334,7 +334,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         if (CurrentData.useSelfDestruct && _selfDestructTime > 0)
         {
             _selfDestructCancellation = new CancellationTokenSource();
-            _ = SelfDestructAsync(_selfDestructCancellation.Token);
+            _ = SelfDestructAsync(_selfDestructCancellation.Token).LogExceptions();
         }
     }
     

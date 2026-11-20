@@ -25,7 +25,7 @@ public class ArcMoveAnimator : MonoBehaviour
         _centerScreen.z = 0f;
         CancelAnimation();
         _animationCancellation = new CancellationTokenSource();
-        _ = AnimateAll(_animationCancellation.Token);
+        _ = AnimateAll(_animationCancellation.Token).LogExceptions();
     }
 
     private async Task AnimateAll(CancellationToken cancellationToken)

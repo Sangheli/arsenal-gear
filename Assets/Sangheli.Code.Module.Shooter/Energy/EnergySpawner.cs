@@ -46,7 +46,7 @@ public class EnergySpawner : MonoBehaviour
         pos = G.I.cameraMain.WorldToScreenPoint(pos+enemyData.SpawnCoinShift);
         pos = ScreenToWorldOnPlane(pos);
         if(enemyData.GetEnergy() < 1) return;
-        _ = SpawnCoins(pos, enemyData, _destroyCancellation.Token);
+        _ = SpawnCoins(pos, enemyData, _destroyCancellation.Token).LogExceptions();
     }
 
     private Vector3 ScreenToWorldOnPlane(Vector2 screenPos, float zPlane = 0f)

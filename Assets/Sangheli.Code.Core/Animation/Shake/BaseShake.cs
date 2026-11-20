@@ -22,7 +22,7 @@ public abstract class BaseShake<T> : MonoBehaviour
 
     public void Shake(ShakeSettings shakeSettings, bool addRandomness = false)
     {
-        _ = ShakeAsync(shakeSettings, addRandomness);
+        _ = ShakeAsync(shakeSettings, addRandomness).LogExceptions();
     }
 
     public async Task ShakeAsync(ShakeSettings shakeSettings, bool addRandomness = false)

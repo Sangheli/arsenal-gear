@@ -45,7 +45,7 @@ public class HealthBarUI : MonoBehaviour
         if(gameObject.activeSelf && timerText.gameObject.activeSelf)
         {
             _bounceCancellation = new CancellationTokenSource();
-            _ = GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token);
+            _ = GameAnimation.Bounce(timerText.transform, _originalScale, punchScale, duration, cancellationToken: _bounceCancellation.Token).LogExceptions();
         }
 
         return true;

@@ -116,7 +116,7 @@ public class PooledAudioPlayer : MonoBehaviour
         if (clip.playLoop)
             loopingSources[subClip] = source;
         else
-            _ = ReleaseAfterPlay(source, len + 0.1f, _destroyCancellation.Token);
+            _ = ReleaseAfterPlay(source, len + 0.1f, _destroyCancellation.Token).LogExceptions();
     }
 
     private async Task ReleaseAfterPlay(AudioSource source, float delay, CancellationToken cancellationToken)

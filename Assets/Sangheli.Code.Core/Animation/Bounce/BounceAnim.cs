@@ -26,7 +26,7 @@ public class BounceAnim : MonoBehaviour
 
     public void Play()
     {
-        _ = PlayAsync();
+        _ = PlayAsync().LogExceptions();
     }
 
     public async Task PlayAsync()

@@ -18,7 +18,7 @@ public class UIFaderOut : MonoBehaviour
     {
         CancelFade();
         _fadeCancellation = new CancellationTokenSource();
-        _ = FadeOutAsync(duration, awaitTIme, _fadeCancellation.Token);
+        _ = FadeOutAsync(duration, awaitTIme, _fadeCancellation.Token).LogExceptions();
     }
     
     private async Task FadeOutAsync(float duration, float awaitTIme, CancellationToken cancellationToken)

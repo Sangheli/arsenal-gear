@@ -55,7 +55,7 @@ public class Weapon2D : MonoBehaviour
     {
         CancelBounce();
         _bounceCancellation = new CancellationTokenSource();
-        _ = BounceAnim(_bounceCancellation.Token);
+        _ = BounceAnim(_bounceCancellation.Token).LogExceptions();
     }
 
     private async Task BounceAnim(CancellationToken cancellationToken)

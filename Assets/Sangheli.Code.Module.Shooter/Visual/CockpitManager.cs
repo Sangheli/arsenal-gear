@@ -47,7 +47,7 @@ public class CockpitManager : MonoBehaviour
         CancelAnimation(ref _distortionCancellation);
         CancelAnimation(ref _shakeCancellation);
         _distortionCancellation = new CancellationTokenSource();
-        _ = DistortionAsync(_distortionCancellation.Token);
+        _ = DistortionAsync(_distortionCancellation.Token).LogExceptions();
     }
 
     private async Task DistortionAsync(CancellationToken cancellationToken)
@@ -63,7 +63,7 @@ public class CockpitManager : MonoBehaviour
         shakeView.localPosition = _startShakeViewPos;
         CancelAnimation(ref _shakeCancellation);
         _shakeCancellation = new CancellationTokenSource();
-        _ = ShakeAsync(_shakeCancellation.Token);
+        _ = ShakeAsync(_shakeCancellation.Token).LogExceptions();
     }
 
     private async Task ShakeAsync(CancellationToken cancellationToken)

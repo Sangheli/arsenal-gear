@@ -201,7 +201,7 @@ public class CursorController : MonoBehaviour
         var interval = 60f / _playerFireRate;
         CancelPulse();
         _pulseCancellation = new CancellationTokenSource();
-        _ = GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval, _baseInnerCurrent, _pulseCancellation.Token);
+        _ = GameAnimation.PulseInnerRadius(view.viewRender, view.PropertyBlock, interval, _baseInnerCurrent, _pulseCancellation.Token).LogExceptions();
     }
 
     private void CancelPulse()
