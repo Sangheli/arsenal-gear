@@ -35,33 +35,30 @@ MonoBehaviour:
     spriteBorder: {fileID: 21300000, guid: fcbfd88b5723dd440bfab3a3de169e08, type: 3}
     multiSprite: []
     useMultiSprite: 0
-  useRandomColor: 1
-  color: {r: 0.46274513, g: 0.023529414, b: 0.18431373, a: 1}
-  userOverrideBorderColor: 0
-  overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
-  hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
   colorData:
     useRandomColor: 1
     color: {r: 0.4627451, g: 0.023529412, b: 0.18431373, a: 1}
     userOverrideBorderColor: 0
     overrideBorderColor: {r: 1, g: 1, b: 1, a: 1}
     hitVfxColor: {r: 0, g: 0, b: 0, a: 0}
-  spawnAtStart: 0
-  spawnAtStartHardcore: 0
-  useRandomSpawnRate: 0
-  spawnRate1: 0
-  spawnRate2: 0
+  spawnData:
+    spawnAtStart: 0
+    spawnAtStartHardcore: 0
+    useRandomSpawnRate: 0
+    spawnRate1: 0
+    spawnRate2: 0
   useSelfDestruct: 0
   useRandomSelfDestructTime: 0
   selfDestructTime: 0
   selfDestructTimeRandomAdd: 0
   PosConfig:
     useCustomZPos: 0
-    customZPos: 0
+    customZPosMin: 0
+    customZPosMax: 0
     ignoreSpawnPositionManager: 0
     useRanomYPos: 1
-    minY: -2
-    maxY: -2
+    minY: 3.25
+    maxY: 3.25
     useXPos: 0
     posX: 0
   SpawnCoinShift: {x: 0, y: 0.5, z: 0}
@@ -81,4 +78,5 @@ MonoBehaviour:
     BasePrice: 100
     PriceMult: 1.2
     ShowUpgrade: 0
+    AutoFormat: 0
     Type: 1
