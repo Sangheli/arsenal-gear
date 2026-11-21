@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 
 public static class GameAnimation
@@ -12,7 +12,7 @@ public static class GameAnimation
     private const float EndWaitTime = 0.25f;
     public static readonly int PropInnerRadius = Shader.PropertyToID("_InnerRadius");
     
-    public static async Task Bounce(Transform view, Vector3 originalScale, float punchScale, float duration, bool doNotChangeScaleOnStart = false, CancellationToken cancellationToken = default)
+    public static async UniTask Bounce(Transform view, Vector3 originalScale, float punchScale, float duration, bool doNotChangeScaleOnStart = false, CancellationToken cancellationToken = default)
     {
         if(!doNotChangeScaleOnStart)
             view.localScale = originalScale;
@@ -26,20 +26,20 @@ public static class GameAnimation
         view.localScale = originalScale;
     }
     
-    public static async Task OnScaleAnim(Transform transform, Vector3 originalScale, float duration, float scale1, float scale2, CancellationToken cancellationToken = default)
+    public static async UniTask OnScaleAnim(Transform transform, Vector3 originalScale, float duration, float scale1, float scale2, CancellationToken cancellationToken = default)
     {
         var t = 0f;
         while (t < duration)
         {
             var progress = t / duration;
             transform.localScale = originalScale * Mathf.Lerp(scale1, scale2, progress);;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
             t += Time.deltaTime;
         }
     }
     
-    public static async Task BlinkColor(Color color, Color startColor, Image image, float blinkTime, AnimationCurve blinkCurve, CancellationToken cancellationToken = default)
+    public static async UniTask BlinkColor(Color color, Color startColor, Image image, float blinkTime, AnimationCurve blinkCurve, CancellationToken cancellationToken = default)
     {
         image.color = color;
         var time = 0f;
@@ -49,7 +49,7 @@ public static class GameAnimation
             var t = time / blinkTime;
             var curveValue = blinkCurve.Evaluate(t);
             image.color = Color.Lerp(color, startColor, curveValue);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
             time += Time.deltaTime;
         }
@@ -57,13 +57,13 @@ public static class GameAnimation
         image.color = startColor;
     }
 
-    public static async Task ShrinkAndDisappear(Transform view, Vector3 scale1, float duration, CancellationToken cancellationToken = default)
+    public static async UniTask ShrinkAndDisappear(Transform view, Vector3 scale1, float duration, CancellationToken cancellationToken = default)
     {
         await OnScaleAnim(view, duration, scale1, new Vector3(0,0,1), cancellationToken);
         view.localScale = Vector3.zero;
     }
     
-    public static async Task FlashEffect(System.Action<float> setHitValue, bool isCrit, float maxFlashValue, float duration, CancellationToken cancellationToken = default)
+    public static async UniTask FlashEffect(System.Action<float> setHitValue, bool isCrit, float maxFlashValue, float duration, CancellationToken cancellationToken = default)
     {
         setHitValue(isCrit ? maxFlashValue * 2f : maxFlashValue);
         
@@ -74,14 +74,14 @@ public static class GameAnimation
             t += Time.deltaTime;
             var blend = Mathf.Lerp(isCrit ? maxFlashValue * 2f : maxFlashValue, 0f, t / duration);
             setHitValue(blend);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 
         setHitValue(0f);
     }
 
-    public static async Task PulseInnerRadius(Renderer viewRender, MaterialPropertyBlock propertyBlock, float duration, float baseValue, CancellationToken cancellationToken = default)
+    public static async UniTask PulseInnerRadius(Renderer viewRender, MaterialPropertyBlock propertyBlock, float duration, float baseValue, CancellationToken cancellationToken = default)
     {
         var time = 0f;
         while (time < duration)
@@ -93,7 +93,7 @@ public static class GameAnimation
             viewRender.SetPropertyBlock(propertyBlock);
 
             time += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         
@@ -101,20 +101,20 @@ public static class GameAnimation
         viewRender.SetPropertyBlock(propertyBlock);
     }
     
-    private static async Task OnScaleAnim(Transform view, float duration, Vector3 scale1, Vector3 scale2, CancellationToken cancellationToken = default)
+    private static async UniTask OnScaleAnim(Transform view, float duration, Vector3 scale1, Vector3 scale2, CancellationToken cancellationToken = default)
     {
         var t = 0f;
         while (t < duration)
         {
             var progress = t / duration;
             view.localScale = Vector3.Lerp(scale1, scale2, progress);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
             t += Time.deltaTime;
         }
     }
     
-    public static async Task CollectAllEnergyOnScreen<T>(List<T> toCollect, int countToCollect, CancellationToken cancellationToken = default) where T : ICollectable
+    public static async UniTask CollectAllEnergyOnScreen<T>(List<T> toCollect, int countToCollect, CancellationToken cancellationToken = default) where T : ICollectable
     {
         if (toCollect == null || toCollect.Count == 0) 
             return;
@@ -134,10 +134,10 @@ public static class GameAnimation
         while (selectedToCollect.Any(x => x.IsActive) && elapsed < timeout)
         {
             elapsed += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 
-        await Task.Delay(TimeSpan.FromSeconds(EndWaitTime), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(EndWaitTime), cancellationToken: cancellationToken);
     }
 }

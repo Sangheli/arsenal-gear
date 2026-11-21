@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIFaderOut : MonoBehaviour
@@ -21,16 +21,16 @@ public class UIFaderOut : MonoBehaviour
         _ = FadeOutAsync(duration, awaitTIme, _fadeCancellation.Token).LogExceptions();
     }
     
-    private async Task FadeOutAsync(float duration, float awaitTIme, CancellationToken cancellationToken)
+    private async UniTask FadeOutAsync(float duration, float awaitTIme, CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromSeconds(awaitTIme), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(awaitTIme), cancellationToken: cancellationToken);
         float startAlpha = 1;
         float time = 0f;
         while (time < duration)
         {
             time += Time.deltaTime;
             canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, time / duration);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         canvasGroup.alpha = 0f;

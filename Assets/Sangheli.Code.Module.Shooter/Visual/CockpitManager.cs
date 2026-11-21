@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +50,7 @@ public class CockpitManager : MonoBehaviour
         _ = DistortionAsync(_distortionCancellation.Token).LogExceptions();
     }
 
-    private async Task DistortionAsync(CancellationToken cancellationToken)
+    private async UniTask DistortionAsync(CancellationToken cancellationToken)
     {
         DoShake();
         await AnimateDistortion(distortionValueStart, distortionValueDamage, distortionTime, glowValueStart, glowValueDamage, cancellationToken);
@@ -66,7 +66,7 @@ public class CockpitManager : MonoBehaviour
         _ = ShakeAsync(_shakeCancellation.Token).LogExceptions();
     }
 
-    private async Task ShakeAsync(CancellationToken cancellationToken)
+    private async UniTask ShakeAsync(CancellationToken cancellationToken)
     {
         float elapsed = 0f;
 
@@ -80,7 +80,7 @@ public class CockpitManager : MonoBehaviour
 
             shakeView.localPosition = _startShakeViewPos + new Vector3(offsetX, offsetY, 0);
 
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 
@@ -88,7 +88,7 @@ public class CockpitManager : MonoBehaviour
         shakeView.localPosition = _startShakeViewPos;
     }
 
-    private async Task AnimateDistortion(float from, float to, float duration, float fromGlow, float toGlow, CancellationToken cancellationToken)
+    private async UniTask AnimateDistortion(float from, float to, float duration, float fromGlow, float toGlow, CancellationToken cancellationToken)
     {
         float t = 0f;
         while (t < duration)
@@ -100,7 +100,7 @@ public class CockpitManager : MonoBehaviour
             foreach (var mat in _imageBlockArr) mat.SetFloat(_distortion, value);
             foreach (var mat in _imageBlockArr) mat.SetFloat(_glow, valueGlow);
 
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 

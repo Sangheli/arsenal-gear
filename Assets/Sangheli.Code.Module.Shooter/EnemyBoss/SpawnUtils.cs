@@ -1,5 +1,5 @@
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 
@@ -12,13 +12,13 @@ public static class SpawnUtils
         return center;
     }
 
-    public static async Task MoveToCenter(Transform obj, Vector3 centerPos, float speed = 10f, CancellationToken cancellationToken = default)
+    public static async UniTask MoveToCenter(Transform obj, Vector3 centerPos, float speed = 10f, CancellationToken cancellationToken = default)
     {
         while (Vector3.Distance(obj.position, centerPos) > 0.1f)
         {
             var direction = (centerPos - obj.position).normalized;
             obj.position += direction * speed * Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         obj.position = centerPos;

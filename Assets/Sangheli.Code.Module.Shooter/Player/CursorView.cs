@@ -1,5 +1,5 @@
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 
@@ -82,7 +82,7 @@ public class CursorView : MonoBehaviour
         _ = PulseRingColorAsync(pulseColor, duration, _pulseCancellation.Token).LogExceptions();
     }
 
-    private async Task PulseRingColorAsync(Color pulseColor, float duration, CancellationToken cancellationToken)
+    private async UniTask PulseRingColorAsync(Color pulseColor, float duration, CancellationToken cancellationToken)
     {
         isPulsing = false;
         ApplyVisual();
@@ -97,7 +97,7 @@ public class CursorView : MonoBehaviour
             ApplyVisual();
             
             t += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         
@@ -114,7 +114,7 @@ public class CursorView : MonoBehaviour
             ApplyVisual();
             
             t += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         

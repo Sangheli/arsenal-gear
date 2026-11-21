@@ -1,10 +1,10 @@
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public static class TaskExtensions
+public static class UniTaskExtensions
 {
-    public static async Task LogExceptions(this Task task)
+    public static async UniTask LogExceptions(this UniTask task)
     {
         try
         {

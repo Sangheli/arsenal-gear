@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class BounceAnim : MonoBehaviour
@@ -29,7 +29,7 @@ public class BounceAnim : MonoBehaviour
         _ = PlayAsync().LogExceptions();
     }
 
-    public async Task PlayAsync()
+    public async UniTask PlayAsync()
     {
         if (!gameObject.activeSelf)
             return;
@@ -42,7 +42,7 @@ public class BounceAnim : MonoBehaviour
         try
         {
             if (startBounceShift > 0)
-                await Task.Delay(TimeSpan.FromSeconds(startBounceShift), token);
+                await UniTask.Delay(TimeSpan.FromSeconds(startBounceShift), cancellationToken: token);
 
             var duration = splitDuration ? bounceDuration / 2f : bounceDuration;
             var targetScale = baseScale * bounceScale;
@@ -60,7 +60,7 @@ public class BounceAnim : MonoBehaviour
         }
     }
 
-    private async Task ScaleAsync(Vector3 startScale, Vector3 targetScale, float duration, CancellationToken token)
+    private async UniTask ScaleAsync(Vector3 startScale, Vector3 targetScale, float duration, CancellationToken token)
     {
         if (duration <= 0)
         {
@@ -73,7 +73,7 @@ public class BounceAnim : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             transform.localScale = Vector3.Lerp(startScale, targetScale, Mathf.Clamp01(elapsed / duration));
-            await Task.Yield();
+            await UniTask.Yield();
             token.ThrowIfCancellationRequested();
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -119,9 +119,9 @@ public class PooledAudioPlayer : MonoBehaviour
             _ = ReleaseAfterPlay(source, len + 0.1f, _destroyCancellation.Token).LogExceptions();
     }
 
-    private async Task ReleaseAfterPlay(AudioSource source, float delay, CancellationToken cancellationToken)
+    private async UniTask ReleaseAfterPlay(AudioSource source, float delay, CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromSeconds(delay), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: cancellationToken);
         source.Stop();
         source.clip = null;
         // source.gameObject.SetActive(false);

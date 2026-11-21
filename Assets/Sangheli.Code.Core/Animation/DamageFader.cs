@@ -1,5 +1,5 @@
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +51,7 @@ public class DamageFader : MonoBehaviour
         _ = PlayAnimAsync().LogExceptions();
     }
 
-    public async Task PlayAnimAsync()
+    public async UniTask PlayAnimAsync()
     {
         CancelAnimation();
         var cancellation = new CancellationTokenSource();
@@ -74,7 +74,7 @@ public class DamageFader : MonoBehaviour
         }
     }
 
-    private async Task AnimatePhaseAsync(float startBlend, float endBlend, Color startColor, Color endColor, CancellationToken token)
+    private async UniTask AnimatePhaseAsync(float startBlend, float endBlend, Color startColor, Color endColor, CancellationToken token)
     {
         if (animTime <= 0)
         {
@@ -88,7 +88,7 @@ public class DamageFader : MonoBehaviour
             elapsed += Time.deltaTime;
             var progress = Mathf.Clamp01(elapsed / animTime);
             Apply(Mathf.Lerp(startBlend, endBlend, progress), Color.Lerp(startColor, endColor, progress));
-            await Task.Yield();
+            await UniTask.Yield();
             token.ThrowIfCancellationRequested();
         }
 

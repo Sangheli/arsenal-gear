@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,7 +39,7 @@ public class CanvasCursor : MonoBehaviour
         }
     }
 
-    private async Task ShowCursor(CancellationToken cancellationToken)
+    private async UniTask ShowCursor(CancellationToken cancellationToken)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle
         (
@@ -51,7 +51,7 @@ public class CanvasCursor : MonoBehaviour
      
         clickImage.gameObject.SetActive(true);
         clickImage.anchoredPosition = pos;
-        await Task.Delay(TimeSpan.FromSeconds(0.1), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.1), cancellationToken: cancellationToken);
         clickImage.gameObject.SetActive(false);
     }
 

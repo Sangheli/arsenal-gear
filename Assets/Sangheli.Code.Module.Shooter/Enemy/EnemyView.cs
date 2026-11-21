@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -52,7 +52,7 @@ public class EnemyView : MonoBehaviour
         hpBarView.runningBarImage.SetSortingOrder(data.back);
     }
 
-    public virtual async Task DeathAnimation(CancellationToken cancellationToken = default)
+    public virtual async UniTask DeathAnimation(CancellationToken cancellationToken = default)
     {
         await render.DeathAnimation(cancellationToken);
     }

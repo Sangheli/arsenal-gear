@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 public class ArcMoveAnimator : MonoBehaviour
 {
@@ -28,10 +28,10 @@ public class ArcMoveAnimator : MonoBehaviour
         _ = AnimateAll(_animationCancellation.Token).LogExceptions();
     }
 
-    private async Task AnimateAll(CancellationToken cancellationToken)
+    private async UniTask AnimateAll(CancellationToken cancellationToken)
     {
         var sortingOrderData= new SortingOrderData { ramka = 4, Start = 4, Max = 15000 };
-        var animations = new List<Task>();
+        var animations = new List<UniTask>();
         var enemyList = G.I.Data.enemyContainer.List;
 
         for (int i = 0; i < enemyCount; i++)
@@ -53,20 +53,20 @@ public class ArcMoveAnimator : MonoBehaviour
             // вычисляем текущую задержку: t от 0 до 1
             float t = (float)i / Mathf.Max(1, (enemyCount - 1));
             float currentDelay = Mathf.Lerp(delayBetween, minDelay, t);
-            await Task.Delay(TimeSpan.FromSeconds(currentDelay), cancellationToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(currentDelay), cancellationToken: cancellationToken);
         }
 
-        await Task.WhenAll(animations);
+        await UniTask.WhenAll(animations);
         G.I.StartRun(overrideNew: true);
     }
 
-    private async Task AnimateAndReturn(EnemyController enemy, CancellationToken cancellationToken)
+    private async UniTask AnimateAndReturn(EnemyController enemy, CancellationToken cancellationToken)
     {
         await AnimateObject(enemy.transform, cancellationToken);
         G.I.ObjectPool.Return(enemy);
     }
 
-    private async Task AnimateObject(Transform obj, CancellationToken cancellationToken)
+    private async UniTask AnimateObject(Transform obj, CancellationToken cancellationToken)
     {
         Vector3 start = obj.position;
         Vector3 end = _centerScreen;
@@ -82,7 +82,7 @@ public class ArcMoveAnimator : MonoBehaviour
             pos += normal * arc;
             obj.position = pos;
             obj.localScale = Vector3.Lerp(Vector3.one * startScale, Vector3.zero, t);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         obj.localScale = Vector3.zero;

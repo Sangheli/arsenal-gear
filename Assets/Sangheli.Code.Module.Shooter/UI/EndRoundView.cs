@@ -1,7 +1,7 @@
 using System.Collections;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -178,7 +178,7 @@ public class EndRoundView : MonoBehaviour
         _ = ShowAsync(rewardCollected, energyOnStart, bossReward, fadeType, levelTargetEnd, _showCancellation.Token).LogExceptions();
     }
 
-    private async Task ShowAsync(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
+    private async UniTask ShowAsync(int rewardCollected, int energyOnStart,int bossReward, EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         totalGameTextCoin.text = $"{NumberFormatter.Format(energyOnStart, 1)}";
         
@@ -234,7 +234,7 @@ public class EndRoundView : MonoBehaviour
         await ShowRewardAnim(bossReward, rewardCollected, energyOnStart+rewardCollected, rewardBossTextCoin, cancellationToken);
     }
     
-    private async Task ShowRewardAnim(int reward, float startRewardForRound, float startRewardForGame, Text textToDecrease, CancellationToken cancellationToken)
+    private async UniTask ShowRewardAnim(int reward, float startRewardForRound, float startRewardForGame, Text textToDecrease, CancellationToken cancellationToken)
     {
         if (reward > 0)
         {
@@ -247,12 +247,12 @@ public class EndRoundView : MonoBehaviour
         }
     }
 
-    private async Task ShowCoinAnim(int energy, float totalEnergy,float gameEnergy, Text textToDecrease, CancellationToken cancellationToken)
+    private async UniTask ShowCoinAnim(int energy, float totalEnergy,float gameEnergy, Text textToDecrease, CancellationToken cancellationToken)
     {
         totalTextCoin.text = $"{NumberFormatter.Format(totalEnergy, 1)}";
         totalGameTextCoin.text = $"{NumberFormatter.Format(totalEnergy+gameEnergy, 1)}";
 
-        await Task.Delay(TimeSpan.FromSeconds(waitBeforeAnim), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(waitBeforeAnim), cancellationToken: cancellationToken);
         
         float addTemp = energy;
         float stepTime = animationTime / intervalNum;
@@ -262,7 +262,7 @@ public class EndRoundView : MonoBehaviour
         
         for (int i = 0; i < intervalNum; i++)
         {
-            await Task.Delay(TimeSpan.FromSeconds(stepTime), cancellationToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(stepTime), cancellationToken: cancellationToken);
             currentTotal += energyPerStep;
             currentTotalGame += energyPerStep;
             addTemp -=  energyPerStep;

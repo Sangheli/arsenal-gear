@@ -1,5 +1,5 @@
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Collections;
 
@@ -58,7 +58,7 @@ public class CameraShake : MonoBehaviour
         _shakeCancellation = new CancellationTokenSource();
     }
     
-    private async Task ShakeAsync(CancellationTokenSource cancellation, float intensity = -1f, float duration = -1f)
+    private async UniTask ShakeAsync(CancellationTokenSource cancellation, float intensity = -1f, float duration = -1f)
     {
         var cancellationToken = cancellation.Token;
         transform.localPosition = _originalPosition;
@@ -85,7 +85,7 @@ public class CameraShake : MonoBehaviour
                 transform.localPosition = _originalPosition + new Vector3(x, y, 0);
 
                 elapsed += Time.deltaTime;
-                await Task.Yield();
+                await UniTask.Yield();
                 cancellationToken.ThrowIfCancellationRequested();
             }
         }
@@ -101,7 +101,7 @@ public class CameraShake : MonoBehaviour
         }
     }
     
-    private async Task DeathShakeAsync(CancellationTokenSource cancellation)
+    private async UniTask DeathShakeAsync(CancellationTokenSource cancellation)
     {
         var cancellationToken = cancellation.Token;
         transform.localPosition = _originalPosition;
@@ -132,7 +132,7 @@ public class CameraShake : MonoBehaviour
                 transform.localPosition = _originalPosition + new Vector3(x, y, 0);
 
                 elapsed += Time.deltaTime;
-                await Task.Yield();
+                await UniTask.Yield();
                 cancellationToken.ThrowIfCancellationRequested();
             }
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(ClampPosition))]
@@ -58,7 +58,7 @@ public class Weapon2D : MonoBehaviour
         _ = BounceAnim(_bounceCancellation.Token).LogExceptions();
     }
 
-    private async Task BounceAnim(CancellationToken cancellationToken)
+    private async UniTask BounceAnim(CancellationToken cancellationToken)
     {
         Vector3 targetScale = startScale * bounceScale;
 
@@ -68,7 +68,7 @@ public class Weapon2D : MonoBehaviour
         {
             t += Time.deltaTime * bounceSpeed;
             view.localScale = Vector3.Lerp(startScale, targetScale, t);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 
@@ -78,7 +78,7 @@ public class Weapon2D : MonoBehaviour
         {
             t += Time.deltaTime * bounceSpeed;
             view.localScale = Vector3.Lerp(targetScale, startScale, t);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 

@@ -1,5 +1,5 @@
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public abstract class BaseShake<T> : MonoBehaviour
@@ -25,7 +25,7 @@ public abstract class BaseShake<T> : MonoBehaviour
         _ = ShakeAsync(shakeSettings, addRandomness).LogExceptions();
     }
 
-    public async Task ShakeAsync(ShakeSettings shakeSettings, bool addRandomness = false)
+    public async UniTask ShakeAsync(ShakeSettings shakeSettings, bool addRandomness = false)
     {
         CancelShake();
         var cancellation = new CancellationTokenSource();
@@ -52,7 +52,7 @@ public abstract class BaseShake<T> : MonoBehaviour
 
                 SetPosition(_originalPosition + new Vector2(x, y));
                 elapsed += Time.deltaTime;
-                await Task.Yield();
+                await UniTask.Yield();
                 token.ThrowIfCancellationRequested();
             }
         }

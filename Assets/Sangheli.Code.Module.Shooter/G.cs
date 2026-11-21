@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SangheliCode;
 using SangheliCore;
@@ -144,9 +144,9 @@ public class G : MonoBehaviour
         _ = StartGame().LogExceptions();
     }
     
-    private async Task StartGame()
+    private async UniTask StartGame()
     {
-        await Task.Yield();
+        await UniTask.Yield();
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
         I = this;
@@ -180,7 +180,7 @@ public class G : MonoBehaviour
         Container.camera.orthographicSize = isHorizontal ? orthoHor : orthoVert;
     }
 
-    public async Task OnFirstLoad()
+    public async UniTask OnFirstLoad()
     {
         weaponManager.Init();
         endRoundView.OnFirstLoad();
@@ -202,7 +202,7 @@ public class G : MonoBehaviour
         
         levelTargetManager.OnLoadInit();
         bossManager = GetComponent<BossManager>();
-        await Task.Yield();
+        await UniTask.Yield();
         if (startGameWithoutMenu) OnStartGameWithoutMenu();
         else OnStartGameWithMenu();
     }
@@ -239,7 +239,7 @@ public class G : MonoBehaviour
         _ = StartRunSequence(playFader, overrideNew, playFaderBack, cancellationToken).LogExceptions();
     }
 
-    private async Task StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack, CancellationToken cancellationToken)
+    private async UniTask StartRunSequence(bool playFader, bool overrideNew, bool playFaderBack, CancellationToken cancellationToken)
     {
         CanPlay = false;
         distortionUI.DoBlock(true);
@@ -269,7 +269,7 @@ public class G : MonoBehaviour
         endRoundView.Toggle(false);
         upgradeView.Toggle(false);
         
-        await Task.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken: cancellationToken);
         CanPlay = true;
         
         if(playFaderBack)
@@ -286,7 +286,7 @@ public class G : MonoBehaviour
         _ = (demoEnd ? ShowEndGame(levelTargetEnd, cancellationToken) : StopRunSequence(fadeType, levelTargetEnd, cancellationToken)).LogExceptions();
     }
     
-    private async Task ShowEndGame(ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
+    private async UniTask ShowEndGame(ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         var save = SaveProvider.Get();
         save.level = maxLevel - 1;
@@ -307,7 +307,7 @@ public class G : MonoBehaviour
         endRoundView.returnToStartText.text = G.I.localization.Get("return_to_start");
     }
 
-    private async Task StopRunSequence(EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
+    private async UniTask StopRunSequence(EndRoundFadeEnum fadeType, ILevelTargetEnd levelTargetEnd, CancellationToken cancellationToken)
     {
         roundManager.IsAlive = false;
         roundManager.IsAliveForPlay = false;
@@ -336,7 +336,7 @@ public class G : MonoBehaviour
         SaveSystem.Save(sendAnalytics: true, fadeType);
         
         await GameAnimation.CollectAllEnergyOnScreen(toCollect, rewardAutoCollect, cancellationToken);
-        await Task.Delay(TimeSpan.FromSeconds(uiManager.energyBarUI.duration * 2), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(uiManager.energyBarUI.duration * 2), cancellationToken: cancellationToken);
         
         playerCursor.Toggle(false);
         tutorial.OnEndRound();
@@ -358,7 +358,7 @@ public class G : MonoBehaviour
         _ = GoToUpgradesAsync().LogExceptions();
     }
 
-    private async Task GoToUpgradesAsync()
+    private async UniTask GoToUpgradesAsync()
     {
         var cancellationToken = BeginSequence();
         var save = I.SaveProvider.Get();
@@ -380,7 +380,7 @@ public class G : MonoBehaviour
         upgradeView.Init();
         aiCursorManager.ToggleAll(false);
         
-        await Task.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(distortionUI.endRoundWaitTime), cancellationToken: cancellationToken);
         await distortionUI.DoFade(forward: false, cancellationToken);
         
         distortionUI.DoBlock(false);

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -201,9 +201,9 @@ public class RoundManager : MonoBehaviour
         _ = EnableIsAliveForPlayDelayed(_enablePlayCancellation.Token).LogExceptions();
     }
 
-    private async Task EnableIsAliveForPlayDelayed(CancellationToken cancellationToken)
+    private async UniTask EnableIsAliveForPlayDelayed(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5), cancellationToken: cancellationToken);
         IsAliveForPlay = true;
     }
 

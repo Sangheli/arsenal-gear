@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +38,7 @@ public class EndRoundViewDistortion : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public async Task DoFade(ILevelTargetEnd levelTargetEnd, EndRoundFadeEnum fadeType, CancellationToken cancellationToken = default)
+    public async UniTask DoFade(ILevelTargetEnd levelTargetEnd, EndRoundFadeEnum fadeType, CancellationToken cancellationToken = default)
     {
         var targetColor = GetInfo(levelTargetEnd, fadeType, out var textColor, out var valueText);
         _mat.SetColor(ColorKey, targetColor);
@@ -57,7 +57,7 @@ public class EndRoundViewDistortion : MonoBehaviour
             var currentValue = Mathf.Lerp(startValue, endValue, t);
             _mat.SetFloat(FadeAmount, currentValue);
             resultText.color = Color.Lerp(startColor, textColor, t);
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
         

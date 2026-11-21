@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -124,7 +124,7 @@ public class EnergyView : MonoBehaviour,IReturnable,IResetable,ICollectable
         _ = OnEndScaleAnim(_scaleAnimationCancellation.Token).LogExceptions();
     }
 
-    private async Task OnEndScaleAnim(CancellationToken cancellationToken)
+    private async UniTask OnEndScaleAnim(CancellationToken cancellationToken)
     {
         G.I.EnergyManager.CollectEnergy();
         G.I.levelTargetManager.Data.AddValue(LevelObjectiveType.CoinCount, 1);

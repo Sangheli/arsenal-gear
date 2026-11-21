@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
 using Random = UnityEngine.Random;
@@ -282,7 +282,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
         StopSelfDestruct();
     }
 
-    private async Task DeathAndReturnToPool(bool isCrit, CancellationToken cancellationToken)
+    private async UniTask DeathAndReturnToPool(bool isCrit, CancellationToken cancellationToken)
     {
         G.I.energySpawner.Spawn(transform.position, CurrentData);
         view.PlayDeathVfx();
@@ -296,7 +296,7 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
             G.I.Container.pooledAudioPlayer.PlayWithRandomPitch(G.I.Data.soundContainer.enemyDeathSoundRobot);
         
         IsActive = false;
-        await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: cancellationToken);
         await view.DeathAnimation(cancellationToken);
         G.I.ObjectPool.Return(this);
     }
@@ -339,9 +339,9 @@ public class EnemyController : MonoBehaviour, IReturnable, IResetable,IZPosHandl
     }
     
     
-    private async Task SelfDestructAsync(CancellationToken cancellationToken)
+    private async UniTask SelfDestructAsync(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromSeconds(_selfDestructTime), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(_selfDestructTime), cancellationToken: cancellationToken);
         if (!IsActive || IsDead) return;
         IsDead = true;
         Die(false, false);

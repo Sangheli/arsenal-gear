@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -83,7 +83,7 @@ public class EnergySpawner : MonoBehaviour
         return energy;
     }
     
-    private async Task SpawnCoins(Vector3 pos, EnemyData enemyData, CancellationToken cancellationToken)
+    private async UniTask SpawnCoins(Vector3 pos, EnemyData enemyData, CancellationToken cancellationToken)
     {
         var energyCount =  enemyData.GetEnergy();
         int intervals = (int)Mathf.Min(energyCount, 10);
@@ -97,7 +97,7 @@ public class EnergySpawner : MonoBehaviour
             {
                 SpawnCoin(pos);
             }
-            await Task.Delay(TimeSpan.FromSeconds(spawnInterval), cancellationToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(spawnInterval), cancellationToken: cancellationToken);
         }
     }
     

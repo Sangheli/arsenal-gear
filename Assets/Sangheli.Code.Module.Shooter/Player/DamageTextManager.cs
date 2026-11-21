@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Text;
 
@@ -50,7 +50,7 @@ public class DamageTextManager : MonoBehaviour
         return pos;
     }
 
-    private async Task AnimateAndReturn(TextUpAnimated textObj, string text, CancellationToken cancellationToken)
+    private async UniTask AnimateAndReturn(TextUpAnimated textObj, string text, CancellationToken cancellationToken)
     {
         await textObj.AnimateUp(text, cancellationToken);
         G.I.ObjectPool.Return(textObj);

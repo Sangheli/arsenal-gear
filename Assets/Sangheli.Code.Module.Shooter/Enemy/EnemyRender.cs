@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyRender : MonoBehaviour
@@ -167,11 +167,11 @@ public class EnemyRender : MonoBehaviour
         _ = CritColorAsync(_critColorCancellation.Token).LogExceptions();
     }
     
-    private async Task CritColorAsync(CancellationToken cancellationToken)
+    private async UniTask CritColorAsync(CancellationToken cancellationToken)
     {
         PropertyBlock.SetColor(_colorProperty, Color.red);
         ApplyPropertyView();
-        await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: cancellationToken);
         PropertyBlock.SetColor(_colorProperty, OriginalColor);
         ApplyPropertyView();
     }
@@ -184,7 +184,7 @@ public class EnemyRender : MonoBehaviour
         // foreach (var x in backRenderArr) x.sortingOrder = data.back;
     }
 
-    public async Task DeathAnimation(CancellationToken cancellationToken = default)
+    public async UniTask DeathAnimation(CancellationToken cancellationToken = default)
     {
         var transform1 = mainView.transform;
         await GameAnimation.ShrinkAndDisappear(transform1, transform1.localScale, deathAnimDuration, cancellationToken);

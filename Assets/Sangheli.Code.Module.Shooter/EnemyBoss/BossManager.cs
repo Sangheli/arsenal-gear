@@ -1,7 +1,7 @@
 using System.Collections;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class BossManager : MonoBehaviour
@@ -25,11 +25,11 @@ public class BossManager : MonoBehaviour
         _ = SpawnAndAttack(CurrentBoss, _spawnCancellation.Token).LogExceptions();
     }
 
-    private async Task SpawnAndAttack(BossController boss, CancellationToken cancellationToken)
+    private async UniTask SpawnAndAttack(BossController boss, CancellationToken cancellationToken)
     {
         var centerPos = new Vector3(0, boss.CurrentData.PosConfig.maxY, boss.CurrentData.PosConfig.customZPosMin);
         await SpawnUtils.MoveToCenter(boss.transform, centerPos, cancellationToken: cancellationToken);
-        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+        await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: cancellationToken);
         if(CurrentBoss == boss && boss != null)
             boss.CanAttack = true;
     }

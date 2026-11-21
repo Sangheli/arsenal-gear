@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -31,7 +31,7 @@ public class ScreenSpinManager : MonoBehaviour
 
     public void PlayEffect() => _ = Animate(_destroyCancellation.Token).LogExceptions();
 
-    private async Task Animate(CancellationToken cancellationToken)
+    private async UniTask Animate(CancellationToken cancellationToken)
     {
         ResetTransform();
         var elapsed = 0f;
@@ -41,7 +41,7 @@ public class ScreenSpinManager : MonoBehaviour
             DoRotate(t);
             DoScale(t);
             elapsed += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
 
