@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b433c460a5b5341855ba0c96926da8, type: 3}
   m_Name: Rate Me Data
   m_EditorClassIdentifier: Assembly-CSharp::RateMeSO
-  rateURL: https://sangheli.itch.io/arsenal-gear-vr-cookie-missions/rate
+  rateURL: https://sangheli.itch.io/arsenal-gear/rate
