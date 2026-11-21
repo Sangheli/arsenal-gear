@@ -9,7 +9,7 @@ public class InputDetector : MonoBehaviour
 
     private void Awake()
     {
-        InputType = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer ? EInputType.Touch :  EInputType.Mouse;
+        InputType = Application.isMobilePlatform ? EInputType.Touch :  EInputType.Mouse;
         Handler = new InputDetectorBase(this);
     }
 }

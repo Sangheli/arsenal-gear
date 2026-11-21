@@ -135,6 +135,11 @@ public class G : MonoBehaviour
 #if UNITY_EDITOR
         Application.runInBackground = true;
 #endif
+
+#if UNITY_ANDROID
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+#endif
         LocalizationBridge.Localizations = new HashSet<IUILocalization>();
         _ = StartGame().LogExceptions();
     }
