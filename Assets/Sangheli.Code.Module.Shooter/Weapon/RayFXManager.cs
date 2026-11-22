@@ -48,12 +48,13 @@ public class RayFXManager : MonoBehaviour
     
     public Vector3 GetRandomTarget(Vector3 start)
     {
-        var minusX = start.x < 0 ? -1 : 1;
-        var minusY = start.y < 0 ? -1 : 1;
+        var anchor = GetAimAnchor();
+        var minusX = start.x < anchor.x ? -1 : 1;
+        var minusY = start.y < anchor.y ? -1 : 1;
         
         float x = Random.Range(minXY.x, maxXY.x);
         float y = Random.Range(minXY.y, maxXY.y);
-        return new Vector3(x * minusX, y*minusY, targetZ);
+        return new Vector3(x * minusX, y*minusY, targetZ) + anchor;
     }
 
     public void ShootToPlayer(Vector3 start, ERayType rayType)
@@ -92,13 +93,22 @@ public class RayFXManager : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Vector3 a = new Vector3(minXY.x, minXY.y, targetZ);
-        Vector3 b = new Vector3(maxXY.x, minXY.y, targetZ);
-        Vector3 c = new Vector3(maxXY.x, maxXY.y, targetZ);
-        Vector3 d = new Vector3(minXY.x, maxXY.y, targetZ);
+        var anchor = GetAimAnchor();
+        Vector3 a = new Vector3(minXY.x, minXY.y, targetZ) + anchor;
+        Vector3 b = new Vector3(maxXY.x, minXY.y, targetZ) + anchor;
+        Vector3 c = new Vector3(maxXY.x, maxXY.y, targetZ) + anchor;
+        Vector3 d = new Vector3(minXY.x, maxXY.y, targetZ) + anchor;
         Gizmos.DrawLine(a, b);
         Gizmos.DrawLine(b, c);
         Gizmos.DrawLine(c, d);
         Gizmos.DrawLine(d, a);
+    }
+    
+    private static Vector3 GetAimAnchor()
+    {
+        var cam = Application.isPlaying ? G.I.cameraMain : Camera.main;
+        var result = cam != null ? cam.transform.position : Vector3.zero;
+        result.z = 0;
+        return result;
     }
 }
