@@ -21,7 +21,7 @@
     "MaxEnemyOnScreen": 1,
     "enemies": [
         {
-            "enemyId": 0,
+            "enemyId": 21,
             "spawnChance": 100.0,
             "spawnRate": 240
         }

@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d5949007ad4c53a1279de1ffabb309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G
-  debugConsole: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+  debugConsole: {fileID: 0}
   inputDetector: {fileID: 1503166289}
   cockpitManager: {fileID: 1499923762}
   weaponManager: {fileID: 1395614469}
