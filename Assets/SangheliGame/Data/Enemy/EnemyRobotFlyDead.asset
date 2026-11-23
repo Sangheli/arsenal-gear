@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: 3277496391944960994, guid: 7747a18aaca6fa44a85db19bfb3d2587, type: 3}
   DisplayName: Round_Orange
-  excludeFromLevelGeneration: 0
+  excludeFromLevelGeneration: 1
   EnemyType: 1
   Tier: 2
   playDeathSound: 0

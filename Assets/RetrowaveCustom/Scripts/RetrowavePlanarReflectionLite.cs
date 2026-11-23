@@ -8,6 +8,7 @@ public class RetrowavePlanarReflectionLite : MonoBehaviour
 
     [Min(256)] public int textureSize = 1024;
     [Range(0f, 1f)] public float reflectionStrength = 0.65f;
+    public LayerMask excludeLayers;
 
     private MeshRenderer _renderer;
     private Camera _reflectionCamera;
@@ -37,7 +38,7 @@ public class RetrowavePlanarReflectionLite : MonoBehaviour
         _reflectionCamera.enabled = false;
         _reflectionCamera.targetTexture = _reflectionTexture;
         _reflectionCamera.depthTextureMode = DepthTextureMode.None;
-        _reflectionCamera.cullingMask = currentCamera.cullingMask & ~(1 << ReflectionLayer);
+        _reflectionCamera.cullingMask = currentCamera.cullingMask & ~(1 << ReflectionLayer) & ~excludeLayers;
         _reflectionCamera.useOcclusionCulling = false;
         _reflectionCamera.allowMSAA = false;
 
